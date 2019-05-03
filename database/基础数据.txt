@@ -1,0 +1,148 @@
+insert into admin_roles(id,name,slug,created_at) values(1,'Administrator','administrator',now());
+insert into admin_roles(id,name,slug,created_at) values(2,'业务员','business',now());
+insert into admin_roles(id,name,slug,created_at) values(3,'部门经理','departmanager',now());
+insert into admin_roles(id,name,slug,created_at) values(4,'风控','riskcontrol',now());
+insert into admin_roles(id,name,slug,created_at) values(5,'领导','leader',now());
+insert into admin_roles(id,name,slug,created_at) values(6,'综合','complex',now());
+insert into admin_roles(id,name,slug,created_at) values(7,'信息部','manage',now());
+
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(1,0,1,'Index','fa-bar-chart','/',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(2,0,2,'系统管理','fa-tasks',null,now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(3,2,3,'管理员','fa-users','auth/users',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(4,2,4,'角色','fa-user','auth/roles',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(5,2,5,'权限','fa-ban','auth/permissions',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(6,2,6,'菜单','fa-bars','auth/menu',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(7,2,7,'Operation log','history','auth/logs',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(8,0,0,'项目管理','fa-android',null,now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(9,8,0,'企业采购','fa-bars','/projectpurchases',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(10,0,0,'项目设置','fa-anchor',null,now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(11,10,0,'流程设置','fa-bars','/workprocesses',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(12,10,0,'流程节点设置','fa-bars','/workprocessnodes',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(13,8,0,'项目审批','fa-bars','/projects',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(14,8,0,'接收采购项目','fa-bars','/jgptprojectpurchases',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(15,8,0,'接收租赁项目','fa-bars','/jgptprojectleases',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(16,8,0,'资产租赁','fa-bars','/projectleases',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(17,8,0,'评审结果录入','fa-bars','/pbresults',now());
+insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(18,8,0,'中标通知','fa-bars','/winnotices',now());
+
+
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(1,'All permission','*','','*',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(2,'Dashboard','dashboard','GET','/',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(3,'Login','auth.login','','/auth/login
+/auth/logout',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(4,'User setting','auth.setting','GET,PUT','/auth/setting',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(5,'Auth management','auth.management','','/auth/roles
+/auth/permissions
+/auth/menu
+/auth/logs',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(6,'项目管理','projects','','/projectpurchases*
+/jgptprojectpurchases*
+/jgptprojectleases*
+/projectleases*
+/pbresults*
+/winnotices*',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(7,'项目设置','projectsetting','','/workprocesses*',now());
+insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
+values(8,'项目审批','approve','','/projects*',now());
+
+
+insert into admin_role_menu(role_id,menu_id) value(1,2);
+
+
+insert into admin_role_permissions(role_id,permission_id)values(1,1);
+insert into admin_role_permissions(role_id,permission_id)values(2,2);
+insert into admin_role_permissions(role_id,permission_id)values(2,3);
+insert into admin_role_permissions(role_id,permission_id)values(2,4);
+insert into admin_role_permissions(role_id,permission_id)values(2,6);
+insert into admin_role_permissions(role_id,permission_id)values(3,2);
+insert into admin_role_permissions(role_id,permission_id)values(3,3);
+insert into admin_role_permissions(role_id,permission_id)values(3,4);
+insert into admin_role_permissions(role_id,permission_id)values(4,2);
+insert into admin_role_permissions(role_id,permission_id)values(4,3);
+insert into admin_role_permissions(role_id,permission_id)values(4,4);
+insert into admin_role_permissions(role_id,permission_id)values(5,2);
+insert into admin_role_permissions(role_id,permission_id)values(5,3);
+insert into admin_role_permissions(role_id,permission_id)values(5,4);
+insert into admin_role_permissions(role_id,permission_id)values(6,2);
+insert into admin_role_permissions(role_id,permission_id)values(6,3);
+insert into admin_role_permissions(role_id,permission_id)values(6,4);
+insert into admin_role_permissions(role_id,permission_id)values(3,8);
+insert into admin_role_permissions(role_id,permission_id)values(4,8);
+insert into admin_role_permissions(role_id,permission_id)values(5,8);
+insert into admin_role_permissions(role_id,permission_id)values(6,8);
+
+
+insert into admin_role_users(role_id,user_id)values(1,1);
+insert into admin_role_users(role_id,user_id)values(2,2);
+insert into admin_role_users(role_id,user_id)values(3,3);
+
+
+insert into admin_users(id,username,password,name,avator,remember_token,created_at)
+values(1,'admin','$2y$10$aPwKXf/..zmjsT6gVFLH2uGjclv2vC6ruANu5WRRNiNnWrcM7kOXW','Administrator',null,'16Rgx7a31gg8R2YfwkAuiss4DQ7KWXjZY97w9Kv5In6tpgRZCOHk9Jxz3rYn',now());
+insert into admin_users(id,username,password,name,avator,remember_token,created_at)
+values(2,'hqq','$2y$10$59y0W2B819pvQnnHCypUIeWCRdaQuiF38xxLkBJ0HeMC5fEYa0Ifa','贺芊芊',null,'4C013UFIX7sBcaVPHIXjplGIOBuG4Uyprs1W1TJccA7D7pQ9ZZ742IqMnohB',now());
+insert into admin_users(id,username,password,name,avator,remember_token,created_at)
+values(3,'cj','$2y$10$VIOBTy5z4lVcHsU/7O7b1OtPMuWK000x0lSOdPztqLcMebnjr.G.O','陈俊',null,'L1aNyjFE0MDmALyZP6v5cFq8NQfeOBqHj799IIfYPsI9NczgJG7gAl7wkECh',now());
+
+insert into work_processes(id,code,name,projecttype,status,created_at)
+values('ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','qycg','企业采购','qycg',1,now());
+insert into work_processes(id,code,name,projecttype,status,created_at)
+values('ce962739-b8f5-4f18-94f1-795c12b79c69','zczl','资产租赁','zczl',1,now());
+
+
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('5c65c842-7708-48f5-8eeb-a5fc3dbc2d88','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','11','录入中','1','2','','','19',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('c6b6eac8-3249-4e2b-a338-3e321ed1fc4b','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','12','已退回','2','2','','','13',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('0b0604a4-5735-4d29-ba30-46a4f14de410','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','13','部门审批','3','3','','12','14',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('528805e9-a809-478f-8725-7228957f0d5a','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','14','审批2','4','4','','12','19',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('ad4417f9-0a10-4be7-a46b-a32ae95c6741','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','19','确认挂牌','9','2','','','20',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('66876156-371e-46d6-bd3d-949f3040d3f2','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','21','流标录入','1','2','','','',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('6914828d-df2a-4a35-994b-f69146442062','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','22','流标退回','2','2','','','23',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('4ff4bc53-0f23-4ad2-a158-7a283925c1ab','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','29','发布流标公告','9','6','','','99',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('b245afd1-e2ab-4c90-808c-2c80a2a02452','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','31','录入评标结果','1','2','','','33',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('91b28cdf-a059-44d3-9706-6b0f1f8e494a','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','32','评标结果退回','2','2','','','33',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('d46e4fe6-0810-4ba7-a10a-add4b303ec14','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','33','审批1','3','3','','32','34',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('86a8c831-8f79-4b28-8c55-34163f74fbfc','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','34','审批2','4','4','','32','35',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('05d9d361-2f10-468f-9d60-4c1cca580ddc','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','35','审批3','0','5','','32','39',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('3c2f0604-2962-4069-9d61-47b248e77058','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','39','发布评标结果公告','9','6','','32','41',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('0205053b-c7c1-4c3e-a834-3d476f012e69','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','41','录入成交信息','1','2','','','43',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('50e1869a-0ab5-44a3-87f5-3e4ce17bdcf4','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','42','退回','2','2','','','43',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('38ec70a5-d707-40db-b0b7-f68e87d431e0','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','43','审批1','0','3','','42','49',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('f889378f-5e5e-42c4-a01e-28df845e08cb','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','49','发布成交公告','9','6','','','51',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('c7f8fcbd-a575-41bc-ae8c-ba42501058bd','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','51','上传采购合同','1','2','','','99',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('3c81b562-6dd0-4b90-a260-0660d2d98ac6','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','99','结束','0',null,'','','',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('a800837c-66fe-4af5-b4ed-8d41ceb98df6','ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','20','挂牌中','0','2','','','',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('9d023e20-d3ad-4b10-beaf-2dff01de9dab','ce962739-b8f5-4f18-94f1-795c12b79c69','11','业务录入','1','2','','','13',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('3d12a35e-c35b-4ecc-921f-664618aadc38','ce962739-b8f5-4f18-94f1-795c12b79c69','12','退回','2','2','','','13',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('902714aa-5292-4553-9843-30e05a2c983f','ce962739-b8f5-4f18-94f1-795c12b79c69','13','审批1','3','3','','12','14',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('99e7abee-38e2-4e8d-a33d-b3d7f91d8e73','ce962739-b8f5-4f18-94f1-795c12b79c69','14','审批2','4','4','','12','15',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('a1407452-f8df-4794-8fd4-119fd8d5e07b','ce962739-b8f5-4f18-94f1-795c12b79c69','15','审批3','5','5','','12','19',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('55738b29-431d-4d25-86bb-876138121317','ce962739-b8f5-4f18-94f1-795c12b79c69','19','发布','1','6','','','20',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('a884d3d5-3db5-41bb-891e-d9017fd4c576','ce962739-b8f5-4f18-94f1-795c12b79c69','20','挂牌中','0','2','','','',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('59450877-0242-46bf-9d3b-e5d2e9cc9f30','ce962739-b8f5-4f18-94f1-795c12b79c69','21','流标录入','1','2','','','23',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('f53a09b7-dc3c-49ef-b3f2-fe0d6c49d427','ce962739-b8f5-4f18-94f1-795c12b79c69','22','退回','2','2','','','23',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('2058fa5f-c17d-485b-877d-0e614d351d2e','ce962739-b8f5-4f18-94f1-795c12b79c69','23','审批1','3','3','','22','24',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('041f5eb9-85be-4205-9714-262350d7a443','ce962739-b8f5-4f18-94f1-795c12b79c69','24','审批2','4','4','','22','25',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('c8682e91-9e9d-4391-a657-9bbbcfd41810','ce962739-b8f5-4f18-94f1-795c12b79c69','25','审批3','5','5','','22','29',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('c00a74d2-5e99-431e-b2ab-c5c0cb787af5','ce962739-b8f5-4f18-94f1-795c12b79c69','29','发布','9','6','','','99',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('24d00bbe-a3fd-4857-ad81-2a4a2c36075e','ce962739-b8f5-4f18-94f1-795c12b79c69','31','录入竞价结果','1','2','','','33',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('68348083-7977-4a0d-a6f5-57aa7bac79f5','ce962739-b8f5-4f18-94f1-795c12b79c69','32','退回','1','2','','','33',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('c44b6916-fbb0-4c85-857d-c2df803b468d','ce962739-b8f5-4f18-94f1-795c12b79c69','33','审批1','3','3','','32','34',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('f1548fd4-7247-47ad-8edf-e92598abcaad','ce962739-b8f5-4f18-94f1-795c12b79c69','34','审批2','4','4','','32','35',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('e3426ab5-f3ff-4046-8a33-0aa89f5fc620','ce962739-b8f5-4f18-94f1-795c12b79c69','35','审批3','5','5','','32','39',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('37160da6-aab1-4d5d-baa0-dbf333b53c59','ce962739-b8f5-4f18-94f1-795c12b79c69','39','发布','9','6','','32','41',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('48e6781a-cf2e-4b23-8efa-548a4b17c5dd','ce962739-b8f5-4f18-94f1-795c12b79c69','41','录入成交信息','1','2','','','43',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('ab8d83d4-1e5c-49cd-8756-618acd1b5439','ce962739-b8f5-4f18-94f1-795c12b79c69','42','退回','1','2','','','43',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('960b12b4-2ab0-46bf-820c-5a8ac5c1f957','ce962739-b8f5-4f18-94f1-795c12b79c69','43','审批1','3','3','','42','44',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('fd1d154b-86c5-4bac-88d4-95b509bc3053','ce962739-b8f5-4f18-94f1-795c12b79c69','44','审批2','4','4','','42','45',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('25b8bd30-fc53-4346-8c8d-66e7c5a8f177','ce962739-b8f5-4f18-94f1-795c12b79c69','45','审批3','5','5','','42','49',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('6046c789-dae6-4254-a31e-493808daf1b4','ce962739-b8f5-4f18-94f1-795c12b79c69','49','发布','9','6','','42','51',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('cf786ff6-9867-4de3-9b1f-ef57c9ba74e9','ce962739-b8f5-4f18-94f1-795c12b79c69','51','上传合同','1','2','','','99',now());
+insert into work_process_nodes(id,work_process_id,code,name,seq,role_id,jurisdiction,back_node_code,next_node_code,created_at)values('e7901ea9-555f-4188-9ca2-75fc12b5565b','ce962739-b8f5-4f18-94f1-795c12b79c69','99','结束','9',null,'','','',now());
+
