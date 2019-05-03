@@ -1,0 +1,12 @@
+VersionNow$100186#
+VersionMin$100181#
+MicroUrl$0|65ae6bbfe8010f0c61a2d843dfac61ef|65ae6bbfe8010f0c61a2d843dfac61ef|backofwarnew\1st.exe.zip|hotfix/100181/1st.exe.zip|2|0#
+MicroUrl$1|83b8789d6ca745300e40d4da8ea6e97e|a3cdd085b9ac4c4718071f908ed250b0|backofwarnew\gofire.exe|hotfix/100181/gofire.exe.qlz|1|0#
+MicroUrl$2|4fb8e19c620fb20223d8aeaab24e0635|0be37683cd9504db8661cb16c39279ea|backofwarnew\gofire_data\managed\csss.dll|hotfix/100186/gofire_data/managed/csss.dll.qlz|0|0#
+MicroUrl$3|beaf491575cc35c6a8b1dacd5348ba4c|356bd8cf81ac194628ec85777bcf7784|backofwarnew\gofire_data\managed\down.dll|hotfix/100186/gofire_data/managed/down.dll.qlz|0|0#
+MicroUrl$4|20824cb61b29f1efe39b33784906a12c|bafe1f06acff8f11cc4fc434f993181c|backofwarnew\gofire_data\managed\generaldata.dll|hotfix/100186/gofire_data/managed/generaldata.dll.qlz|0|0#
+MicroUrl$5|d81d80c26d8ef1e5bdd090004368381e|ab013ea96daf3d22b269a369162d4b01|backofwarnew\gofire_data\managed\lobby.dll|hotfix/100186/gofire_data/managed/lobby.dll.qlz|0|0#
+MicroUrl$6|b24193efa1906aaa9c0f1a60d633fcf8|8f37442bb6ad15ad06611676bca55655|backofwarnew\gofire_data\managed\qldy.dll|hotfix/100186/gofire_data/managed/qldy.dll.qlz|0|0#
+MicroUrl$7|ffd2e0df39048172102ce6e525cf3963|ae01ed87cee0f5fbe171415dc0d5e4ca|backofwarnew\gofire_data\managed\utility.dll|hotfix/100186/gofire_data/managed/utility.dll.qlz|0|0#
+MicroUrl$8|acb77517f536fc0ce4704c283e40b0cc|55a077ef5a6df1f4b7c266f31e657a95|backofwarnew\gofire_data\managed\ys.config.client.dll|hotfix/100186/gofire_data/managed/ys.config.client.dll.qlz|0|0#
+MicroUrl$9|b843be7f1e91b467ec6122359e7b0030|5fd492776826631da3e2ef8ce0c115d1|backofwarnew\microversion.txt|hotfix/100186/microversion.txt.qlz|0|1#
