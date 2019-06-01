@@ -261,7 +261,7 @@ class ProjectsController extends Controller
         $operation = $request->operation;
         $process = $request->process;
         DB::transaction(function () use($id,$reason,$operation,$process,$processService) {
-            // $processService->next($id,$reason,$operation,$nodecode=null);
+            $processService->next($id,$reason,$operation,$nodecode=null);
             $processService->postGZW($id,$process);
         });
         

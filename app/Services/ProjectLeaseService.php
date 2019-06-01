@@ -32,7 +32,8 @@ class ProjectLeaseService
         $data_project['status'] = 1;
         $data_project['type'] = 'zczl';
         $data_project['detail_id'] = $uuid_purchase;
-
+        $data_project['process'] = $process;
+        
         $data_detail['id'] = $uuid_purchase;
         $data_detail['project_id'] = $uuid_project;
         $data_detail['user_id'] = $user->id;

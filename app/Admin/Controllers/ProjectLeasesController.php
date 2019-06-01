@@ -78,10 +78,17 @@ class ProjectLeasesController extends Controller
      */
     public function create(Content $content)
     {
+        // return $content
+        //     ->header('Create')
+        //     ->description('description')
+        //     ->body($this->form());
+        $detail = new ProjectLease();
+        $datas = [
+            'detail' => $detail,
+        ];
         return $content
             ->header('Create')
-            ->description('description')
-            ->body($this->form());
+            ->body(view('admin.project.lease.edit',$datas));  
     }
 
     /**

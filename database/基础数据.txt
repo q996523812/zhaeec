@@ -6,24 +6,24 @@ insert into admin_roles(id,name,slug,created_at) values(5,'领导','leader',now(
 insert into admin_roles(id,name,slug,created_at) values(6,'综合','complex',now());
 insert into admin_roles(id,name,slug,created_at) values(7,'信息部','manage',now());
 
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(1,0,1,'Index','fa-bar-chart','/',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(2,0,2,'系统管理','fa-tasks',null,now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(3,2,3,'管理员','fa-users','auth/users',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(4,2,4,'角色','fa-user','auth/roles',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(5,2,5,'权限','fa-ban','auth/permissions',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(6,2,6,'菜单','fa-bars','auth/menu',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(7,2,7,'Operation log','history','auth/logs',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(8,0,0,'项目管理','fa-android',null,now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(9,8,0,'企业采购','fa-bars','/projectpurchases',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(10,0,0,'项目设置','fa-anchor',null,now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(11,10,0,'流程设置','fa-bars','/workprocesses',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(12,10,0,'流程节点设置','fa-bars','/workprocessnodes',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(13,8,0,'项目审批','fa-bars','/projects',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(14,8,0,'接收采购项目','fa-bars','/jgptprojectpurchases',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(15,8,0,'接收租赁项目','fa-bars','/jgptprojectleases',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(16,8,0,'资产租赁','fa-bars','/projectleases',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(17,8,0,'评审结果录入','fa-bars','/pbresults',now());
-insert into admin_menu(id,parent_id,order,title,icon,uri,created_at)values(18,8,0,'中标通知','fa-bars','/winnotices',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(1,0,1,'Index','fa-bar-chart','/',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(2,0,2,'系统管理','fa-tasks',null,now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(3,2,3,'管理员','fa-users','auth/users',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(4,2,4,'角色','fa-user','auth/roles',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(5,2,5,'权限','fa-ban','auth/permissions',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(6,2,6,'菜单','fa-bars','auth/menu',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(7,2,7,'Operation log','history','auth/logs',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(8,0,0,'项目管理','fa-android',null,now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(9,8,0,'企业采购','fa-bars','/projectpurchases',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(10,0,0,'项目设置','fa-anchor',null,now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(11,10,0,'流程设置','fa-bars','/workprocesses',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(12,10,0,'流程节点设置','fa-bars','/workprocessnodes',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(13,8,0,'项目审批','fa-bars','/projects',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(14,8,0,'接收采购项目','fa-bars','/jgptprojectpurchases',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(15,8,0,'接收租赁项目','fa-bars','/jgptprojectleases',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(16,8,0,'资产租赁','fa-bars','/projectleases',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(17,8,0,'评审结果录入','fa-bars','/pbresults',now());
+insert into admin_menu(id,parent_id,`order`,title,icon,uri,created_at)values(18,8,0,'中标通知','fa-bars','/winnotices',now());
 
 
 insert into admin_permissions(id,name,slug,http_method,http_path,created_at)
@@ -84,12 +84,12 @@ insert into admin_role_users(role_id,user_id)values(2,2);
 insert into admin_role_users(role_id,user_id)values(3,3);
 
 
-insert into admin_users(id,username,password,name,avator,remember_token,created_at)
-values(1,'admin','$2y$10$aPwKXf/..zmjsT6gVFLH2uGjclv2vC6ruANu5WRRNiNnWrcM7kOXW','Administrator',null,'16Rgx7a31gg8R2YfwkAuiss4DQ7KWXjZY97w9Kv5In6tpgRZCOHk9Jxz3rYn',now());
-insert into admin_users(id,username,password,name,avator,remember_token,created_at)
-values(2,'hqq','$2y$10$59y0W2B819pvQnnHCypUIeWCRdaQuiF38xxLkBJ0HeMC5fEYa0Ifa','贺芊芊',null,'4C013UFIX7sBcaVPHIXjplGIOBuG4Uyprs1W1TJccA7D7pQ9ZZ742IqMnohB',now());
-insert into admin_users(id,username,password,name,avator,remember_token,created_at)
-values(3,'cj','$2y$10$VIOBTy5z4lVcHsU/7O7b1OtPMuWK000x0lSOdPztqLcMebnjr.G.O','陈俊',null,'L1aNyjFE0MDmALyZP6v5cFq8NQfeOBqHj799IIfYPsI9NczgJG7gAl7wkECh',now());
+insert into admin_users(id,username,`password`,name,remember_token,created_at)
+values(1,'admin','$2y$10$aPwKXf/..zmjsT6gVFLH2uGjclv2vC6ruANu5WRRNiNnWrcM7kOXW','Administrator','16Rgx7a31gg8R2YfwkAuiss4DQ7KWXjZY97w9Kv5In6tpgRZCOHk9Jxz3rYn',now());
+insert into admin_users(id,username,`password`,name,remember_token,created_at)
+values(2,'hqq','$2y$10$59y0W2B819pvQnnHCypUIeWCRdaQuiF38xxLkBJ0HeMC5fEYa0Ifa','贺芊芊','4C013UFIX7sBcaVPHIXjplGIOBuG4Uyprs1W1TJccA7D7pQ9ZZ742IqMnohB',now());
+insert into admin_users(id,username,`password`,name,remember_token,created_at)
+values(3,'cj','$2y$10$VIOBTy5z4lVcHsU/7O7b1OtPMuWK000x0lSOdPztqLcMebnjr.G.O','陈俊','L1aNyjFE0MDmALyZP6v5cFq8NQfeOBqHj799IIfYPsI9NczgJG7gAl7wkECh',now());
 
 insert into work_processes(id,code,name,projecttype,status,created_at)
 values('ff8ffbf3-b373-4d08-8eec-28b9a112eb5b','qycg','企业采购','qycg',1,now());

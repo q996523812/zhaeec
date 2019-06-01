@@ -20,7 +20,7 @@ class CreateWorkProcessNodesTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->unsignedInteger('seq');
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('role_id')->nullable();
             $table->string('jurisdiction')->nullable();
             $table->string('back_node_code')->nullable();
             $table->string('next_node_code')->nullable();
