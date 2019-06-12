@@ -16,7 +16,8 @@ Route::group([
     $router->get('projectpurchases/create', 'ProjectPurchasesController@create');
     $router->post('projectpurchases', 'ProjectPurchasesController@add');
     $router->get('projectpurchases/{id}/edit', 'ProjectPurchasesController@edit');
-    $router->put('projectpurchases/{id}', 'ProjectPurchasesController@update');
+    // $router->put('projectpurchases/{id}', 'ProjectPurchasesController@update');
+    $router->post('projectpurchases/update', 'ProjectPurchasesController@update');
     $router->get('projectpurchases/{id}', 'ProjectPurchasesController@show');
     $router->post('projectpurchases/submit/{id}', 'ProjectPurchasesController@submit');
     $router->get('projectpurchases/showzp/{id}', 'ProjectPurchasesController@showzp');
@@ -29,7 +30,8 @@ Route::group([
     $router->get('projectleases/create', 'ProjectLeasesController@create');
     $router->post('projectleases', 'ProjectLeasesController@add');
     $router->get('projectleases/{id}/edit', 'ProjectLeasesController@edit');
-    $router->put('projectleases/{id}', 'ProjectLeasesController@update');
+    // $router->put('projectleases/{id}', 'ProjectLeasesController@update');
+    $router->post('projectleases/update', 'ProjectLeasesController@update');
     $router->get('projectleases/{id}', 'ProjectLeasesController@show');
     $router->post('projectleases/submit/{id}', 'ProjectLeasesController@submit');
     $router->get('projectleases/showzp/{id}', 'ProjectLeasesController@showzp');
@@ -87,6 +89,8 @@ Route::group([
     $router->get('winnotices/{id}', 'WinNoticesController@show');
     $router->get('winnotices/insert/{project_id}', 'WinNoticesController@insert');
     $router->post('winnotices/add', 'WinNoticesController@add');
+
+    $router->post('images/store', 'ImagesController@store');
 
 
 });

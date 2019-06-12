@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectLeasesRequest extends FormRequest
+class ProjectLeaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ProjectLeasesRequest extends FormRequest
     public function rules()
     {
         return [
-            'wtf_name' => 'required',
+            //
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectLeasesRequest extends FormRequest
+class ImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ProjectLeasesRequest extends FormRequest
     public function rules()
     {
         return [
-            'wtf_name' => 'required',
+            //
         ];
     }
 }

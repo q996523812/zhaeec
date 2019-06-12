@@ -18,28 +18,32 @@ class ProjectLeaseService
 
 	public function add($data_detail,$data_project,$process,$files=null){
 		$user = Admin::user();
+		// dd($user);
 		// $purchases = new ProjectLease($data);
 		// $purchases->id = (string)Str::uuid();
 		// $purchases->user_id = $user->id;
 		// $purchases->status=1;
 		// $purchases->process=1;
 		// $purchases->save();
+
+		
         $uuid_project =  (string)Str::uuid();
         $uuid_purchase =  (string)Str::uuid();
-        
-        $data_project['id'] = $uuid_project;
-        $data_project['user_id'] = $user->id;
-        $data_project['status'] = 1;
-        $data_project['type'] = 'zczl';
-        $data_project['detail_id'] = $uuid_purchase;
-        $data_project['process'] = $process;
-        
         $data_detail['id'] = $uuid_purchase;
         $data_detail['project_id'] = $uuid_project;
         $data_detail['user_id'] = $user->id;
         $data_detail['status'] = 1;
         $data_detail['process'] = $process;
-        DB::transaction(function () use($data_detail,$data_project,$files) {
+
+        $data_project['id'] = $data_detail['project_id'];
+        $data_project['detail_id'] = $data_detail['id'];
+        $data_project['user_id'] = $user->id;
+        $data_project['status'] = 1;
+        $data_project['type'] = 'zczl';
+        $data_project['process'] = $process;
+        
+        
+        $detail = DB::transaction(function () use($data_detail,$data_project,$files) {
 			$detail = ProjectLease::create($data_detail);
 		    $project = $detail->project()->create($data_project);
 		    if($files != null){
@@ -48,9 +52,9 @@ class ProjectLeaseService
 			    }
 			    $project->files()->insert($files);
 			}
-		    
+		    return $detail;
 		});
-
+        return $detail;
 	}
 
 	public function update($id,$data_detail,$data_project,$process,$files=null){

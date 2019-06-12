@@ -17,4 +17,8 @@ class ProjectLease extends Model
     {
         return $this->hasMany(File::class, 'project_id', 'project_id');
     }
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'project_id', 'project_id');
+    }
 }

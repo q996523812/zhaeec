@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use App\Handlers\FileUploadHandler;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
+use App\Http\Requests\ProjectLeasesRequest;
 
 class ProjectLeasesController extends Controller
 {
@@ -64,10 +65,21 @@ class ProjectLeasesController extends Controller
      */
     public function edit($id, Content $content)
     {
+        // return $content
+        //     ->header('Edit')
+        //     ->description('description')
+        //     ->body($this->form()->edit($id));
+
+        $url = 'admin.project.lease.edit';
+        $detail = ProjectLease::find($id);
+        $datas = [
+            'detail' => $detail,
+            'savetype' => 'edit',
+        ];    
         return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+            ->header('编辑')
+            // body 方法可以接受 Laravel 的视图作为参数
+            ->body(view($url, $datas));  
     }
 
     /**
@@ -83,8 +95,11 @@ class ProjectLeasesController extends Controller
         //     ->description('description')
         //     ->body($this->form());
         $detail = new ProjectLease();
+        // $detail->id =  (string)Str::uuid();
+        // $detail->project_id =  (string)Str::uuid();
         $datas = [
             'detail' => $detail,
+            'savetype' => 'add',
         ];
         return $content
             ->header('Create')
@@ -137,6 +152,7 @@ class ProjectLeasesController extends Controller
                 $actions->disableEdit();
             }
             switch($rec->process){
+
                 case 20:
                     $actions->append("<a href='/admin/projectleases/showzp/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>摘牌</a>"); 
                     break;
@@ -373,39 +389,58 @@ class ProjectLeasesController extends Controller
         return $form;
     }
 
-    public function add(Request $request,FileUploadHandler $uploader){
+    public function add(ProjectLeasesRequest $request,FileUploadHandler $uploader){
         $data = $request->all();
-        $data_Purchase = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
+        $data_Purchase = $request->only(['id','project_id','wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
         $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        $files = $request->path;
-        $fileCharater = $request->file('path');
+        // $files = $request->path;
+        // $fileCharater = $request->file('path');
 
-        $files_new = null;
-        if($fileCharater != null){
-            $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
-        }
-        $this->projectLeaseService->add($data_Purchase,$data_project,11,$files_new);
-        return redirect()->route('projectleases.index');
+        // $files_new = null;
+        // if($fileCharater != null){
+        //     $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
+        // }
+        $detail = $this->projectLeaseService->add($data_Purchase,$data_project,11,null);
+        
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'detail_id' => $detail->id,
+            'project_id' => $detail->project_id,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+        // return admin_success('title1', '保存成功');
+        // return redirect()->route('projectleases.index');
     }
 
     public function update(Request $request,FileUploadHandler $uploader,ProcessService $process){
         $data = $request->all();
-        $purchase_id = $request->id;
+        $detail_id = $request->id;
         $data_Purchase = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
         $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        $files = $request->path;
-        $fileCharater = $request->file('path');
+        // $files = $request->path;
+        // $fileCharater = $request->file('path');
 
-        $files_new = null;
-        if($fileCharater != null){
-            $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
-        }
-        DB::transaction(function () use($purchase_id,$data_Purchase,$data_project,$files_new,$process) {
-            $this->projectLeaseService->update($purchase_id,$data_Purchase,$data_project,13,$files_new);
-            $process->create('zczl',ProjectLease::find($purchase_id)->project_id,'提交',13);
+        // $files_new = null;
+        // if($fileCharater != null){
+        //     $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
+        // }
+        // DB::transaction(function () use($purchase_id,$data_Purchase,$data_project,$files_new,$process) {
+        //     $this->projectLeaseService->update($purchase_id,$data_Purchase,$data_project,13,$files_new);
+        //     $process->create('zczl',ProjectLease::find($purchase_id)->project_id,'提交',13);
 
-        });
-        return redirect()->route('projectleases.index');
+        // });
+
+        $this->projectLeaseService->update($detail_id,$data_Purchase,$data_project,11,null);
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+
+        return response()->json($result);
+        // return redirect()->route('projectleases.index');
         // return [];
     }
 
