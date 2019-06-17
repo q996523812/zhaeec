@@ -5,10 +5,27 @@
 // Variables
 @import 'variables';
 
+//为了app.js和app.css整合进admin，去掉bootstrap和jauery相关，
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+
+.project-table{
+  .table tbody tr td{
+      vertical-align: middle;
+      border-bottom: 1px solid #e1e1e1;
+      border-left: 1px solid #e1e1e1;
+      border-right: 1px solid #e1e1e1;
+      border-top: 1px solid #e1e1e1;
+      border-collapse: collapse;
+  }
+  .table .control-label{
+      color: #333332;
+      background-color: #F8F8F8;
+  }
 }

@@ -2,9 +2,10 @@
 
 @section('listurl','/admin/projectleases')
 @section('submiturl','/admin/projectleases')
+@section('printurl','/print/zczl')
 
 @section('content')
-<div class="container table-responsive col-md-12 align-items-center">
+<div class="container table-responsive col-md-12 align-items-center project-table">
 <table class="table table-bordered">
   <caption>物业租赁项目信息公告表</caption>
   <tbody>
@@ -56,7 +57,10 @@
       </td>
       <td class=" control-label">是否含税</td>
       <td>
+        <select id="sfhs" name="sfhs" class="form-control sfhs"></select>
+        <!--
         <input type="text" id="sfhs" name="sfhs" value="{{$detail->sfhs}}" class="form-control sfhs" placeholder="输入 是否含税">
+      -->
       </td>
     </tr>
     <tr>
@@ -78,17 +82,17 @@
     <tr>
       <td class=" control-label">交易目的</td>
       <td>
-        <input type="text" id="jymd" name="jymd" value="{{$detail->jymd}}" class="form-control jymd" placeholder="输入 交易目的">
+        <select id="jymd" name="jymd" class="form-control jymd"></select>
       </td>
       <td class=" control-label">资产类别</td>
       <td>
-        <input type="text" id="zclb" name="zclb" value="{{$detail->zclb}}" class="form-control zclb" placeholder="输入 资产类别">
+        <select id="zclb" name="zclb" class="form-control zclb"></select>
       </td>
     </tr>
     <tr>
       <td class=" control-label">信息发布方式</td>
       <td colspan="3">
-        <textarea id="fbfs" name="fbfs" class="form-control fbfs" rows="5" placeholder="输入 信息发布方式">{{$detail->fbfs}}</textarea>
+        <select id="fbfs" name="fbfs" class="form-control fbfs"></select>
       </td>
     </tr>
     <tr>
@@ -106,13 +110,13 @@
     <tr>
       <td class=" control-label">交易方式</td>
       <td colspan="3">
-        <input type="text" id="jyfs" name="jyfs" value="{{$detail->jyfs}}" class="form-control jyfs" placeholder="输入 交易方式">
+        <select id="jyfs" name="jyfs" class="form-control jyfs"></select>
       </td>
     </tr>
     <tr>
       <td class=" control-label">报价模式</td>
       <td>
-        <input type="text" id="bjms" name="bjms" value="{{$detail->bjms}}" class="form-control bjms" placeholder="输入 报价模式">
+        <select id="bjms" name="bjms" class="form-control bjms"></select>
       </td>
       <td class=" control-label">加价幅度</td>
       <td>
@@ -180,11 +184,12 @@
     <tr>
       <td class=" control-label">企业性质</td>
       <td colspan="3">
-        <input type="text" id="wtf_qyxz" name="wtf_qyxz" value="{{$detail->wtf_qyxz}}" class="form-control wtf_qyxz" placeholder="输入 委托方企业性质">
+        <select id="wtf_qyxz" name="wtf_qyxz" class="form-control wtf_qyxz"></select>
       </td>
     </tr>
     <tr>
       <td class=" control-label">地区</td>
+      <!--
       <td>
         <input type="text" id="wtf_province" name="wtf_province" value="{{$detail->wtf_province}}" class="form-control wtf_province" placeholder="输入 省">
       </td>
@@ -194,6 +199,48 @@
       <td>
         <input type="text" id="wtf_area" name="wtf_area" value="{{$detail->wtf_area}}" class="form-control wtf_area" placeholder="输入 区">
       </td>
+      -->
+      <td colspan="3">
+          <div id="distpicker1">
+            <div class="col-sm-3">
+              <label class="sr-only" for="wtf_province">Province</label>
+              <select class="form-control" id="wtf_province" name="wtf_province"></select>
+            </div>
+            <div class="col-sm-3">
+              <label class="sr-only" for="wtf_city">City</label>
+              <select class="form-control" id="wtf_city" name="wtf_city"></select>
+            </div>
+            <div class="col-sm-3">
+              <label class="sr-only" for="wtf_area" >District</label>
+              <select class="form-control" id="wtf_area" name="wtf_area"></select>
+            </div>
+          </div>        
+            <!-- inline-template 代表通过内联方式引入组件 -->
+            <!-- 
+            <select-district inline-template>
+              <div class="form-row" id="distpicker1">
+                <div class="col-sm-3">
+                  <select class="form-control" v-model="provinceId">
+                    <option value="">选择省</option>
+                    <option v-for="(name, id) in provinces" :value="id">@{{ name }}</option>
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <select class="form-control" v-model="cityId">
+                    <option value="">选择市</option>
+                    <option v-for="(name, id) in cities" :value="id">@{{ name }}</option>
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <select class="form-control" v-model="districtId">
+                    <option value="">选择区</option>
+                    <option v-for="(name, id) in districts" :value="id">@{{ name }}</option>
+                  </select>
+                </div>
+              </div>
+            </select-district>  
+          -->
+      </td>    
     </tr>
     <tr>
       <td class=" control-label">详细地址</td>
@@ -230,7 +277,7 @@
     <tr>
       <td class=" control-label">所属集团</td>
       <td colspan="3">
-        <input type="text" id="wtf_jt" name="wtf_jt" value="{{$detail->wtf_jt}}" class="form-control wtf_jt" placeholder="输入 所属集团">
+        <select id="wtf_jt" name="wtf_jt" class="form-control wtf_jt"></select>
       </td>
     </tr>
     <tr>
@@ -247,6 +294,7 @@
     <tr>
       <td rowspan="8" class=" control-label">房产信息</td>
       <td class=" control-label">地区</td>
+      <!--
       <td>
         <input type="text" id="fc_province" name="fc_province" value="{{$detail->fc_province}}" class="form-control fc_province" placeholder="输入 省">
       </td>
@@ -255,6 +303,23 @@
       </td>
       <td>
         <input type="text" id="fc_area" name="fc_area" value="{{$detail->fc_area}}" class="form-control fc_area" placeholder="输入 区">
+      </td>
+    -->
+      <td colspan="3">
+          <div id="distpicker2">
+            <div class="col-sm-3">
+              <label class="sr-only" for="fc_province">Province</label>
+              <select class="form-control" id="fc_province" name="fc_province"></select>
+            </div>
+            <div class="col-sm-3">
+              <label class="sr-only" for="fc_city">City</label>
+              <select class="form-control" id="fc_city" name="fc_city"></select>
+            </div>
+            <div class="col-sm-3">
+              <label class="sr-only" for="fc_area" >District</label>
+              <select class="form-control" id="fc_area" name="fc_area"></select>
+            </div>
+          </div> 
       </td>
     </tr>
     <tr>
@@ -318,5 +383,53 @@
   </tbody>
 </table>
 </div>
+
+@endsection
+
+
+@section('script')
+    $('#sfhs').selecter({
+      autoSelect: false,
+      type: "sf",
+      selectvalue: "{{$detail->sfhs}}"
+    });
+    $('#wtf_qyxz').selecter({
+      autoSelect: false,
+      type: "qyxz",
+      selectvalue: "{{$detail->wtf_qyxz}}"
+    });    
+    
+    $('#wtf_jt').selecter({
+      autoSelect: false,
+      type: "ssjt",
+      selectvalue: "{{$detail->wtf_jt}}"
+    }); 
+
+    $('#jyfs').selecter({
+      autoSelect: false,
+      type: "jyfs",
+      selectvalue: "{{$detail->jyfs}}"
+    });
+    $('#bjms').selecter({
+      autoSelect: false,
+      type: "bjms",
+      selectvalue: "{{$detail->bjms}}"
+    });
+    $('#jymd').selecter({
+      autoSelect: false,
+      type: "jymd",
+      selectvalue: "{{$detail->jymd}}"
+    });
+    $('#zclb').selecter({
+      autoSelect: false,
+      type: "zclb",
+      selectvalue: "{{$detail->zclb}}"
+    });
+    $('#fbfs').selecter({
+      autoSelect: false,
+      type: "fbfs",
+      selectvalue: "{{$detail->fbfs}}"
+    });
+
 
 @endsection

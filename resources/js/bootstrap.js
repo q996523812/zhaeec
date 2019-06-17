@@ -9,6 +9,7 @@ window._ = require('lodash');
 
 try {
     window.Popper = require('popper.js').default;
+    //为了app.js和app.css整合进admin，去掉bootstrap和jauery相关，
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');

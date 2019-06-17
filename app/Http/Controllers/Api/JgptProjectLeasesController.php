@@ -50,7 +50,12 @@ class JgptProjectLeasesController extends Controller
 	        $file->id = (string)Str::uuid();
 	        
         }
-
+        $streamData = file_get_contents("php://input")
+        if($streamData!=''){  
+            $ret = file_put_contents($receiveFile, $streamData, true);  
+        }else{  
+            $ret = false;  
+        } 
         DB::transaction(function () use($datas,$hasfile,$file) {
             $purchases = JgptProjectLease::create($datas);
             if($hasfile){

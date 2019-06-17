@@ -10,6 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Encore\Admin\Facades\Admin;
+use Encore\Admin\Admin as Import;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -69,12 +70,13 @@ class ProjectLeasesController extends Controller
         //     ->header('Edit')
         //     ->description('description')
         //     ->body($this->form()->edit($id));
-
+        // Import::script('$(document).ready(function(){var url="/admin/projectleases";});');
         $url = 'admin.project.lease.edit';
         $detail = ProjectLease::find($id);
         $datas = [
             'detail' => $detail,
             'savetype' => 'edit',
+            'projecttype' => 'projectleases',
         ];    
         return $content
             ->header('编辑')
@@ -100,6 +102,7 @@ class ProjectLeasesController extends Controller
         $datas = [
             'detail' => $detail,
             'savetype' => 'add',
+            'projecttype' => 'projectleases',
         ];
         return $content
             ->header('Create')

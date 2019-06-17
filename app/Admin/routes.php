@@ -91,6 +91,7 @@ Route::group([
     $router->post('winnotices/add', 'WinNoticesController@add');
 
     $router->post('images/store', 'ImagesController@store');
+    $router->post('files/store', 'FilesController@store');
 
 
 });

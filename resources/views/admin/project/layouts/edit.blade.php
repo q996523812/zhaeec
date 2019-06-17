@@ -1,19 +1,4 @@
-<style>
-  .table tbody tr td{
-      vertical-align: middle;
-      border-bottom: 1px solid #e1e1e1;
-      border-left: 1px solid #e1e1e1;
-      border-right: 1px solid #e1e1e1;
-      border-top: 1px solid #e1e1e1;
-      border-collapse: collapse;
-  }
-  .table .control-label{
-      color: #333332;
-      background-color: #F8F8F8;
-  }
 
-
-</style>
 <div class="warning-message">
 
 </div>
@@ -27,9 +12,13 @@
       </li>
       <li><a href="#tab2" data-toggle="tab">附件</a></li> 
       <li><a href="#tab3" data-toggle="tab">图片</a></li> 
+      <li><a href="#tab4" data-toggle="tab">审批</a></li> 
     </ul>
 
     <div class="box-tools">
+      <div class="btn-group float-right" style="margin-right: 10px">
+        <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
+      </div>
       <div class="btn-group float-right" style="margin-right: 10px">
         <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
       </div>
@@ -62,7 +51,8 @@
               <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
               <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id form-control">
               <input type="hidden" name="sjly" value="业务录入" class="sjly form-control">
-              <input type="hidden" id="savetype" name="savetype" value="{{$savetype}}" class="savetype form-control">
+              <input type="hidden" id="savetype" name="savetype" value="{{$savetype}}" class="savetype">
+              <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="projecttype">
             </div>
             <div>
               {{csrf_field()}}
@@ -110,11 +100,11 @@
                   </div>
                   <div class="col-md-8">
                     <div class=" ">
-                      <label for="path" class=" control-label">选择文件</label>
+                      <label for="file" class=" control-label">选择文件</label>
                       <div class="">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                          <input type="file" id="path" name="path" value="" class="form-control path" >
+                          <input type="file" id="file" name="file" value="" class="form-control file" >
                         </div>        
                       </div>
                     </div>
@@ -137,10 +127,10 @@
               <div  class="row">
                 @foreach($detail->images as $image)
                   <div class="col-md-4">
-                    <img src="{{$image->path}}" class="col-md-4">
+                    <img src="{{$image->path}}" class="col-md-4"/>
                   </div>
                 @endforeach
-              <div  class="row">
+              </div>
             </div>
           </div>
 
@@ -159,18 +149,18 @@
                         <div class="">
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                            <input type="text" id="image" name="image" value="" class="form-control image" placeholder="输入 附件名称">
+                            <input type="text" id="name" name="name" value="" class="form-control name" placeholder="输入 附件名称">
                           </div>        
                         </div>
                       </div>
                     </div>
                     <div class="col-md-8">
                       <div class=" ">
-                        <label for="path" class=" control-label">选择文件</label>
+                        <label for="image" class=" control-label">选择文件</label>
                         <div class="">
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                            <input type="file" id="path" name="path" value="" class="form-control path" >
+                            <input type="file" id="image" name="image" value="" class="form-control image" >
                           </div>        
                         </div>
                       </div>
@@ -188,26 +178,46 @@
           </div>
 
         </div>
+
+        <!--基本信息-->
+        <div class="tab-pane fade in active" id="tab4">
+          <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+            {{csrf_field()}}
+            <input type="hidden" id="operation" name="operation" value="通过">
+            <input type="hidden" id="process" name="process" value="13">
+            <input type="hidden" id="work_process_node_name" name="work_process_node_name" value="哈哈哈">
+
+            <div class="btn-group pull-right">
+                <button type="submit" class="btn btn-primary btn-pass">提交</button>
+            </div>
+          </form>
+        </div>
     </div>
 
   </div>
   <div class="box-footer">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
-          {{csrf_field()}}
-          <input type="hidden" id="operation" name="operation" value="通过">
-          <input type="hidden" id="process" name="process" value="13">
-          <input type="hidden" id="work_process_node_name" name="work_process_node_name" value="哈哈哈">
-
-          <div class="btn-group pull-right">
-              <button type="submit" class="btn btn-primary btn-pass">提交</button>
-          </div>
-        </form>
+        
       </div>
 
   </div>
-  <script>
+<script>
+$(function () {
+    $("#distpicker1").distpicker({
+      autoSelect: false,
+      province: "{{$detail->wtf_province}}",
+      city: "{{$detail->wtf_city}}",
+      district: "{{$detail->wtf_area}}"
+    });
+    $('#distpicker2').distpicker({
+      autoSelect: false,
+      province: "{{$detail->fc_province}}",
+      city: "{{$detail->fc_city}}",
+      district: "{{$detail->fc_area}}"
+    });
+    @yield('script')
+});
     $(document).ready(function(){
       function getFormToJson(){
         var data = {};
@@ -217,6 +227,11 @@
           data[code] = value;
         });
         $("#formdetail textarea").each(function(i){
+          var code = $(this).attr("name");
+          var value = this.value;
+          data[code] = value;
+        });
+        $("#formdetail select").each(function(i){
           var code = $(this).attr("name");
           var value = this.value;
           data[code] = value;
@@ -231,14 +246,14 @@
         $(".warning-message").html(html);
       }
 
-      var isSaved = false;
-
       $('#btnSaveData').on('click', function () {
           $("button").attr("disabled","disabled");
-          var url = "/admin/projectleases";
+          // var projecttype = "@yield('projecttype')";
+          var projecttype = $("#projecttype").val();
+          var url = "/admin/"+projecttype;
           // var url = "/api/zczl/create";
-          if($("#savetype").val()=="edit"){
-            url = "/admin/projectleases/update";
+          if($("#id").val()){
+            url = url+"/update";
           }
           var param = getFormToJson();
           //console.log(param);
@@ -248,80 +263,40 @@
             data : param,
             success : function(str_reponse){
               // var reponse = JSON.parse(str_reponse);
-              console.log(111);
               console.log(str_reponse);
               alert("保存成功");
-              $(".id").val(str_reponse.detail_id);
-              $(".project_id").val(str_reponse.project_id);
+              if(!$("#id").val()){
+                $(".id").val(str_reponse.detail_id);
+                $(".project_id").val(str_reponse.project_id);
+              }
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
-              isSaved = true;
             },
             error : function(XMLHttpRequest,err,e){
-              console.log(XMLHttpRequest);
-              var status = XMLHttpRequest.status;
-              var response = XMLHttpRequest.responseJSON;
-              var errors = "";
-              if(status == '500'){
-                errors = response.message;
-              }
-              else if(status == '422'){
-                errors = response.errors;
-              }
-              show_warning(errors); 
-
-              // var response = JSON.parse(XMLHttpRequest.responseText);
-              // console.log(response);
-              // show_warning(JSON.stringify(response.errors));             
-              $("button").removeAttr("disabled");
+              error(XMLHttpRequest);
             }
           });
       });
 
       $('#btnSaveFile').on('click', function () {
-        if($("#id").val()){
-          $("button").attr("disabled","disabled");
-          var url = "/admin/projectleases";
-          // var url = "/api/zczl/create";
-          var param = new FormData($('#formfile')[0]);
-          console.log(param);
-          $.ajax({
-            type : "post",
-            url : url,
-            data : param,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType:"json",
-            success : function(str_reponse){
-              // var reponse = JSON.parse(str_reponse);
-              console.log(111);
-              console.log(str_reponse);
-              alert("保存成功");
-              $("button").removeAttr("disabled");
-              $(".warning-message").html("");
-            },
-            error : function(XMLHttpRequest,err,e){
-              var response = JSON.parse(XMLHttpRequest.responseText);
-              show_warning(JSON.stringify(response.errors));             
-              $("button").removeAttr("disabled");
-            }
-          });
-        }
-        else{
-          alert("请先保存基本信息");
-        }
+        var url = "/admin/files/store";
+        // var url = "/api/zczl/create";
+        saveFileOrImage(url,"formfile");         
       });
 
       $('#btnSaveImage').on('click', function () {
+        var url = "/admin/images/store";
+        // var url = "/api/zczl/create";
+        saveFileOrImage(url,"formimage");        
+      });
+
+      function saveFileOrImage(url,formid){
         console.log($("#id").val());
         if($("#id").val()){
           $("button").attr("disabled","disabled");
-          var url = "/admin/images/store";
-          // var url = "/api/zczl/create";
-          // var param = new FormData($('#formimage')[0]);
-          var param = new FormData(document.getElementById("formimage"));
-          // var param = $('#formimage').serializeArray()
+          var param = new FormData($('#'+formid)[0]);
+          // var param = new FormData(document.getElementById(formid));
+          // var param = $('#'+formid).serializeArray()
           console.log(param);
           $.ajax({
             type : "post",
@@ -340,19 +315,38 @@
               $(".warning-message").html("");
             },
             error : function(XMLHttpRequest,err,e){
-              console.log(222);
-              console.log(XMLHttpRequest);
-              var response = JSON.parse(XMLHttpRequest.responseText);
-              show_warning(JSON.stringify(response.errors));             
-              $("button").removeAttr("disabled");
+              error(XMLHttpRequest);
             }
           });
         }
         else{
           alert("请先保存基本信息");
+        }        
+      }
+      function error(XMLHttpRequest){
+        console.log(XMLHttpRequest);
+        var status = XMLHttpRequest.status;
+        var response = XMLHttpRequest.responseJSON;
+        var errors = "";
+        if(status == '500'){
+          errors = response.message;
         }
-      });
+        else if(status == '422'){
+          errors = response.errors;
+        }
+        show_warning(errors); 
 
+        // var response = JSON.parse(XMLHttpRequest.responseText);
+        // console.log(response);
+        // show_warning(JSON.stringify(response.errors));             
+        $("button").removeAttr("disabled");        
+      }
+
+      $('.btn-print').on('click', function () {
+        var url = "/admin/files/store";
+        // var url = "/api/zczl/create";
+        // window.open();        
+      });
     });
-  </script>
+</script>
 </div>
