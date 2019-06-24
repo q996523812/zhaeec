@@ -24,8 +24,10 @@ class JgptProjectPurchaseRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            // 'datas' => 'required',
+        $rules = [
+            'datas' => 'required',
         ];
+        $datas = $this->datas;
+        return $rules;
     }
 }

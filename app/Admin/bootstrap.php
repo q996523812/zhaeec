@@ -27,5 +27,5 @@ Admin::js('/js/distpicker.data.js?a='.rand(1000,9999));
 Admin::js('/js/distpicker.js?a='.rand(1000,9999));
 Admin::js('/js/selects.data.js?a='.rand(1000,9999));
 Admin::js('/js/selects.js?a='.rand(1000,9999));
-Admin::css('/css/app.css?a='.rand(1000,9999));
+Admin::css('/css/admin_project.css?a='.rand(1000,9999));
 // Admin::js('/resources/js/admin_project.js');

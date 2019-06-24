@@ -40,7 +40,6 @@ class JgptProjectPurchasesController extends Controller
         $receive_message = $request->all();
         
     	
-
 		if(JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->exists()){
             $aaa = JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->first();
             $logService->addReceiveLog('接收',null,$datas['title'],$receive_message,0,'重复请求，数据已存在');

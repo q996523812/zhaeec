@@ -14,18 +14,5 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+@import 'admin_project';
 
-.project-table{
-  .table tbody tr td{
-      vertical-align: middle;
-      border-bottom: 1px solid #e1e1e1;
-      border-left: 1px solid #e1e1e1;
-      border-right: 1px solid #e1e1e1;
-      border-top: 1px solid #e1e1e1;
-      border-collapse: collapse;
-  }
-  .table .control-label{
-      color: #333332;
-      background-color: #F8F8F8;
-  }
-}

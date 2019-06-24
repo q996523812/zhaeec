@@ -1,0 +1,26 @@
+.project-table .table tbody tr td {
+  vertical-align: middle;
+  border-bottom: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  border-top: 1px solid #e1e1e1;
+  border-collapse: collapse;
+}
+
+.project-table .table .control-label {
+  color: #333332;
+  background-color: #F8F8F8;
+}
+.project-table  .table thead th{
+	vertical-align: middle;
+	text-align:center;
+	height:80px;
+    font-size:20px;
+}
+
+.project-table  .money{
+	text-align:right;
+}
+.project-table  .number{
+	text-align:right;
+}

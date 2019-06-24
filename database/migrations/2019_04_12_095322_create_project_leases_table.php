@@ -78,6 +78,11 @@ class CreateProjectLeasesTable extends Migration
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');
             $table->string('sjly')->nullable()->default('业务录入');
+
+
+            $table->string('bzj_zhm')->nullable();
+            $table->string('bzj_bank')->nullable();
+            $table->string('bzj_zh')->nullable();
            
             $table->timestamps();
         });

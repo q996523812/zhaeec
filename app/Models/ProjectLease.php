@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ProjectLease extends Model
 {
@@ -21,4 +22,17 @@ class ProjectLease extends Model
     {
         return $this->hasMany(Image::class, 'project_id', 'project_id');
     }
+
+    // public function getGpDateStartAttribute()
+    // {
+    //     return date('Y-m-d', Carbon::parse($this->attributes['gp_date_start']));
+    // }
+    // public function getGpDateEndAttribute()
+    // {
+    //     return date('Y-m-d', $this->attributes['gp_date_end']);
+    // }
+
+    // protected $casts = [
+    //     'gp_date_start' => date('Y-m-d'),
+    // ];
 }

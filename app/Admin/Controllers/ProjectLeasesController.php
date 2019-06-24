@@ -3,6 +3,8 @@
 namespace App\Admin\Controllers;
 
 use App\Models\ProjectLease;
+use App\Models\WorkProcess;
+use App\Models\WorkProcessNode;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -18,6 +20,7 @@ use App\Handlers\FileUploadHandler;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
 use App\Http\Requests\ProjectLeasesRequest;
+use Carbon\Carbon;
 
 class ProjectLeasesController extends Controller
 {
@@ -51,10 +54,16 @@ class ProjectLeasesController extends Controller
      */
     public function show($id, Content $content)
     {
+        $detail = ProjectLease::find($id);
+        $datas = [
+            'detail' => $detail,
+            'projecttype' => 'projectleases',
+        ]; 
+        $url = 'admin.project.lease.show';   
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('查看')
+            // body 方法可以接受 Laravel 的视图作为参数
+            ->body(view($url, $datas)); 
     }
 
     /**
@@ -70,18 +79,34 @@ class ProjectLeasesController extends Controller
         //     ->header('Edit')
         //     ->description('description')
         //     ->body($this->form()->edit($id));
-        // Import::script('$(document).ready(function(){var url="/admin/projectleases";});');
-        $url = 'admin.project.lease.edit';
+        // Import::script('$(document).ready(function(){var url="/admin/projectleases";});');        
         $detail = ProjectLease::find($id);
         $datas = [
             'detail' => $detail,
-            'savetype' => 'edit',
             'projecttype' => 'projectleases',
-        ];    
+        ]; 
+        $url = 'admin.project.lease.edit';   
         return $content
             ->header('编辑')
             // body 方法可以接受 Laravel 的视图作为参数
             ->body(view($url, $datas));  
+    }
+
+    public function copy($id, Content $content)
+    {
+        $detail = ProjectLease::find($id);
+        $detail->id = '';
+        $detail->project_id = '';
+        $detail->process = '11';
+        
+        $datas = [
+            'detail' => $detail,
+            'projecttype' => 'projectleases',
+        ];
+        $url = 'admin.project.lease.edit';
+        return $content
+            ->header('新增')
+            ->body(view($url,$datas)); 
     }
 
     /**
@@ -92,21 +117,15 @@ class ProjectLeasesController extends Controller
      */
     public function create(Content $content)
     {
-        // return $content
-        //     ->header('Create')
-        //     ->description('description')
-        //     ->body($this->form());
         $detail = new ProjectLease();
-        // $detail->id =  (string)Str::uuid();
-        // $detail->project_id =  (string)Str::uuid();
         $datas = [
             'detail' => $detail,
-            'savetype' => 'add',
             'projecttype' => 'projectleases',
         ];
+        $url = 'admin.project.lease.edit';
         return $content
-            ->header('Create')
-            ->body(view('admin.project.lease.edit',$datas));  
+            ->header('新增')
+            ->body(view($url,$datas));  
     }
 
     /**
@@ -119,32 +138,32 @@ class ProjectLeasesController extends Controller
         $grid = new Grid(new ProjectLease);
 
         $grid->filter(function($filter){
-
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
-
             // 在这里添加字段过滤器
             $filter->like('title', '项目名称');
             $filter->like('xmbh', '项目编号');
-
         });
 
         $grid->wtf_name('委托方名称');
         $grid->title('项目名称');
         $grid->gpjg_zj('挂牌金额(总价)');
-        $grid->gp_date_start('挂牌开始使时间');
-        $grid->gp_date_end('挂牌结束时间');
-        $grid->process('项目状态');
+        $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
+            return date('Y-m-d',strtotime($gp_date_start));
+        });
+        $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
+            return date('Y-m-d',strtotime($gp_date_end));
+        });
 
+        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $nodes = $workProcess->nodes; 
+        $grid->process('项目状态')->display(function($process)use($nodes) {
+            $node = $nodes->where('code',$process)->first();
+            return $node->name;
+        });
         $user = Admin::user();
         $grid->model()->where('user_id', $user->id);
 
-        
-        // $jurisdiction = '';
-        // if($grid->model()->id){
-
-        // }
-        // $jurisdiction = $grid->model()->project->instance->node->jurisdiction;
         $grid->actions(function ($actions) {
             // $actions->disableView();
             
@@ -175,71 +194,6 @@ class ProjectLeasesController extends Controller
             }
             // $actions->append("<a href='/admin/projectpurchases/showapproval/$rec->id' style='float: left'><i class='fa fa-edit'>审批</i></a>");
         });
-/*
-        $grid->id('Id');
-        $grid->wtf_name('Wtf name');
-        $grid->wtf_qyxz('Wtf qyxz');
-        $grid->wtf_province('Wtf province');
-        $grid->wtf_city('Wtf city');
-        $grid->wtf_area('Wtf area');
-        $grid->wtf_street('Wtf street');
-        $grid->wtf_yb('Wtf yb');
-        $grid->wtf_fddbr('Wtf fddbr');
-        $grid->wtf_phone('Wtf phone');
-        $grid->wtf_fax('Wtf fax');
-        $grid->wtf_email('Wtf email');
-        $grid->wtf_jt('Wtf jt');
-        $grid->wtf_dlr_name('Wtf dlr name');
-        $grid->wtf_dlr_phone('Wtf dlr phone');
-        $grid->xmbh('Xmbh');
-        $grid->title('Title');
-        $grid->pzjg('Pzjg');
-        $grid->bdgk('Bdgk');
-        $grid->other('Other');
-        $grid->gp_date_start('Gp date start');
-        $grid->gp_date_end('Gp date end');
-        $grid->sfhs('Sfhs');
-        $grid->gpjg_sm('Gpjg sm');
-        $grid->gpjg_zj('Gpjg zj');
-        $grid->gpjg_dj('Gpjg dj');
-        $grid->zlqx('Zlqx');
-        $grid->jymd('Jymd');
-        $grid->zclb('Zclb');
-        $grid->fbfs('Fbfs');
-        $grid->zcsfsx('Zcsfsx');
-        $grid->pgjz('Pgjz');
-        $grid->jyfs('Jyfs');
-        $grid->bjms('Bjms');
-        $grid->jjfd('Jjfd');
-        $grid->jysj_bz('Jysj bz');
-        $grid->yxf_zgtj('Yxf zgtj');
-        $grid->yxdj_zlqd('Yxdj zlqd');
-        $grid->bzj_jn_time_end('Bzj jn time end');
-        $grid->bzj('Bzj');
-        $grid->jypt_lxfs('Jypt lxfs');
-        $grid->notes('Notes');
-        $grid->fc_province('Fc province');
-        $grid->fc_city('Fc city');
-        $grid->fc_area('Fc area');
-        $grid->fc_street('Fc street');
-        $grid->fc_gn('Fc gn');
-        $grid->fc_mj('Fc mj');
-        $grid->fc_zjh('Fc zjh');
-        $grid->fc_zjjg('Fc zjjg');
-        $grid->fc_ysynx('Fc ysynx');
-        $grid->fc_ghyt('Fc ghyt');
-        $grid->fc_sfyyzh('Fc sfyyzh');
-        $grid->fc_jcsj('Fc jcsj');
-        $grid->fc_dqyt('Fc dqyt');
-        $grid->fc_yzh_yxq('Fc yzh yxq');
-        $grid->status('Status');
-        $grid->process('Process');
-        $grid->user_id('User id');
-        $grid->project_id('Project id');
-        $grid->sjly('Sjly');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
-*/
         return $grid;
     }
 
@@ -447,19 +401,9 @@ class ProjectLeasesController extends Controller
         // return [];
     }
 
-    public function submit(Request $request,FileUploadHandler $uploader){
-        $data = $request->all();
-        $purchase_id = $request->id;
-        $data_Purchase = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
-        $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        $files = $request->path;
-        $fileCharater = $request->file('path');
-
-        $files_new = null;
-        if($fileCharater != null){
-            $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
-        }
-        $this->projectLeaseService->submit($purchase_id,$data_Purchase,$data_project,13,$files_new);
+    public function submit(Request $request){
+        $detail_id = $request->id;
+        $this->projectLeaseService->submit($detail_id);
         return redirect()->route('projectleases.index');
     }
 

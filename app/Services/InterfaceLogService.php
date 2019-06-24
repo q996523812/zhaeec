@@ -20,7 +20,6 @@ class InterfaceLogService
 		}
 		$interfaceLog = InterfaceLog::create([
 			'action' => $action,
-			'xmbh'	=> $xmbh,
 			'title'	=> $title,
 			'send_message' => $send_message,
 			'is_send_success' => $is_send_success,
@@ -36,7 +35,6 @@ class InterfaceLogService
 		}
 		$interfaceLog = InterfaceLog::create([
 			'action' => $action,
-			'xmbh'	=> $xmbh,
 			'title'	=> $title,
 			'receive_message' => $receive_message,
 			'is_receive_success' => $is_receive_success,

@@ -29,14 +29,19 @@ class ProjectLeaseService
 		
         $uuid_project =  (string)Str::uuid();
         $uuid_purchase =  (string)Str::uuid();
+        $projectCodeService = new ProjectCodeService();
+        $projectcode = $projectCodeService->create(9);
+
         $data_detail['id'] = $uuid_purchase;
         $data_detail['project_id'] = $uuid_project;
+        $data_detail['xmbh'] = $projectcode;
         $data_detail['user_id'] = $user->id;
         $data_detail['status'] = 1;
         $data_detail['process'] = $process;
 
         $data_project['id'] = $data_detail['project_id'];
         $data_project['detail_id'] = $data_detail['id'];
+        $data_project['xmbh'] = $projectcode;
         $data_project['user_id'] = $user->id;
         $data_project['status'] = 1;
         $data_project['type'] = 'zczl';
@@ -75,15 +80,19 @@ class ProjectLeaseService
 		});
 	}
 
-	public function submit($id=null,$data_purchase,$data_project,$process,$files=null){
-		$data_purchase['process'] = $process;
+	public function submit($id){
+		$process = 13;
+		$detail = ProjectLease::find($id);
+		$project = $detail->project;
+		$detail->process = $process;
+		$project->process = $process;
 		
-		if($data->id != null){
-			$this->update($id,$data_purchase,$data_project,$files);
-		}
-		else{
-			$this->add($data_purchase,$data_project,$files);
-		}
+		DB::transaction(function () use($detail,$project) {
+			$detail->save();
+			$project->save();
+			$process = new ProcessService();
+			$process->create('zczl',$project->id,'提交',13);
+		});
 	}	
 
 	public function upload($project_id,$file,$file_type){

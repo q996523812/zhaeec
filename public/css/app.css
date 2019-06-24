@@ -10674,3 +10674,10 @@ a.text-dark:focus {
   background-color: #F8F8F8;
 }
 
+.project-table .table thead th {
+  vertical-align: middle;
+  text-align: center;
+  height: 80px;
+  font-size: 20px;
+}
+

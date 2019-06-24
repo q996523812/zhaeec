@@ -97,7 +97,6 @@
 
 		getList: function (data) {
 		  var list = [];
-		  console.log(data);
 		  $.each(data, function (i, n) {
 		    list.push(
 		      '<option' +

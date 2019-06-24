@@ -28,15 +28,28 @@ class FilesController extends Controller
         $file->path = $result['path'];
         $file->project_id = $project_id;
         $file->save();
-
+// dd(new FileTransformer($file));
         $result = [
             'success' => 'true',
             'message' => '',
-            'file' => new FileTransformer($file),
+            'file' => $file,
             'status_code' => '200'
         ];
 
         return response()->json($result);
         // return $this->response->item($image, new ImageTransformer())->setStatusCode(201);
+    }
+
+    public function destroy(FileRequest $request, File $file){
+        $id = $request->fileid;
+        // dd('111111111');
+        // dd($request->fileid);
+        File::destroy($id);
+        $result = [
+            'success' => 'true',
+            'message' => $request->fileid,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
     }
 }

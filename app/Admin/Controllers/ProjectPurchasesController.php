@@ -5,6 +5,8 @@ namespace App\Admin\Controllers;
 use App\Models\ProjectPurchase;
 use App\Models\Project;
 use App\Models\PbResult;
+use App\Models\WorkProcess;
+use App\Models\WorkProcessNode;
 use App\Services\ProjectPurchaseService;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -110,10 +112,19 @@ class ProjectPurchasesController extends Controller
         $grid->wtf_name('委托方名称');
         $grid->title('项目名称');
         $grid->gpjg_zj('挂牌金额(总价)');
-        $grid->gp_date_start('挂牌开始使时间');
-        $grid->gp_date_end('挂牌结束时间');
-        $grid->process('项目状态');
+        $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
+            return date('Y-m-d',strtotime($gp_date_start));
+        });
+        $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
+            return date('Y-m-d',strtotime($gp_date_end));
+        });
 
+        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $nodes = $workProcess->nodes; 
+        $grid->process('项目状态')->display(function($process)use($nodes) {
+            $node = $nodes->where('code',$process)->first();
+            return $node->name;
+        });
         $user = Admin::user();
         if($user->id != 1){
             $grid->model()->where('user_id', $user->id);

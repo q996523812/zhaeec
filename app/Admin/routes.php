@@ -24,7 +24,8 @@ Route::group([
     $router->post('projectpurchases/zp/{id}', 'ProjectPurchasesController@zp');
     $router->get('projectpurchases/editpb/{id}', 'ProjectPurchasesController@editpb');
     $router->post('projectpurchases/pb/{id}', 'ProjectPurchasesController@pb');
-
+    $router->get('projectpurchases/copy/{id}', 'ProjectPurchasesController@copy');
+    
 
     $router->get('projectleases', 'ProjectLeasesController@index')->name('projectleases.index');
     $router->get('projectleases/create', 'ProjectLeasesController@create');
@@ -38,7 +39,8 @@ Route::group([
     $router->post('projectleases/zp/{id}', 'ProjectLeasesController@zp');
     $router->get('projectleases/editjj/{id}', 'ProjectLeasesController@editjj');
     $router->post('projectleases/jj/{id}', 'ProjectLeasesController@jj');
-
+    $router->get('projectleases/copy/{id}', 'ProjectLeasesController@copy');
+    
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');
     $router->get('workprocesses/create', 'WorkProcessesController@create');
     $router->post('workprocesses', 'WorkProcessesController@add');
@@ -92,6 +94,7 @@ Route::group([
 
     $router->post('images/store', 'ImagesController@store');
     $router->post('files/store', 'FilesController@store');
+    $router->post('files/destroy', 'FilesController@destroy');
 
 
 });
