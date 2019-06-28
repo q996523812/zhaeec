@@ -1,4 +1,27 @@
+<style>
+.img{
+  height:200px;
+  margin-top:20px;
+}
+.img .thumbnail{
+  height:100%;
+}
+.img .thumbnail img {
+  display:block;
+  position:absolute;
+  height:100%;
+  top:0px;
+  right:0px;
+  left:0px;  
+}
+.img .thumbnail a {
+  display:block;
+  position:absolute;
+  top:0px;
+  right:15px;
+}
 
+</style>
 <div class="warning-message">
 
 </div>
@@ -89,18 +112,26 @@
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-          <div  class="row">
-            <div class="col-lg-10 offset-lg-1">
-              <div  class="row">
+        <form action="/admin/projectleases'" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formimagedel">
+                {{ csrf_field() }}
+                <input type="hidden" id= "imageid" name="imageid">
+          <div class="row clearfix">
+            <div class="col-md-12 column">
+              <div class="row" id="imageslist">               
                 @foreach($detail->images as $image)
-                  <div class="col-md-4">
-                    <img src="{{$image->path}}" class="col-md-4"/>
+                <div class="col-md-3 img" id="{{$image->id}}">                  
+                  <div class="thumbnail">                    
+                    <img alt="300x200" src="{{$image->path}}"/>
+                    <a href="#close" class="remove label label-danger" data="{{$image->id}}">
+                      <i class="glyphicon glyphicon-remove"></i>删除
+                    </a>
                   </div>
-                @endforeach
-              </div>
-            </div>
+                </div> 
+                @endforeach 
+              </div>  
+            </div>      
           </div>
-
+          </form>
           <div>
             <form action="@yield('submiturl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" enctype="multipart/form-data" id="formimage">
               <div class="fields-group">
@@ -109,7 +140,6 @@
                     <div class="col-md-8">
                       <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
                       {{csrf_field()}}
-                      {{ method_field('DELETE') }}
                     </div>           
                     
                     <div class="col-md-8">
@@ -137,7 +167,7 @@
 
         </div>
 
-        <!--基本信息-->
+        <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
           <form action="/admin/{{$projecttype}}/submit/{{$detail->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
@@ -230,9 +260,9 @@
         var param = new FormData($('#formfiledel')[0]);
         // param.id = id;
         console.log(param.fileid);
-        // var saveSuccess = function(trid){
-        //   $("#"+trid).remove();
-        // }
+        var saveSuccess = function(){
+          $("#"+id).remove();
+        }
         // saveFileOrImage(url,param,function(file){
 
         // });
@@ -250,7 +280,7 @@
               alert("保存成功");
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
-              // saveSuccess(id);
+              saveSuccess();
             },
             error : function(XMLHttpRequest,err,e){
               console.log(222);
@@ -258,6 +288,40 @@
               error(XMLHttpRequest);
             }
         });
+      });
+      $('.remove').on('click', function () {
+        var id = $(this).attr("data");
+        var _token = $("#formimagedel [name='_token']").val();       
+        var url = "/admin/images/destroy";
+        // var param = {"id":id,"fileid":id,"_token":_token};       
+        $("#imageid").val(id);
+        var param = new FormData($('#formimagedel')[0]);
+        console.log(param);
+        var saveSuccess = function(){
+          $("#"+id).remove();
+        }
+        $.ajax({
+            type : "post",
+            url : url,
+            data : param,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            success : function(str_reponse){
+              console.log(111);
+              console.log(str_reponse);
+              alert("保存成功");
+              $("button").removeAttr("disabled");
+              $(".warning-message").html("");
+              saveSuccess();
+            },
+            error : function(XMLHttpRequest,err,e){
+              console.log(222);
+              console.log(XMLHttpRequest);
+              error(XMLHttpRequest);
+            }
+        });       
       });
       $('#btnSaveFile').on('click', function () {
         if(!$("#id").val()){
@@ -269,9 +333,9 @@
         var param = new FormData($('#formfile')[0]);
         saveFileOrImage(url,param,function(file){
           var row = "<tr>"
-            +"<td><a href=\"file.path\">"+file.name+"</a></td>"
-            +"<td><a href=\"javascript:void(0);\" onclick=\"delFile("+file.id+")\">删除</a></td>"
-          +"</tr>";
+            +'<td><a href='+file.path+'>'+file.name+'<\/a><\/td>'
+            +'<td><a href="javascript:void(0);" class="btnDelFile" data="'+file.id+'">删除<\/a><\/td>'
+          +'<\/tr>';
           $("#fileslist tbody").append(row);
         });         
       });
@@ -286,12 +350,17 @@
         var param = new FormData($('#formimage')[0]);
         // var param = new FormData(document.getElementById(formid));
         // var param = $('#'+formid).serializeArray()
-        saveFileOrImage(url,param,function(file){
-          var row = "<tr>"
-            +"<td><a href=\"file.path\">"+file.name+"</a></td>"
-            +"<td><a href=\"javascript:void(0);\" onclick=\"delFile("+file.id+")\">删除</a></td>"
-          +"</tr>";
-          $("#fileslist tbody").append(row);
+        saveFileOrImage(url,param,function(image){
+          var row = ""
+                  +'<div class="col-md-3 img" id="'+image.id+'">'
+                  +'  <div class="thumbnail">'
+                  +'    <img alt="300x200" src="'+image.path+'"/>'
+                  +'      <a href="#close" class="remove label label-danger" data="'+image.id+'">'
+                  +'        <i class="glyphicon glyphicon-remove"><\/i>删除'
+                  +'      <\/a>'                  
+                  +'  <\/div>'
+                  +'<\/div>';
+          $("#imageslist").append(row);
         });        
       });
 

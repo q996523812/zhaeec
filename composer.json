@@ -48,8 +48,8 @@
             "database/seeds",
             "database/factories"
         ],
-        "helpers": [
-            "/bootstrap/helpers.php"
+        "files": [
+            "bootstrap/helpers.php"
         ]
     },
     "autoload-dev": {

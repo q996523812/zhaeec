@@ -30,11 +30,24 @@ class ImagesController extends Controller
         $result = [
             'success' => 'true',
             'message' => '',
-            'image' => new ImageTransformer($image),
+            'file' => $image,
             'status_code' => '200'
         ];
 
         return response()->json($result);
         // return $this->response->item($image, new ImageTransformer())->setStatusCode(201);
     }
+
+    public function destroy(ImageRequest $request){
+        $id = $request->imageid;
+        // dd('111111111');
+        // dd($request->fileid);
+        Image::destroy($id);
+        $result = [
+            'success' => 'true',
+            'message' => $request->imageid,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }    
 }

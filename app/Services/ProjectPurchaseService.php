@@ -17,27 +17,28 @@ class ProjectPurchaseService
 
 	public function add($data_purchase,$data_project,$process,$files=null){
 		$user = Admin::user();
-		// $purchases = new ProjectPurchase($data);
-		// $purchases->id = (string)Str::uuid();
-		// $purchases->user_id = $user->id;
-		// $purchases->status=1;
-		// $purchases->process=1;
-		// $purchases->save();
         $uuid_project =  (string)Str::uuid();
         $uuid_purchase =  (string)Str::uuid();
-        
-        $data_project['id'] = $uuid_project;
+        $projectCodeService = new ProjectCodeService();
+        $projectcode = $projectCodeService->create(2);
+
+        $data_detail['id'] = $uuid_purchase;
+        $data_detail['project_id'] = $uuid_project;
+        $data_detail['xmbh'] = $projectcode;
+        $data_detail['user_id'] = $user->id;
+        $data_detail['status'] = 1;
+        $data_detail['process'] = $process;
+
+        $data_project['id'] = $data_detail['project_id'];
+        $data_project['detail_id'] = $data_detail['id'];
+        $data_project['xmbh'] = $projectcode;
+        $data_project['price'] = $data_detail['gpjg_zj'];
         $data_project['user_id'] = $user->id;
         $data_project['status'] = 1;
         $data_project['type'] = 'qycg';
-        $data_project['detail_id'] = $uuid_purchase;
         $data_project['process'] = $process;
-
-        $data_purchase['id'] = $uuid_purchase;
-        $data_purchase['project_id'] = $uuid_project;
-        $data_purchase['user_id'] = $user->id;
-        $data_purchase['status'] = 1;
-        $data_purchase['process'] = $process;
+        
+        
         DB::transaction(function () use($data_purchase,$data_project,$files) {
 			$purchase = ProjectPurchase::create($data_purchase);
 		    $project = $purchase->project()->create($data_project);

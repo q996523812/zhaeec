@@ -42,6 +42,7 @@ class ProjectLeaseService
         $data_project['id'] = $data_detail['project_id'];
         $data_project['detail_id'] = $data_detail['id'];
         $data_project['xmbh'] = $projectcode;
+        $data_project['price'] = $data_detail['gpjg_zj'];
         $data_project['user_id'] = $user->id;
         $data_project['status'] = 1;
         $data_project['type'] = 'zczl';

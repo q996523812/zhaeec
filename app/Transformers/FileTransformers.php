@@ -5,7 +5,7 @@ namespace App\Transformers;
 use App\Models\File;
 use League\Fractal\TransformerAbstract;
 
-class FileTransformer extends TransformerAbstract
+class FileTransformers extends TransformerAbstract
 {
     public function transform(File $file)
     {

@@ -174,21 +174,22 @@ class ProjectLeasesController extends Controller
                 $actions->disableEdit();
             }
             switch($rec->process){
-
                 case 20:
-                    $actions->append("<a href='/admin/projectleases/showzp/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>摘牌</a>"); 
+                    $actions->append("<a href='/admin/projectleases/showzp/$rec->id' style='margin-left:10px;' title='摘牌'><i class='fa fa-edit2'></i>摘牌</a>"); 
+                    $actions->append("<a href='/admin/projectleases/suspend/$rec->id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    $actions->append("<a href='/admin/projectleases/end/$rec->id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>"); 
                     break;
                 case 21:
-                    $actions->append("<a href='/admin/projectleases/editlb/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>录入流标通知书</a>"); 
+                    $actions->append("<a href='/admin/projectleases/editlb/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入流标通知书</a>"); 
                     break;
                 case 31:
-                    $actions->append("<a href='/admin/projectleases/editjj/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
+                    $actions->append("<a href='/admin/projectleases/editjj/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
                     break;
                 case 41:
-                    $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>录入中标信息</a>"); 
+                    $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>"); 
                     break;
                 case 51:
-                    $actions->append("<a href='/admin/projectleases/uploadcontract/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
+                    $actions->append("<a href='/admin/projectleases/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
                     break;
                 
             }
@@ -346,18 +347,18 @@ class ProjectLeasesController extends Controller
         return $form;
     }
 
+    private function fields(){
+        $fields = [
+            'detail' => ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status'],
+            'project' => ['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']
+        ];
+        return $fields;
+    }
     public function add(ProjectLeasesRequest $request,FileUploadHandler $uploader){
-        $data = $request->all();
-        $data_Purchase = $request->only(['id','project_id','wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
-        $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        // $files = $request->path;
-        // $fileCharater = $request->file('path');
+        $data_detail = $request->only($this->fields->detail);
+        $data_project = $request->only($this->fields->project);
 
-        // $files_new = null;
-        // if($fileCharater != null){
-        //     $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
-        // }
-        $detail = $this->projectLeaseService->add($data_Purchase,$data_project,11,null);
+        $detail = $this->projectLeaseService->add($data_detail,$data_project,11,null);
         
         $result = [
             'success' => 'true',
@@ -368,28 +369,14 @@ class ProjectLeasesController extends Controller
         ];
         return response()->json($result);
         // return admin_success('title1', '保存成功');
-        // return redirect()->route('projectleases.index');
     }
 
     public function update(Request $request,FileUploadHandler $uploader,ProcessService $process){
-        $data = $request->all();
         $detail_id = $request->id;
-        $data_Purchase = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
-        $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        // $files = $request->path;
-        // $fileCharater = $request->file('path');
+        $data_detail = $request->only($this->fields->detail);
+        $data_project = $request->only($this->fields->project);
 
-        // $files_new = null;
-        // if($fileCharater != null){
-        //     $files_new = $uploader->batchUpload($data['files'],'zczl','zczl');
-        // }
-        // DB::transaction(function () use($purchase_id,$data_Purchase,$data_project,$files_new,$process) {
-        //     $this->projectLeaseService->update($purchase_id,$data_Purchase,$data_project,13,$files_new);
-        //     $process->create('zczl',ProjectLease::find($purchase_id)->project_id,'提交',13);
-
-        // });
-
-        $this->projectLeaseService->update($detail_id,$data_Purchase,$data_project,11,null);
+        $this->projectLeaseService->update($detail_id,$data_detail,$data_project,11,null);
         $result = [
             'success' => 'true',
             'message' => '',
@@ -397,8 +384,6 @@ class ProjectLeasesController extends Controller
         ];
 
         return response()->json($result);
-        // return redirect()->route('projectleases.index');
-        // return [];
     }
 
     public function submit(Request $request){
@@ -482,4 +467,6 @@ class ProjectLeasesController extends Controller
         return redirect()->route('projectleases.index');
         // return [];
     }
+
+
 }

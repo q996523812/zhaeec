@@ -1,4 +1,23 @@
-
+<style>
+.img{
+  height:200px;
+  margin-top:20px;
+}
+.img .thumbnail{
+  height:100%;
+}
+.img .thumbnail img {
+  display:block;
+  position:absolute;
+  height:100%;
+  top:0px;
+  right:0px;
+  left:0px;  
+}
+.btn-pass{
+  margin-right:10px;
+}
+</style>
 <div class="warning-message">
 
 </div>
@@ -13,9 +32,6 @@
     </ul>
 
     <div class="box-tools">
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="/admin/{{$projecttype}}/copy/{{$detail->id}}" class="btn btn-sm btn-default btn-copy"><i class="fa fa-copy"></i> 复制项目</a>
-      </div>
       <div class="btn-group float-right" style="margin-right: 10px">
         <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
       </div>
@@ -131,9 +147,39 @@
   <div class="box-footer">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        
+        <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          {{csrf_field()}}
+          <input type="hidden" id="operation" name="operation" value="通过">
+          <input type="hidden" id="process" name="process" value="{{$detail->process}}">
+          <input type="hidden" id="work_process_node_name" name="work_process_node_name" value="">
+          
+          <div>
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+            
+                  <input type="text" id="reason" name="reason" value="" class="form-control title" placeholder="输入退回理由">
+              </div>
+          </div>
+          <div class="btn-group pull-right">
+              <button type="submit" class="btn btn-primary btn-pass">通过</button>
+              <button type="submit" class="btn btn-primary btn-back">退回</button>
+          </div>
+        </form>
       </div>
+      <script>
+        $(document).ready(function(){
+          $('.btn-pass').on('click', function () {
+              $("#operation").val("通过");
+              $(".form-horizontal").submit();
+              return false;
+          });
+          $('.btn-back').on('click', function () {
+              $("#operation").val("退回");
+              $(".form-horizontal").submit();
+              return false;
+          });
 
+        });
+      </script>
   </div>
-
 </div>

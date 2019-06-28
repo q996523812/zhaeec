@@ -5,6 +5,9 @@ namespace App\Admin\Controllers;
 use App\Models\Project;
 use App\Models\ProjectPurchase;
 use App\Models\ProjectLease;
+use App\Models\WorkProcess;
+use App\Models\WorkProcessNode;
+use Encore\Admin\Auth\Database\Administrator;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -94,8 +97,18 @@ class ProjectsController extends Controller
         $grid->price('挂牌金额');
         $grid->gp_date_start('挂牌开始时间');
         $grid->gp_date_end('挂牌结束时间');
-        $grid->process('状态');
-        $grid->user_id('项目经理');
+        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $nodes = $workProcess->nodes; 
+        $grid->process('项目状态')->display(function($process)use($nodes) {
+            $node = $nodes->where('code',$process)->first();
+            return $node->name;
+        });
+
+        $grid->user_id('项目经理')->display(function($user_id){
+            // $admin_user = $nodes->where('code',$process)->first();
+            $admin_user = Administrator::find($user_id);
+            return $admin_user->name;
+        });
         // $grid->column('work_process_instances.work_process_node_id');
         // $grid->column('WorkProcessInstance.code');
         
@@ -125,10 +138,10 @@ class ProjectsController extends Controller
             // $aprovePage = $this->getAprovePage($rec->type);
             $fbnodes = array('19','29','39','49');
             if(in_array($rec->process,$fbnodes) ){
-                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='float: left'><i class='fa fa-edit'>发布</i></a>");
+                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>发布</i></a>");
             }
-            else{
-                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='float: left'><i class='fa fa-edit'>审批</i></a>");
+            else if($rec->process >= 13){
+                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>审批</i></a>");
             }
             
         });
@@ -236,17 +249,17 @@ class ProjectsController extends Controller
         $detail = null;
         switch(Project::find($id)->type){
             case 'qycg':
-                    $detial = Project::find($id)->projectPurchase()->first();        
+                    $detail = Project::find($id)->projectPurchase()->first();        
                     $url = 'admin.project.purchase.approval';
                 break;
             case 'zczl':
-                    $detial = ProjectLease::where('project_id',$id)->first();        
+                    $detail = ProjectLease::where('project_id',$id)->first();        
                     $url = 'admin.project.lease.approval';
                 break;
                  
         }
         $datas = [
-            'project' => $detial,
+            'detail' => $detail,
             'records' => $records,
             'pbresults' => $pbresults,
         ]; 

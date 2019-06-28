@@ -55,7 +55,7 @@ Route::group([
 
     $router->get('projects', 'ProjectsController@index')->name('projects.index');
     // $router->get('projects/create', 'ProjectsController@create');
-    $router->post('projects', 'ProjectsController@add');
+    // $router->post('projects', 'ProjectsController@add');
     $router->get('projects/{id}/edit', 'ProjectsController@edit');
     $router->get('projects/showapproval/{id}', 'ProjectsController@showapproval');
     $router->post('projects/approval/{id}', 'ProjectsController@approval');
@@ -93,6 +93,7 @@ Route::group([
     $router->post('winnotices/add', 'WinNoticesController@add');
 
     $router->post('images/store', 'ImagesController@store');
+    $router->post('images/destroy', 'ImagesController@destroy');    
     $router->post('files/store', 'FilesController@store');
     $router->post('files/destroy', 'FilesController@destroy');
 
