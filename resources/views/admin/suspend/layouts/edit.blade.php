@@ -36,10 +36,10 @@
 
     <div class="box-tools">
       <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="/admin/{{$projecttype}}/copy/{{$detail->id}}" class="btn btn-sm btn-default btn-copy"><i class="fa fa-copy"></i> 复制项目</a>
+        <a href="/admin/{{$projecttype}}/copy/{{$project->detail_id}}" class="btn btn-sm btn-default btn-copy"><i class="fa fa-copy"></i> 复制项目</a>
       </div>
       <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
+        <a href="@yield('printurl')/{{$project->detail_id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
       </div>
       <div class="btn-group float-right" style="margin-right: 10px">
         <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
@@ -59,7 +59,7 @@
                 <input type="hidden" id= "fileid" name="fileid">
             <table id="fileslist" class="table table-bordered">
               <tbody>
-                @foreach($detail->files as $file)
+                @foreach($suspend->files as $file)
                 <tr id="{{$file->id}}">
                   <td><a href="{{$file->path}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></td>
                   <td><a href="javascript:void(0);" class="btnDelFile" data="{{$file->id}}">删除</a></td>
@@ -74,7 +74,7 @@
               <div class="row">
                 <div class="container table-responsive col-md-12 align-items-center"> 
                   <div class="col-md-8">
-                    <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
+                    <input type="hidden" name="project_id" value="{{$project->id}}" class="project_id form-control">
                     {{csrf_field()}}
                   </div>           
                   <div class="col-md-8">
@@ -118,7 +118,7 @@
           <div class="row clearfix">
             <div class="col-md-12 column">
               <div class="row" id="imageslist">               
-                @foreach($detail->images as $image)
+                @foreach($suspend->images as $image)
                 <div class="col-md-3 img" id="{{$image->id}}">                  
                   <div class="thumbnail">                    
                     <img alt="300x200" src="{{$image->path}}"/>
@@ -138,7 +138,7 @@
                 <div class="row">
                   <div class="container table-responsive col-md-12 align-items-center"> 
                     <div class="col-md-8">
-                      <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
+                      <input type="hidden" name="project_id" value="{{$project->project_id}}" class="project_id form-control">
                       {{csrf_field()}}
                     </div>           
                     
@@ -169,7 +169,7 @@
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/{{$projecttype}}/submit/{{$detail->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          <form action="/admin/{{$projecttype}}/submit/{{$project->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
             <input type="hidden" id="operation" name="operation" value="通过">
             <input type="hidden" id="process" name="process" value="13">
@@ -225,7 +225,7 @@
           $("button").attr("disabled","disabled");
           // var projecttype = "@yield('projecttype')";
           var projecttype = $("#projecttype").val();
-          var url = "/admin/"+projecttype;
+          var url = "/admin/suspends";
           // var url = "/api/zczl/create";
           if($("#id").val()){
             url = url+"/update";
@@ -236,10 +236,8 @@
             url : url,
             data : param,
             success : function(str_reponse){
-              console.log(str_reponse);
               alert("保存成功");
               if(!$("#id").val()){
-                // $("#id").val(str_reponse.detail_id)
                 $(".id").val(str_reponse.detail_id);
                 $(".project_id").val(str_reponse.project_id);
               }

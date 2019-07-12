@@ -24,7 +24,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedInteger('status')->default(1);
             $table->unsignedInteger('djl')->default(0);
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('admin_users');
+            // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('detail_id');  
             $table->string('process');
             $table->timestamps();

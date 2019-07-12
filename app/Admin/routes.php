@@ -97,5 +97,13 @@ Route::group([
     $router->post('files/store', 'FilesController@store');
     $router->post('files/destroy', 'FilesController@destroy');
 
-
+    $router->get('suspends', 'SuspendsController@index')->name('suspends.index');
+    $router->get('suspends/create', 'SuspendsController@create');
+    $router->post('suspends', 'SuspendsController@store');
+    $router->get('suspends/{id}/edit', 'SuspendsController@edit');
+    $router->post('suspends/{id}', 'SuspendsController@update');
+    $router->get('suspends/{id}', 'SuspendsController@show');    
+    $router->post('suspends/add', 'SuspendsController@add');
+    $router->get('suspends/pause/{id}', 'SuspendsController@pause');
+    $router->get('suspends/end/{id}', 'SuspendsController@end');  
 });

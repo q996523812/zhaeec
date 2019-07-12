@@ -27,7 +27,7 @@ class ProjectLeasesController extends Controller
     use HasResourceActions;
     protected $projectLeaseService;
 
-    // 利用 Laravel 的自动解析功能注入 CartService 类
+    // 利用 Laravel 的自动解析功能注入 Service 类
     public function __construct(ProjectLeaseService $projectLeaseService)
     {
         $this->projectLeaseService = $projectLeaseService;
@@ -176,19 +176,19 @@ class ProjectLeasesController extends Controller
             switch($rec->process){
                 case 20:
                     $actions->append("<a href='/admin/projectleases/showzp/$rec->id' style='margin-left:10px;' title='摘牌'><i class='fa fa-edit2'></i>摘牌</a>"); 
-                    $actions->append("<a href='/admin/projectleases/suspend/$rec->id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
-                    $actions->append("<a href='/admin/projectleases/end/$rec->id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>"); 
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>"); 
                     break;
                 case 21:
                     $actions->append("<a href='/admin/projectleases/editlb/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入流标通知书</a>"); 
                     break;
-                case 31:
+                case 51:
                     $actions->append("<a href='/admin/projectleases/editjj/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
                     break;
-                case 41:
+                case 81:
                     $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>"); 
                     break;
-                case 51:
+                case 98:
                     $actions->append("<a href='/admin/projectleases/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
                     break;
                 
@@ -355,8 +355,8 @@ class ProjectLeasesController extends Controller
         return $fields;
     }
     public function add(ProjectLeasesRequest $request,FileUploadHandler $uploader){
-        $data_detail = $request->only($this->fields->detail);
-        $data_project = $request->only($this->fields->project);
+        $data_detail = $request->only($this->fields()['detail']);
+        $data_project = $request->only($this->fields()['project']);
 
         $detail = $this->projectLeaseService->add($data_detail,$data_project,11,null);
         
@@ -373,8 +373,8 @@ class ProjectLeasesController extends Controller
 
     public function update(Request $request,FileUploadHandler $uploader,ProcessService $process){
         $detail_id = $request->id;
-        $data_detail = $request->only($this->fields->detail);
-        $data_project = $request->only($this->fields->project);
+        $data_detail = $request->only($this->fields()['detail']);
+        $data_project = $request->only($this->fields()['project']);
 
         $this->projectLeaseService->update($detail_id,$data_detail,$data_project,11,null);
         $result = [

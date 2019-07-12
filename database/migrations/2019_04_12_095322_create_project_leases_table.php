@@ -74,7 +74,7 @@ class CreateProjectLeasesTable extends Migration
 
             $table->unsignedInteger('process')->default(1);
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('admin_users');
+            // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');
             $table->string('sjly')->nullable()->default('业务录入');

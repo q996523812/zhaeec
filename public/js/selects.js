@@ -56,7 +56,7 @@
 
 		  value = options["selectvalue"];		 
 		  districts = select_datas[options.type];
-
+// console.log(districts);
 		  if ($.isPlainObject(districts)) {
 		    $.each(districts, function (code, address) {
 		      var selected = address === value;
