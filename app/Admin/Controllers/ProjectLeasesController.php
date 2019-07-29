@@ -58,6 +58,9 @@ class ProjectLeasesController extends Controller
         $datas = [
             'detail' => $detail,
             'projecttype' => 'projectleases',
+            'yxfs' => $detail->intentionalParties,
+            'files' => $detail->files,
+            'images' => $detail->images,
         ]; 
         $url = 'admin.project.lease.show';   
         return $content
@@ -84,6 +87,8 @@ class ProjectLeasesController extends Controller
         $datas = [
             'detail' => $detail,
             'projecttype' => 'projectleases',
+            'files' => $detail->files,
+            'images' => $detail->images,
         ]; 
         $url = 'admin.project.lease.edit';   
         return $content
@@ -102,6 +107,8 @@ class ProjectLeasesController extends Controller
         $datas = [
             'detail' => $detail,
             'projecttype' => 'projectleases',
+            'files' => $detail->files,
+            'images' => $detail->images,
         ];
         $url = 'admin.project.lease.edit';
         return $content
@@ -121,8 +128,32 @@ class ProjectLeasesController extends Controller
         $datas = [
             'detail' => $detail,
             'projecttype' => 'projectleases',
+            'files' => $detail->files,
+            'images' => $detail->images,
         ];
         $url = 'admin.project.lease.edit';
+        return $content
+            ->header('新增')
+            ->body(view($url,$datas));  
+    }
+
+    /**
+     * Create interface.
+     *
+     * @param Content $content
+     * @return Content
+     */
+    public function manage($id,Content $content)
+    {
+        $detail = ProjectLease::find($id);
+        $datas = [
+            'detail' => $detail,
+            'projecttype' => 'projectleases',
+            'yxfs' => $detail->intentionalParties,
+            'files' => $detail->files,
+            'images' => $detail->images,
+        ];
+        $url = 'admin.project.lease.manage';
         return $content
             ->header('新增')
             ->body(view($url,$datas));  
@@ -155,7 +186,7 @@ class ProjectLeasesController extends Controller
             return date('Y-m-d',strtotime($gp_date_end));
         });
 
-        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
         $nodes = $workProcess->nodes; 
         $grid->process('项目状态')->display(function($process)use($nodes) {
             $node = $nodes->where('code',$process)->first();
@@ -175,18 +206,41 @@ class ProjectLeasesController extends Controller
             }
             switch($rec->process){
                 case 20:
+                    $actions->append("<a href='/admin/projectleases/manage/$rec->id' style='margin-left:10px;' title='管理项目'><i class='fa fa-edit2'></i>管理项目</a>"); 
                     $actions->append("<a href='/admin/projectleases/showzp/$rec->id' style='margin-left:10px;' title='摘牌'><i class='fa fa-edit2'></i>摘牌</a>"); 
-                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止</a>"); 
                     $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>"); 
                     break;
                 case 21:
                     $actions->append("<a href='/admin/projectleases/editlb/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入流标通知书</a>"); 
                     break;
+                case 31:
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止</a>"); 
+                    break;
+                case 32:
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止</a>"); 
+                    break;
+                case 30:
+                    $actions->append("<a href='/admin/suspends/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复</a>"); 
+                    break;    
+                case 41:
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>");
+                    break;
+                case 42:
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>");
+                    break;
+                    
                 case 51:
                     $actions->append("<a href='/admin/projectleases/editjj/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
                     break;
+                case 52:
+                    $actions->append("<a href='/admin/projectleases/editjj/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
+                    break;    
                 case 81:
                     $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>"); 
+                    break;
+                case 82:
+                    $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>");    
                     break;
                 case 98:
                     $actions->append("<a href='/admin/projectleases/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
@@ -349,8 +403,8 @@ class ProjectLeasesController extends Controller
 
     private function fields(){
         $fields = [
-            'detail' => ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status'],
-            'project' => ['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']
+            'detail' => ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status'],
+            'project' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']
         ];
         return $fields;
     }
@@ -399,13 +453,13 @@ class ProjectLeasesController extends Controller
     {
         $detial = ProjectLease::find($id);
 
-        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.project_id','=',$detial->project_id)
+        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detial->project_id)
                 ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
                 ->get();
         
         // $pbresults = PbResult::where('project_id',$detial->project_id)->get();
         $datas = [
-            'project' => $detial,
+            'detial' => $detial,
             'records' => $records,
             'pbresults' => '',
         ]; 
@@ -431,42 +485,51 @@ class ProjectLeasesController extends Controller
 
     public function editjj($id, Content $content)
     {
-        $detial = ProjectLease::find($id);
+        $detail = ProjectLease::find($id);
 
-        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.project_id','=',$detial->project_id)
+        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detail->project_id)
                 ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
                 ->get();
         
         $datas = [
-            'project' => $detial,
+            'detail' => $detail,
             'records' => $records,
+            'projecttype' => 'projectleases',
+            'yxfs' => $detail->intentionalParties,
+            'files' => $detail->files,
+            // 'images' => $detail->images,
         ]; 
         return $content
             ->header('评标结果录入')
-            // body 方法可以接受 Laravel 的视图作为参数
-            ->body(view('admin.project.lease.jj', $datas));  
+            ->body(view('admin.project.wljj.edit', $datas));  
     }
-
+/*
     public function jj($id,Request $request,FileUploadHandler $uploader,ProcessService $processService){
+
         $data = $request->all();
         $fileCharater = $request->file('jjjg');
         $file_new = null;
         if($fileCharater != null){
             $file_new = $uploader->save($data['jjjg'],'zczl','zczl');
-        }
-        // dump($fileCharater); 
-        // dump($data['jjjg']); 
-        // dump($file_new);
-        // dump((Project::find($project_id))->instance()->first());   
+        }  
         DB::transaction(function () use($id,$file_new,$processService) {
             $detial = ProjectLease::find($id);
             $this->projectLeaseService->upload($detial->project_id,$file_new,6);  
             $processService->next($detial->project_id,null,'录入竞价结果',$nodecode=null);
-        });
-        
+        });     
         return redirect()->route('projectleases.index');
-        // return [];
     }
+*/
+    public function jj(Request $request){
+        $yxf_id = $request->yxf_id;
+        $this->projectLeaseService->jj($yxf_id);
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
 
+        return response()->json($result);
+    }
 
 }

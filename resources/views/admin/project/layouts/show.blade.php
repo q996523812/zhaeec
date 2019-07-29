@@ -1,4 +1,4 @@
-
+@include('admin.project.image._list_style') 
 <div class="warning-message">
 
 </div>
@@ -9,7 +9,9 @@
       <li><a href="#tab2" data-toggle="tab">附件</a></li> 
       <li><a href="#tab3" data-toggle="tab">图片</a></li> 
       <li><a href="#tab4" data-toggle="tab">意向方</a></li>
-      <li><a href="#tab5" data-toggle="tab">操作记录</a></li>  
+      <li><a href="#tab5" data-toggle="tab">操作记录</a></li>
+      <li><a href="#tab6" data-toggle="tab">通知单</a></li>
+      <li><a href="#tab7" data-toggle="tab">公告</a></li> 
     </ul>
 
     <div class="box-tools">
@@ -28,101 +30,31 @@
     <div id="myTabContent" class="tab-content">
         <!--基本信息-->
         <div class="tab-pane fade in active" id="tab1">
-          <form action="@yield('submiturl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
-            <div class="box-body">
-              <div class="fields-group">
-                <div class="row">
-                  @yield('content')
-                </div>                                               
-              </div>
-            </div>         
-          </form>         
+          @yield('content')        
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
-          <div  class="row">
-            <div class="col-lg-10 offset-lg-1">
-              <table class="table table-bordered">
-                <tbody>
-                  @foreach($detail->files as $file)
-                  <tr>
-                    <td><a href="{{$file->path}}">{{$file->name}}</a></td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
+          @include('admin.project.file._show') 
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-          <div class="row clearfix">
-            <div class="col-md-12 column">
-              <div class="row" id="imageslist">               
-                @foreach($detail->images as $image)
-                <div class="col-md-3 img" id="{{$image->id}}">                  
-                  <div class="thumbnail">                    
-                    <img alt="300x200" src="{{$image->path}}"/>
-                  </div>
-                </div> 
-                @endforeach 
-              </div>  
-            </div>      
-          </div>
-
+          @include('admin.project.image._show')
         </div>
-
         <!--意向方-->
         <div class="tab-pane fade" id="tab4">
-          <div  class="row">
-            <div class="col-lg-10 offset-lg-1">
-              <table class="table table-bordered">
-                <thead>
-                  <th>名称</th>
-                  <th>保证金</th>
-                  <th>是否缴纳保证金</th>
-                  <th>是否确认报名</th>
-                </thead>
-                <tbody>
-                  
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-          </div>
+          @include('admin.project.yxf._list')
         </div>
         <!--操作记录-->
         <div class="tab-pane fade" id="tab5">
-          <div  class="row">
-            <div class="col-lg-10 offset-lg-1">
-              <table class="table table-bordered">
-                <thead>
-                  <th>操作时间</th>
-                  <th>流程节点</th>
-                  <th>操作类型</th>
-                  <th>备注</th>
-                  <th>操作人</th>
-                </thead>
-                <tbody>
-                  @foreach($detail->project->workProcessRecords as $record)
-                  <tr>
-                    <td>{{$record->created_at}}</td>
-                    <td>{{$record->work_process_node_name}}</td>
-                    <td>{{$record->operation}}</td>
-                    <td>{{$record->reason}}</td>
-                    <td>{{$record->user_id}}</td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
+          @include('admin.project.history._list_show')
+        </div>
+        <!--通知单-->
+        <div class="tab-pane fade" id="tab6">
+          
+        </div>
+        <!--公告-->
+        <div class="tab-pane fade" id="tab7">
+          
         </div>
 
     </div>

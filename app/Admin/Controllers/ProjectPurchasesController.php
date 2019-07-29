@@ -119,7 +119,7 @@ class ProjectPurchasesController extends Controller
             return date('Y-m-d',strtotime($gp_date_end));
         });
 
-        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
         $nodes = $workProcess->nodes; 
         $grid->process('项目状态')->display(function($process)use($nodes) {
             $node = $nodes->where('code',$process)->first();
@@ -146,6 +146,7 @@ class ProjectPurchasesController extends Controller
             }
 
             switch($rec->process){
+/*
                 case 20:
                     $actions->append("<a href='/admin/projectpurchases/showzp/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>摘牌</a>"); 
                     break;
@@ -161,6 +162,44 @@ class ProjectPurchasesController extends Controller
                 case 51:
                     $actions->append("<a href='/admin/projectpurchases/uploadcontract/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
                     break;
+*/
+                case 20:
+                    $actions->append("<a href='/admin/projectpurchases/showzp/$rec->id' style='margin-left:10px;' title='摘牌'><i class='fa fa-edit2'></i>摘牌</a>"); 
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>"); 
+                    break;
+                case 21:
+                    $actions->append("<a href='/admin/projectpurchases/editlb/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入流标通知书</a>"); 
+                    break;
+                case 31:
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    break;
+                case 32:
+                    $actions->append("<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='glyphicon glyphicon-pause'></i>中止</a>"); 
+                    break;
+                case 30:
+                    $actions->append("<a href='/admin/suspends/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='glyphicon glyphicon-revoke'></i>恢复</a>"); 
+                    break;  
+                case 41:
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>");
+                    break;
+                case 42:
+                    $actions->append("<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>");
+                    break;
+                    
+                case 51:
+                    $actions->append("<a href='/admin/projectpurchases/editjj/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入竞价结果</a>"); 
+                    break;
+                case 61:
+                    $actions->append("<a href='/admin/projectpurchases/editpb/$rec->id' style='float: left;margin-right:10px;'><i class='fa fa-edit'></i>录入评标结果</a>"); 
+                    break;
+                case 81:
+                    $actions->append("<a href='/admin/winnotices/insert/$rec->project_id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>"); 
+                    break;
+                case 98:
+                    $actions->append("<a href='/admin/projectpurchases/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
+                    break;
+ 
                 
             }
 
@@ -425,12 +464,12 @@ class ProjectPurchasesController extends Controller
  */       
     }
 
-    private $all_colums =  ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','bdyx','xmpz','gq','jyfs','bjms','jjfd','jy_date','zbdl_lxfs','yxf_zgtj','yxdj_zlqd','yxdj_sj','yxdj_fs','bzj_jn_time_end','bzj','zbwj_dj','jypt_lxfs','notes'];
+    private $all_colums =  ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','bdyx','xmpz','gq','jyfs','bjms','jjfd','jy_date','zbdl_lxfs','yxf_zgtj','yxdj_zlqd','yxdj_sj','yxdj_fs','bzj_jn_time_end','bzj','zbwj_dj','jypt_lxfs','notes'];
 
     public function add(Request $request,FileUploadHandler $uploader){
         $data = $request->all();
         $data_Purchase = $request->only($this->all_colums);
-        $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
+        $data_project = $request->only(['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
         $files = $request->path;
         $fileCharater = $request->file('path');
 
@@ -446,7 +485,7 @@ class ProjectPurchasesController extends Controller
         $data = $request->all();
         $purchase_id = $request->id;
         $data_Purchase = $request->only($this->all_colums);
-        $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
+        $data_project = $request->only(['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
         $files = $request->path;
         $fileCharater = $request->file('path');
 

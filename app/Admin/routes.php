@@ -19,7 +19,7 @@ Route::group([
     // $router->put('projectpurchases/{id}', 'ProjectPurchasesController@update');
     $router->post('projectpurchases/update', 'ProjectPurchasesController@update');
     $router->get('projectpurchases/{id}', 'ProjectPurchasesController@show');
-    $router->post('projectpurchases/submit/{id}', 'ProjectPurchasesController@submit');
+    $router->post('projectpurchases/submit', 'ProjectPurchasesController@submit');
     $router->get('projectpurchases/showzp/{id}', 'ProjectPurchasesController@showzp');
     $router->post('projectpurchases/zp/{id}', 'ProjectPurchasesController@zp');
     $router->get('projectpurchases/editpb/{id}', 'ProjectPurchasesController@editpb');
@@ -34,12 +34,13 @@ Route::group([
     // $router->put('projectleases/{id}', 'ProjectLeasesController@update');
     $router->post('projectleases/update', 'ProjectLeasesController@update');
     $router->get('projectleases/{id}', 'ProjectLeasesController@show');
-    $router->post('projectleases/submit/{id}', 'ProjectLeasesController@submit');
+    $router->post('projectleases/submit', 'ProjectLeasesController@submit');
     $router->get('projectleases/showzp/{id}', 'ProjectLeasesController@showzp');
     $router->post('projectleases/zp/{id}', 'ProjectLeasesController@zp');
     $router->get('projectleases/editjj/{id}', 'ProjectLeasesController@editjj');
-    $router->post('projectleases/jj/{id}', 'ProjectLeasesController@jj');
+    $router->post('projectleases/jj', 'ProjectLeasesController@jj');
     $router->get('projectleases/copy/{id}', 'ProjectLeasesController@copy');
+    $router->get('projectleases/manage/{id}', 'ProjectLeasesController@manage');
     
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');
     $router->get('workprocesses/create', 'WorkProcessesController@create');
@@ -101,9 +102,24 @@ Route::group([
     $router->get('suspends/create', 'SuspendsController@create');
     $router->post('suspends', 'SuspendsController@store');
     $router->get('suspends/{id}/edit', 'SuspendsController@edit');
-    $router->post('suspends/{id}', 'SuspendsController@update');
+    $router->post('suspends/update', 'SuspendsController@update');
     $router->get('suspends/{id}', 'SuspendsController@show');    
     $router->post('suspends/add', 'SuspendsController@add');
     $router->get('suspends/pause/{id}', 'SuspendsController@pause');
-    $router->get('suspends/end/{id}', 'SuspendsController@end');  
+    $router->get('suspends/recover/{id}', 'SuspendsController@recover');
+    $router->get('suspends/end/{id}', 'SuspendsController@end');
+    $router->post('suspends/submit/{project_id}', 'SuspendsController@submit');
+
+    $router->get('yxdj', 'IntentionalPartiesController@index')->name('yxdj.index');
+    $router->get('yxdj/create/{project_id}', 'IntentionalPartiesController@create');
+    $router->get('yxdj/edit/{id}', 'IntentionalPartiesController@edit');   
+    $router->get('yxdj/{id}', 'IntentionalPartiesController@show');    
+    $router->post('yxdj/add', 'IntentionalPartiesController@add');
+    $router->post('yxdj/update', 'IntentionalPartiesController@update');
+    $router->post('yxdj/submit/', 'IntentionalPartiesController@submit');
+    $router->get('yxdj/showapproval/{id}', 'IntentionalPartiesController@showapproval');
+    $router->post('yxdj/approval/{id}', 'IntentionalPartiesController@approval');
+    $router->get('yxdj/showconfirm/{id}', 'IntentionalPartiesController@showconfirm');
+    $router->post('yxdj/confirm/{id}', 'IntentionalPartiesController@confirm');
+
 });

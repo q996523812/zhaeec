@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\ProjectLease;
 use App\Models\Project;
+use App\Models\IntentionalParty;
 use Illuminate\Support\Str;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
@@ -25,19 +26,21 @@ class ProjectLeaseService
 		// $purchases->status=1;
 		// $purchases->process=1;
 		// $purchases->save();
-
 		
         $uuid_project =  (string)Str::uuid();
         $uuid_purchase =  (string)Str::uuid();
         $projectCodeService = new ProjectCodeService();
         $projectcode = $projectCodeService->create(9);
+        $workProcessNodeService = new WorkProcessNodeService();
+        $node = $workProcessNodeService->find('zczl',$process);
 
         $data_detail['id'] = $uuid_purchase;
         $data_detail['project_id'] = $uuid_project;
         $data_detail['xmbh'] = $projectcode;
         $data_detail['user_id'] = $user->id;
         $data_detail['status'] = 1;
-        $data_detail['process'] = $process;
+        $data_detail['process'] = $node->code;
+		$data_detail['process_name'] = $node->name;
 
         $data_project['id'] = $data_detail['project_id'];
         $data_project['detail_id'] = $data_detail['id'];
@@ -47,7 +50,8 @@ class ProjectLeaseService
         $data_project['status'] = 1;
         $data_project['type'] = 'zczl';
         $data_project['process'] = $process;
-        
+        $data_project['process_name'] = $node->name;
+
         
         $detail = DB::transaction(function () use($data_detail,$data_project,$files) {
 			$detail = ProjectLease::create($data_detail);
@@ -89,12 +93,23 @@ class ProjectLeaseService
 		$project->process = $process;
 		
 		DB::transaction(function () use($detail,$project) {
-			$detail->save();
-			$project->save();
+			// $detail->save();
+			// $project->save();
 			$process = new ProcessService();
-			$process->create('zczl',$project->id,'提交',13);
+			$process->create('zczl',$detail->id,'提交',13);
 		});
 	}	
+
+	/**
+	 *$yxf_id 中标方ID
+	 */
+	public function jj($yxf_id){
+		DB::transaction(function () use($yxf_id) {
+			$yxf = IntentionalParty::find($yxf_id);
+			$yxf->is_win = 1;
+			$yxf->save();
+		});
+	}
 
 	public function upload($project_id,$file,$file_type){
 		DB::transaction(function () use($project_id,$file,$file_type) {

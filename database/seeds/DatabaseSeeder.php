@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminRolePermissionsTableSeeder::class);
         $this->call(AdminRoleUsersTableSeeder::class);//
         $this->call(WorkProcessesTableSeeder::class);
-        $this->call(WorkProcessNodesTableSeeder::class);        
+        $this->call(WorkProcessNodesTableSeeder::class);
+        $this->call(ProjectCodesTableSeeder::class);     
     }
 }

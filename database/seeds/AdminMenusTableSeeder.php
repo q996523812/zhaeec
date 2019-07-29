@@ -20,6 +20,7 @@ class AdminMenusTableSeeder extends Seeder
             $this->create(16,8,0,'资产租赁','fa-bars','/projectleases'),
             $this->create(17,8,0,'评审结果录入','fa-bars','/pbresults'),
             $this->create(18,8,0,'中标通知','fa-bars','/winnotices'),
+            $this->create(18,8,0,'意向登记审核','fa-bars','/yxdj'),
             
         ];
 

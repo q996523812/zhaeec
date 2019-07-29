@@ -26,7 +26,8 @@ class CreateProjectsTable extends Migration
             $table->unsignedInteger('user_id');
             // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('detail_id');  
-            $table->string('process');
+            $table->unsignedInteger('process');
+            $table->string('process_name')->nullable();//流程节点中文名称
             $table->timestamps();
         });
     }

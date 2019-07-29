@@ -53,11 +53,8 @@ class FileUploadHandler
         // }
         // $this->reduseSize($upload_path . $filename, $max_width);
         return [
-            'id' => (string)Str::uuid(),
             'path' => config('app.url') . "/$folder_name$filename",
             'name' => $oldname,
-            'type' =>'',
-            'project_id' => ''
         ];
     }
     public function reduseSize($file_path, $max_width)

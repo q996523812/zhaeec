@@ -58,7 +58,8 @@ class CreateProjectPurchasesTable extends Migration
             $table->text('notes')->nullable();
             $table->unsignedInteger('status')->default(1);
             
-            $table->unsignedInteger('process')->default(1);
+            $table->unsignedInteger('process')->default(11);
+            $table->string('process_name')->nullable();//流程节点中文名称
             $table->unsignedInteger('user_id');
             // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('project_id');

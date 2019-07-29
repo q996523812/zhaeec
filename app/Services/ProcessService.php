@@ -8,6 +8,9 @@ use App\Models\WorkProcessNode;
 use App\Models\WorkProcessInstance;
 use App\Models\WorkProcessRecord;
 use App\Models\Project;
+use App\Models\ProjectLease;
+use App\Models\ProjectPurchase;
+use App\Models\IntentionalParty;
 use Illuminate\Support\Str;
 
 class ProcessService
@@ -17,119 +20,109 @@ class ProcessService
 
 	}
 
-	public function createRecord($project_id,$operation,$reason){
-		$instance = Project::find($project_id)->instance()->first();
-
-		$record = new WorkProcessRecord();
-		$record->id =  (string)Str::uuid();
-		$record->project_id = $project_id;
-		$record->work_process_instance_id =  $instance->id;		
-		$record->work_process_node_name =  $instance->node()->first()->name;		
-		$record->user_id = Admin::user()->id;
-		$record->operation =  $operation;
-		return $record;
-	}
 	/*启动流程
-	 *$porjecttype 项目类型：xxypl，qycq,....
-	 *$project_id 项目主表ID
+	 *$instance_type 流程类型：xxypl，qycq,....，yxdj
+	 *$table_id 业务表ID
 	 *$operation 操作：1，提交，2 审批通过，3 审批拒绝
+	 *$init_node_code 创建流程时的节点编号
 	 */
-	public function create($porjecttype,$project_id,$operation){
-		$userModel = config('admin.database.users_model');
-		$process = (new WorkProcess)->where('projecttype',$porjecttype)->first();
-
-		$node = $process->nodes()->where('code','13')->first();
-		$nodeNext = $process->nodes()->where('code','14')->first();
-
+	public function create($instance_type,$table_id,$operation,$init_node_code){
+		$model_class = $this->getModelClass($instance_type);
+		$model = $model_class::find($table_id);
 		//流程实例
-		$instance = new WorkProcessInstance();
-		$instance->id =  (string)Str::uuid();
-		$instance->code = $process->code.str_random(4);
-		$instance->work_process_id = $process->id;
-		$instance->project_id = $project_id;
-		$instance->work_process_node_id = $node->id;
-		$instance->next_work_process_node_id = $nodeNext->id;
-		// $instance->next_role_id = $nodeNext->role()->id;
-		// $instance->next_user_id = (new $userModel())->roles()->find($nodeNext->id);
+		$instanceService = new WorkProcessInstanceService();
+		$instance = $instanceService->create($table_id,$instance_type,$init_node_code);
 
 		//流程记录
-		$record = new WorkProcessRecord();
-		$record->id =  (string)Str::uuid();
-		$record->work_process_instance_id =  $instance->id;
-		$record->project_id = $project_id;
-		$record->work_process_node_name =  $process->nodes()->where('code','11')->first()->name;		
-		$record->user_id = Admin::user()->id;
-		$record->operation =  $operation;
+		$recordService = new WorkProcessRecordService();
+		$record = $recordService->create($table_id,$instance, $model->process_name,$operation,null);
 
-		$instance->save();
-		$record->save();		
+		$process = $instance->process;
+		$nextnode = $instance->node;
+		//更新业务表流程状态	
+		$model->process = $nextnode->code;
+		$model->process_name = $nextnode->name;
+		$model->save();
+
+		if($process->type != 'yxdj'){
+			//业务表为项目明细表时，更新项目主表（project）的流程状态
+			$project = $model->project;
+			$project->process = $nextnode->code;
+			$project->process_name = $nextnode->name;
+			$project->save();
+		}
+		
 	}
 
 	/*
 		审批退回
 	*/
-	public function back($project_id,$reason){
+	public function back($table_id,$reason){
 		$operation = '审批退回';
 		$isNext = 1;
-		$this->refreshInstance($project_id,$isNext,$reason,$operation,null);
+		$this->refreshInstance($table_id,$isNext,$reason,$operation,null);
 	}
 
 	/*
 		$operation 	提交，审批通过、公告录入等
 	*/
-	public function next($project_id,$reason=null,$operation,$nodecode=null){
+	public function next($table_id,$reason=null,$operation,$nodecode=null){
 		$isNext = 2;
-		$this->refreshInstance($project_id,$isNext,$reason,$operation,$nodecode);
+		$this->refreshInstance($table_id,$isNext,$reason,$operation,$nodecode);
 	}
 
 	/**
-		$project_id
+		$table_id
 		$isNext 	1、退回，2、进入下一个流程
 		$operation	操作名称：提交，审批通过、审批退回等
 		$reason		通过/退回理由		
 		$nodecode	动作结束后所处节点，即本操作将流程发送到那个节点，此时发送节点已经明确，
 	 */	
-	public function refreshInstance($project_id,$isNext=2 ,$reason=null,$operation,$nodecode=null){
+	public function refreshInstance($table_id,$isNext=2 ,$reason=null,$operation,$nodecode=null){
+		//流程实例
+		$instanceService = new WorkProcessInstanceService();
+		$instance = $instanceService->update($table_id,$isNext,$nodecode);
+
+		$nextnode = $instance->node;
+		$process = $instance->process;
+		$model_class = $this->getModelClass($process->type);
+		$model = $model_class::find($table_id);
+
+		//流程记录
+		$recordService = new WorkProcessRecordService();
+		$record = $recordService->create($table_id,$instance,$model->process_name,$operation,$reason);
+	
+
+		//更新业务表流程状态	
+		$model->process = $nextnode->code;
+		$model->process_name = $nextnode->name;
+		$model->save();
+
+		if($process->type != 'yxdj'){
+			//业务表为项目明细表时，更新项目主表（project）的流程状态
+			$project = $model->project;
+			$project->process = $nextnode->code;
+			$project->process_name = $nextnode->name;
+			$project->save();
+		}
+
 		
-		$instance = (Project::find($project_id))->instance()->first();//当前流程实例
-		$nodes = $instance->process()->first()->nodes;//所有流程节点
-		$node = $instance->node()->first();//当前节点
-
-		//下一个操作节点
-		$nextnode = null;
-		if($isNext == 2){//审批通过
-			if($node->code == '20'){
-				$nextnode = $nodes->where('code',$nodecode)->first();
-			}
-			else{
-				$nextnode = $nodes->where('code',$node->next_node_code)->first();
-			}
-		}
-		else{//退回
-			$nextnode = $nodes->where('code',$node->back_node_code)->first();
-		}
-
-		//新增一条操作记录
-		$record = $this->createRecord($project_id,$operation,$reason);
-		//更新当前流程实例
-		$instance->work_process_node_id =  $nextnode->id;
-		if($nextnode->next_node_code){
-			$instance->next_work_process_node_id = $nodes->where('code',$nextnode->next_node_code)->first()->id;
-		}
-		//更新项目主表状态
-		$project = Project::find($project_id);
-		$project->process = $nextnode->code;
-
-		//更新项目明细状态
-		$detail = $this->getProjectDetail($project);
-		$detail->process = $nextnode->code;
-
-		$instance->save();
-		$record->save();
-		$project->save();
-		$detail->save();
 	}
-
+	public function getModelClass($type){
+		$model = null;
+		switch($type){
+			case 'zczl':
+				$model = ProjectLease::class;
+				break;
+			case 'qycg':
+				$model = ProjectPurchase::class;
+				break;
+			case 'yxdj':
+				$model = IntentionalParty::class;
+				break;
+		}
+		return $model;
+	}
 	public function getProjectDetail($project){
 		$detail = null;
 		switch($project->type){
@@ -203,16 +196,25 @@ class ProcessService
 			$detail = $project->projectLease()->first();
 			if($detail->sjly == '监管平台'){
 				switch($node->code){
-					case 19:
+					case 19://挂牌
 						$json_result = $JgptService->sendGpData($project->detail_id);
 						break;
-					case 29:
+					case 29://流标
 						// $json_result = $JgptService->lbNotice($project->detail_id);
 						break;
-					case 39:
+					case 39://中止公告
+						// $json_result = $JgptService->pause($project_id);
+						break;
+					case 49://终结公告
+						// $json_result = $JgptService->end($project_id);
+						break;
+					case 59://竞价结果
 						$json_result = $JgptService->jjResult($project_id);
 						break;
-					case 49:
+					case 69://评标结果
+						$json_result = $JgptService->pbResult($project_id);
+						break;
+					case 89://中标通知
 						$json_result = $JgptService->zbNotice($project_id);
 						break;						
 				}

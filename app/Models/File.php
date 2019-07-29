@@ -12,5 +12,9 @@ class File extends Model
     public $incrementing = false;
     // protected $guarded = [];
 
+    public function filetable()
+    {
+        return $this->morphTo();
+    }
     
 }

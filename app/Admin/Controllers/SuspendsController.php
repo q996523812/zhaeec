@@ -11,18 +11,18 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Http\Request;
-// use app\Services\SuspendService;
+use App\Services\SuspendService;
 
 class SuspendsController extends Controller
 {
     use HasResourceActions;
-    // protected $suspendService;
+    protected $suspendService;
 
-    // // 利用 Laravel 的自动解析功能注入 Service 类
-    // public function __construct(SuspendService $suspendService)
-    // {
-    //     $this->suspendService = $suspendService;
-    // }
+    // 利用 Laravel 的自动解析功能注入 Service 类
+    public function __construct(SuspendService $suspendService)
+    {
+        $this->suspendService = $suspendService;
+    }
     /**
      * Index interface.
      *
@@ -165,13 +165,18 @@ class SuspendsController extends Controller
         return $form;
     }
 
-    private function suspend($project_id,$suspend_name){
+    private function suspend($project_id,$projecttype,$suspend_name,$process, Content $content){
         $project = Project::find($project_id);
         $suspend = Suspend::where('project_id',$project_id)->Where('type',$suspend_name)->first();
+        if($suspend->doesntExist()){
+            $suspend = new Suspend();
+            $suspend->type = $suspend_name;
+        }
         $datas = [
             'project' => $project,
-            'projecttype' => 'projectleases',
+            'projecttype' => $projecttype,
             'suspend' => $suspend,
+            'process' => $process,
         ]; 
         $url = 'admin.suspend.edit';   
         return $content
@@ -193,6 +198,7 @@ class SuspendsController extends Controller
             'project' => $project,
             'projecttype' => 'projectleases',
             'suspend' => $suspend,
+            'process' => 31
         ]; 
 
         $url = 'admin.suspend.edit';   
@@ -200,6 +206,28 @@ class SuspendsController extends Controller
             ->header('中止公告')
             ->body(view($url, $datas));             
     }  
+    //恢复挂牌
+    public function recover($id, Content $content){
+        $project = Project::find($id);
+        $suspend = Suspend::where('project_id',$id)->Where('type','中止公告');
+        if($suspend->doesntExist()){
+            $suspend = new Suspend();
+            $suspend->type = '中止公告';
+        }
+        else{
+            $suspend = $suspend->first();
+        }
+        $datas = [
+            'project' => $project,
+            'projecttype' => 'projectleases',
+            'suspend' => $suspend,
+        ]; 
+
+        $url = 'admin.suspend.recover';   
+        return $content
+            ->header('中止公告')
+            ->body(view($url, $datas));             
+    }      
     //终结公告显示编辑页面
     public function end($id, Content $content){
         $project = Project::find($id);
@@ -211,6 +239,7 @@ class SuspendsController extends Controller
             'project' => $project,
             'projecttype' => 'projectleases',
             'suspend' => $suspend,
+            'process' => 41
         ]; 
         $url = 'admin.suspend.edit';   
         return $content
@@ -218,14 +247,61 @@ class SuspendsController extends Controller
             ->body(view($url, $datas));
     } 
 
-    public function submit(Request $request){
-        $detail_id = $request->id;
+    private function fields(){
+        $fields = [
+            'suspend' => ['id','xmbh','title','type','content','date_matter','date_inscription','project_id'],
+        ];
+        return $fields;
+    }
+    public function add(Request $request){
+        $data_suspend = $request->only($this->fields()['suspend']);
+        //$project_id = $request->project_id;
+        $process = $request->process;
+
+        // $service = new SuspendService();
+        // $suspend = $service->add($data_suspend,$process);
+        
+        $suspend = $this->suspendService->add($data_suspend,$process);
+        
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'id' => $suspend->id,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+        // return admin_success('title1', '保存成功');
+    }
+
+    public function update(Request $request){
+        $id = $request->id;
+        $data_suspend = $request->only($this->fields()['suspend']);
+        $detail_id = $request->detail_id;
         $project_id = $request->project_id;
-        $bulletin = $request->only(['xmbh','title','type','content','date_matter','date_inscription','project_id']);
-        // 1、保存中止公告
-        // 2、修改项目主表、明细表节点
-        // $this->suspendService->suspend($detail_id);
+        $process = $request->process;
+
+        // $service = new SuspendService();
+        // $service->update($id,$data_suspend);
+        $this->suspendService->update($id,$data_suspend);
+        
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+
+        return response()->json($result);
+    }
+
+    public function submit($project_id,Request $request){
+        // $detail_id = $request->id;
+        // $project_id = $request->project_id;
+        // $bulletin = $request->only(['xmbh','title','type','content','date_matter','date_inscription','project_id']);
+        $id = $request->id;
+        // 修改项目主表、明细表节点
+        $this->suspendService->submit($project_id,$id);
         return redirect()->route('projectleases.index');
     }  
+
 
 }

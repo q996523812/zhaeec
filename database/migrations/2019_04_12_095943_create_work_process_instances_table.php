@@ -18,7 +18,8 @@ class CreateWorkProcessInstancesTable extends Migration
             $table->string('code');
             $table->string('work_process_id');
             $table->string('work_process_node_id');
-            $table->string('project_id');
+            // $table->string('project_id');
+            $table->string('table_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('role_id')->nullable();
             $table->string('next_work_process_node_id')->nullable();

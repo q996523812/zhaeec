@@ -17,7 +17,7 @@ class CreateWorkProcessesTable extends Migration
             $table->string('id');
             $table->string('code');
             $table->string('name');
-            $table->string('projecttype');
+            $table->string('type');
             $table->unsignedInteger('status')->default(1);
             $table->timestamps();
         });

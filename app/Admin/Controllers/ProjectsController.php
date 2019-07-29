@@ -97,7 +97,7 @@ class ProjectsController extends Controller
         $grid->price('挂牌金额');
         $grid->gp_date_start('挂牌开始时间');
         $grid->gp_date_end('挂牌结束时间');
-        $workProcess = WorkProcess::where('status',1)->where('projecttype','zczl')->first();       
+        $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
         $nodes = $workProcess->nodes; 
         $grid->process('项目状态')->display(function($process)use($nodes) {
             $node = $nodes->where('code',$process)->first();
@@ -136,11 +136,12 @@ class ProjectsController extends Controller
             // 当前行的数据数组
             $rec = $actions->row;
             // $aprovePage = $this->getAprovePage($rec->type);
-            $fbnodes = array('19','29','39','49');
+            $fbnodes = array('19','29','39','49','59','69','79','89');
+            $spnodes = array('13','14','15','23','24','25','33','34','35','43','44','45','53','54','55','63','64','65','73','74','75','83','84','85');
             if(in_array($rec->process,$fbnodes) ){
                 $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>发布</i></a>");
             }
-            else if($rec->process >= 13){
+            else if(in_array($rec->process,$spnodes) ){
                 $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>审批</i></a>");
             }
             
@@ -241,15 +242,13 @@ class ProjectsController extends Controller
     public function showapproval($id, Content $content)
     {
 
-        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.project_id','=',$id)
-                ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
-                ->get();
-        $pbresults = Project::find($id)->pbResults()->get();
+        $project = Project::find($id);
+        $pbresults = $project->pbResults()->get();
         $url = '';
         $detail = null;
-        switch(Project::find($id)->type){
+        switch($project->type){
             case 'qycg':
-                    $detail = Project::find($id)->projectPurchase()->first();        
+                    $detail = $project->projectPurchase()->first();        
                     $url = 'admin.project.purchase.approval';
                 break;
             case 'zczl':
@@ -258,10 +257,17 @@ class ProjectsController extends Controller
                 break;
                  
         }
+        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detail->id)
+                ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
+                ->get();
+
         $datas = [
             'detail' => $detail,
             'records' => $records,
             'pbresults' => $pbresults,
+            'yxfs' => $project->intentionalParties,
+            'files' => $detail->files,
+            'images' => $detail->images,
         ]; 
         return $content
             ->header('审批')
@@ -274,7 +280,8 @@ class ProjectsController extends Controller
         $operation = $request->operation;
         $process = $request->process;
         DB::transaction(function () use($id,$reason,$operation,$process,$processService) {
-            $processService->next($id,$reason,$operation,$nodecode=null);
+            $project = Project::find($id);
+            $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
             $processService->postGZW($id,$process);
         });
         

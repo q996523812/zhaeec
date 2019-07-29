@@ -1,3 +1,7 @@
+<form action="@yield('submiturl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
+  <div class="box-body">
+    <div class="fields-group">
+      <div class="row">
 <div class="row table-responsive align-items-center project-table">
   <div class="col-md-12 ">
 <table class="table table-bordered">
@@ -303,3 +307,8 @@
 </table>
 </div>
 </div>
+
+      </div>                                               
+    </div>
+  </div>         
+</form> 

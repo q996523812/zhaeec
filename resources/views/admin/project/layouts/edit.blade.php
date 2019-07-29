@@ -1,26 +1,5 @@
-<style>
-.img{
-  height:200px;
-  margin-top:20px;
-}
-.img .thumbnail{
-  height:100%;
-}
-.img .thumbnail img {
-  display:block;
-  position:absolute;
-  height:100%;
-  top:0px;
-  right:0px;
-  left:0px;  
-}
-.img .thumbnail a {
-  display:block;
-  position:absolute;
-  top:0px;
-  right:15px;
-}
 
+@include('admin.project.image._list_style') 
 </style>
 <div class="warning-message">
 
@@ -54,124 +33,18 @@
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
-          <form action="/admin/projectleases'" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formfiledel">
-                {{ csrf_field() }}
-                <input type="hidden" id= "fileid" name="fileid">
-            <table id="fileslist" class="table table-bordered">
-              <tbody>
-                @foreach($detail->files as $file)
-                <tr id="{{$file->id}}">
-                  <td><a href="{{$file->path}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></td>
-                  <td><a href="javascript:void(0);" class="btnDelFile" data="{{$file->id}}">删除</a></td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          
-          </form>
-          <form action="@yield('submiturl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" enctype="multipart/form-data" id="formfile">
-            <div class="fields-group">
-              <div class="row">
-                <div class="container table-responsive col-md-12 align-items-center"> 
-                  <div class="col-md-8">
-                    <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
-                    {{csrf_field()}}
-                  </div>           
-                  <div class="col-md-8">
-                    <div class=" ">
-                      <label for="name" class=" control-label">附件名称</label>
-                      <div class="">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                          <input type="text" id="name" name="name" value="" class="form-control name" placeholder="输入 附件名称">
-                        </div>        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <div class=" ">
-                      <label for="file" class=" control-label">选择文件</label>
-                      <div class="">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                          <input type="file" id="file" name="file" value="" class="form-control file" >
-                        </div>        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="btn-group pull-right">
-                      <button type="button" id="btnSaveFile" class="btn btn-primary btn-pass">保存</button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </form>
+          @include('admin.project.file._edit') 
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-        <form action="/admin/projectleases'" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formimagedel">
-                {{ csrf_field() }}
-                <input type="hidden" id= "imageid" name="imageid">
-          <div class="row clearfix">
-            <div class="col-md-12 column">
-              <div class="row" id="imageslist">               
-                @foreach($detail->images as $image)
-                <div class="col-md-3 img" id="{{$image->id}}">                  
-                  <div class="thumbnail">                    
-                    <img alt="300x200" src="{{$image->path}}"/>
-                    <a href="#close" class="remove label label-danger" data="{{$image->id}}">
-                      <i class="glyphicon glyphicon-remove"></i>删除
-                    </a>
-                  </div>
-                </div> 
-                @endforeach 
-              </div>  
-            </div>      
-          </div>
-          </form>
-          <div>
-            <form action="@yield('submiturl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" enctype="multipart/form-data" id="formimage">
-              <div class="fields-group">
-                <div class="row">
-                  <div class="container table-responsive col-md-12 align-items-center"> 
-                    <div class="col-md-8">
-                      <input type="hidden" name="project_id" value="{{$detail->project_id}}" class="project_id form-control">
-                      {{csrf_field()}}
-                    </div>           
-                    
-                    <div class="col-md-8">
-                      <div class=" ">
-                        <label for="image" class=" control-label">选择图片</label>
-                        <div class="">
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>     
-                            <input type="file" id="image" name="image" value="" class="form-control image" >
-                          </div>        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="btn-group pull-right">
-                        <button type="button" id="btnSaveImage" class="btn btn-primary btn-pass">保存</button>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </form>            
-          </div>
-
+          @include('admin.project.image._edit')
         </div>
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/{{$projecttype}}/submit/{{$detail->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          <form action="/admin/{{$projecttype}}/submit" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
-            <input type="hidden" id="operation" name="operation" value="通过">
+            <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id">
             <input type="hidden" id="process" name="process" value="13">
             <input type="hidden" id="work_process_node_name" name="work_process_node_name" value="">
 

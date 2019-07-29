@@ -801,7 +801,7 @@
         $(document).ready(function(){
           $('.btn-pass').on('click', function () {
               $("#operation").val("摘牌");
-              $("#process").val("31");
+              $("#process").val("61");
               $(".form-horizontal").submit();
               return false;
           });

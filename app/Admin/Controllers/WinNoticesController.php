@@ -15,10 +15,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Services\ProcessService;
+use App\Services\WinNoticeService;
 
 class WinNoticesController extends Controller
 {
     use HasResourceActions;
+    protected $service;
+
+    public function __construct(WinNoticeService $winNoticeService)
+    {
+        $this->service = $winNoticeService;
+    }
 
     /**
      * Index interface.
@@ -221,13 +228,10 @@ class WinNoticesController extends Controller
     }
 
 
-    public function add(Request $request,ProcessService $processService){
+    public function add(Request $request){
         $data = $request->all();
-        $data['id'] = (string)Str::uuid();
-        DB::transaction(function () use($data,$processService) {
-            $winNotice = WinNotice::create($data);
-            $processService->next($winNotice->project_id,null,'录入中标通知书',$nodecode=null);
-        });
+        $winNotice = $this->service->add($data);
+
         return redirect()->route('winnotices.index');
     }
 }

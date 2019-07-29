@@ -18,19 +18,20 @@ class WorkProcessesTableSeeder extends Seeder
         	$this->create('zqxm','债权项目','zqxm'),
         	$this->create('qyzz','企业增资','qyzz'),
         	$this->create('zsyz','招商引资','zsyz'),
-        	
+        	$this->create('yxdj','意向登记','yxdj'),
+            
         ];
 
         // 将数据集合插入到数据库中
         WorkProcess::insert($rows);
     }
 
-    private function create($code,$name,$projecttype){
+    private function create($code,$name,$type){
         $row = [
             'id' => (string)Str::uuid(),
             'code' => $code,
             'name' => $name,
-            'projecttype' => $projecttype,
+            'type' => $type,
             'status' => 1,
             'created_at' => now(),
         ];

@@ -92,7 +92,13 @@
 		      selected: false
 		    });
 		  }
-		  $select.html(this.getList(data));
+		  if(options.savetype == 2){
+		  	$select.html(this.getList2(data));
+		  }
+		  else{
+		  	$select.html(this.getList(data));
+		  }
+		  // $select.html(this.getList(data));
 		},
 
 		getList: function (data) {
@@ -101,6 +107,22 @@
 		    list.push(
 		      '<option' +
 		      ' value="' + (n.address && n.code ? n.address : '') + '"' +
+		      ' data-code="' + (n.code || '') + '"' +
+		      (n.selected ? ' selected' : '') +
+		      '>' +
+		        (n.address || '') +
+		      '</option>'
+		    );
+		  });
+
+		  return list.join('');
+		},
+		getList2: function (data) {
+		  var list = [];
+		  $.each(data, function (i, n) {
+		    list.push(
+		      '<option' +
+		      ' value="' + n.code + '"' +
 		      ' data-code="' + (n.code || '') + '"' +
 		      (n.selected ? ' selected' : '') +
 		      '>' +
@@ -129,6 +151,7 @@
 		autoSelect: true,
 		placeholder: true,
 		type: '',
+		savetype: 1,
 		selectvalue: '——  ——'
 	};
 

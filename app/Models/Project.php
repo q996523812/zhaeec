@@ -11,7 +11,8 @@ class Project extends Model
 
     public function files()
     {
-        return $this->hasMany(File::class);
+        // return $this->hasMany(File::class,'filetable_id','id');
+        return $this->morphMany(File::class, 'filetable');
     }
     public function images()
     {
@@ -27,17 +28,20 @@ class Project extends Model
         return $this->hasOne(ProjectPurchase::class,'id','detail_id');
     }
     public function workProcessRecords(){
-    	return $this->hasMany(WorkProcessRecord::class);
+    	return $this->hasMany(WorkProcessRecord::class,'table_id','detail_id');
     }
     public function instance()
     {
-        return $this->hasOne(WorkProcessInstance::class);
+        return $this->hasOne(WorkProcessInstance::class,'table_id','detail_id');
     }
 
     public function pbResults()
     {
         return $this->hasMany(PbResult::class);
     }
-
+    public function intentionalParties()
+    {
+        return $this->hasMany(IntentionalParty::class);
+    }
      
 }

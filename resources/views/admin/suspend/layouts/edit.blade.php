@@ -1,27 +1,4 @@
-<style>
-.img{
-  height:200px;
-  margin-top:20px;
-}
-.img .thumbnail{
-  height:100%;
-}
-.img .thumbnail img {
-  display:block;
-  position:absolute;
-  height:100%;
-  top:0px;
-  right:0px;
-  left:0px;  
-}
-.img .thumbnail a {
-  display:block;
-  position:absolute;
-  top:0px;
-  right:15px;
-}
-
-</style>
+@include('admin.project.image._list_style') 
 <div class="warning-message">
 
 </div>
@@ -169,11 +146,9 @@
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/{{$projecttype}}/submit/{{$project->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          <form action="/admin/suspends/submit/{{$project->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
-            <input type="hidden" id="operation" name="operation" value="通过">
-            <input type="hidden" id="process" name="process" value="13">
-            <input type="hidden" id="work_process_node_name" name="work_process_node_name" value="">
+            <input type="hidden" id="id" name="id" value="{{$suspend->id}}" class="id">
 
             <div class="btn-group pull-center">
                 <button type="submit" class="btn btn-primary btn-pass">提交</button>
@@ -230,17 +205,21 @@
           if($("#id").val()){
             url = url+"/update";
           }
+          else{
+            url = url+"/add";
+          }
           var param = getFormToJson();
           $.ajax({
             type : "post",
             url : url,
             data : param,
-            success : function(str_reponse){
+            success : function(str_reponse){console.log(str_reponse);
               alert("保存成功");
               if(!$("#id").val()){
-                $(".id").val(str_reponse.detail_id);
-                $(".project_id").val(str_reponse.project_id);
+                $(".id").val(str_reponse.id);
+                //$(".project_id").val(str_reponse.project_id);
               }
+              console.log(getFormToJson().id)
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
             },

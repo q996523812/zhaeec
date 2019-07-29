@@ -15,7 +15,8 @@ class CreateWorkProcessRecordsTable extends Migration
     {
         Schema::create('work_process_records', function (Blueprint $table) {
             $table->string('id');
-            $table->string('project_id');
+            // $table->string('project_id');
+            $table->string('table_id');
             $table->string('work_process_instance_id');
             $table->string('work_process_node_name');
             $table->unsignedInteger('user_id');

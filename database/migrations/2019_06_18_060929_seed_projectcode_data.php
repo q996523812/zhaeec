@@ -70,7 +70,7 @@ class SeedProjectcodeData extends Migration
             ],
 
         ];
-        DB::table('project_codes')->insert($records);
+        //DB::table('project_codes')->insert($records);
     }
 
     /**
