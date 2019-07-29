@@ -249,11 +249,11 @@ class ProjectsController extends Controller
         switch($project->type){
             case 'qycg':
                     $detail = $project->projectPurchase()->first();        
-                    $url = 'admin.project.purchase.approval';
+                    $url = 'admin.project.qycg.approval';
                 break;
             case 'zczl':
                     $detail = ProjectLease::where('project_id',$id)->first();        
-                    $url = 'admin.project.lease.approval';
+                    $url = 'admin.project.zczl.approval';
                 break;
                  
         }

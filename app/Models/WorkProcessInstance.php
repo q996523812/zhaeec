@@ -37,5 +37,7 @@ class WorkProcessInstance extends Model
         $roleModel = config('admin.database.roles_model');
         return $this->belongsTo($roleModel,'next_role_id');
     }
-
+    public function workProcessRecords(){
+        return $this->hasMany(WorkProcessRecord::class);
+    }
 }

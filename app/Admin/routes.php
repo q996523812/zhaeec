@@ -12,35 +12,36 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
 
-    $router->get('projectpurchases', 'ProjectPurchasesController@index')->name('projectpurchase.index');
-    $router->get('projectpurchases/create', 'ProjectPurchasesController@create');
-    $router->post('projectpurchases', 'ProjectPurchasesController@add');
-    $router->get('projectpurchases/{id}/edit', 'ProjectPurchasesController@edit');
-    // $router->put('projectpurchases/{id}', 'ProjectPurchasesController@update');
-    $router->post('projectpurchases/update', 'ProjectPurchasesController@update');
-    $router->get('projectpurchases/{id}', 'ProjectPurchasesController@show');
-    $router->post('projectpurchases/submit', 'ProjectPurchasesController@submit');
-    $router->get('projectpurchases/showzp/{id}', 'ProjectPurchasesController@showzp');
-    $router->post('projectpurchases/zp/{id}', 'ProjectPurchasesController@zp');
-    $router->get('projectpurchases/editpb/{id}', 'ProjectPurchasesController@editpb');
-    $router->post('projectpurchases/pb/{id}', 'ProjectPurchasesController@pb');
-    $router->get('projectpurchases/copy/{id}', 'ProjectPurchasesController@copy');
+    $router->get('qycg', 'ProjectPurchasesController@index')->name('qycg.index');
+    $router->get('qycg/create', 'ProjectPurchasesController@create');
+    $router->post('qycg', 'ProjectPurchasesController@add');
+    $router->get('qycg/{id}/edit', 'ProjectPurchasesController@edit');
+    // $router->put('qycg/{id}', 'ProjectPurchasesController@update');
+    $router->post('qycg/update', 'ProjectPurchasesController@update');
+    $router->get('qycg/{id}', 'ProjectPurchasesController@show');
+    $router->post('qycg/submit', 'ProjectPurchasesController@submit');
+    $router->get('qycg/showzp/{id}', 'ProjectPurchasesController@showzp');
+    $router->post('qycg/zp/{id}', 'ProjectPurchasesController@zp');
+    $router->get('qycg/editpb/{id}', 'ProjectPurchasesController@editpb');
+    $router->post('qycg/pb/{id}', 'ProjectPurchasesController@pb');
+    $router->get('qycg/copy/{id}', 'ProjectPurchasesController@copy');
+    $router->get('qycg/manage/{id}', 'ProjectPurchasesController@manage');
     
 
-    $router->get('projectleases', 'ProjectLeasesController@index')->name('projectleases.index');
-    $router->get('projectleases/create', 'ProjectLeasesController@create');
-    $router->post('projectleases', 'ProjectLeasesController@add');
-    $router->get('projectleases/{id}/edit', 'ProjectLeasesController@edit');
-    // $router->put('projectleases/{id}', 'ProjectLeasesController@update');
-    $router->post('projectleases/update', 'ProjectLeasesController@update');
-    $router->get('projectleases/{id}', 'ProjectLeasesController@show');
-    $router->post('projectleases/submit', 'ProjectLeasesController@submit');
-    $router->get('projectleases/showzp/{id}', 'ProjectLeasesController@showzp');
-    $router->post('projectleases/zp/{id}', 'ProjectLeasesController@zp');
-    $router->get('projectleases/editjj/{id}', 'ProjectLeasesController@editjj');
-    $router->post('projectleases/jj', 'ProjectLeasesController@jj');
-    $router->get('projectleases/copy/{id}', 'ProjectLeasesController@copy');
-    $router->get('projectleases/manage/{id}', 'ProjectLeasesController@manage');
+    $router->get('zczl', 'ProjectLeasesController@index')->name('zczl.index');
+    $router->get('zczl/create', 'ProjectLeasesController@create');
+    $router->post('zczl', 'ProjectLeasesController@add');
+    $router->get('zczl/{id}/edit', 'ProjectLeasesController@edit');
+    // $router->put('zczl/{id}', 'ProjectLeasesController@update');
+    $router->post('zczl/update', 'ProjectLeasesController@update');
+    $router->get('zczl/{id}', 'ProjectLeasesController@show');
+    $router->post('zczl/submit', 'ProjectLeasesController@submit');
+    $router->get('zczl/showzp/{id}', 'ProjectLeasesController@showzp');
+    $router->post('zczl/zp/{id}', 'ProjectLeasesController@zp');
+    $router->get('zczl/editjj/{id}', 'ProjectLeasesController@editjj');
+    $router->post('zczl/jj', 'ProjectLeasesController@jj');
+    $router->get('zczl/copy/{id}', 'ProjectLeasesController@copy');
+    $router->get('zczl/manage/{id}', 'ProjectLeasesController@manage');
     
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');
     $router->get('workprocesses/create', 'WorkProcessesController@create');

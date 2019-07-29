@@ -1,6 +1,6 @@
 
 @include('admin.project.image._list_style') 
-</style>
+
 <div class="warning-message">
 
 </div>

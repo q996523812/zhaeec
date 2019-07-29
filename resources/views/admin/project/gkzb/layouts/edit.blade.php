@@ -8,18 +8,11 @@
   <div class="box-header with-border">
     <ul id="myTab" class="nav nav-tabs ">
       <li class="active"><a href="#tab1" data-toggle="tab">基本信息</a></li>
-      <li><a href="#tab2" data-toggle="tab">附件</a></li> 
-      <li><a href="#tab3" data-toggle="tab">图片</a></li> 
+      <li><a href="#tab2" data-toggle="tab">附件</a></li>
       <li><a href="#tab4" data-toggle="tab">审批</a></li> 
     </ul>
 
     <div class="box-tools">
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="/admin/{{$projecttype}}/copy/{{$detail->id}}" class="btn btn-sm btn-default btn-copy"><i class="fa fa-copy"></i> 复制项目</a>
-      </div>
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
-      </div>
       <div class="btn-group float-right" style="margin-right: 10px">
         <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
       </div>
@@ -34,10 +27,6 @@
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
           @include('admin.project.file._edit') 
-        </div>
-        <!--图片-->
-        <div class="tab-pane fade" id="tab3">
-          @include('admin.project.image._edit')
         </div>
 
         <!--提交审批-->
@@ -67,25 +56,7 @@
 @yield('script')
 <script>
     $(document).ready(function(){
-      function getFormToJson(){
-        var data = {};
-        $("#formdetail input").each(function(i){
-          var code = $(this).attr("name");
-          var value = this.value;
-          data[code] = value;
-        });
-        $("#formdetail textarea").each(function(i){
-          var code = $(this).attr("name");
-          var value = this.value;
-          data[code] = value;
-        });
-        $("#formdetail select").each(function(i){
-          var code = $(this).attr("name");
-          var value = this.value;
-          data[code] = value;
-        });
-        return data;
-      }
+
       function show_warning(message){
         var html = "";
         html = "<div class='alert alert-warning alert-dismissable'>";
@@ -94,36 +65,6 @@
         $(".warning-message").html(html);
       }
 
-      $('#btnSaveData').on('click', function () {
-          $("button").attr("disabled","disabled");
-          // var projecttype = "@yield('projecttype')";
-          var projecttype = $("#projecttype").val();
-          var url = "/admin/"+projecttype;
-          // var url = "/api/zczl/create";
-          if($("#id").val()){
-            url = url+"/update";
-          }
-          var param = getFormToJson();
-          $.ajax({
-            type : "post",
-            url : url,
-            data : param,
-            success : function(str_reponse){
-              console.log(str_reponse);
-              alert("保存成功");
-              if(!$("#id").val()){
-                // $("#id").val(str_reponse.detail_id)
-                $(".id").val(str_reponse.detail_id);
-                $(".project_id").val(str_reponse.project_id);
-              }
-              $("button").removeAttr("disabled");
-              $(".warning-message").html("");
-            },
-            error : function(XMLHttpRequest,err,e){
-              error(XMLHttpRequest);
-            }
-          });
-      });
 
       $('.btnDelFile').on('click', function () {
         var id = $(this).attr("data");

@@ -1,4 +1,4 @@
 @extends('admin.project.layouts.zp')
-@section('listurl','/admin/projectleases')
+@section('listurl','/admin/zczl')
 
 @section('nextprocess',51)

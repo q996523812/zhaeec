@@ -230,9 +230,10 @@ class IntentionalPartiesController extends Controller
     }
 
     public function submit(Request $request){
-        $detail_id = $request->id;
-        $this->service->submit($detail_id);
-        return redirect()->route('projectleases.index');
+        $id = $request->id;
+        $this->service->submit($id);
+        $project = IntentionalParty::find($id)->project;
+        return redirect()->route($project->type.'.index');
     }   
 
     public function showapproval($id,Content $content){

@@ -40,7 +40,7 @@
         </div>
         <!--意向方-->
         <div class="tab-pane fade" id="tab4">
-          @include('admin.project.yxf._list')
+          @include('admin.project.yxf._list_show')
         </div>
         <!--操作记录-->
         <div class="tab-pane fade" id="tab5">
@@ -57,7 +57,7 @@
 
         <!--审批-->
         <div class="tab-pane fade in active" id="tab8">
-          <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
+          <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
             <div class="box-body">
               <div class="fields-group">
@@ -98,12 +98,12 @@
     $(document).ready(function(){
       $('.btn-pass').on('click', function () {
           $("#operation").val("审批通过");
-          $(".form-horizontal").submit();
+          $("#approvalForm").submit();
           return false;
       });
       $('.btn-back').on('click', function () {
           $("#operation").val("审批退回");
-          $(".form-horizontal").submit();
+          $("#approvalForm").submit();
           return false;
       });
 

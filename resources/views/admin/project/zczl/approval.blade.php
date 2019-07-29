@@ -2,5 +2,5 @@
 @section('listurl','/admin/projects')
 
 @section('content')
-  @include('admin.project.lease._project_show')
+  @include('admin.project.zczl._show')
 @endsection

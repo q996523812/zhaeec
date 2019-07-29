@@ -42,11 +42,11 @@
         </div>
         <!--意向方-->
         <div class="tab-pane fade" id="tab4">
-          @include('admin.project.yxf._list')
+          @include('admin.project.yxf._list_show')
         </div>
         <!--操作记录-->
         <div class="tab-pane fade" id="tab5">
-          @include('admin.project.history._list_show')
+          @include('admin.project.history._list')
         </div>
         <!--通知单-->
         <div class="tab-pane fade" id="tab6">

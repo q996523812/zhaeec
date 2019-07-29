@@ -196,7 +196,7 @@ class SuspendsController extends Controller
         }
         $datas = [
             'project' => $project,
-            'projecttype' => 'projectleases',
+            'projecttype' => $project->type,
             'suspend' => $suspend,
             'process' => 31
         ]; 
@@ -219,7 +219,7 @@ class SuspendsController extends Controller
         }
         $datas = [
             'project' => $project,
-            'projecttype' => 'projectleases',
+            'projecttype' => $project->type,
             'suspend' => $suspend,
         ]; 
 
@@ -231,13 +231,14 @@ class SuspendsController extends Controller
     //终结公告显示编辑页面
     public function end($id, Content $content){
         $project = Project::find($id);
-        $suspend = Suspend::where('project_id',$id)->andWhere('type','终结公告')->first();
-        if($suspend->doesntExist()){
+        $suspend = Suspend::where('project_id',$id)->Where('type','终结公告')->first();
+        if($suspend == null || $suspend->doesntExist()){
             $suspend = new Suspend();
+            $suspend->type = '终结公告';
         }
         $datas = [
             'project' => $project,
-            'projecttype' => 'projectleases',
+            'projecttype' => $project->type,
             'suspend' => $suspend,
             'process' => 41
         ]; 

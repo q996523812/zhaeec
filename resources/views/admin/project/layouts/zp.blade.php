@@ -12,7 +12,7 @@
   </div>
   <div class="box-body">
       <div class="col-md-8">
-        <form action="/admin/projectleases/zp/{{$detial->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+        <form action="/admin/{{$projecttype}}/zp/{{$detial->id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
           {{csrf_field()}}
           <input type="hidden" id="operation" name="operation" value="通过">
           <input type="hidden" id="process" name="process" value="">
