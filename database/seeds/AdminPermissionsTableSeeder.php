@@ -9,7 +9,7 @@ class AdminPermissionsTableSeeder extends Seeder
     public function run()
     {
         $rows = [
-            $this->create(6,'项目管理','projects','',"/projectpurchases*\r\n/jgptprojectpurchases*\r\n/jgptprojectleases*\r\n/projectleases*\r\n/pbresults*\r\n/winnotices*"),
+            $this->create(6,'项目管理','projects','',"/qycg*\r\n/jgptprojectpurchases*\r\n/jgptprojectleases*\r\n/zczl*\r\n/pbresults*\r\n/winnotices*"),
             $this->create(7,'项目设置','projectsetting','','/workprocesses*'),
             $this->create(8,'项目审批','approve','','/projects*'),
         ];

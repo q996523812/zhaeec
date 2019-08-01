@@ -191,13 +191,13 @@ class ProjectBaseController extends Controller
         $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
             return date('Y-m-d',strtotime($gp_date_end));
         });
-
-        $workProcess = WorkProcess::where('status',1)->where('type',$this->projectTypeCode)->first();       
-        $nodes = $workProcess->nodes; 
-        $grid->process('项目状态')->display(function($process)use($nodes) {
-            $node = $nodes->where('code',$process)->first();
-            return $node->name;
-        });
+        $grid->process_name('项目状态');
+        // $workProcess = WorkProcess::where('status',1)->where('type',$this->projectTypeCode)->first();       
+        // $nodes = $workProcess->nodes; 
+        // $grid->process('项目状态')->display(function($process)use($nodes) {
+        //     $node = $nodes->where('code',$process)->first();
+        //     return $node->name;
+        // });
         $user = Admin::user();
         $grid->model()->where('user_id', $user->id);
 
@@ -308,7 +308,7 @@ class ProjectBaseController extends Controller
         $this->service->update($detail_id,$data_detail,$data_project,11,null);
         $result = [
             'success' => 'true',
-            'message' => '',
+            'message' => $data_detail,
             'status_code' => '200'
         ];
 

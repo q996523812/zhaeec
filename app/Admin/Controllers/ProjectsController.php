@@ -97,12 +97,13 @@ class ProjectsController extends Controller
         $grid->price('挂牌金额');
         $grid->gp_date_start('挂牌开始时间');
         $grid->gp_date_end('挂牌结束时间');
-        $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
-        $nodes = $workProcess->nodes; 
-        $grid->process('项目状态')->display(function($process)use($nodes) {
-            $node = $nodes->where('code',$process)->first();
-            return $node->name;
-        });
+        $grid->process_name('项目状态');
+        // $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
+        // $nodes = $workProcess->nodes; 
+        // $grid->process('项目状态')->display(function($process)use($nodes) {
+        //     $node = $nodes->where('code',$process)->first();
+        //     return $node->name;
+        // });
 
         $grid->user_id('项目经理')->display(function($user_id){
             // $admin_user = $nodes->where('code',$process)->first();
@@ -207,7 +208,7 @@ class ProjectsController extends Controller
         $projectids = DB::table('work_process_instances')
             ->leftJoin('work_process_nodes','work_process_instances.work_process_node_id','=','work_process_nodes.id')
             ->whereIn('work_process_nodes.role_id',$roles)
-            ->pluck('work_process_instances.project_id');
+            ->pluck('work_process_instances.table_id');
 
         return $projectids;
     }
