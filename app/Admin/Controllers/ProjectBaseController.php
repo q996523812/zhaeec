@@ -199,7 +199,10 @@ class ProjectBaseController extends Controller
         //     return $node->name;
         // });
         $user = Admin::user();
-        $grid->model()->where('user_id', $user->id);
+        if($user->id != 1){
+            $grid->model()->where('user_id', $user->id);
+        }
+        
 
         $getBotton = function($title,$view,$fa,$id,$methed){
             $a = "<a href='/admin/".$this->projectTypeCode."/".$methed."/".$id."' style='margin-left:10px;' title='".$title."'><i class='fa fa-".$fa."'></i>".$view."</a>";

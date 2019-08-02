@@ -116,7 +116,6 @@ class ProjectsController extends Controller
         $user = Admin::user();
         $role = $user->roles()->first();
         if($user->id != 1){
-            // dd($this->getProjectIds());
             $grid->model()->whereIn('detail_id',$this->getProjectIds());
         }
         // $grid->model()->instance()->node()->where('role_id',$role->id);
