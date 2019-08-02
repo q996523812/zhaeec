@@ -50,7 +50,7 @@ class CreateProjectLeasesTable extends Migration
             $table->string('bjms');//
             $table->decimal('jjfd');//
             $table->string('jysj_bz');//
-            $table->string('yxf_zgtj');//
+            $table->text('yxf_zgtj');//
             $table->text('yxdj_zlqd');//
             $table->datetime('bzj_jn_time_end')->nullable();//
             $table->decimal('bzj',26,6);//

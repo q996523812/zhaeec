@@ -47,7 +47,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->decimal('jjfd',26,6)->nullable();
             $table->datetime('jy_date')->nullable();
             $table->string('zbdl_lxfs')->nullable();
-            $table->string('yxf_zgtj')->nullable();
+            $table->text('yxf_zgtj')->nullable();
             $table->text('yxdj_zlqd')->nullable();
             $table->string('yxdj_sj')->nullable();
             $table->string('yxdj_fs')->nullable();
