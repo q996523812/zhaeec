@@ -29,7 +29,7 @@ class CreateProjectLeasesTable extends Migration
             $table->string('wtf_jt')->comment('所属集团');//
             $table->string('wtf_dlr_name')->comment('委托代理人名称');//
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话');//
-            $table->string('xmbh')->comment('项目编号')->nullable();//
+            $table->string('xmbh')->comment('项目编号')->unique()->nullable();//
             $table->string('title')->comment('标的名称');//
             $table->string('pzjg')->comment('挂牌交易批准机构');//
             $table->text('bdgk')->comment('项目(标的)概况');//
@@ -45,10 +45,10 @@ class CreateProjectLeasesTable extends Migration
             $table->string('zclb')->comment('资产类别');//
             $table->string('fbfs')->comment('信息发布方式');//
             $table->string('zcsfsx')->comment('交易资产中是否存在权利受到限制的情形');//
-            $table->decimal('pgjz')->comment('标的资产评估值(人民币)元');//
+            $table->decimal('pgjz',26,6)->comment('标的资产评估值(人民币)元');//
             $table->string('jyfs')->comment('交易方式');//
             $table->string('bjms')->comment('报价模式');//
-            $table->decimal('jjfd')->comment('加价幅度');//
+            $table->decimal('jjfd',26,6)->comment('加价幅度');//
             $table->string('jysj_bz')->comment('交易时间备注');//
             $table->text('yxf_zgtj')->comment('意向方资格条件');//
             $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单');//
@@ -74,7 +74,7 @@ class CreateProjectLeasesTable extends Migration
 
             $table->unsignedInteger('process')->comment('流程节点代码')->default(11);
             $table->string('process_name')->comment('流程节点名称')->nullable();//流程节点中文名称
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->comment('录入用户，即项目经理');
             // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');

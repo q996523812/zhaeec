@@ -29,7 +29,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('wtf_jt')->comment('所属集团')->nullable();
             $table->string('wtf_dlr_name')->comment('委托代理人名称')->nullable();
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();
-            $table->string('xmbh')->comment('项目编号')->nullable()->nullable();
+            $table->string('xmbh')->comment('项目编号')->unique()->nullable();
             $table->string('title')->comment('标的名称')->nullable();
             $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();
             $table->text('bdgk')->comment('标的概况')->nullable();
@@ -60,7 +60,7 @@ class CreateProjectPurchasesTable extends Migration
             
             $table->unsignedInteger('process')->comment('流程节点代码')->default(11);
             $table->string('process_name')->comment('流程节点名称')->nullable();//流程节点中文名称
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->comment('录入用户，即项目经理');
             // $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');

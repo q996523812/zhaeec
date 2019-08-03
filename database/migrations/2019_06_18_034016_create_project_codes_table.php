@@ -16,6 +16,7 @@ class CreateProjectCodesTable extends Migration
         Schema::create('project_codes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
+            $table->string('code');
             $table->string('template');
             $table->unsignedInteger('pointer');
             $table->unsignedInteger('year');

@@ -49,6 +49,7 @@ class ProjectBaseController extends Controller
      * 
      */
     protected $detail_class;
+    protected $request_class;
 
 	/**
      * 列表页面
