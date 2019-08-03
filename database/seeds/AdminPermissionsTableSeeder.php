@@ -11,7 +11,7 @@ class AdminPermissionsTableSeeder extends Seeder
         $rows = [
             $this->create(6,'项目管理','projects','',"/qycg*\r\n/jgptprojectpurchases*\r\n/jgptprojectleases*\r\n/zczl*\r\n/pbresults*\r\n/winnotices*"),
             $this->create(7,'项目设置','projectsetting','','/workprocesses*'),
-            $this->create(8,'项目审批','approve','','/projects*\r\n/yxdj*'),
+            $this->create(8,'项目审批','approve','',"/projects*\r\n/yxdj*"),
         ];
 
         // 将数据集合插入到数据库中
