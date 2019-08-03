@@ -10,8 +10,12 @@ class AdminRoleUsersTableSeeder extends Seeder
     {
         $rows = [
             $this->create(2,2),
-            $this->create(2,3),
-            
+            $this->create(3,3),
+            $this->create(4,4),
+            $this->create(5,5),
+            $this->create(6,6),
+            $this->create(6,7),
+            $this->create(2,8),
         ];
 
         // 将数据集合插入到数据库中
