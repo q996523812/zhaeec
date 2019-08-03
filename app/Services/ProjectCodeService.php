@@ -17,7 +17,9 @@ class ProjectCodeService
 		// 	set_exception_handler('myException');  
 		// 	throw new Exception('项目类型不能为空');
 		// }
-		$code = ProjectCode::find($type);
+		// $code = ProjectCode::find($type);
+		$code = ProjectCode::where('code',$type)->first();
+		
 		$template = $code->template;
 		$pointer = $code->pointer;
 		$year = date('Y');

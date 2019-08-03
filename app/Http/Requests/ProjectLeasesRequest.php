@@ -25,6 +25,18 @@ class ProjectLeasesRequest extends FormRequest
     {
         return [
             'wtf_name' => 'required',
+            'title' => 'required',
         ];
     }
+
+
+    public function messages()
+    {
+        $message = [
+            'wtf_name.required'      =>'委托方名称必须填写！',
+            'title.required'      =>'项目名称必须填写！'
+        ];
+        return $message;
+    }
+
 }

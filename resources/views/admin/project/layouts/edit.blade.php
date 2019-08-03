@@ -86,13 +86,6 @@
         });
         return data;
       }
-      function show_warning(message){
-        var html = "";
-        html = "<div class='alert alert-warning alert-dismissable'>";
-        html += message;
-        html += '<\/div>';
-        $(".warning-message").html(html);
-      }
 
       $('#btnSaveData').on('click', function () {
           $("button").attr("disabled","disabled");
@@ -109,12 +102,12 @@
             url : url,
             data : param,
             success : function(str_reponse){
-              console.log(str_reponse);
               alert("保存成功");
               if(!$("#id").val()){
                 // $("#id").val(str_reponse.detail_id)
                 $(".id").val(str_reponse.detail_id);
                 $(".project_id").val(str_reponse.project_id);
+                $(".xmbh").val(str_reponse.xmbh);
               }
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
@@ -134,7 +127,6 @@
         $("#fileid").val(id);
         var param = new FormData($('#formfiledel')[0]);
         // param.id = id;
-        console.log(param.fileid);
         var saveSuccess = function(){
           $("#"+id).remove();
         }
@@ -150,16 +142,12 @@
             contentType: false,
             dataType:"json",
             success : function(str_reponse){
-              console.log(111);
-              console.log(str_reponse);
               alert("保存成功");
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
               saveSuccess();
             },
             error : function(XMLHttpRequest,err,e){
-              console.log(222);
-              console.log(XMLHttpRequest);
               error(XMLHttpRequest);
             }
         });
@@ -171,7 +159,6 @@
         // var param = {"id":id,"fileid":id,"_token":_token};       
         $("#imageid").val(id);
         var param = new FormData($('#formimagedel')[0]);
-        console.log(param);
         var saveSuccess = function(){
           $("#"+id).remove();
         }
@@ -184,16 +171,12 @@
             contentType: false,
             dataType:"json",
             success : function(str_reponse){
-              console.log(111);
-              console.log(str_reponse);
               alert("保存成功");
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
               saveSuccess();
             },
             error : function(XMLHttpRequest,err,e){
-              console.log(222);
-              console.log(XMLHttpRequest);
               error(XMLHttpRequest);
             }
         });       
@@ -250,29 +233,43 @@
             contentType: false,
             dataType:"json",
             success : function(str_reponse){
-              console.log(str_reponse);
               alert("操作成功");
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
               saveSuccess(str_reponse.file);
             },
             error : function(XMLHttpRequest,err,e){
-              console.log(XMLHttpRequest);
               error(XMLHttpRequest);
             }
-          });      
+          });
       }
+
+      function show_warning(message){console.log(message);
+        var html = "";
+        html = "<div class='alert alert-warning alert-dismissable'>";
+        html += message;
+        html += '<\/div>';
+        $(".warning-message").html(html);
+      }
+
       function error(XMLHttpRequest){
         var status = XMLHttpRequest.status;
         var response = XMLHttpRequest.responseJSON;
-        var errors = "";
-        if(status == '500'){
-          errors = response.message;
+        var message = "";
+        if(status == '422'){
+          var errors = response.errors;
+          for(var index in errors){
+            message += errors[index];
+          }
         }
-        else if(status == '422'){
-          errors = response.errors;
+        else{
+          message = response.message;
         }
-        show_warning(errors);            
+        // else if(status == '500'){
+        //   errors = response.message;
+        // }
+         
+        show_warning(message);            
         $("button").removeAttr("disabled");        
       }
 

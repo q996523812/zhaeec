@@ -49,7 +49,6 @@ class ProjectBaseController extends Controller
      * 
      */
     protected $detail_class;
-    protected $request_class;
 
 	/**
      * 列表页面
@@ -133,6 +132,7 @@ class ProjectBaseController extends Controller
         $detail->id = '';
         $detail->project_id = '';
         $detail->process = '11';
+        $detail->xmbh = '';
         
         $datas = $this->getDatasToView($detail);
         $url = $this->getViewUrl('edit');
@@ -182,7 +182,7 @@ class ProjectBaseController extends Controller
             $filter->like('title', '项目名称');
             $filter->like('xmbh', '项目编号');
         });
-
+        $grid->xmbh('项目编号');
         $grid->wtf_name('委托方名称');
         $grid->title('项目名称');
         $grid->gpjg_zj('挂牌金额(总价)');
@@ -299,6 +299,7 @@ class ProjectBaseController extends Controller
             'message' => $detail,
             'detail_id' => $detail->id,
             'project_id' => $detail->project_id,
+            'xmbh' => $detail->xmbh,
             'status_code' => '200'
         ];
         return response()->json($result);

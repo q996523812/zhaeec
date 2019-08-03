@@ -14,10 +14,10 @@ Route::group([
 
     $router->get('qycg', 'ProjectPurchasesController@index')->name('qycg.index');
     $router->get('qycg/create', 'ProjectPurchasesController@create');
-    $router->post('qycg', 'ProjectPurchasesController@add');
+    $router->post('qycg', 'ProjectPurchasesController@insert');
     $router->get('qycg/{id}/edit', 'ProjectPurchasesController@edit');
     // $router->put('qycg/{id}', 'ProjectPurchasesController@update');
-    $router->post('qycg/update', 'ProjectPurchasesController@update');
+    $router->post('qycg/update', 'ProjectPurchasesController@modify');
     $router->get('qycg/{id}', 'ProjectPurchasesController@show');
     $router->post('qycg/submit', 'ProjectPurchasesController@submit');
     $router->get('qycg/showzp/{id}', 'ProjectPurchasesController@showzp');
@@ -30,10 +30,10 @@ Route::group([
 
     $router->get('zczl', 'ProjectLeasesController@index')->name('zczl.index');
     $router->get('zczl/create', 'ProjectLeasesController@create');
-    $router->post('zczl', 'ProjectLeasesController@add');
+    $router->post('zczl', 'ProjectLeasesController@insert');
     $router->get('zczl/{id}/edit', 'ProjectLeasesController@edit');
     // $router->put('zczl/{id}', 'ProjectLeasesController@update');
-    $router->post('zczl/update', 'ProjectLeasesController@update');
+    $router->post('zczl/update', 'ProjectLeasesController@modify');
     $router->get('zczl/{id}', 'ProjectLeasesController@show');
     $router->post('zczl/submit', 'ProjectLeasesController@submit');
     $router->get('zczl/showzp/{id}', 'ProjectLeasesController@showzp');

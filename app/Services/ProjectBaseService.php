@@ -26,7 +26,7 @@ class ProjectBaseService
         $uuid_project =  (string)Str::uuid();
         $uuid_purchase =  (string)Str::uuid();
         $projectCodeService = new ProjectCodeService();
-        $projectcode = $projectCodeService->create(9);
+        $projectcode = $projectCodeService->create($this->project_type_code);
         $workProcessNodeService = new WorkProcessNodeService();
         $node = $workProcessNodeService->find($this->project_type_code,$process);
 
