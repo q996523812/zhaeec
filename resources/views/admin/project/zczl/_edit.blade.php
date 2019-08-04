@@ -90,7 +90,7 @@
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-          <input type="text" id="zlqx" name="zlqx" value="{{$detail->zlqx}}" class="form-control number zlqx" placeholder="输入 是否含税">
+          <input type="text" id="zlqx" name="zlqx" value="{{$detail->zlqx}}" class="form-control number zlqx" placeholder="输入 租赁期限（月）">
         </div>          
       </td>
     </tr>    
