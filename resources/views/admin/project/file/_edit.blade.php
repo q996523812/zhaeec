@@ -6,7 +6,7 @@
                 @foreach($files as $file)
                 <tr id="{{$file->id}}">
                   <td><a href="{{$file->path}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></td>
-                  <td><a href="javascript:void(0);" class="btnDelFile" data="{{$file->id}}">删除</a></td>
+                  <td><a href="javascript:void(0);" class="remove" data="{{$file->id}}">删除</a></td>
                 </tr>
                 @endforeach
               </tbody>

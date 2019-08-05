@@ -26,6 +26,7 @@ Route::group([
     $router->post('qycg/pb/{id}', 'ProjectPurchasesController@pb');
     $router->get('qycg/copy/{id}', 'ProjectPurchasesController@copy');
     $router->get('qycg/manage/{id}', 'ProjectPurchasesController@manage');
+    $router->get('qycg/print/{id}', 'ProjectPurchasesController@print');
     
 
     $router->get('zczl', 'ProjectLeasesController@index')->name('zczl.index');
@@ -42,6 +43,7 @@ Route::group([
     $router->post('zczl/jj', 'ProjectLeasesController@jj');
     $router->get('zczl/copy/{id}', 'ProjectLeasesController@copy');
     $router->get('zczl/manage/{id}', 'ProjectLeasesController@manage');
+    $router->get('zczl/print/{id}', 'ProjectLeasesController@print');
     
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');
     $router->get('workprocesses/create', 'WorkProcessesController@create');
@@ -59,6 +61,7 @@ Route::group([
     // $router->get('projects/create', 'ProjectsController@create');
     // $router->post('projects', 'ProjectsController@add');
     $router->get('projects/{id}/edit', 'ProjectsController@edit');
+    $router->get('projects/{id}', 'ProjectsController@show');
     $router->get('projects/showapproval/{id}', 'ProjectsController@showapproval');
     $router->post('projects/approval/{id}', 'ProjectsController@approval');
 

@@ -299,7 +299,7 @@ class JgptProjectLeasesController extends Controller
         $form->text('fc_jcsj', '建成时间')->readonly();
         $form->text('fc_dqyt', '当前用途')->readonly();
         $form->text('fc_yzh_yxq', '原租户是否享有优先权')->readonly();
-        $form->hide('status', '状态');
+        $form->hidden('status', '状态');
         $form->hasMany('files', '附件列表', function (Form\NestedForm $form) {
             
             $form->file('path','附件')->readonly();

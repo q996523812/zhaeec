@@ -20,7 +20,7 @@ class CreateIntentionalPartiesTable extends Migration
             $table->string('id_type')->comment('证件类型');//证件类型
             $table->string('id_code')->comment('证件号码');//证件号码
             // $table->datetime('date_register');//登记时间
-            $table->decimal('deposit')->comment('保证金')->nullable();//保证金
+            $table->decimal('deposit',26,6)->comment('保证金')->nullable();//保证金
             $table->unsignedInteger('is_win')->comment('是否中标,0:否、1：是')->default(0);//是否中标,0:否、1：是
 
             $table->string('project_id');

@@ -46,10 +46,38 @@ class ProjectsController extends Controller
      */
     public function show($id, Content $content)
     {
+        $project = Project::find($id);
+        $pbresults = $project->pbResults()->get();
+        $url = '';
+        $detail = null;
+        switch($project->type){
+            case 'qycg':
+                    $detail = $project->projectPurchase()->first();        
+                    $url = 'admin.project.qycg.show';
+                break;
+            case 'zczl':
+                    $detail = ProjectLease::where('project_id',$id)->first();        
+                    $url = 'admin.project.zczl.show';
+                break;
+                 
+        }
+        $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detail->id)
+                ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
+                ->get();
+
+        $datas = [
+            'detail' => $detail,
+            'records' => $records,
+            'pbresults' => $pbresults,
+            'yxfs' => $project->intentionalParties,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'projecttype' => $project->type,
+        ]; 
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('审批')
+            // body 方法可以接受 Laravel 的视图作为参数
+            ->body(view($url, $datas));  
     }
 
     /**

@@ -97,6 +97,7 @@
             url = url+"/update";
           }
           var param = getFormToJson();
+          console.log(JSON.stringify(param));
           $.ajax({
             type : "post",
             url : url,
@@ -118,21 +119,12 @@
           });
       });
 
-      $('.btnDelFile').on('click', function () {
-        var id = $(this).attr("data");
-        var _token = $("#formfiledel [name='_token']").val();       
-        var url = "/admin/files/destroy";
-        // var param = {"id":id,"fileid":id,"_token":_token};
-        
-        $("#fileid").val(id);
-        var param = new FormData($('#formfiledel')[0]);
-        // param.id = id;
+
+      function remove(id,url,fromid){
+        var param = new FormData($('#'+fromid)[0]);
         var saveSuccess = function(){
           $("#"+id).remove();
         }
-        // saveFileOrImage(url,param,function(file){
-
-        // });
         $.ajax({
             type : "post",
             url : url,
@@ -142,45 +134,30 @@
             contentType: false,
             dataType:"json",
             success : function(str_reponse){
-              alert("保存成功");
+              alert("操作成功");
               $("button").removeAttr("disabled");
               $(".warning-message").html("");
               saveSuccess();
             },
-            error : function(XMLHttpRequest,err,e){
+            error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
               error(XMLHttpRequest);
             }
         });
-      });
-      $('.remove').on('click', function () {
+      }
+      $('#fileslist').on('click','.remove', function () {
         var id = $(this).attr("data");
-        var _token = $("#formimagedel [name='_token']").val();       
-        var url = "/admin/images/destroy";
-        // var param = {"id":id,"fileid":id,"_token":_token};       
-        $("#imageid").val(id);
-        var param = new FormData($('#formimagedel')[0]);
-        var saveSuccess = function(){
-          $("#"+id).remove();
-        }
-        $.ajax({
-            type : "post",
-            url : url,
-            data : param,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType:"json",
-            success : function(str_reponse){
-              alert("保存成功");
-              $("button").removeAttr("disabled");
-              $(".warning-message").html("");
-              saveSuccess();
-            },
-            error : function(XMLHttpRequest,err,e){
-              error(XMLHttpRequest);
-            }
-        });       
+        $("#fileid").val(id);
+        var url = "/admin/files/destroy";
+        remove(id,url,'formfiledel');
       });
+
+      $('#imageslist').on('click','.remove', function () {
+        var id = $(this).attr("data");
+        $("#imageid").val(id);
+        var url = "/admin/images/destroy";
+        remove(id,url,'formimagedel');
+      });
+
       $('#btnSaveFile').on('click', function () {
         if(!$("#id").val()){
           alert("请先保存基本信息");
@@ -190,12 +167,12 @@
         // var url = "/api/zczl/create";
         var param = new FormData($('#formfile')[0]);
         saveFileOrImage(url,param,function(file){
-          var row = "<tr>"
+          var row = '<tr id="'+file.id+'">'
             +'<td><a href='+file.path+'>'+file.name+'<\/a><\/td>'
-            +'<td><a href="javascript:void(0);" class="btnDelFile" data="'+file.id+'">删除<\/a><\/td>'
+            +'<td><a href="javascript:void(0);" class="remove" data="'+file.id+'">删除<\/a><\/td>'
           +'<\/tr>';
           $("#fileslist tbody").append(row);
-        });         
+        });
       });
 
       $('#btnSaveImage').on('click', function () {
@@ -253,6 +230,8 @@
       }
 
       function error(XMLHttpRequest){
+        console.log(XMLHttpRequest.responseText);
+        console.log(XMLHttpRequest.responseJSON);
         var status = XMLHttpRequest.status;
         var response = XMLHttpRequest.responseJSON;
         var message = "";

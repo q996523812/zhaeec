@@ -72,7 +72,7 @@ class CreateJgptProjectLeasesTable extends Migration
             $table->string('fc_dqyt')->nullable();
             $table->string('fc_yzh_yxq')->nullable();
             $table->unsignedInteger('status');
-
+            $table->string('detail_id')->nullable();//对应的业务表ID
             $table->timestamps();
         });
     }

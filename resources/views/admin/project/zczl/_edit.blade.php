@@ -54,7 +54,7 @@
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-          <input type="text" id="gp_date_start" name="gp_date_start" value="" class="form-control gp_date_start" placeholder="输入 挂牌开始日期">
+          <input type="text" id="gp_date_start" name="gp_date_start" value="{{$detail->gp_date_start}}" class="form-control gp_date_start" placeholder="输入 挂牌开始日期">
         </div>
       </td>
       <td class=" control-label">挂牌结束日期</td>
@@ -214,9 +214,9 @@
       </td>
     </tr>        
     <tr>
-      <td class=" control-label">交易平台联系方式</td>
+      <td class=" control-label">项目经办人及联系方式</td>
       <td colspan="3">
-        <input type="text" id="jypt_lxfs" name="jypt_lxfs" value="{{$detail->jypt_lxfs}}" class="form-control jypt_lxfs" placeholder="输入 交易平台联系方式">
+        <input type="text" id="jypt_lxfs" name="jypt_lxfs" value="{{$detail->jypt_lxfs}}" class="form-control jypt_lxfs" placeholder="输入 项目经办人及联系方式">
       </td>
     </tr>
     <tr>
@@ -231,6 +231,12 @@
       <td class=" control-label">名称</td>
       <td colspan="3">
         <input type="text" id="wtf_name" name="wtf_name" value="{{$detail->wtf_name}}" class="form-control wtf_name" placeholder="输入 委托方名称">
+      </td>
+    </tr>
+    <tr>
+      <td class=" control-label">所属集团</td>
+      <td colspan="3">
+        <select id="wtf_jt" name="wtf_jt" class="form-control wtf_jt"></select>
       </td>
     </tr>
     <tr>
@@ -315,12 +321,7 @@
         <input type="text" id="wtf_email" name="wtf_email" value="{{$detail->wtf_email}}" class="form-control wtf_email" placeholder="输入 邮箱">
       </td>
     </tr>
-    <tr>
-      <td class=" control-label">所属集团</td>
-      <td colspan="3">
-        <select id="wtf_jt" name="wtf_jt" class="form-control wtf_jt"></select>
-      </td>
-    </tr>
+
     <tr>
       <td class=" control-label">委托代理人姓名</td>
       <td>

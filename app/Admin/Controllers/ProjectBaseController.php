@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
+use App\Services\MarginAcountService;
 use App\Http\Requests\ProjectLeasesRequest;
 use Carbon\Carbon;
 
@@ -112,6 +113,7 @@ class ProjectBaseController extends Controller
     public function create(Content $content)
     {
         $detail = new $this->detail_class;
+        $this->getMarginAcount($detail);
         $datas = $this->getDatasToView($detail);
         $url = $this->getViewUrl('edit');
         return $content
@@ -151,6 +153,16 @@ class ProjectBaseController extends Controller
             ->body(view($url, $datas));  
     }
 
+    public function print($id,Request $request)
+    {
+        $detail = $this->detail_class::find($id);
+        $datas = [
+            'detail' => $detail,
+        ]; 
+        $url = $this->getViewUrl('print');  
+        return view($url,$datas);
+    }
+
     protected function getViewUrl($name){
     	$url = $this->folder_view.'.'.$name;
     	return $url;
@@ -165,6 +177,13 @@ class ProjectBaseController extends Controller
             'images' => $detail->images,
         ];
         return $datas;        
+    }
+    protected function getMarginAcount($detail){
+        $accountService = new MarginAcountService();
+        $account = $accountService->getDefault();
+        $detail->bzj_zhm = $account->name;
+        $detail->bzj_bank = $account->bank;
+        $detail->bzj_zh = $account->account;
     }
     /**
      * Make a grid builder.

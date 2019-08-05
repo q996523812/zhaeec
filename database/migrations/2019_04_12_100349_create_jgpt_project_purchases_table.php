@@ -58,6 +58,7 @@ class CreateJgptProjectPurchasesTable extends Migration
             $table->string('jypt_lxfs')->nullable();
             $table->text('notes')->nullable();
             $table->unsignedInteger('status');
+            $table->string('detail_id')->nullable();//对应的业务表ID
             $table->timestamps();
         });
     }

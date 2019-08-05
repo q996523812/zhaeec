@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr>
-      <td rowspan="22" class=" control-label">交易内容</td>
+      <td rowspan="25" class=" control-label">交易内容</td>
       <td class=" control-label">项目编号</td>
       <td colspan="3">
         {{$detail->xmbh}}
@@ -158,8 +158,27 @@
         {{$detail->bzj}}
       </td>
     </tr>
+        <tr>
+          <td rowspan="3" class=" control-label">缴纳保证金账户</td>
+          <td class="control-label">账户名称</td>
+          <td colspan="2">
+            {{$detail->bzj_zhm}}
+          </td>
+        </tr>
+        <tr>
+          <td class=" control-label">开户行</td>
+          <td colspan="2">
+            {{$detail->bzj_bank}}
+          </td>
+        </tr>
+        <tr>
+          <td class=" control-label">账号</td>
+          <td colspan="2">
+            {{$detail->bzj_zh}}
+          </td>
+        </tr>
     <tr>
-      <td class=" control-label">交易平台联系方式</td>
+      <td class=" control-label">项目经办人及联系方式</td>
       <td colspan="3">
         {{$detail->jypt_lxfs}}
       </td>

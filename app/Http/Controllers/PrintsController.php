@@ -14,6 +14,6 @@ class PrintsController extends Controller
     	$datas = [
             'detail' => $detail,
         ]; 
-        return view('admin.project.lease.print',$datas);
+        return view('admin.project.zczl.print',$datas);
     }
 }

@@ -36,5 +36,5 @@ class WorkProcessesTableSeeder extends Seeder
             'created_at' => now(),
         ];
         return $row;
-    }    
+    }
 }

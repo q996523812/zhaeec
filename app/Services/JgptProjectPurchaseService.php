@@ -34,44 +34,39 @@ class JgptProjectPurchaseService
     public function receive($data_datail,$data_project,$id){
         $user = Admin::user();
 
-        $uuid_project =  (string)Str::uuid();
-        $uuid_purchase =  (string)Str::uuid();
-        
-        $data_project['id'] = $uuid_project;
-        $data_project['user_id'] = $user->id;
-        $data_project['status'] = 1;
-        $data_project['type'] = 'qycg';
-        $data_project['detail_id'] = $uuid_purchase;
-        $data_project['process'] = 11;
-
-        $data_datail['id'] = $uuid_purchase;
-        $data_datail['user_id'] = $user->id;
-        $data_datail['project_id'] = $uuid_project;
-        $data_datail['process'] = 11;
-        $data_datail['status'] = 1;
         $data_datail['sjly'] = '监管平台';
 
         $jgptPurchase = JgptProjectPurchase::find($id);
 
         DB::transaction(function () use($jgptPurchase,$data_datail,$data_project) {
-	        $jgptPurchase->update([
-	            'status'=>7,
-	        ]);
+	        
+            $qycgService = new ProjectPurchaseService();
+            $detail = $qycgService->add($data_purchase,$data_project,11);
 
-	        $purchase = ProjectPurchase::create($data_datail);
-	        $project = $purchase->project()->create($data_project);
-  
+            $jgptPurchase->update([
+                'status'=>7,
+                'detail_id'=>$detail->id,
+            ]);
+
             if(count($jgptPurchase->files)){
-                $files = $jgptPurchase->files();
-                foreach($files as $jgptfile){
-                    $file = File::create([
+                $jgptfiles = $jgptPurchase->files();
+                $files = null;
+                foreach($jgptfiles as $jgptfile){
+                    // $file = File::create([
+                    //     'id'=>(string)Str::uuid(),
+                    //     'project_id' => $detail->project_id,
+                    //     'type' => '1',
+                    //     'path' => $jgptfile->path,
+                    //     'name' => $jgptfile->name,
+                    // ]);
+                    $file = [
                         'id'=>(string)Str::uuid(),
-                        'project_id' => $purchase->project_id,
-                        'type' => '1',
                         'path' => $jgptfile->path,
                         'name' => $jgptfile->name,
-                    ]);
+                    ];
+                    $files[] = $file;
                 }
+                $detail->files()->save($files);
             }
 	    });
 
