@@ -35,7 +35,7 @@
 三、下载项目
 $ composer config -g repo.packagist composer https://packagist.phpcomposer.com
 $ cd ~/Code
-$ git clone git@github.com:<q996523812>/zhaeec.git
+$ git clone git@github.com:q996523812/zhaeec.git
 $ cd zhaeec
 $ composer install
 $ cp .env.example .env

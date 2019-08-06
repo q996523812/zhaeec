@@ -310,7 +310,6 @@ class ProjectBaseController extends Controller
     protected function add(Request $request){
         $data_detail = $request->only($this->fields['insert']);
         $data_project = $request->only($this->fields_project['insert']);
-        $data_detail["fbfs"] = $request->only('fbfs')->join(',');
         $detail = $this->service->add($data_detail,$data_project,11,null);
         
         $result = [
