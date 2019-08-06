@@ -16,12 +16,7 @@
     </ul>
 
     <div class="box-tools">
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
-      </div>
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
-      </div>
+      @include('admin.buttons._group')
     </div>
   </div>
   <div class="box-body">
@@ -59,6 +54,7 @@
         <div class="tab-pane fade in active" id="tab8">
           <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
+            <input type="hidden" id="isNext" name="isNext" value="" class="isNext" >
             <div class="box-body">
               <div class="fields-group">
                 <div class="row">
@@ -98,11 +94,13 @@
     $(document).ready(function(){
       $('.btn-pass').on('click', function () {
           $("#operation").val("审批通过");
+          $("#isNext").val(2);
           $("#approvalForm").submit();
           return false;
       });
       $('.btn-back').on('click', function () {
           $("#operation").val("审批退回");
+          $("#isNext").val(1);
           $("#approvalForm").submit();
           return false;
       });

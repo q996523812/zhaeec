@@ -72,7 +72,7 @@ class ProcessService
 	}
 
 	/**
-		$table_id
+		$table_id 业务表ID
 		$isNext 	1、退回，2、进入下一个流程
 		$operation	操作名称：提交，审批通过、审批退回等
 		$reason		通过/退回理由		

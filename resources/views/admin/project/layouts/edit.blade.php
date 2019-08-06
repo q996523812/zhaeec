@@ -14,15 +14,7 @@
     </ul>
 
     <div class="box-tools">
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="/admin/{{$projecttype}}/copy/{{$detail->id}}" class="btn btn-sm btn-default btn-copy"><i class="fa fa-copy"></i> 复制项目</a>
-      </div>
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('printurl')/{{$detail->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
-      </div>
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
-      </div>
+      @include('admin.buttons._group')
     </div>
   </div>
   <div class="box-body">
@@ -87,6 +79,16 @@
         return data;
       }
 
+      function getCheckbox(checkboxid){
+        var r = [];
+        $("."+checkboxid).each(function(i){
+          if(this.checked){
+            r.push(this.value);
+          }
+        });
+        return r.join(",");
+      }
+
       $('#btnSaveData').on('click', function () {
           $("button").attr("disabled","disabled");
           // var projecttype = "@yield('projecttype')";
@@ -96,13 +98,17 @@
           if($("#id").val()){
             url = url+"/update";
           }
-          var param = getFormToJson();
-          console.log(JSON.stringify(param));
+          // var param = getFormToJson();
+          var param = new FormData($('#formdetail')[0]);
+          param.set("fbfs",getCheckbox("fbfs"));
           $.ajax({
             type : "post",
             url : url,
             data : param,
-            success : function(str_reponse){
+            cache: false,
+            processData: false,
+            contentType: false,
+            success : function(str_reponse){console.log(str_reponse);
               alert("保存成功");
               if(!$("#id").val()){
                 // $("#id").val(str_reponse.detail_id)

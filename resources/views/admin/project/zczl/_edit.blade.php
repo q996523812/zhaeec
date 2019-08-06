@@ -1,4 +1,5 @@
   <form action="/admin/projectleases'" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
+
     <div class="box-body">
       <div class="fields-group">
         <div class="row">
@@ -113,7 +114,7 @@
     <tr>
       <td class=" control-label">信息发布方式</td>
       <td colspan="3">
-        <select id="fbfs" name="fbfs" class="form-control fbfs"></select>
+        <div id="fbfses"></div>
       </td>
     </tr>
     <tr>
@@ -530,10 +531,12 @@
           type: "zclb",
           selectvalue: "{{$detail->zclb}}"
         });
-        $('#fbfs').selecter({
+
+        //多选框
+        $('#fbfses').checkbox({
           autoSelect: false,
-          type: "xxfbfs",
-          selectvalue: "{{$detail->fbfs}}"
+          type: "fbfs",
+          defaultvalue: "{{$detail->fbfs}}"
         });
     });
     </script>         

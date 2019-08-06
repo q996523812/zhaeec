@@ -1,7 +1,7 @@
 @extends('admin.project.layouts.edit')
 
 @section('listurl','/admin/qycg')
-@section('printurl','/print/qycg')
+@section('printurl','/admin/qycg/print')
 @section('filetable_type',3)
 
 @section('content')

@@ -72,7 +72,7 @@ class ProjectsController extends Controller
             'yxfs' => $project->intentionalParties,
             'files' => $detail->files,
             'images' => $detail->images,
-            'projecttype' => $project->type,
+            'projecttype' => 'projects',
         ]; 
         return $content
             ->header('审批')
@@ -297,6 +297,7 @@ class ProjectsController extends Controller
             'yxfs' => $project->intentionalParties,
             'files' => $detail->files,
             'images' => $detail->images,
+            'projecttype' => 'projects',
         ]; 
         return $content
             ->header('审批')
@@ -308,11 +309,17 @@ class ProjectsController extends Controller
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
-        DB::transaction(function () use($id,$reason,$operation,$process,$processService) {
-            $project = Project::find($id);
-            $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
-            $processService->postGZW($id,$process);
-        });
+        $isNext = $request->isNext;
+        // DB::transaction(function () use($id,$reason,$operation,$process,$isNext,$processService) {
+        //     $project = Project::find($id);
+        //     // $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
+        //     $processService->refreshInstance($table_id,$isNext,$reason,$operation,null);
+        //     $processService->postGZW($id,$process);
+        // });
+
+        $project = Project::find($id);
+        $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
+        $processService->postGZW($id,$project->process);
         
         return redirect('/admin/projects');
         // return [];
