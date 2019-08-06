@@ -89,7 +89,9 @@
     <tr>
       <td class=" control-label">信息发布方式</td>
       <td colspan="3">
-        {{$detail->fbfs}}
+        <div id="fbfs">
+
+        </div>
       </td>
     </tr>
     <tr>
@@ -329,5 +331,20 @@
 
       </div>                                               
     </div>
-  </div>         
+  </div>
+  <script>
+     $(function () {
+        function showCheckboxValue(values){
+          var a = values.split(",");
+          var fbfs = checkbox_datas["fbfs"];
+          var r = [];
+          $.each(a, function (i,n) {
+            console.log(i+":"+n);
+            r.push('<div>'+fbfs[n]+'<\/div>');
+          });
+          $("#fbfs").html(r.join(""));
+        };
+        showCheckboxValue("{{$detail->fbfs}}");
+     });
+  </script>
 </form> 

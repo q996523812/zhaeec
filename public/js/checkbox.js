@@ -1,6 +1,6 @@
 (function ($) {
 	var NAMESPACE = 'checkbox';
-	function Checkbox(element, options){console.log("Checkbox");
+	function Checkbox(element, options){
 		this.$element = $(element);
 	    this.options = $.extend({}, Checkbox.DEFAULTS, $.isPlainObject(options) && options);
 	    this.placeholders = $.extend({}, Checkbox.DEFAULTS);
@@ -9,7 +9,7 @@
 	}
 	Checkbox.prototype = {
 		constructor: Checkbox,
-		init: function () {console.log("init");
+		init: function () {
 			var options = this.options;
 			var $select = this.$element;
 			var data = {};
@@ -20,7 +20,7 @@
 
 			this.active = true;
 		},
-		reset: function(){console.log("reset");
+		reset: function(){
 			var options = this.options;
 			var $checkboxes = this.$element;
 			var districts = {};
@@ -33,7 +33,6 @@
 			if ($.isPlainObject(districts)) {
 				$.each(districts, function (code, name) {
 				  var checked = values.indexOf(code)===-1;
-console.log(values.indexOf(code));
 				  data.push({
 				    code: code,
 				    name: name,
@@ -43,7 +42,7 @@ console.log(values.indexOf(code));
 			}
 			$checkboxes.html(this.getlist(options.type,data));
 		},
-		getlist: function(type,data){console.log("getlist");
+		getlist: function(type,data){
 			var list = [];
 			$.each(data, function (i, n) {
 				list.push(
@@ -63,10 +62,8 @@ console.log(values.indexOf(code));
 	Checkbox.setDefaults = function (options) {
 		$.extend(Checkbox.DEFAULTS, options);
 	};
-	  // Save the other distpicker
-  // Checkbox.other = $.fn.Checkbox;
 
-	$.fn.checkbox = function (option) {console.log(111);
+	$.fn.checkbox = function (option) {
 		var $this = $(this);
 		var data = $this.data(NAMESPACE);
 		var options;
@@ -80,9 +77,5 @@ console.log(values.indexOf(code));
 	$.fn.checkbox.Constructor = Checkbox;
 	$.fn.checkbox.setDefaults = Checkbox.setDefaults;
 
-// $.fn.checkbox.noConflict = function () {
-//     $.fn.checkbox = Checkbox.other;
-//     return this;
-//   };
 
 })(jQuery);
