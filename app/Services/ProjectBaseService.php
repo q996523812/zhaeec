@@ -73,8 +73,8 @@ class ProjectBaseService
 		$project->process = $process;
 		
 		DB::transaction(function () use($detail) {
-			$process = new ProcessService();
-			$process->create($this->project_type_code,$detail->id,'提交',13);
+			$processService = new ProcessService();
+			$processService->create($this->project_type_code,$detail->id,'提交',13);
 		});
 	}	
 
@@ -84,8 +84,8 @@ class ProjectBaseService
 	public function zp($id,$process,$operation){
 		DB::transaction(function () use($id,$process,$operation) {
             //流程
-            $process = new ProcessService();
-            $process->next($id,null,$operation,$process);
+            $processService = new ProcessService();
+            $processService->next($id,null,$operation,$process);
         });
 	}
 

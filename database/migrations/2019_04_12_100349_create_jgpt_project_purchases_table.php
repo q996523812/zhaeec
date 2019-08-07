@@ -51,7 +51,7 @@ class CreateJgptProjectPurchasesTable extends Migration
             $table->string('yxf_zgtj')->nullable();
             $table->string('yxdj_zlqd')->nullable();
             $table->string('yxdj_sj')->nullable();
-            $table->string('yxdj_fs')->nullable();
+            $table->text('yxdj_fs')->nullable();
             $table->datetime('bzj_jn_time_end')->nullable();
             $table->string('bzj')->nullable();
             $table->string('zbwj_dj')->nullable();

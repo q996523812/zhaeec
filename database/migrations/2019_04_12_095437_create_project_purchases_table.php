@@ -50,7 +50,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();
             $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单')->nullable();
             $table->string('yxdj_sj')->comment('意向登记的时间')->nullable();
-            $table->string('yxdj_fs')->comment('意向登记方式、招标文件价格')->nullable();
+            $table->text('yxdj_fs')->comment('意向登记方式、招标文件价格')->nullable();
             $table->datetime('bzj_jn_time_end')->comment('交纳保证金截止时间')->nullable();
             $table->string('bzj')->comment('保证金金额(人民币) (万元)')->nullable();
             $table->string('zbwj_dj')->comment('投标文件递交时间及地点')->nullable();
