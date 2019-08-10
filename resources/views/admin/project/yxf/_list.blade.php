@@ -16,28 +16,42 @@
                   <th>状态</th>
                   <th>操作</th>
                 </thead>
-                <tbody>
-                  @foreach($yxfs as $yxf)
-                  <tr>
-                    <td>{{$yxf->name}}</td>
-                    <td>{{$yxf->type}}</td>
-                    <td>{{$yxf->process_name}}</td>
-                    <td>
-                      <a href='/admin/yxdj/show/{{$yxf->id}}' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>查看</a>
-                      @if($yxf->process == 11)
-                        <a href='/admin/yxdj/edit/{{$yxf->id}}' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>编辑</a>
-                      @endif
-                      @if($yxf->process == 12)
-                        <a href='/admin/yxdj/edit/{{$yxf->id}}' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>编辑</a>
-                      @endif
-                      @if($yxf->process == 19)
-                      <a href='/admin/yxdj/showconfirm/{{$yxf->id}}' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>确认登记</a>
-                      @endif
-                      
-                    </td>
-                  </tr>
-                  @endforeach
+                <tbody id="yxflist">
+                  
                 </tbody>
               </table>
             </div>
           </div>
+          <script>
+            $(function () {
+              function getlist(){
+                var listhtml ="";
+                @foreach($yxfs as $yxf)
+                listhtml +='<tr>'+
+                  '<td>{{$yxf->name}}<\/td>'+
+                  '<td>'+select_datas['customertype']['{{$yxf->customertype}}']+'<\/td>'+
+                  '<td>{{$yxf->process_name}}<\/td>'+
+                  '<td>'+
+                      getBtns('{{$yxf->id}}','{{$yxf->process}}')+
+                  '<\/td>'+
+                '</tr>';
+                @endforeach
+                $('#yxflist').html(listhtml);
+              }
+              function getBtns(id,process){
+                var btns = [];
+                btns.push('<a href=\'\/admin\/yxdj\/'+id+'\' style=\'float: left;margin-left:10px;\'><i class=\'fa fa-edit\'><\/i>查看<\/a>');
+                if(process === 11){
+                  btns.push('<a href=\'\/admin\/yxdj\/edit/'+id+'\' style=\'float: left;margin-left:10px;\'><i class=\'fa fa-edit\'><\/i>编辑<\/a>');
+                }
+                else if(process === 12){
+                  btns.push('<a href=\'\/admin\/yxdj\/edit/'+id+'\' style=\'float: left;margin-left:10px;\'><i class=\'fa fa-edit\'><\/i>编辑<\/a>');
+                }
+                else if(process === 19){
+                  btns.push('<a href=\'\/admin\/yxdj\/showconfirm/'+id+'\' style=\'float: left;margin-left:10px;\'><i class=\'fa fa-edit\'><\/i>确认登记<\/a>');
+                }
+                return btns.join('');
+              }
+              getlist();
+            });
+          </script>

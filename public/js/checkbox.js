@@ -26,7 +26,6 @@
 			var districts = {};
 			var data = [];
 			var values = [];
-			console.log("options="+options);
 			districts = checkbox_datas[options.type];
 			values = options.defaultvalue.split(',');
 

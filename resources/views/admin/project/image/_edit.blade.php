@@ -7,7 +7,7 @@
                 @foreach($images as $image)
                 <div class="col-md-3 img" id="{{$image->id}}">                  
                   <div class="thumbnail">                    
-                    <img alt="300x200" src="{{$image->image_url}}"/>
+                    <img alt="300x200" src="{{$image->path}}"/>
                     <a href="#close" class="remove label label-danger" data="{{$image->id}}">
                       <i class="glyphicon glyphicon-remove"></i>删除
                     </a>

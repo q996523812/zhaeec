@@ -19,12 +19,12 @@ class ImagesController extends Controller
 
     public function store(ImageRequest $request, ImageUploadHandler $uploader, Image $image)
     {
-        $project_id = $request->project_id;
+        $table_id = $request->id;
         $size = 1024;
-        $result = $uploader->save($request->image, 'project', $project_id, $size);
+        $result = $uploader->save($request->image, 'project', $table_id, $size);
 
         $image->path = $result['path'];
-        $image->project_id = $project_id;
+        $image->project_id = $table_id;
         $image->save();
 
         $result = [

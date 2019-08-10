@@ -9,6 +9,7 @@ class Image extends Model
 {
     protected $fillable = ['path'];
 
+    //访问方法：$image->image_url
     public function getImageUrlAttribute()
     {
         // 如果 image 字段本身就已经是完整的 url 就直接返回

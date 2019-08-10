@@ -111,13 +111,11 @@
       }
 
       value = options[type];
-
       code = (
         type === PROVINCE ? 86 :
         type === CIRY ? this.$province && this.$province.find(':selected').data('code') :
         type === DISTRICT ? this.$city && this.$city.find(':selected').data('code') : code
       );
-
       districts = $.isNumeric(code) ? ChineseDistricts[code] : null;
 
       if ($.isPlainObject(districts)) {
@@ -135,7 +133,6 @@
           });
         });
       }
-
       if (!matched) {
         if (data.length && (options.autoSelect || options.autoselect)) {
           data[0].selected = true;
@@ -146,7 +143,6 @@
           placeholders[type] = value;
         }
       }
-
       // Add placeholder option
       if (options.placeholder) {
         data.unshift({
@@ -155,7 +151,6 @@
           selected: false
         });
       }
-
       $select.html(this.getList(data));
     },
 
@@ -172,7 +167,6 @@
           '</option>'
         );
       });
-
       return list.join('');
     },
 

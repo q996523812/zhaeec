@@ -339,7 +339,7 @@
           var fbfs = checkbox_datas["fbfs"];
           var r = [];
           $.each(a, function (i,n) {
-            console.log(i+":"+n);
+            // console.log(i+":"+n);
             r.push('<div>'+fbfs[n]+'<\/div>');
           });
           $("#fbfs").html(r.join(""));

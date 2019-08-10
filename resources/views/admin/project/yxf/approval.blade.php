@@ -1,6 +1,6 @@
 @extends('admin.project.yxf.layouts.approval')
 
-@section('listurl','/admin/projectleases')
+@section('listurl','/admin/zczl')
 @section('printurl','/print/zczl')
 
 @section('content')

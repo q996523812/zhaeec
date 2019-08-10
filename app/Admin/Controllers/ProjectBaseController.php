@@ -169,6 +169,7 @@ class ProjectBaseController extends Controller
     }
 
     protected function getDatasToView($detail){
+        
         $datas = [
             'detail' => $detail,
             'projecttype' => $this->projectTypeCode,
@@ -288,7 +289,7 @@ class ProjectBaseController extends Controller
                     $bottons .= $winnotices;
                     break;    
                 case 98:
-                    // $actions->append("<a href='/admin/projectleases/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
+                    $actions->append("<a href='/admin/zczl/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
                     break;
             }
             $actions->append($bottons); 
