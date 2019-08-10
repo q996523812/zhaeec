@@ -9,6 +9,11 @@ class Image extends Model
 {
     protected $fillable = ['path'];
 
+    public function imagetable()
+    {
+        return $this->morphTo();
+    }
+
     //访问方法：$image->image_url
     public function getImageUrlAttribute()
     {

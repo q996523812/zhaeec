@@ -19,7 +19,8 @@ class IntentionalParty extends Model
     }
     public function images()
     {
-        return $this->hasMany(Image::class, 'project_id', 'id');
+        // return $this->hasMany(Image::class, 'project_id', 'id');
+        return $this->morphMany(Image::class, 'imagetable');
     }
     public function workProcessRecords(){
         return $this->hasMany(WorkProcessRecord::class,'table_id','id');

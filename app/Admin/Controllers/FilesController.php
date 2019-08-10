@@ -26,10 +26,10 @@ class FilesController extends Controller
     public function store(FileRequest $request, FileUploadHandler $uploader, File $file)
     {
         $filetable_id = $request->id;
-        $filetable_type = $request->filetable_type;
-        $model_class = $this->getModelClass($filetable_type);
+        $projecttype = $request->projecttype;
+        $model_class = $this->getModelClass($projecttype);
         $model = $model_class::find($filetable_id);
-        $folder = $this->getFolder($filetable_type);
+        $folder = $this->getFolder($projecttype);
 
         $service = new FileService();
         $file = $service->add($model,$folder,$request->file);
@@ -62,13 +62,13 @@ class FilesController extends Controller
     public function getModelClass($type){
         $model = null;
         switch($type){
-            case 1:
+            case 'zczl':
                 $model = ProjectLease::class;
                 break;
-            case 2:
+            case 'yxdj':
                 $model = IntentionalParty::class;
                 break;    
-            case 3:
+            case 'qycg':
                 $model = ProjectPurchase::class;
                 break;
         }
@@ -77,16 +77,16 @@ class FilesController extends Controller
     public function getFolder($type){
         $folder = null;
         switch($type){
-            case 1:
-                $model = 'zczl';
+            case 'zczl':
+                $folder = 'zczl';
                 break;
-            case 2:
-                $model = 'yxf';
+            case 'yxdj':
+                $folder = 'yxf';
                 break;
-            case 3:
-                $model = 'qycg';
+            case 'yxdj':
+                $folder = 'qycg';
                 break;
         }
-        return $model;
+        return $folder;
     }
 }

@@ -194,8 +194,8 @@ class IntentionalPartiesController extends Controller
 
     private function fields(){
         $fields = [
-            'insert' => ['costomertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount','project_id'],
-            'update' => ['costomertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount'],
+            'insert' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount','project_id'],
+            'update' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount'],
         ];
         return $fields;
     }

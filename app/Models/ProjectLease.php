@@ -21,7 +21,8 @@ class ProjectLease extends Model
     }
     public function images()
     {
-        return $this->hasMany(Image::class, 'project_id', 'project_id');
+        // return $this->hasMany(Image::class, 'imagetable_id', 'project_id');
+        return $this->morphMany(Image::class, 'imagetable');
     }
     public function workProcessRecords(){
         return $this->hasMany(WorkProcessRecord::class,'table_id','id');
