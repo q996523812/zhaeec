@@ -19,8 +19,8 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->string('type');
             $table->decimal('price', 26, 6)->nullable();
-            $table->datetime('gp_date_start');
-            $table->datetime('gp_date_end');
+            $table->datetime('gp_date_start')->nullable();
+            $table->datetime('gp_date_end')->nullable();
             $table->unsignedInteger('status')->default(1);
             $table->unsignedInteger('djl')->default(0);
             $table->unsignedInteger('user_id');

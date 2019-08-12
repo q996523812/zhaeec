@@ -212,6 +212,7 @@ class ProjectBaseController extends Controller
         $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
             return date('Y-m-d',strtotime($gp_date_end));
         });
+        $grid->sjly('项目来源');
         $grid->process_name('项目状态');
         // $workProcess = WorkProcess::where('status',1)->where('type',$this->projectTypeCode)->first();       
         // $nodes = $workProcess->nodes; 

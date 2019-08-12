@@ -53,10 +53,10 @@ $api->version('v1', [
         'namespace'     => config('admin.route.namespace'),
         'middleware'    => config('admin.route.middleware'),
     ], function ($api) {
-    $api->post('zczl/create', 'ProjectLeasesController@store')->name('api.zczl.store');
-    $api->post('zczl/update', 'ProjectLeasesController@update')->name('api.zczl.update');
-    $api->post('qycg/create', 'ProjectPurchasesController@store')->name('api.qycg.store');
-    $api->post('qycg/update', 'ProjectPurchasesController@update')->name('api.qycg.update');
+    // $api->post('zczl/create', 'ProjectLeasesController@store')->name('api.zczl.store');
+    // $api->post('zczl/update', 'ProjectLeasesController@update')->name('api.zczl.update');
+    // $api->post('qycg/create', 'ProjectPurchasesController@store')->name('api.qycg.store');
+    // $api->post('qycg/update', 'ProjectPurchasesController@update')->name('api.qycg.update');
     });
 
     //采购请求    

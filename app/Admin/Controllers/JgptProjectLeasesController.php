@@ -18,6 +18,8 @@ class JgptProjectLeasesController extends Controller
 {
     use HasResourceActions;
     protected $jgptProjectLeaseService;
+    protected $projectTypeName = '资产租赁';
+    protected $projectTypeCode = 'jgptprojectleases';
     // 利用 Laravel 的自动解析功能注入 CartService 类
     public function __construct(JgptProjectLeaseService $jgptProjectLeaseService)
     {
@@ -62,10 +64,12 @@ class JgptProjectLeasesController extends Controller
      */
     public function edit($id, Content $content)
     {
+        $detail = JgptProjectLease::find($id);
+        $datas = $this->getDatasToView($detail);
+        $url = 'admin.project.jgpt.zczl.edit';  
         return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+            ->header($this->projectTypeName.'-编辑')
+            ->body(view($url, $datas));
     }
 
     /**
@@ -82,6 +86,16 @@ class JgptProjectLeasesController extends Controller
             ->body($this->form());
     }
 
+    protected function getDatasToView($detail){
+        
+        $datas = [
+            'detail' => $detail,
+            'projecttype' => $this->projectTypeCode,
+            'files' => $detail->files,
+            'images' => $detail->images,
+        ];
+        return $datas;        
+    }
     /**
      * Make a grid builder.
      *
@@ -310,16 +324,15 @@ class JgptProjectLeasesController extends Controller
     }
 
     //业务员接收申请
-    public function receive($id,Request $request,JgptProjectLease $jgptPurchase){
+    public function receive(Request $request){
         $user = Admin::user();
         $data = $request->all();
-        $data_Purchase = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
+        $data_datail = $request->only(['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq','status']);
         $data_project = $request->only(['xmbh','title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl']);
-        DB::transaction(function () use($jgptPurchase,$data) {
-            $jgptPurchase = $this->jgptProjectLeaseService->receive($data_datail,$data_project,$id);
-        });
+        $id = $request->id;
+        $jgptPurchase = $this->jgptProjectLeaseService->receive($data_datail,$data_project,$id);
         // return back()->withErrors(['1111111111111！']);
-        return redirect()->route('projectleases.index');
+        return redirect()->route('jgptprojectleases.index');
     }
     
     //业务员退回申请

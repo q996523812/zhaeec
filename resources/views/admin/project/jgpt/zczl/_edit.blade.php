@@ -433,14 +433,8 @@
   </tbody>
 </table>
 </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="btn-group pull-right">
-              <button type="button" id="btnSaveData" class="btn btn-primary btn-pass">保存</button>
-            </div>
-          </div>
-        </div> 
+</div>
+
 
       </div>
     </div>    

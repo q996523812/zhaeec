@@ -69,7 +69,7 @@ Route::group([
     $router->get('jgptprojectpurchases/create', 'JgptProjectPurchasesController@create');
     $router->post('jgptprojectpurchases', 'JgptProjectPurchasesController@store');
     $router->get('jgptprojectpurchases/{id}/edit', 'JgptProjectPurchasesController@edit');
-    $router->put('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@receive');
+    $router->post('jgptprojectpurchases/receive/{id}', 'JgptProjectPurchasesController@receive');
     $router->get('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@show');
     // $router->put('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@back');
 
@@ -79,6 +79,7 @@ Route::group([
     $router->get('jgptprojectleases/{id}/edit', 'JgptProjectLeasesController@edit');
     $router->put('jgptprojectleases/{id}', 'JgptProjectLeasesController@update');
     $router->get('jgptprojectleases/{id}', 'JgptProjectLeasesController@show');
+    $router->post('jgptprojectleases/receive', 'JgptProjectLeasesController@receive');
 
     $router->get('pbresults', 'PbResultsController@index')->name('pbresults.index');
     $router->get('pbresults/create', 'PbResultsController@create');

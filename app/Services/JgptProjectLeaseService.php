@@ -30,26 +30,45 @@ class JgptProjectLeaseService
 
 	}
 
+    private $fields_detail = ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','gpjg_dj','zlqx','jymd','zclb','fbfs','zcsfsx','pgjz','jyfs','bjms','jjfd','jysj_bz','yxf_zgtj','yxdj_zlqd','bzj_jn_time_end','bzj','jypt_lxfs','notes','fc_province','fc_city','fc_area','fc_street','fc_gn','fc_mj','fc_zjh','fc_zjjg','fc_ysynx','fc_ghyt','fc_sfyyzh','fc_jcsj','fc_dqyt','fc_yzh_yxq'];
+    private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
+    private function getData($jgptDeatil,$fields){
+        $data = [];
+        foreach ($fields as $field) {
+            if($field === 'price'){
+                $data[$field] = $jgptDeatil->toArray()['gpjg_zj'];
+            }
+            else{
+                $data[$field] = $jgptDeatil->toArray()[$field];
+            }
+        }
+        // foreach ($jgptDeatil->toArray() as $key => $value) {
+        //     $data[$key] = $value;
+        // };
+        return $data;
+    }
     //业务员接收申请
     public function receive($data_datail,$data_project,$id){
         $user = Admin::user();
+        $jgptDeatil = JgptProjectLease::find($id);
 
+        $data_datail = $this->getData($jgptDeatil,$this->fields_detail);
         $data_datail['sjly'] = '监管平台';
+        $data_project = $this->getData($jgptDeatil,$this->fields_projectt);
+        $data_project['type'] = 'zczl';
 
-        $jgptPurchase = JgptProjectLease::find($data->id);
-
-        DB::transaction(function () use($jgptPurchase,$data_purchase,$data_project) {
+        DB::transaction(function () use($jgptDeatil,$data_datail,$data_project) {
 	        
             $zczlService = new ProjectLeaseService();
-            $detail = $zczlService->add($data_purchase,$data_project,11);
+            $detail = $zczlService->add($data_datail,$data_project,11);
 
-            $jgptPurchase->update([
+            $jgptDeatil->update([
                 'status'=>7,
                 'detail_id'=>$detail->id,
             ]);
 
-            if(count($jgptPurchase->files)){
-                $jgptfiles = $jgptPurchase->files();
+            if(count($jgptDeatil->files)){
+                $jgptfiles = $jgptDeatil->files();
                 $files = null;
                 foreach($jgptfiles as $jgptfile){
                     // $file = File::create([
@@ -70,16 +89,16 @@ class JgptProjectLeaseService
             }
 	    });
 
-        return $jgptPurchase;
+        return $jgptDeatil;
     }
 
     public function back($id){
-    	$jgptPurchase = JgptProjectLease::find($id);
-    	if(in_array($jgptPurchase->status, [6,7] ) ){
+    	$jgptDeatil = JgptProjectLease::find($id);
+    	if(in_array($jgptDeatil->status, [6,7] ) ){
     		return ['message' => '失败，不能重复操作'];
     	}
-    	DB::transaction(function () use($jgptPurchase) {
-	    	$jgptPurchase->update([
+    	DB::transaction(function () use($jgptDeatil) {
+	    	$jgptDeatil->update([
 	            'status'=>admin_config()->status[6],
 	        ]);
         });
