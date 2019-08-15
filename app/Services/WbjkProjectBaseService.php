@@ -20,6 +20,10 @@ class WbjkProjectBaseService
 
     public $fields_detail = [];
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
+    // protected $IP_TEST = '47.112.15.51';
+    // protected $PORT_TEST = '8090';
+    protected $IP = '47.112.15.51';
+    protected $PORT = '8090';
 
     private function getData($jgptDeatil,$fields){
         $data = [];
@@ -94,13 +98,21 @@ class WbjkProjectBaseService
 
 
     public function send($url,$data,$detail_id){
-        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->get();
+        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
         $data['uuid'] = $jgpt_detail->jgpt_key;
         $curlHandler = new JgptCurlHandler;
-        $result = $curlHandler->curl($url,$datas);
+        $result = $curlHandler->curl($url,$data);
 
         $json_result = json_decode($result,true);
         return $json_result;
+    }
+
+    /**
+     * 获取完整的发送地址
+     * $url 相对地址,例如 api/assets/backfill/transaction
+     */
+    public function getSendUrl($url){
+        return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
     }
 /*
     public function lbNotice($project_id){

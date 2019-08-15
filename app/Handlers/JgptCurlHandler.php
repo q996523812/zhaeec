@@ -21,7 +21,7 @@ class JgptCurlHandler
 		];
 		$result = CurlHandler::curl($url,$data,1,0);
 		$logService = new InterfaceLogService;
-		$interfaceLog = $logService->addSendLog('发送',null,$data['title'],$param,1,$result);
+		$interfaceLog = $logService->addSendLog('发送',null,$data['xmpname'],$param,1,$result);
 		return $result;
 	}
 

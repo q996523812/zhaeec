@@ -197,7 +197,7 @@ class ProcessService
 			if($detail->sjly == '监管平台'){
 				switch($node){
 					case 19://挂牌
-						$json_result = $JgptService->sendGpData($project->detail);
+						$json_result = $JgptService->sendGpData($project->detail_id);
 						break;
 					case 29://流标
 						// $json_result = $JgptService->lbNotice($project->detail_id);
