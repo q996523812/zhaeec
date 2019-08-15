@@ -97,6 +97,9 @@ class ProjectBaseController extends Controller
         //     ->body($this->form()->edit($id));
         // Import::script('$(document).ready(function(){var url="/admin/projectleases";});');        
         $detail = $this->detail_class::find($id);
+        if($detail->sjly == '监管平台'){
+            $this->getMarginAcount($detail);
+        }
         $datas = $this->getDatasToView($detail);
         $url = $this->getViewUrl('edit');  
         return $content

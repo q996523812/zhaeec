@@ -195,7 +195,7 @@ class ProcessService
 		else if($project->type == 'zczl'){
 			$detail = $project->projectLease()->first();
 			if($detail->sjly == '监管平台'){
-				switch($node->code){
+				switch($node){
 					case 19://挂牌
 						$json_result = $JgptService->sendGpData($project->detail_id);
 						break;
