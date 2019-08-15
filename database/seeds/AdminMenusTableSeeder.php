@@ -20,8 +20,8 @@ class AdminMenusTableSeeder extends Seeder
             $this->create(16,14,0,'资产租赁','fa-bars','/zczl'),
             $this->create(17,14,0,'评审结果录入','fa-bars','/pbresults'),
             $this->create(18,14,0,'中标通知','fa-bars','/winnotices'),
-            $this->create(19,14,0,'接收采购项目','fa-bars','/jgptprojectpurchases'),
-            $this->create(20,14,0,'接收租赁项目','fa-bars','/jgptprojectleases'),
+            $this->create(19,14,0,'接收采购项目','fa-bars','/jgpt/qycg'),
+            $this->create(20,14,0,'接收租赁项目','fa-bars','/jgpt/zczl'),
         ];
 
         // 将数据集合插入到数据库中

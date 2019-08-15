@@ -6,15 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Requests\Api\JgptProjectPurchaseRequest;
-use App\Services\JgptProjectPurchaseService;
 use App\Models\JgptProjectPurchase;
 use App\Models\JgptFile;
 use App\Models\File;
 use App\Models\Project;
 use App\Models\ProjectPurchase;
 use App\Handlers\FileUploadHandler;
+use App\Handlers\WbjkFileUploadHandler;
 use App\Services\ProcessService;
 use App\Services\InterfaceLogService;
+use App\Services\JgptProjectPurchaseService;
 
 class JgptProjectPurchasesController extends Controller
 {
@@ -36,9 +37,8 @@ class JgptProjectPurchasesController extends Controller
         ];
     	//解析参数到模板
     	$datas = $request->datas;
-        $datas = json_decode($datas,true);
         $receive_message = $request->all();
-        
+        $datas = json_decode($datas,true);
     	
 		if(JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->exists()){
             $aaa = JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->first();
@@ -49,7 +49,8 @@ class JgptProjectPurchasesController extends Controller
 		}
 		$datas['id'] = (string)Str::uuid();
 		$datas['status'] = 5;
-
+        $purchases = JgptProjectPurchase::create($datas);
+        /*
 		//判断请求中是否包含name=file的上传文件
 		$hasfile = $request->hasFile('file');
         if($hasfile){
@@ -71,11 +72,43 @@ class JgptProjectPurchasesController extends Controller
             	$file->save();
             }
         });
-
-
+*/
+        
         $logService->addReceiveLog('接收',null,null,$receive_message,1,$receipt);
+
         return $this->response->array($receipt)->setStatusCode(201);
     	// return $this->response->created();
+    }
+    public function files(Request $request){
+        $hasfiles = $request->hasFile('file');
+        if($hasfiles){
+            $upfiles = $request->file('file');
+            $uploader = new WbjkFileUploadHandler();
+            // $uploader->postFileupload($file);
+            $result = $uploader->batchUpload($upfiles,'jgpt','qycq');
+
+            $file->path = $result['path'];
+            $file->name = $result['name'];
+            $file->project_type = 'qycq';
+            $file->table_id = $datas['id'];
+            $file->id = (string)Str::uuid();
+            
+        }
+    }
+    public function file(Request $request){
+        $hasfile = $request->hasFile('file');
+        if($hasfile){
+            $upfile = $request->file('file');
+            // $uploader->postFileupload($file);
+            $result = $uploader->save($upfile,'jgpt','qycq');
+
+            $file->path = $result['path'];
+            $file->name = $result['name'];
+            $file->project_type = 'qycq';
+            $file->table_id = $datas['id'];
+            $file->id = (string)Str::uuid();
+            
+        }
     }
 
     /*

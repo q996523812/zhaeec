@@ -34,7 +34,7 @@
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/{{$projecttype}}/receive" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          <form action="/admin/jgpt/{{$projecttype}}/receive" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
             <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id">
             <input type="hidden" id="process" name="process" value="13">

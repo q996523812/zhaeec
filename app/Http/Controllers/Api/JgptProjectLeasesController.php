@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Requests\Api\JgptProjectLeaseRequest;
 use App\Models\JgptProjectLease;
 use App\Models\JgptFile;
 use App\Handlers\FileUploadHandler;
+use App\Handlers\WbjkFileUploadHandler;
 use App\Services\InterfaceLogService;
 
 class JgptProjectLeasesController extends Controller
@@ -26,7 +28,8 @@ class JgptProjectLeasesController extends Controller
     {
     	//解析参数到模板
     	$datas = $request->datas; 
-        $receive_message = $datas; 	
+        $receive_message = $datas;
+        
     	$datas = json_decode($datas,true);
 		if(JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
             
@@ -71,12 +74,77 @@ class JgptProjectLeasesController extends Controller
             'status_code' => '200'
         ];
 
-        
+        $result['fff'] = $file->name;
         $logService->addReceiveLog('接收',$datas['xmbh'],$datas['title'],$receive_message,1,$result);
+        
         return $this->response->array($result)->setStatusCode(201);
     	// return $this->response->created();
     }
+    public function files(Request $request){
+        /*
+        $hasfiles = $request->hasFile('file');
+        if($hasfiles){
+            $upfiles = $request->file('file');
+            $uploader = new WbjkFileUploadHandler();
+            // $uploader->postFileupload($file);
+            $result = $uploader->batchUpload($upfiles,'jgpt','qycq');
 
+            $file = new jgptFile();
+            $file->path = $result['path'];
+            $file->name = $result['name'];
+            $file->project_type = 'qycq';
+            $file->table_id = $datas['id'];
+            $file->id = (string)Str::uuid();
+            $file->save();
+        }
+        */
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+        $hasfile = $request->hasFile('file1');
+        // $hasfile = $_FILES['file1'];
+        $result['hasfile'] = $hasfile;
+        if($hasfile){
+
+            $upfiles = $request->file('file1');
+            // $upfiles = $_FILES['file1'];
+            // dd($upfiles);
+            $uploader = new WbjkFileUploadHandler();
+            // $uploader->postFileupload($file);
+            $result1 = $uploader->batchUpload($upfiles,'jgpt','zczl');
+$result['eee'] = $result1;
+            // $file->path = $result['path'];
+            // $file->name = $result['name'];
+            // $file->project_type = 'zczl';
+            // $file->table_id = '11111';
+            // $file->id = (string)Str::uuid();
+            
+        }
+        
+
+        $result['aaa'] = $request->file('file1');
+        $result['bbb'] = $request->all();
+        $result['ccc'] = $request->file1;
+
+        return $this->response->array($result)->setStatusCode(201);
+    }
+    public function file(Request $request){
+        $hasfile = $request->hasFile('file');
+        if($hasfile){
+            $upfile = $request->file('file');
+            // $uploader->postFileupload($file);
+            $result = $uploader->save($upfile,'jgpt','qycq');
+            $file = new jgptFile();
+            $file->path = $result['path'];
+            $file->name = $result['name'];
+            $file->project_type = 'qycq';
+            $file->table_id = $datas['id'];
+            $file->id = (string)Str::uuid();
+            $file->save();
+        }
+    }
     /*
 	 *撤销业务接口
 	 *

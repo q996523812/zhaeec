@@ -38,6 +38,17 @@ class ImageService
 		return $file2;
 	}
 
+	public function batchStore($model,$datas){
+		$files = [];
+		foreach ($datas as $data) {
+			$file = new Images;
+	        $file->path = $data['path'];
+	        $files[] = $file;
+		}
+		$files = $model->Images()->save($file);
+		return $files;
+	}
+
 	public function destroy($id){
 		DB::transaction(function () use($id) {
 			Image::destroy($id);

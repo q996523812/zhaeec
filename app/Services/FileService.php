@@ -38,6 +38,19 @@ class FileService
 		return $file2;
 	}
 
+	public function batchStore($model,$datas){
+		$files = [];
+		foreach ($datas as $data) {
+			$file = new File;
+	        $file->id = (string)Str::uuid();
+	        $file->name = $data['name'];
+	        $file->path = $data['path'];
+	        $files[] = $file;
+		}
+		$files = $model->files()->save($file);
+		return $files;
+	}
+
 	public function destroy($id){
 		DB::transaction(function () use($id) {
 			File::destroy($id);

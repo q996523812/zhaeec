@@ -60,26 +60,27 @@ $api->version('v1', [
     });
 
     //采购请求    
-    $api->post('purchases/create', 'JgptProjectPurchasesController@store')->name('api.purchases.store');
+    $api->post('qycg/create', 'JgptProjectPurchasesController@store')->name('api.qycg.store');
     //采购撤销  
-    $api->post('purchases/cancel', 'JgptProjectPurchasesController@cancel')->name('api.purchases.cancel');
+    $api->post('qycg/cancel', 'JgptProjectPurchasesController@cancel')->name('api.qycg.cancel');
     //评标结果  
-    $api->post('purchases/pbresult', 'JgptProjectPurchasesController@pbResult')->name('api.purchases.pbresult');
+    $api->post('qycg/pbresult', 'JgptProjectPurchasesController@pbResult')->name('api.qycg.pbresult');
     //上传合同  
-    $api->post('purchases/contract', 'JgptProjectPurchasesController@contract')->name('api.purchases.contract');
+    $api->post('qycg/contract', 'JgptProjectPurchasesController@contract')->name('api.qycg.contract');
      
     //租赁请求    
-    $api->post('leases/create', 'JgptProjectLeasesController@store')->name('api.leases.store');
+    $api->post('zczl/create', 'JgptProjectLeasesController@store')->name('api.zczl.store');
     //租赁撤销  
-    $api->post('leases/cancel', 'JgptProjectLeasesController@cancel')->name('api.leases.cancel');
+    $api->post('zczl/cancel', 'JgptProjectLeasesController@cancel')->name('api.zczl.cancel');
     //竞价结果  
-    $api->post('leases/jjresult', 'JgptProjectLeasesController@pbResult')->name('api.leases.jjresult');
+    $api->post('zczl/jjresult', 'JgptProjectLeasesController@pbResult')->name('api.zczl.jjresult');
     //上传合同  
-    $api->post('leases/contract', 'JgptProjectLeasesController@contract')->name('api.leases.contract');
-    
+    $api->post('zczl/contract', 'JgptProjectLeasesController@contract')->name('api.zczl.contract');
+
+    $api->post('zczl/files', 'JgptProjectLeasesController@files')->name('api.zczl.files');
 
     //测试接口   模仿国资委接收接口    
-    $api->post('purchases/rebackdatas', 'JgptProjectPurchasesController@rebackDatas')->name('api.purchases.rebackdatas');
+    $api->post('purchases/rebackdatas', 'JgptProjectPurchasesController@rebackDatas')->name('api.qycg.rebackdatas');
       
 });
 

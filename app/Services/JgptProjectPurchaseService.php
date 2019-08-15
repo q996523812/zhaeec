@@ -12,66 +12,16 @@ use Illuminate\Support\Facades\DB;
 use App\Handlers\CurlHandler;
 use App\Handlers\JgptCurlHandler;
 
-class JgptProjectPurchaseService
+class JgptProjectPurchaseService extends WbjkProjectBaseService
 {
-
-	public function get(){
-		return [];
-	}
-
-	//自动保存接口数据
-	public function save($data){
-		$data['id'] = (string)Str::uuid();
-		$jgptPurchase = JgptProjectPurchase::create($data);
-
-	}
-
-	public function cancle($data){
-
-	}
-
-    //业务员接收申请
-    public function receive($data_datail,$data_project,$id){
-        $user = Admin::user();
-
-        $data_datail['sjly'] = '监管平台';
-
-        $jgptPurchase = JgptProjectPurchase::find($id);
-
-        DB::transaction(function () use($jgptPurchase,$data_datail,$data_project) {
-	        
-            $qycgService = new ProjectPurchaseService();
-            $detail = $qycgService->add($data_purchase,$data_project,11);
-
-            $jgptPurchase->update([
-                'status'=>7,
-                'detail_id'=>$detail->id,
-            ]);
-
-            if(count($jgptPurchase->files)){
-                $jgptfiles = $jgptPurchase->files();
-                $files = null;
-                foreach($jgptfiles as $jgptfile){
-                    // $file = File::create([
-                    //     'id'=>(string)Str::uuid(),
-                    //     'project_id' => $detail->project_id,
-                    //     'type' => '1',
-                    //     'path' => $jgptfile->path,
-                    //     'name' => $jgptfile->name,
-                    // ]);
-                    $file = [
-                        'id'=>(string)Str::uuid(),
-                        'path' => $jgptfile->path,
-                        'name' => $jgptfile->name,
-                    ];
-                    $files[] = $file;
-                }
-                $detail->files()->save($files);
-            }
-	    });
-
-        return $jgptPurchase;
+    public function __construct()
+    {
+        $this->project_type_code = 'qycg';
+        $this->model_class = JgptProjectPurchase::class;
+        $this->detail_service_class = ProjectPurchaseService::class;
+        $this->fields_detail = ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone','xmbh','title','pzjg','bdgk','other','gp_date_start','gp_date_end','sfhs','gpjg_sm','gpjg_zj','bdyx','xmpz','gq','jyfs','bjms','jjfd','jy_date','zbdl_lxfs','yxf_zgtj','yxdj_zlqd','yxdj_sj','yxdj_fs','bzj_jn_time_end','bzj','zbwj_dj','jypt_lxfs','notes'];
     }
+
 
     public function back($id){
         $url = "http://127.0.0.1:8080/gzb/procurement/findprocurement";

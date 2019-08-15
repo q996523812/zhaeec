@@ -65,21 +65,20 @@ Route::group([
     $router->get('projects/showapproval/{id}', 'ProjectsController@showapproval');
     $router->post('projects/approval/{id}', 'ProjectsController@approval');
 
-    $router->get('jgptprojectpurchases', 'JgptProjectPurchasesController@index')->name('jgptprojectpurchases.index');
-    $router->get('jgptprojectpurchases/create', 'JgptProjectPurchasesController@create');
-    $router->post('jgptprojectpurchases', 'JgptProjectPurchasesController@store');
-    $router->get('jgptprojectpurchases/{id}/edit', 'JgptProjectPurchasesController@edit');
-    $router->post('jgptprojectpurchases/receive/{id}', 'JgptProjectPurchasesController@receive');
-    $router->get('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@show');
+    $router->get('jgpt/qycg', 'JgptProjectPurchasesController@index')->name('jgpt.qycg.index');
+    $router->get('jgpt/qycg/{id}', 'JgptProjectPurchasesController@show');
+    $router->get('jgpt/qycg/edit/{id}', 'JgptProjectPurchasesController@edit');
+    $router->post('jgpt/qycg/receive', 'JgptProjectPurchasesController@receive');
+    
     // $router->put('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@back');
 
-    $router->get('jgptprojectleases', 'JgptProjectLeasesController@index')->name('jgptprojectleases.index');
-    $router->get('jgptprojectleases/create', 'JgptProjectLeasesController@create');
-    $router->post('jgptprojectleases', 'JgptProjectLeasesController@store');
-    $router->get('jgptprojectleases/{id}/edit', 'JgptProjectLeasesController@edit');
-    $router->put('jgptprojectleases/{id}', 'JgptProjectLeasesController@update');
-    $router->get('jgptprojectleases/{id}', 'JgptProjectLeasesController@show');
-    $router->post('jgptprojectleases/receive', 'JgptProjectLeasesController@receive');
+    $router->get('jgpt/zczl', 'JgptProjectLeasesController@index')->name('jgpt.zczl.index');
+    $router->get('jgpt/zczl/create', 'JgptProjectLeasesController@create');
+    $router->post('jgpt/zczl', 'JgptProjectLeasesController@store');
+    $router->get('jgpt/zczl/edit/{id}', 'JgptProjectLeasesController@edit');
+    $router->put('jgpt/zczl/{id}', 'JgptProjectLeasesController@update');
+    $router->get('jgpt/zczl/{id}', 'JgptProjectLeasesController@show');
+    $router->post('jgpt/zczl/receive', 'JgptProjectLeasesController@receive');
 
     $router->get('pbresults', 'PbResultsController@index')->name('pbresults.index');
     $router->get('pbresults/create', 'PbResultsController@create');
