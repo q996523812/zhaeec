@@ -92,7 +92,7 @@ class JgptProjectLeasesController extends Controller
         
         $datas = json_decode($datas,true);
         if(!JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
-            $logService->addReceiveLog('接收',$datas['xmbh'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
+            $logService->addReceiveLog('接收',$datas['jgpt_key'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
             return $this->response->error('原数据表不存在,UUID：'.$datas['jgpt_key'], 422);
         }
         $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
