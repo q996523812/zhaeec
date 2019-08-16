@@ -11,6 +11,7 @@ use App\Models\JgptProjectLease;
 use App\Models\JgptFile;
 use App\Handlers\FileUploadHandler;
 use App\Handlers\WbjkFileUploadHandler;
+use App\Handlers\StreamFileHandler;
 use App\Services\InterfaceLogService;
 
 class JgptProjectLeasesController extends Controller
@@ -131,19 +132,16 @@ class JgptProjectLeasesController extends Controller
         return $this->response->array($result)->setStatusCode(201);
     }
     public function file(Request $request){
-        $hasfile = $request->hasFile('file');
-        if($hasfile){
-            $upfile = $request->file('file');
-            // $uploader->postFileupload($file);
-            $result = $uploader->save($upfile,'jgpt','qycq');
-            $file = new jgptFile();
-            $file->path = $result['path'];
-            $file->name = $result['name'];
-            $file->project_type = 'qycq';
-            $file->table_id = $datas['id'];
-            $file->id = (string)Str::uuid();
-            $file->save();
-        }
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+        $stream = new StreamFileHandler();
+        $filepath = public_path() . '/storage\uploads\files\postman\test222.doc';
+        $aaa = $stream->receive($filepath);
+        // $result['message'] = $aaa;
+        return $this->response->array($result)->setStatusCode(201);
     }
     /*
 	 *撤销业务接口

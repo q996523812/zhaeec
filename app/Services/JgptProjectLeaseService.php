@@ -23,7 +23,7 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
     }
 
     public function sendGpData($detail_id){
-        $url = $this->getSendUrl('api/assets/backfill/transaction');
+        $url = 'api/assets/backfill/transaction';
         $detail = ProjectLease::find($detail_id);
         $data = [
             'xmpname' => $detail->xmbh,

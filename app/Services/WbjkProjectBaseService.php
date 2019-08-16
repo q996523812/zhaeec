@@ -25,6 +25,12 @@ class WbjkProjectBaseService
     protected $IP = '47.112.15.51';
     protected $PORT = '8090';
 
+    /**
+     * 根据字段列表，从接口数据表中获取业务数据
+     * param $jgptDeatil 接口业务数据的模型实例
+     * param $fields 要获取的字段列表
+     * return 业务数据array
+     */
     private function getData($jgptDeatil,$fields){
         $data = [];
         foreach ($fields as $field) {
@@ -39,6 +45,31 @@ class WbjkProjectBaseService
         //     $data[$key] = $value;
         // };
         return $data;
+    }
+
+    /**
+     * 发送请求
+     * $url 相对地址,例如 api/assets/backfill/transaction
+     * $data 要发送的数据部分
+     * $detail_id 业务明细表ID
+     */
+    public function send($url,$data,$detail_id){
+        $url = $this->getSendUrl($url);
+        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
+        $data['uuid'] = $jgpt_detail->jgpt_key;
+        $curlHandler = new JgptCurlHandler;
+        $result = $curlHandler->curl($url,$data);
+
+        $json_result = json_decode($result,true);
+        return $json_result;
+    }
+
+    /**
+     * 获取完整的发送地址
+     * $url 相对地址,例如 api/assets/backfill/transaction
+     */
+    protected function getSendUrl($url){
+        return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
     }
 
 	//自动保存接口数据
@@ -96,25 +127,6 @@ class WbjkProjectBaseService
         return [];
     }
 
-
-    public function send($url,$data,$detail_id){
-        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
-        $data['uuid'] = $jgpt_detail->jgpt_key;
-        $curlHandler = new JgptCurlHandler;
-        
-        $result = $curlHandler->curl($url,$data);
-
-        $json_result = json_decode($result,true);
-        return $json_result;
-    }
-
-    /**
-     * 获取完整的发送地址
-     * $url 相对地址,例如 api/assets/backfill/transaction
-     */
-    public function getSendUrl($url){
-        return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
-    }
 /*
     public function lbNotice($project_id){
         $url = '';

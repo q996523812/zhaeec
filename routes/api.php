@@ -78,6 +78,7 @@ $api->version('v1', [
     $api->post('zczl/contract', 'JgptProjectLeasesController@contract')->name('api.zczl.contract');
 
     $api->post('zczl/files', 'JgptProjectLeasesController@files')->name('api.zczl.files');
+    $api->post('zczl/file', 'JgptProjectLeasesController@file')->name('api.zczl.file');
 
     //测试接口   模仿国资委接收接口    
     $api->post('purchases/rebackdatas', 'JgptProjectPurchasesController@rebackDatas')->name('api.qycg.rebackdatas');
