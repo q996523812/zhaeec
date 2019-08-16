@@ -101,6 +101,7 @@ class WbjkProjectBaseService
         $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
         $data['uuid'] = $jgpt_detail->jgpt_key;
         $curlHandler = new JgptCurlHandler;
+        
         $result = $curlHandler->curl($url,$data);
 
         $json_result = json_decode($result,true);

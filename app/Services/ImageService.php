@@ -45,7 +45,7 @@ class ImageService
 	        $file->path = $data['path'];
 	        $files[] = $file;
 		}
-		$files = $model->Images()->save($file);
+		$files = $model->Images()->saveMany($files);
 		return $files;
 	}
 

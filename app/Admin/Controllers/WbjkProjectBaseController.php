@@ -163,7 +163,17 @@ class WbjkProjectBaseController extends Controller
             $actions->disableEdit();
             // 当前行的数据数组
             $rec = $actions->row;
-            $bottons = $getBotton('接收','接收','edit2',$rec->id,'edit');
+            
+            $bottons = '';
+            switch($rec->status){
+                case 5:
+                    $bottons = $getBotton('接收','接收','edit2',$rec->id,'edit');
+                    break;
+                case 7:
+                    $bottons = $getBotton('发送挂牌数据','发送挂牌数据','edit2',$rec->id,'sendGp');
+                    break;
+                
+            }
             $actions->append($bottons); 
 
         });

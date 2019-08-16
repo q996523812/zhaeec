@@ -28,6 +28,12 @@ class CurlHandler
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // 从证书中检查SSL加密算法是否存在
         }
         if ($ispost) {
+            if ($params) {
+                if (is_array($params)) {
+                    $params = json_encode($params);
+                }
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
             curl_setopt($ch, CURLOPT_URL, $url);

@@ -80,53 +80,53 @@ class JgptProjectLeasesController extends Controller
         return $this->response->array($result)->setStatusCode(201);
     	// return $this->response->created();
     }
-    public function files(Request $request){
-        /*
-        $hasfiles = $request->hasFile('file');
-        if($hasfiles){
-            $upfiles = $request->file('file');
-            $uploader = new WbjkFileUploadHandler();
-            // $uploader->postFileupload($file);
-            $result = $uploader->batchUpload($upfiles,'jgpt','qycq');
-
-            $file = new jgptFile();
-            $file->path = $result['path'];
-            $file->name = $result['name'];
-            $file->project_type = 'qycq';
-            $file->table_id = $datas['id'];
-            $file->id = (string)Str::uuid();
-            $file->save();
-        }
-        */
+    public function files(Request $request,InterfaceLogService $logService){
         $result = [
             'success' => 'true',
             'message' => '',
             'status_code' => '200'
         ];
-        $hasfile = $request->hasFile('file1');
+        //解析参数到模板
+        $datas = $request->datas; 
+        $receive_message = $datas;
+        
+        $datas = json_decode($datas,true);
+        if(!JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
+            $logService->addReceiveLog('接收',$datas['xmbh'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
+            return $this->response->error('原数据表不存在,UUID：'.$datas['jgpt_key'], 422);
+        }
+        $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
+        $hasfile = $request->hasFile('files');
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         if($hasfile){
 
-            $upfiles = $request->file('file1');
+            $upfiles = $request->file('files');
             // $upfiles = $_FILES['file1'];
             // dd($upfiles);
             $uploader = new WbjkFileUploadHandler();
             // $uploader->postFileupload($file);
             $result1 = $uploader->batchUpload($upfiles,'jgpt','zczl');
-$result['eee'] = $result1;
-            // $file->path = $result['path'];
-            // $file->name = $result['name'];
-            // $file->project_type = 'zczl';
-            // $file->table_id = '11111';
-            // $file->id = (string)Str::uuid();
+            $jgptfiles = [];
+            foreach ($result1['files'] as $arrFile) {
+                $jgptfile = new JgptFile;
+                $jgptfile->name = $arrFile['name'];
+                $jgptfile->path = $arrFile['path'];
+                $jgptfile->id = (string)Str::uuid();
+                $jgptfiles[] = $jgptfile;
+            }
+            // $result['message'] = $jgptfiles;
+            $jgpt_detail->files()->saveMany($jgptfiles);
+            // $jgptimages = [];
+            // foreach ($result1['files'] as $arrFile) {
+            //     $jgptimage = new JgptImage();
+            //     $jgptimage->path = $arrFile['path'];
+            //     $jgptimages[] = $jgptimage;
+            // }
+            // $jgpt_detail->images()->save($jgptimages);
             
         }
         
-
-        $result['aaa'] = $request->file('file1');
-        $result['bbb'] = $request->all();
-        $result['ccc'] = $request->file1;
 
         return $this->response->array($result)->setStatusCode(201);
     }

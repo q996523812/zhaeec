@@ -41,10 +41,8 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             // 'jyphone' => $detail->jypt_lxfs,
             // 'remarks' => $detail->notes,
         ];
-
-        $json_result = $this->send($url,$data,$detail->id);
-
-        return $json_result;
+        $result = $this->send($url,$data,$detail->id);
+        return $result;
     }
 
 
