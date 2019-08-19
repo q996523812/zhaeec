@@ -74,33 +74,36 @@ class JgptProjectLeasesController extends Controller
         // $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
 
         $hasfile = $request->hasFile('files');
+
         $files1 = $request->file; 
-        $files1_json_decode = json_decode($datas,true);
+        $files2 = $request->files;
 
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         $result['files1_type'] = gettype($files1);
         $result['files1'] = $files1;
-        $result['files1_json_decode'] = gettype($files1_json_decode);
 
-        if(!empty($files1)){
+        if(empty($files1)){
             $result['isfiles1'] = '1';
         }
         else{
             $result['isfiles1'] = '2';
         }
-        if(!empty($files1_json_decode)){
-            $result['isfiles1_json_decode'] = '1';
+        if(empty($files2)){
+            $result['files2'] = '1';
         }
         else{
-            $result['isfiles1_json_decode'] = '2';
+            $result['files2'] = '2';
         }
-        $result['methods'] = get_object_vars($files1);
+        $result['methods1'] = get_object_vars($files1);
+        $result['methods2'] = get_object_vars($files2);
 
         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
 $result['filepath'] = $filepath;
         $stream = new StreamFileHandler();
         $aaa = $stream->test($filepath,$files1);
+        $filepath2 = public_path() . '/storage/uploads/files/postman/test444.txt';
+        $aaa = $stream->test($filepath2,$files2);
 
         if(false){
             // $upfiles = $request->file('files');

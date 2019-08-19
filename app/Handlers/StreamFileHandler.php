@@ -46,14 +46,15 @@ class StreamFileHandler
 	}
 
 	public function test($receiveFile,$streamData){
-		$streamData = isset($GLOBALS['HTTP_RAW_POST_DATA'])? $GLOBALS['HTTP_RAW_POST_DATA'] : ''; 
-
 		if(empty($streamData)){ 
-			$streamData = file_get_contents('php://input'); 
-		} 
-		if(empty($streamData)){ 
-			$streamData = file_get_contents($streamData); 
-		} 
+			$streamData = isset($GLOBALS['HTTP_RAW_POST_DATA'])? $GLOBALS['HTTP_RAW_POST_DATA'] : ''; 
+			if(empty($streamData)){ 
+				$streamData = file_get_contents('php://input'); 
+			} 
+		}
+		else{
+			$streamData = file_get_contents($streamData);
+		}
 		
 		if($streamData!=''){ 
 			$ret = file_put_contents($receiveFile, $streamData, true);
