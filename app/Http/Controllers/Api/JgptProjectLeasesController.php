@@ -100,7 +100,7 @@ class JgptProjectLeasesController extends Controller
         }
 
 
-        $filepath = public_path() . '/storage/uploads/files/postman/test333.xlsx';
+        $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
 $result['filepath'] = $filepath;
 
         // $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
