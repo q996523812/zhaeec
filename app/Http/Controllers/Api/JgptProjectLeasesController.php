@@ -75,8 +75,13 @@ class JgptProjectLeasesController extends Controller
         }
         $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
         $hasfile = $request->hasFile('files');
+        $files1 = $request->files; 
+
+
         // $hasfile = $_FILES['file1'];
-        $result['hasfile'] = $hasfile;$result['hasfile'] = $hasfile;
+        $result['hasfile'] = $hasfile;
+        $result['files1'] = $files1;
+
         if($hasfile){
 
             $upfiles = $request->file('files');
