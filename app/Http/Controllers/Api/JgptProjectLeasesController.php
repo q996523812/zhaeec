@@ -78,17 +78,24 @@ class JgptProjectLeasesController extends Controller
 
         $hasfile = $request->hasFile('files');
         $files1 = $request->files; 
-
+        $files1_json_decode = json_decode($datas,true);
 
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         $result['files1'] = gettype($files1);
+        $result['files1_json_decode'] = gettype($files1_json_decode);
 
-        if($files1 != ''){
+        if(!empty($files1)){
             $result['isfiles1'] = '1';
         }
         else{
             $result['isfiles1'] = '2';
+        }
+        if(!empty($files1_json_decode)){
+            $result['isfiles1_json_decode'] = '1';
+        }
+        else{
+            $result['isfiles1_json_decode'] = '2';
         }
 
 
