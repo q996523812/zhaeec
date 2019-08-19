@@ -82,7 +82,8 @@ class JgptProjectLeasesController extends Controller
 
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
-        $result['files1'] = $files1;
+        $result['files1'] = gettype($files1);
+
         if($files1 != ''){
             $result['isfiles1'] = '1';
         }
