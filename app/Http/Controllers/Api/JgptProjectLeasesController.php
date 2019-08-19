@@ -74,7 +74,7 @@ class JgptProjectLeasesController extends Controller
         // $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
 
         $hasfile = $request->hasFile('files');
-        $files1 = $request->files; 
+        $files1 = $request->file; 
         $files1_json_decode = json_decode($datas,true);
 
         // $hasfile = $_FILES['file1'];
@@ -97,10 +97,11 @@ class JgptProjectLeasesController extends Controller
         }
         $result['methods'] = get_object_vars($files1);
 
-//         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
-// $result['filepath'] = $filepath;
-//         $stream = new StreamFileHandler();
-//         $aaa = $stream->test($filepath,$files1);
+        $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
+$result['filepath'] = $filepath;
+        $stream = new StreamFileHandler();
+        $aaa = $stream->test($filepath,$files1);
+
         if(false){
             // $upfiles = $request->file('files');
             $upfiles = $files1;
