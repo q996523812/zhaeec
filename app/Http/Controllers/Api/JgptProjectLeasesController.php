@@ -99,10 +99,11 @@ class JgptProjectLeasesController extends Controller
         }
 
 
-        $filepath = public_path() . '/uploads/files/postman/test333.doc';
+        $filepath = public_path() . '/storage/uploads/files/postman/test333.doc';
+$result['filepath'] = $filepath;
 
-        $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
-        $upload_path = public_path() . '/' . $folder_name;
+        // $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        // $upload_path = public_path() . '/' . $folder_name;
         $stream = new StreamFileHandler();
         // $aaa = $stream->receive($filepath);
         $aaa = $stream->test($filepath,$files1);
