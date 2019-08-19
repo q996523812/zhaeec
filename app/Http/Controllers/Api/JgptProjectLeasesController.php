@@ -95,7 +95,7 @@ class JgptProjectLeasesController extends Controller
         else{
             $result['isfiles1_json_decode'] = '2';
         }
-        $result['methods'] = $files1->getMethods();
+        $result['methods'] = get_object_vars($files1);
 
 //         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
 // $result['filepath'] = $filepath;
