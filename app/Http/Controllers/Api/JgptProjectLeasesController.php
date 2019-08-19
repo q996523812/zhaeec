@@ -77,15 +77,15 @@ class JgptProjectLeasesController extends Controller
 
         $files1 = $request->file; 
         $files2 = $request->files;
-        $files3 = $_POST["file"];
+        // $files3 = $_POST["file"];
         $files4 = $_POST["files"];
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         $result['files1_type'] = gettype($files1);
         $result['files1'] = $files1;
-        $result['files2'] = $files1;
-        $result['files3'] = $files1;
-        $result['files4'] = $files1;
+        $result['files2'] = $files2;
+        // $result['files3'] = $files3;
+        $result['files4'] = $files4;
 
         if(empty($files1)){
             $result['isfiles1'] = '1';
