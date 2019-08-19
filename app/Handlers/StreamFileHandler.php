@@ -52,9 +52,9 @@ class StreamFileHandler
 				$streamData = file_get_contents('php://input'); 
 			} 
 		}
-		else{
-			$streamData = file_get_contents($streamData);
-		}
+		// else{
+		// 	$streamData = file_get_contents($streamData);
+		// }
 		
 		if($streamData!=''){ 
 			$ret = file_put_contents($receiveFile, $streamData, true);
