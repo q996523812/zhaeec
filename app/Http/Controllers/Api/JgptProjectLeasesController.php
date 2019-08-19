@@ -95,13 +95,13 @@ class JgptProjectLeasesController extends Controller
         else{
             $result['isfiles1_json_decode'] = '2';
         }
-
+        $result['methods'] = $files1->getMethods();
 
 //         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
 // $result['filepath'] = $filepath;
 //         $stream = new StreamFileHandler();
 //         $aaa = $stream->test($filepath,$files1);
-        if(true){
+        if(false){
 
             // $upfiles = $request->file('files');
             $upfiles = $files1;
