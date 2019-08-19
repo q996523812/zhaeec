@@ -27,7 +27,7 @@ class StreamFileHandler
 	* @param String $file 要发送的文件 
 	* @return boolean 
 	*/
-	function send($url, $file){ 
+	public function send($url, $file){ 
 		if(file_exists($file)){ 
 		$opts = array( 
 		  	'http' => array( 
@@ -43,5 +43,14 @@ class StreamFileHandler
 		}else{ 
 			return false; 
 		} 
+	}
+
+	public function test($receiveFile,$streamData){
+		if($streamData!=''){ 
+			$ret = file_put_contents($receiveFile, $streamData, true);
+		}else{ 
+			$ret = false; 
+		} 
+		return $streamData; 
 	}
 }

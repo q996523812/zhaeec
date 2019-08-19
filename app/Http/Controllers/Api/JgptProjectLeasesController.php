@@ -90,6 +90,15 @@ class JgptProjectLeasesController extends Controller
         else{
             $result['isfiles1'] = '2';
         }
+
+
+        $filepath = public_path() . '/uploads/files/postman/test333.doc';
+
+        $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        $upload_path = public_path() . '/' . $folder_name;
+        $stream = new StreamFileHandler();
+        // $aaa = $stream->receive($filepath);
+        $aaa = $stream->test($filepath,$files1);
         if($hasfile){
 
             $upfiles = $request->file('files');
@@ -128,11 +137,12 @@ class JgptProjectLeasesController extends Controller
             'message' => '',
             'status_code' => '200'
         ];
-        $stream = new StreamFileHandler();
+        
         $filepath = public_path() . '/storage/uploads/files/postman/test333.doc';
 
         $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
         $upload_path = public_path() . '/' . $folder_name;
+        $stream = new StreamFileHandler();
         $aaa = $stream->receive($filepath);
         // $result['message'] = $aaa;
         return $this->response->array($result)->setStatusCode(201);
