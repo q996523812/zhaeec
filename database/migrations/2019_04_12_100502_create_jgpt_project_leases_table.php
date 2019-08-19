@@ -46,10 +46,10 @@ class CreateJgptProjectLeasesTable extends Migration
             $table->string('zclb');
             $table->string('fbfs');
             $table->string('zcsfsx');
-            $table->decimal('pgjz');
+            $table->decimal('pgjz',26,6);
             $table->string('jyfs');
             $table->string('bjms');
-            $table->decimal('jjfd');
+            $table->decimal('jjfd',26,6);
             $table->string('jysj_bz');
             $table->string('yxf_zgtj');
             $table->string('yxdj_zlqd');

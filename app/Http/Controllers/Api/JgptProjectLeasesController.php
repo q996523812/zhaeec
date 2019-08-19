@@ -39,28 +39,6 @@ class JgptProjectLeasesController extends Controller
 		}
 		$datas['id'] = (string)Str::uuid();
 		$datas['status'] = 5;
-
-		//判断请求中是否包含name=file的上传文件
-		$hasfile = $request->hasFile('file');
-        if($hasfile){
-            $upfile = $request->file('file');
-        	// $uploader->postFileupload($file);
-			$result = $uploader->save($upfile,'jgpt','zczl');
-
-			$file->path = $result['path'];
-			$file->name = $result['name'];
-	        $file->project_type = 'zczl';
-	        $file->table_id = $datas['id'];
-	        $file->id = (string)Str::uuid();
-	        
-        }
-
-        // $streamData = file_get_contents("php://input")
-        // if($streamData!=''){  
-        //     $ret = file_put_contents($receiveFile, $streamData, true);  
-        // }else{  
-        //     $ret = false;  
-        // } 
         
         DB::transaction(function () use($datas,$hasfile,$file) {
             $purchases = JgptProjectLease::create($datas);
@@ -75,7 +53,6 @@ class JgptProjectLeasesController extends Controller
             'status_code' => '200'
         ];
 
-        $result['fff'] = $file->name;
         $logService->addReceiveLog('接收',$datas['xmbh'],$datas['title'],$receive_message,1,$result);
         
         return $this->response->array($result)->setStatusCode(201);
@@ -99,7 +76,7 @@ class JgptProjectLeasesController extends Controller
         $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
         $hasfile = $request->hasFile('files');
         // $hasfile = $_FILES['file1'];
-        $result['hasfile'] = $hasfile;
+        $result['hasfile'] = $hasfile;$result['hasfile'] = $hasfile;
         if($hasfile){
 
             $upfiles = $request->file('files');
@@ -131,6 +108,7 @@ class JgptProjectLeasesController extends Controller
 
         return $this->response->array($result)->setStatusCode(201);
     }
+
     public function file(Request $request){
         $result = [
             'success' => 'true',
@@ -138,7 +116,10 @@ class JgptProjectLeasesController extends Controller
             'status_code' => '200'
         ];
         $stream = new StreamFileHandler();
-        $filepath = public_path() . '/storage\uploads\files\postman\test222.doc';
+        $filepath = public_path() . '/storage/uploads/files/postman/test333.doc';
+
+        $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        $upload_path = public_path() . '/' . $folder_name;
         $aaa = $stream->receive($filepath);
         // $result['message'] = $aaa;
         return $this->response->array($result)->setStatusCode(201);
