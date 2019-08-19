@@ -77,11 +77,15 @@ class JgptProjectLeasesController extends Controller
 
         $files1 = $request->file; 
         $files2 = $request->files;
-
+        $files3 = $_POST["file"];
+        $files4 = $_POST["files"];
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         $result['files1_type'] = gettype($files1);
         $result['files1'] = $files1;
+        $result['files2'] = $files1;
+        $result['files3'] = $files1;
+        $result['files4'] = $files1;
 
         if(empty($files1)){
             $result['isfiles1'] = '1';
@@ -90,20 +94,20 @@ class JgptProjectLeasesController extends Controller
             $result['isfiles1'] = '2';
         }
         if(empty($files2)){
-            $result['files2'] = '1';
+            $result['isfiles2'] = '1';
         }
         else{
-            $result['files2'] = '2';
+            $result['isfiles2'] = '2';
         }
         $result['methods1'] = get_object_vars($files1);
         $result['methods2'] = get_object_vars($files2);
 
-        $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
-$result['filepath'] = $filepath;
-        $stream = new StreamFileHandler();
-        $aaa = $stream->test($filepath,$files1);
-        $filepath2 = public_path() . '/storage/uploads/files/postman/test444.txt';
-        $aaa = $stream->test($filepath2,$files2);
+//         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
+// $result['filepath'] = $filepath;
+//         $stream = new StreamFileHandler();
+//         $aaa = $stream->test($filepath,$files1);
+//         $filepath2 = public_path() . '/storage/uploads/files/postman/test444.txt';
+//         $aaa = $stream->test($filepath2,$files2);
 
         if(false){
             // $upfiles = $request->file('files');
