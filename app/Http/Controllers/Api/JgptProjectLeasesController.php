@@ -69,11 +69,13 @@ class JgptProjectLeasesController extends Controller
         $receive_message = $datas;
         
         $datas = json_decode($datas,true);
-        if(!JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
-            $logService->addReceiveLog('接收',$datas['jgpt_key'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
-            return $this->response->error('原数据表不存在,UUID：'.$datas['jgpt_key'], 422);
-        }
-        $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
+
+        // if(!JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
+        //     $logService->addReceiveLog('接收',$datas['jgpt_key'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
+        //     return $this->response->error('原数据表不存在,UUID：'.$datas['jgpt_key'], 422);
+        // }
+        // $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
+
         $hasfile = $request->hasFile('files');
         $files1 = $request->files; 
 
@@ -81,7 +83,12 @@ class JgptProjectLeasesController extends Controller
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
         $result['files1'] = $files1;
-
+        if($files1 != ''){
+            $result['isfiles1'] = '1';
+        }
+        else{
+            $result['isfiles1'] = '2';
+        }
         if($hasfile){
 
             $upfiles = $request->file('files');
@@ -99,7 +106,7 @@ class JgptProjectLeasesController extends Controller
                 $jgptfiles[] = $jgptfile;
             }
             // $result['message'] = $jgptfiles;
-            $jgpt_detail->files()->saveMany($jgptfiles);
+            // $jgpt_detail->files()->saveMany($jgptfiles);
             // $jgptimages = [];
             // foreach ($result1['files'] as $arrFile) {
             //     $jgptimage = new JgptImage();
