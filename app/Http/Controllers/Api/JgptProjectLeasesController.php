@@ -102,7 +102,6 @@ class JgptProjectLeasesController extends Controller
 //         $stream = new StreamFileHandler();
 //         $aaa = $stream->test($filepath,$files1);
         if(false){
-
             // $upfiles = $request->file('files');
             $upfiles = $files1;
             // $upfiles = $_FILES['file1'];
