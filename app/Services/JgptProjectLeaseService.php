@@ -77,7 +77,30 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
     }   
 
     public function zbNotice($project_id){
-        $url = 'http://zhaeec.test/api/purchases/rebackdatas';
+        $url = 'api/assets/backfill/winningbid';
+        $project = Project::find($project_id)->first();
+        $detail = ProjectLease::find($project->detail_id);
+        $zbtz = WinNotice::where('project_id',$project_id)->first();
+        $datas = $zbtz;
+        $data = [
+            'pcode' => $zbtz->tzsbh,
+            'zbpname' => $zbtz->xmbh,
+            'bdmc' => $zbtz->title,
+            'zbContent' => $zbtz->zbnr,
+            'zbPhone' => $zbtz->zbf_phone,
+            'zbType' => $zbtz->zbf_lx_1,
+            'cjzj' => $zbtz->cjj_zj,
+            'cjdj' => $zbtz->cjj_dj,
+            'zbjyWay' => $zbtz->jyfs,
+            'jyPlace' => $zbtz->jycd,
+            'zbfArea' => $zbtz->zbf_qy,
+        ];
+        $result = $this->send($url,$data,$detail->id);
+
+        return $result;
+    }
+    public function zbNoticeFile($project_id){
+        $url = 'api/assets/backfill/filesupload/{uuid}';
         $project = Project::find($project_id)->first();
         $zbtz = WinNotice::where('project_id',$project_id)->first();
         $datas = $zbtz;

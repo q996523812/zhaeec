@@ -40,11 +40,8 @@ class JgptProjectLeasesController extends Controller
 		$datas['id'] = (string)Str::uuid();
 		$datas['status'] = 5;
         
-        DB::transaction(function () use($datas,$hasfile,$file) {
+        DB::transaction(function () use($datas) {
             $purchases = JgptProjectLease::create($datas);
-            if($hasfile){
-            	$file->save();
-            }
         });
 
     	$result = [
@@ -100,17 +97,14 @@ class JgptProjectLeasesController extends Controller
         }
 
 
-        $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
-$result['filepath'] = $filepath;
+//         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
+// $result['filepath'] = $filepath;
+//         $stream = new StreamFileHandler();
+//         $aaa = $stream->test($filepath,$files1);
+        if(true){
 
-        // $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
-        // $upload_path = public_path() . '/' . $folder_name;
-        $stream = new StreamFileHandler();
-        // $aaa = $stream->receive($filepath);
-        $aaa = $stream->test($filepath,$files1);
-        if($hasfile){
-
-            $upfiles = $request->file('files');
+            // $upfiles = $request->file('files');
+            $upfiles = $files1;
             // $upfiles = $_FILES['file1'];
             // dd($upfiles);
             $uploader = new WbjkFileUploadHandler();
@@ -153,7 +147,8 @@ $result['filepath'] = $filepath;
         // $upload_path = public_path() . '/' . $folder_name;
         $stream = new StreamFileHandler();
         $aaa = $stream->receive($filepath);
-        $result['message'] = $aaa;
+        $result['aaa'] = $aaa;
+        $result['aaa_type'] = gettype($aaa);
         return $this->response->array($result)->setStatusCode(201);
     }
     /*

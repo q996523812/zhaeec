@@ -140,33 +140,4 @@ class WbjkProjectBaseService
     }     
     */
 
-    public function jjResult($project_id){
-        $url = 'http://47.112.15.51:8090/api/assets/backfill/winningbid';
-
-        $project = Project::find($project_id)->first();
-        $pbjg = PbResult::where('project_id',$project_id)->get();        
-        $datas = [
-            'xmbh' => $purchase->xmbh,
-            'title' => $purchase->title,
-            'records' => $pbjg,
-        ];
-        $curlHandler = new JgptCurlHandler;
-        $result = $curlHandler->curl($url,$datas);
-
-        $json_result = json_decode($result,true);
-        return $json_result;
-    }   
-
-    public function zbNotice($project_id){
-        $url = 'http://zhaeec.test/api/purchases/rebackdatas';
-        $project = Project::find($project_id)->first();
-        $zbtz = WinNotice::where('project_id',$project_id)->first();
-        $datas = $zbtz;
-
-        $curlHandler = new JgptCurlHandler;
-        $result = $curlHandler->curl($url,$datas);
-
-        $json_result = json_decode($result,true);
-        return $json_result;
-    }
 }
