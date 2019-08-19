@@ -82,7 +82,8 @@ class JgptProjectLeasesController extends Controller
 
         // $hasfile = $_FILES['file1'];
         $result['hasfile'] = $hasfile;
-        $result['files1'] = gettype($files1);
+        $result['files1_type'] = gettype($files1);
+        $result['files1'] = $files1;
         $result['files1_json_decode'] = gettype($files1_json_decode);
 
         if(!empty($files1)){
@@ -146,13 +147,13 @@ $result['filepath'] = $filepath;
             'status_code' => '200'
         ];
         
-        $filepath = public_path() . '/storage/uploads/files/postman/test333.doc';
+        $filepath = public_path() . '/storage/uploads/files/postman/test444.text';
 
-        $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
-        $upload_path = public_path() . '/' . $folder_name;
+        // $folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        // $upload_path = public_path() . '/' . $folder_name;
         $stream = new StreamFileHandler();
         $aaa = $stream->receive($filepath);
-        // $result['message'] = $aaa;
+        $result['message'] = $aaa;
         return $this->response->array($result)->setStatusCode(201);
     }
     /*
