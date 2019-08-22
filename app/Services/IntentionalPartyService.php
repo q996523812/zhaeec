@@ -15,7 +15,7 @@ class IntentionalPartyService
 		
         $workProcessNodeService = new WorkProcessNodeService();
         $node = $workProcessNodeService->find('yxdj',$process);
-
+        $insert['id'] = (string)Str::uuid();
         $insert['status'] = 1;
         $insert['process'] = $node->code;
 		$insert['process_name'] = $node->name;

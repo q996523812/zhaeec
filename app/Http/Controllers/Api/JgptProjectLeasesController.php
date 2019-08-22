@@ -13,6 +13,8 @@ use App\Handlers\FileUploadHandler;
 use App\Handlers\WbjkFileUploadHandler;
 use App\Handlers\StreamFileHandler;
 use App\Services\InterfaceLogService;
+use App\Services\JgptFileService;
+use App\Services\JgptImageService;
 
 class JgptProjectLeasesController extends Controller
 {
@@ -66,79 +68,23 @@ class JgptProjectLeasesController extends Controller
         $receive_message = $datas;
         
         $datas = json_decode($datas,true);
-
-        // if(!JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->exists()){
-        //     $logService->addReceiveLog('接收',$datas['jgpt_key'],$datas['jgpt_key'],$receive_message,0,'原数据表不存在');
-        //     return $this->response->error('原数据表不存在,UUID：'.$datas['jgpt_key'], 422);
+        $jgpt_key = $datas['jgpt_key'];
+        // if(!JgptProjectLease::where('jgpt_key',$jgpt_key)->exists()){
+        //     $logService->addReceiveLog('接收',$jgpt_key,$jgpt_key,$receive_message,0,'原数据表不存在');
+        //     return $this->response->error('原数据表不存在,UUID：'.$jgpt_key, 422);
         // }
-        // $jgpt_detail = JgptProjectLease::where('jgpt_key',$datas['jgpt_key'])->first();
+        // $jgpt_detail = JgptProjectLease::where('jgpt_key',$jgpt_key)->first();
 
-        $hasfile = $request->hasFile('files');
+        $uploader = new WbjkFileUploadHandler();
+        $files_data = $uploader->receive('postman');
+        // DB::transaction(function () use($jgpt_detail,$files_data) {
+        //     $fileserice = new JgptFileService();
+        //     $fileserice->batchStore($jgpt_detail,$files_data['files']);
+        //     $imageserice = new JgptImageService();
+        //     $imageserice->batchStore($jgpt_detail,$files_data['images']);
+        // }
 
-        $files1 = $request->file; 
-        $files2 = $request->files;
-        // $files3 = $_POST["file"];
-        $files4 = $_POST["files"];
-        // $hasfile = $_FILES['file1'];
-        $result['hasfile'] = $hasfile;
-        $result['files1_type'] = gettype($files1);
-        $result['files1'] = $files1;
-        $result['files2'] = $files2;
-        // $result['files3'] = $files3;
-        $result['files4'] = $files4;
-
-        if(empty($files1)){
-            $result['isfiles1'] = '1';
-        }
-        else{
-            $result['isfiles1'] = '2';
-        }
-        if(empty($files2)){
-            $result['isfiles2'] = '1';
-        }
-        else{
-            $result['isfiles2'] = '2';
-        }
-        $result['methods1'] = get_object_vars($files1);
-        $result['methods2'] = get_object_vars($files2);
-
-//         $filepath = public_path() . '/storage/uploads/files/postman/test333.txt';
-// $result['filepath'] = $filepath;
-//         $stream = new StreamFileHandler();
-//         $aaa = $stream->test($filepath,$files1);
-//         $filepath2 = public_path() . '/storage/uploads/files/postman/test444.txt';
-//         $aaa = $stream->test($filepath2,$files2);
-
-        if(false){
-            // $upfiles = $request->file('files');
-            $upfiles = $files1;
-            // $upfiles = $_FILES['file1'];
-            // dd($upfiles);
-            $uploader = new WbjkFileUploadHandler();
-            // $uploader->postFileupload($file);
-            $result1 = $uploader->batchUpload($upfiles,'jgpt','zczl');
-            $jgptfiles = [];
-            foreach ($result1['files'] as $arrFile) {
-                $jgptfile = new JgptFile;
-                $jgptfile->name = $arrFile['name'];
-                $jgptfile->path = $arrFile['path'];
-                $jgptfile->id = (string)Str::uuid();
-                $jgptfiles[] = $jgptfile;
-            }
-            // $result['message'] = $jgptfiles;
-            // $jgpt_detail->files()->saveMany($jgptfiles);
-            // $jgptimages = [];
-            // foreach ($result1['files'] as $arrFile) {
-            //     $jgptimage = new JgptImage();
-            //     $jgptimage->path = $arrFile['path'];
-            //     $jgptimages[] = $jgptimage;
-            // }
-            // $jgpt_detail->images()->save($jgptimages);
-            
-        }
-        
-
-        return $this->response->array($result)->setStatusCode(201);
+        return $this->response->array($result)->setStatusCode(200);
     }
 
     public function file(Request $request){

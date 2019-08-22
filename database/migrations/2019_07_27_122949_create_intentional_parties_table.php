@@ -14,7 +14,7 @@ class CreateIntentionalPartiesTable extends Migration
     public function up()
     {
         Schema::create('intentional_parties', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->unsignedInteger('customertype')->comment('意向方类型，1:自然人、2:法人、3：其他组织');
             $table->string('name')->comment('客户名称');
             $table->string('id_type')->comment('证件类型');

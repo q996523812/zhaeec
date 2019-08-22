@@ -2,3 +2,5 @@
 php artisan migrate:refresh
 php artisan admin:install
 php artisan db:seed
+
+php artisan storage:link

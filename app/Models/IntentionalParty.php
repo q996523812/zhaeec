@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IntentionalParty extends Model
 {
+    public $incrementing = false;
 	protected $guarded = [];
 
     public function project()

@@ -6,18 +6,57 @@
 <div class="fields-group">
 
 <div class="form-group  ">
-<label for="type" class="col-sm-2  control-label">中标人</label>
-<div class="col-sm-8">
-<div class="input-group">
-<span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-<select id="yxf_id" name="yxf_id" class="form-control yxf_id">
-   @foreach($yxfs as $yxf)
-   <option value="{{$yxf->id}}">{{$yxf->name}}</option>
-   @endforeach
-</select>
+  <label for="type" class="col-sm-2  control-label">中标人</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+      <select id="yxf_id" name="yxf_id" class="form-control yxf_id">
+         @foreach($yxfs as $yxf)
+         <option value="{{$yxf->id}}">{{$yxf->name}}</option>
+         @endforeach
+      </select>
+    </div>
+  </div>
 </div>
+
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">成交价格</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="gpjg_zj" name="gpjg_zj" value="{{$detail->gpjg_zj}}" class="form-control money gpjg_zj" placeholder="输入 成交价格">
+    </div>
+  </div>
 </div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">中心应收服务费</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="service_charge_receivable" name="service_charge_receivable" value="{{$detail->service_charge_receivable}}" class="form-control money service_charge_receivable" placeholder="输入 中心应收服务费">
+    </div>
+  </div>
 </div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">委托方应缴服务费</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="wtf_service_fee_payable" name="wtf_service_fee_payable" value="{{$detail->wtf_service_fee_payable}}" class="form-control money wtf_service_fee_payable" placeholder="输入 委托方应缴服务费">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">中标方应缴服务费</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="zbf_service_fee_payable" name="zbf_service_fee_payable" value="{{$detail->zbf_service_fee_payable}}" class="form-control money zbf_service_fee_payable" placeholder="输入 中标方应缴服务费">
+    </div>
+  </div>
+</div>
+
+
 
 
 <div class="form-group  ">

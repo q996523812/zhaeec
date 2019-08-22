@@ -22,7 +22,28 @@ class JgptCurlHandler
 		];
 		$result = CurlHandler::curl($url,$param,1,0);
 		$logService = new InterfaceLogService;
-		$interfaceLog = $logService->addSendLog('发送',null,$data['xmpname'],$param,1,$result);
+		$interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
+		return $result;
+	}
+
+	public function curl2($url,$data,$file){
+		$key = 'GZW';//由国资委指定
+		$randomNum = rand(10000, 99999);
+		$time = time();
+		$AA = [MD5($key),$time,$randomNum];
+		$token = MD5(implode('',Arr::sort($AA)));
+
+		$param = [
+			'randomNum' =>  $randomNum,
+			'time' => $time,
+			'token' => $token,
+			// 'datas' => json_encode($data),
+			'datas' => $data,
+			'file1' => $file,
+		];
+		$result = CurlHandler::curl($url,$param,1,0);
+		$logService = new InterfaceLogService;
+		$interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
 		return $result;
 	}
 

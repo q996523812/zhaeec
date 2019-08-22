@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\JgptProjectLease;
 use App\Models\ProjectLease;
 use App\Models\Project;
+use App\Models\WinNotice;
 use App\Models\PbResult;
 use Illuminate\Support\Str;
 use Encore\Admin\Facades\Admin;
@@ -65,8 +66,8 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
         $project = Project::find($project_id)->first();
         $pbjg = PbResult::where('project_id',$project_id)->get();        
         $datas = [
-            'xmbh' => $purchase->xmbh,
-            'title' => $purchase->title,
+            'xmbh' => $project->xmbh,
+            'title' => $project->title,
             'records' => $pbjg,       
         ];
         $curlHandler = new JgptCurlHandler;
@@ -77,11 +78,26 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
     }   
 
     public function zbNotice($project_id){
-        $url = 'api/assets/backfill/winningbid';
         $project = Project::find($project_id)->first();
-        $detail = ProjectLease::find($project->detail_id);
         $zbtz = WinNotice::where('project_id',$project_id)->first();
-        $datas = $zbtz;
+        $result = [];
+        try{
+            $result['data'] = $this->zbNoticeData($project,$zbtz);
+        }
+        catch(\Exception $e){
+            $result['data_error'] = $e->getMessage();
+        }
+        try{
+            $result['file'] = $this->zbNoticeFile($project,$zbtz);
+        }
+        catch(\Exception $e){
+            $result['file_error'] = $e->getMessage();
+        }
+        throw new \Exception(json_encode($result));
+    }
+
+    public function zbNoticeData($project,$zbtz){
+        $url = 'api/assets/backfill/winningbid';
         $data = [
             'pcode' => $zbtz->tzsbh,
             'zbpname' => $zbtz->xmbh,
@@ -95,21 +111,17 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             'jyPlace' => $zbtz->jycd,
             'zbfArea' => $zbtz->zbf_qy,
         ];
-        $result = $this->send($url,$data,$detail->id);
-
+        // $result = $this->send($url,$data,$project->detail_id);
+        $result = $this->send2($url,$data,$project->detail_id);
         return $result;
     }
-    public function zbNoticeFile($project_id){
-        $url = 'api/assets/backfill/filesupload/{uuid}';
-        $project = Project::find($project_id)->first();
-        $zbtz = WinNotice::where('project_id',$project_id)->first();
-        $datas = $zbtz;
-
-        $curlHandler = new JgptCurlHandler;
-        $result = $curlHandler->curl($url,$datas);
-
-        $json_result = json_decode($result,true);
-        return $json_result;
+    public function zbNoticeFile($project,$zbtz){
+        $url = 'api/assets/backfill/filesupload';
+        // $file = $zbtz->files->first();
+        $file = $zbtz->file_path;
+        // $result = $this->sendFile($url,$file,$project->detail_id);
+        $result = $this->sendFile2($url,$file,$project->detail_id);
+        return $result;
     } 
 
 }

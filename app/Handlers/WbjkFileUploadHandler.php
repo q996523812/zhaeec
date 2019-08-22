@@ -60,4 +60,47 @@ class WbjkFileUploadHandler
         }
 		return $re;
 	}
+
+	public function receive($folder){
+		$result = [];
+		$result_files = [];
+		$result_images = [];
+		
+		$file_folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+		$image_folder_name = "storage/uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+		$folder_name = "storage/uploads/files/postman/";
+		// $files = file_get_contents('php://input');
+		$files = $_FILES['files'];
+		$tmp_names = $files['tmp_name'];
+		$file_names = $files['name'];
+		for($i=0;$i<count($file_names);$i++){
+			$file_name = $file_names[$i];//原文件名，不包含路径
+			$extension = $this->getExtendName($file_name);
+			$file_name_new = time() . '_' . str_random(10) . '.' . $extension;
+			$file_path = $folder_name.$file_name_new;//文件存储路径，含文件名
+			$isimage = in_array($extension, $this->allowed_ext);
+			// if($isimage){
+			// 	$file_path = $image_folder_name.$file_name_new;//图片存储路径，含文件名
+			// }
+			$a = move_uploaded_file($tmp_names[$i], $file_path);
+			if($a){
+				if ($isimage) {
+					$result_files['path'] = $file_path;
+				}
+				else{
+					$result_files['path'] = $file_path;
+					$result_files['name'] = $file_name;
+				}
+			}
+		}
+		$result['files'] = $result_files;
+		$result['images'] = $result_images;
+		return $result;
+	}
+
+	public function getExtendName($filename){
+		$a = explode('.', $filename);
+		$extendName = $a[count($a)-1];
+		return strtolower($extendName);
+	}
 }

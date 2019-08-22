@@ -29,20 +29,42 @@ class StreamFileHandler
 	*/
 	public function send($url, $file){ 
 		if(file_exists($file)){ 
-		$opts = array( 
-		  	'http' => array( 
-			    'method' => 'POST', 
-			    'header' => 'content-type:application/x-www-form-urlencoded', 
-			    'content' => file_get_contents($file) 
-		  	) 
-		); 
-		$context = stream_context_create($opts); 
-		$response = file_get_contents($url, false, $context); 
-		$ret = json_decode($response, true); 
+			$data = array(
+				'file1' => file_get_contents($file)
+			);
+			$opts = array( 
+			  	'http' => array( 
+				    'method' => 'POST', 
+				    'header' => 'content-type:application/x-www-form-urlencoded', 
+				    'content' => http_build_query($data) 
+			  	) 
+			); 
+			// dd($opts);
+			ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; GreenBrowser)');
+			$context = stream_context_create($opts);
+
+			$response = file_get_contents($url, false, $context); 
+			$ret = json_decode($response, true); 
 			return $ret['success']; 
 		}else{ 
 			return false; 
 		} 
+	}
+	public function send2($url, $data){ 
+			$data = http_build_query($data);
+
+			$opts = array( 
+			  	'http' => array( 
+				    'method' => 'POST', 
+				    'header' => 'content-type:application/x-www-form-urlencoded', 
+				    'content' => $data 
+			  	) 
+			); 
+			ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; GreenBrowser)');
+			$context = stream_context_create($opts);
+			$response = file_get_contents($url, false, $context); 
+			$ret = json_decode($response, true); 
+			return $ret['success']; 
 	}
 
 	public function test($receiveFile,$streamData){
