@@ -64,25 +64,26 @@ class JgptProjectLeasesController extends Controller
             'status_code' => '200'
         ];
         //解析参数到模板
-        $datas = $request->datas; 
-        $receive_message = $datas;
-        
-        $datas = json_decode($datas,true);
+        $params = $request->params; 
+        $receive_message = $params;
+
+        $params = json_decode($params,true);
+        $datas = $params['datas'];
         $jgpt_key = $datas['jgpt_key'];
-        // if(!JgptProjectLease::where('jgpt_key',$jgpt_key)->exists()){
-        //     $logService->addReceiveLog('接收',$jgpt_key,$jgpt_key,$receive_message,0,'原数据表不存在');
-        //     return $this->response->error('原数据表不存在,UUID：'.$jgpt_key, 422);
-        // }
-        // $jgpt_detail = JgptProjectLease::where('jgpt_key',$jgpt_key)->first();
+        if(!JgptProjectLease::where('jgpt_key',$jgpt_key)->exists()){
+            $logService->addReceiveLog('接收',$jgpt_key,$jgpt_key,$receive_message,0,'原数据表不存在');
+            return $this->response->error('原数据表不存在,UUID：'.$jgpt_key, 422);
+        }
+        $jgpt_detail = JgptProjectLease::where('jgpt_key',$jgpt_key)->first();
 
         $uploader = new WbjkFileUploadHandler();
-        $files_data = $uploader->receive('postman');
-        // DB::transaction(function () use($jgpt_detail,$files_data) {
-        //     $fileserice = new JgptFileService();
-        //     $fileserice->batchStore($jgpt_detail,$files_data['files']);
-        //     $imageserice = new JgptImageService();
-        //     $imageserice->batchStore($jgpt_detail,$files_data['images']);
-        // }
+        $files_data = $uploader->receive('zczl');
+        DB::transaction(function () use($jgpt_detail,$files_data) {
+            $fileserice = new JgptFileService();
+            $fileserice->batchStore($jgpt_detail,$files_data['files']);
+            $imageserice = new JgptImageService();
+            $imageserice->batchStore($jgpt_detail,$files_data['images']);
+        }
 
         return $this->response->array($result)->setStatusCode(200);
     }

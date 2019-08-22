@@ -67,21 +67,28 @@ class WbjkFileUploadHandler
 		$result_images = [];
 		
 		$file_folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
-		$image_folder_name = "storage/uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
-		$folder_name = "storage/uploads/files/postman/";
+		$image_folder_name = "storage/uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time());
 		// $files = file_get_contents('php://input');
+		if(!is_dir($file_folder_name)){
+			mkdir($file_folder_name,0777,true);
+		}
+		if(!is_dir($image_folder_name)){
+			mkdir($image_folder_name,0777,true);
+		}
+		
+		
 		$files = $_FILES['files'];
 		$tmp_names = $files['tmp_name'];
 		$file_names = $files['name'];
 		for($i=0;$i<count($file_names);$i++){
 			$file_name = $file_names[$i];//原文件名，不包含路径
 			$extension = $this->getExtendName($file_name);
-			$file_name_new = time() . '_' . str_random(10) . '.' . $extension;
-			$file_path = $folder_name.$file_name_new;//文件存储路径，含文件名
-			$isimage = in_array($extension, $this->allowed_ext);
-			// if($isimage){
-			// 	$file_path = $image_folder_name.$file_name_new;//图片存储路径，含文件名
-			// }
+			$file_name_new = time() . '_' . str_random(10) . '.' . $extension;//新文件名
+			$file_path = $file_folder_name.$file_name_new;//文件存储路径，含文件名
+			$isimage = in_array($extension, $this->allowed_ext);//文件是否为图片
+			if($isimage){
+				$file_path = $image_folder_name.$file_name_new;//图片存储路径，含文件名
+			}
 			$a = move_uploaded_file($tmp_names[$i], $file_path);
 			if($a){
 				if ($isimage) {
