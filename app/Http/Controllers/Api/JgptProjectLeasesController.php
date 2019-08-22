@@ -83,7 +83,7 @@ class JgptProjectLeasesController extends Controller
             $fileserice->batchStore($jgpt_detail,$files_data['files']);
             $imageserice = new JgptImageService();
             $imageserice->batchStore($jgpt_detail,$files_data['images']);
-        }
+        });
 
         return $this->response->array($result)->setStatusCode(200);
     }
