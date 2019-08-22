@@ -16,7 +16,7 @@ class CreateJgptFilesTable extends Migration
         Schema::create('jgpt_files', function (Blueprint $table) {
             $table->string('id');
             $table->string('table_id');
-            $table->string('project_type');
+            $table->string('project_type')->nullable();
             $table->string('file_type')->nullable();
             $table->string('path');
             $table->string('name');

@@ -18,7 +18,7 @@ class JgptImageService
         $file->name = $data['name'];
         $file->path = $data['path'];
         
-		$file2 = $model->files()->save($file);
+		$file2 = $model->images()->save($file);
 		return $file2;
 	}
 
@@ -29,7 +29,7 @@ class JgptImageService
 	        $file->path = $data['path'];
 	        $files[] = $file;
 		}
-		$files = $model->files()->saveMany($files);
+		$files = $model->images()->saveMany($files);
 		return $files;
 	}
 

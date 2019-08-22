@@ -65,7 +65,7 @@ class WbjkFileUploadHandler
 		$result = [];
 		$result_files = [];
 		$result_images = [];
-		storage\uploads\files
+		
 		$file_folder_name = "storage/uploads/files/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
 		$image_folder_name = "storage/uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time());
 		// $files = file_get_contents('php://input');
@@ -91,13 +91,17 @@ class WbjkFileUploadHandler
 			}
 			$a = move_uploaded_file($tmp_names[$i], $file_path);
 			if($a){
-				if ($isimage) {
-					$result_files['path'] = $file_path;
+				$file = array(
+					'path' => $file_path
+				);
+				if(!$isimage){
+					$file['name'] = $file_name;
+					$result_files[] = $file;
 				}
 				else{
-					$result_files['path'] = $file_path;
-					$result_files['name'] = $file_name;
+					$result_images[] = $file;
 				}
+				
 			}
 		}
 		$result['files'] = $result_files;

@@ -13,4 +13,10 @@ class JgptProjectPurchase extends Model
     {
         return $this->hasMany(JgptFile::class,'table_id');
     }
+
+    public function images()
+    {
+        // return $this->hasMany(Image::class, 'imagetable_id', 'project_id');
+        return $this->morphMany(Image::class, 'imagetable');
+    }
 }
