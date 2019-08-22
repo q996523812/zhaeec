@@ -70,7 +70,7 @@ class WbjkFileUploadHandler
 		$image_folder_name = "storage/uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time());
 		// $files = file_get_contents('php://input');
 		if(!is_dir($file_folder_name)){
-			// mkdir($file_folder_name,0777,true);
+			mkdir($file_folder_name,0777,true);
 		}
 		if(!is_dir($image_folder_name)){
 			mkdir($image_folder_name,0777,true);
