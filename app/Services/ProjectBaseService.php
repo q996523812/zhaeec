@@ -135,8 +135,8 @@ class ProjectBaseService
     public function saveContract($detail,$files_data){
     	DB::transaction(function () use($detail,$files_data) {
             $this->saveFilesAndImages($detail,$files_data);
-            $processService = new ProcessService();
-            $processService->next($detail->id,'企业上传合同',null);
+            // $processService = new ProcessService();
+            // $processService->next($detail->id,'企业上传合同',null);
         });
     }
 }

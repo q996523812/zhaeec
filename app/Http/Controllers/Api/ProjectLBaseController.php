@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Handlers\WbjkFileUploadHandler;
 use App\Services\InterfaceLogService;
 use App\Exceptions\VerifyException;
+use Illuminate\Support\Facades\Log;
 
 class ProjectLBaseController extends Controller
 {
@@ -79,13 +80,15 @@ class ProjectLBaseController extends Controller
         $params = $request->params;
         try{
 	        
-	        $params = json_decode($params,true);
-	        $datas = $params['datas'];
-	        $jgpt_key = $datas['jgpt_key'];
-	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
-                throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
+            $params = $this->dealParams($params);
+            $datas = $params['datas'];
+            $datas = $this->dealParams($datas);
+            $jgpt_key = $datas['jgpt_key'];
+            
+	        if(!$this->jgpt_service->isExistForKey($jgpt_key)){
+                throw new VerifyException('原数据表不存在,UUID：'.$jgpt_key);
     		}
-	        $jgpt_detail = $this->jgpt_service->getModelForKey($datas['jgpt_key']);
+	        $jgpt_detail = $this->jgpt_service->getModelForKey($jgpt_key);
 
 	        //保存文件
 	        $uploader = new WbjkFileUploadHandler();
@@ -132,43 +135,16 @@ class ProjectLBaseController extends Controller
         ];
         $params = $request->params;
         try{
-	        $type = gettype($params);
-            $result['params_type'] = $type;
-            $datas = null;
-            if(is_array($params)){
-                $datas = $params['datas'];
-            }
-            else if(is_string($params)){
-                $params = json_decode($params,true);
-                $datas = $params['datas'];
-            }
-            else{
-                $result['params_ccc'] = 111;
-            }
+            $params = $this->dealParams($params);
+            $datas = $params['datas'];
+	        $datas = $this->dealParams($datas);
+            $jgpt_key = $datas['jgpt_key'];
 
-            $type = gettype($datas);
-            $result['datas_type'] = $type;
-            $jgpt_key = null;
-            if(is_array($datas)){
-                $jgpt_key = $datas['jgpt_key'];
-            }
-            else if(is_string($datas)){
-                $datas = json_decode($datas,true);
-                $jgpt_key = $datas['jgpt_key'];
-            }
-            else{
-                $result['datas_ccc'] = 222;
-            }
-	        // $params = json_decode($params,true);
-	        // $datas = $params['datas'];
-         //    $datas = json_decode($datas,true);
-	        // $jgpt_key = $datas['jgpt_key'];
-	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
-                throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
+	        if(!$this->jgpt_service->isExistForKey($jgpt_key)){
+                throw new VerifyException('原数据表不存在,UUID：'.$jgpt_key);
     		}
-	        $jgpt_detail = $this->jgpt_service->getModelForKey($datas['jgpt_key']);
+	        $jgpt_detail = $this->jgpt_service->getModelForKey($jgpt_key);
 
-	        // $detail = $jgpt_detail->detail;
 	        //保存文件
 	        $uploader = new WbjkFileUploadHandler();
 	        $files_data = $uploader->receive($this->project_type);
@@ -177,15 +153,17 @@ class ProjectLBaseController extends Controller
 	        $this->jgpt_service->saveContract($jgpt_detail,$files_data);
 
 	    }
-        catch(VerifyException $ve){
+        catch(VerifyException $e){
             $result['success'] = false;
-            $result['message'] = $ve->getMessage();
+            $result['message'] = $e->getMessage();
             $result['status_code'] = 422;
+            Log::info($e);
         }
         catch(\Exception $e){
             $result['success'] = false;
             $result['message'] = $e->getMessage();
             $result['status_code'] = 500;
+            Log::info($e);
             // return $this->response->error('重复请求，数据已存在', 433);
         }
         $this->logService->addLog('接收',$datas,$result['success'],$result);
