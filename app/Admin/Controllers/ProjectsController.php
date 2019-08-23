@@ -310,16 +310,16 @@ class ProjectsController extends Controller
         $operation = $request->operation;
         $process = $request->process;
         $isNext = $request->isNext;
-        DB::transaction(function () use($id,$reason,$operation,$process,$isNext,$processService) {
-            $project = Project::find($id);
-            // $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
-            $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
-            $processService->postGZW($id,$project->process);
-        });
+        // DB::transaction(function () use($id,$reason,$operation,$process,$isNext,$processService) {
+        //     $project = Project::find($id);
+        //     // $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
+        //     $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
+        //     $processService->postGZW($id,$project->process);
+        // });
 
-        // $project = Project::find($id);
-        // $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
-        // $processService->postGZW($id,$project->process);
+        $project = Project::find($id);
+        $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
+        $processService->postGZW($id,$project->process);
         
         return redirect('/admin/projects');
         // return [];
