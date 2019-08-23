@@ -46,8 +46,8 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
         try{
             $result = $this->send($url,$data,$detail->id);
         }
-        catch(\Exception e){
-            throw e->getMessage();
+        catch(\Exception $e){
+            throw $e->getMessage();
         }
         return $result;
     }
