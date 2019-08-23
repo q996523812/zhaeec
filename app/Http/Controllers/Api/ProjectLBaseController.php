@@ -135,6 +135,7 @@ class ProjectLBaseController extends Controller
 	        
 	        $params = json_decode($params,true);
 	        $datas = $params['datas'];
+            $datas = json_decode($datas,true);
 	        $jgpt_key = $datas['jgpt_key'];
 	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
                 throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
@@ -157,7 +158,7 @@ class ProjectLBaseController extends Controller
             $result['status_code'] = 500;
             // return $this->response->error('重复请求，数据已存在', 433);
         }
-        $this->logService->addLog('接收',$params,$result['success'],$result);
+        $this->logService->addLog('接收',$datas,$result['success'],$result);
         return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 

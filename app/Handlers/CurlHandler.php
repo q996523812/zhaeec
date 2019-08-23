@@ -89,7 +89,7 @@ class CurlHandler
             }
         }
         if($file_path){
-            $datas['file1'] = curl_file_create($file_path);
+            $datas['file1'] = curl_file_create($file_path,'','333.txt');
         }
 
         // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data; boundary=---------------------; charset=utf-8'));

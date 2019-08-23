@@ -54,8 +54,10 @@ class JgptCurlHandler
 		];
 		// throw new \Exception(json_encode($param));
 		$result = CurlHandler::post($url,$param,$file_path,1,0);
-		$success = null;
-		if($result['success'] === 'true'){
+		$result = json_decode($result,true);
+
+		$success = 1;
+		if($result['success'] === true){
 			$success = 1;
 		}
 		else{

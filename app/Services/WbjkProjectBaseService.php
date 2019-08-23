@@ -79,7 +79,7 @@ class WbjkProjectBaseService
         $curlHandler = new JgptCurlHandler;
         $result = $curlHandler->curlFile($url,$data,$file_path);
 
-        $result = json_decode($result,true);
+        // $result = json_decode($result,true);
         return $result;
     }
 

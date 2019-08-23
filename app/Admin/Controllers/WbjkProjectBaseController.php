@@ -171,6 +171,7 @@ class WbjkProjectBaseController extends Controller
                     break;
                 case 7:
                     $bottons = $getBotton('发送挂牌数据','发送挂牌数据','edit2',$rec->id,'sendGp');
+                    $bottons .= $getBotton('发送中标通知','发送中标通知','edit2',$rec->id,'sendZbNotice');
                     break;
                 
             }
@@ -209,6 +210,20 @@ class WbjkProjectBaseController extends Controller
     public function sendGp($id,Content $content){
         $jgpt_detail = $this->detail_class::find($id);
         $result = $this->service->sendGpData($jgpt_detail->detail_id);
+        if($result['success']){
+            return $content->withSuccess('Title', $result['msg']);
+        }
+        else{
+            return $content->withError('Title', $result['msg']);
+        }
+    }
+
+    //发送中标通知书
+    public function sendZbNotice($id,Content $content){
+        $jgpt_detail = $this->detail_class::find($id);
+        $detail = $jgpt_detail->detail;
+        $project = $detail->project;
+        $result = $this->service->zbNotice($detail->project_id);
         if($result['success']){
             return $content->withSuccess('Title', $result['msg']);
         }

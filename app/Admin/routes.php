@@ -80,6 +80,7 @@ Route::group([
     $router->get('jgpt/zczl/{id}', 'JgptProjectLeasesController@show');
     $router->post('jgpt/zczl/receive', 'JgptProjectLeasesController@receive');
     $router->get('jgpt/zczl/sendGp/{id}', 'JgptProjectLeasesController@sendGp');
+    $router->get('jgpt/zczl/sendZbNotice/{id}', 'JgptProjectLeasesController@sendZbNotice');
 
     $router->get('pbresults', 'PbResultsController@index')->name('pbresults.index');
     $router->get('pbresults/create', 'PbResultsController@create');
