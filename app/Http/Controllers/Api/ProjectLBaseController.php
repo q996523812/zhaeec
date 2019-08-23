@@ -132,11 +132,36 @@ class ProjectLBaseController extends Controller
         ];
         $params = $request->params;
         try{
-	        
-	        $params = json_decode($params,true);
-	        $datas = $params['datas'];
-            $datas = json_decode($datas,true);
-	        $jgpt_key = $datas['jgpt_key'];
+	        $type = gettype($params);
+            $result['params_type'] = $type;
+            $datas = null;
+            if(is_array($params)){
+                $datas = $params['datas'];
+            }
+            else if(is_string($params)){
+                $params = json_decode($params,true);
+                $datas = $params['datas'];
+            }
+            else{
+                $result['params_ccc'] = 111;
+            }
+            $type = gettype($datas);
+            $result['datas_type'] = $type;
+            $jgpt_key = null;
+            if(is_array($datas)){
+                $jgpt_key = $datas['jgpt_key'];
+            }
+            else if(is_string($datas)){
+                $datas = json_decode($datas,true);
+                $jgpt_key = $datas['jgpt_key'];
+            }
+            else{
+                $result['datas_ccc'] = 222;
+            }
+	        // $params = json_decode($params,true);
+	        // $datas = $params['datas'];
+         //    $datas = json_decode($datas,true);
+	        // $jgpt_key = $datas['jgpt_key'];
 	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
                 throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
     		}
@@ -154,6 +179,7 @@ class ProjectLBaseController extends Controller
             $result['status_code'] = 422;
         }
         catch(\Exception $e){
+            $result['success'] = false;
             $result['message'] = $e->getMessage();
             $result['status_code'] = 500;
             // return $this->response->error('重复请求，数据已存在', 433);
@@ -162,5 +188,20 @@ class ProjectLBaseController extends Controller
         return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 
-
+    /**
+     *处理获取的参数
+     */
+    public function dealParams($params){
+        $type = gettype($params);
+        if(is_array($params)){
+            
+        }
+        else if(is_string($params)){
+            $params = json_decode($params,true);
+        }
+        else{
+            throw new \Exception('参数格式不正确');
+        }
+        return $params;
+    }
 }
