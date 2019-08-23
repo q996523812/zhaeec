@@ -21,9 +21,19 @@ class JgptCurlHandler
 			'datas' => $data,
 		];
 		$result = CurlHandler::curl($url,$param,1,0);
-		
+		$result = json_decode($result,true);
+
+		// $message = json_encode($message,JSON_UNESCAPED_UNICODE);
+		$success = 1;
+		if($result['status'] === 200){
+			$success = 1;
+		}
+		else{
+			$success = 0;
+		}
 		$logService = new InterfaceLogService;
-		$interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
+		// $interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
+		$logService->addLog('发送',$param,$success,$result);
 		return $result;
 	}
 
@@ -44,8 +54,16 @@ class JgptCurlHandler
 		];
 		// throw new \Exception(json_encode($param));
 		$result = CurlHandler::post($url,$param,$file_path,1,0);
+		$success = null;
+		if($result['success'] === 'true'){
+			$success = 1;
+		}
+		else{
+			$success = 0;
+		}
 		$logService = new InterfaceLogService;
-		$interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
+		// $interfaceLog = $logService->addSendLog('发送',null,$data['uuid'],$param,1,$result);
+		$logService->addLog('发送',$param,$result['success'],$result);
 		return $result;
 	}
 

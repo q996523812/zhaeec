@@ -23,10 +23,10 @@ class WbjkProjectBaseService
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
     // protected $IP_TEST = '47.112.15.51';
     // protected $PORT_TEST = '8090';
-    protected $IP = '47.112.15.51';
-    protected $PORT = '8090';
-    // protected $IP = '172.20.10.3';
-    // protected $PORT = '8088';
+    // protected $IP = '47.112.15.51';
+    // protected $PORT = '8090';
+    protected $IP = '172.20.10.3';
+    protected $PORT = '8088';
 
     /**
      * 根据字段列表，从接口数据表中获取业务数据
@@ -66,8 +66,8 @@ class WbjkProjectBaseService
         // $streamHandler = new StreamFileHandler;
         // $result = $streamHandler->send2($url,$data);
 
-        $json_result = json_decode($result,true);
-        return $json_result;
+        // $json_result = json_decode($result,true);
+        return $result;
     }
 
     public function sendFile($url,$data,$detail_id,$file_path){

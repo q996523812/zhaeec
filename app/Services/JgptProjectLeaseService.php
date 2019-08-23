@@ -35,13 +35,8 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             'bzjEndTime' => $detail->bzj_jn_time_end,
             'ptPhone' => $detail->jypt_lxfs,
         ];
-        $result = null;
-        try{
-            $result = $this->send($url,$data,$detail->id);
-        }
-        catch(\Exception $e){
-            throw $e->getMessage();
-        }
+        $result = $this->send($url,$data,$detail->id);
+
         return $result;
     }
 

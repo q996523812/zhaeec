@@ -154,7 +154,7 @@ class ProjectLBaseController extends Controller
         }
         catch(\Exception $e){
             $result['message'] = $e->getMessage();
-            $result['status_code'] = 433;
+            $result['status_code'] = 500;
             // return $this->response->error('重复请求，数据已存在', 433);
         }
         $this->logService->addLog('接收',$params,$result['success'],$result);
