@@ -100,5 +100,43 @@ class ProjectBaseService
 		});
 	}
 
-	
+    /**
+     * 根据jgpt_key获取接口数据的模型实例
+     * @param $jgpt_detail 模型实例
+     * @param $files_data array ,示例如下：
+     array(
+        'files' =>[
+            ['path' => 'storay/uploads/files/111.text']
+            ['path' => 'storay/uploads/files/222.docx']
+        ],
+        'images' =>[
+            [
+                'path' => 'storay/uploads/files/111.text',
+                'name' => '111.text'
+            ]
+            [
+                'path' => 'storay/uploads/files/222.docx',
+                name' => '222.docx'
+            ]
+        ],
+     )
+     * @return 
+     */
+    public function saveFilesAndImages($detail,$files_data){
+        DB::transaction(function () use($jgpt_detail,$files_data) {
+            $fileserice = new FileService();
+            $fileserice->batchStore($jgpt_detail,$files_data['files']);
+            $imageserice = new ImageService();
+            $imageserice->batchStore($jgpt_detail,$files_data['images']);
+        });
+    }
+
+
+    public function saveContract($detail,$files_data){
+    	DB::transaction(function () use($jgpt_detail,$files_data) {
+            $this->saveFilesAndImages($detail,$files_data);
+            $processService = new ProcessService();
+            $processService->next($detail->id,'企业上传合同',null);
+        });
+    }
 }

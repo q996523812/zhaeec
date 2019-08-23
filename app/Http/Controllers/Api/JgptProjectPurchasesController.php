@@ -16,99 +16,19 @@ use App\Handlers\WbjkFileUploadHandler;
 use App\Services\ProcessService;
 use App\Services\InterfaceLogService;
 use App\Services\JgptProjectPurchaseService;
+use App\Services\ProjectPurchaseService;
+use App\Exceptions\VerifyException;
 
 class JgptProjectPurchasesController extends Controller
 {
-    /*
-	 *申请业务接口,自动保存数据
-	 *
-	 *Primarykey为原系统主键标识，下同
-	 *
-	 *接收：业务数据，json格式{"Primarykey":"",......},
-	 *
-	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":"","Primarykey",""}
-	 */
-    public function store(JgptProjectPurchaseRequest $request,FileUploadHandler $uploader,JgptFile $file,InterfaceLogService $logService)
+    public function __construct(JgptProjectPurchaseService $jgptProjectPurchaseService,InterfaceLogService $logService,ProjectPurchaseService $projectPurchaseService)
     {
-        $receipt = [
-            'success' => 'true',
-            'message' => '',
-            'status_code' => '200'
-        ];
-    	//解析参数到模板
-    	$datas = $request->datas;
-        $receive_message = $request->all();
-        $datas = json_decode($datas,true);
-    	
-		if(JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->exists()){
-            $aaa = JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->first();
-            $logService->addReceiveLog('接收',null,$datas['title'],$receive_message,0,'重复请求，数据已存在');
-			return $this->response->error('重复请求，数据已存在', 422);
-            // $result['message'] = '重复请求，数据已存在';
-            // return $this->response->array($datas)->setStatusCode(202);
-		}
-		$datas['id'] = (string)Str::uuid();
-		$datas['status'] = 5;
-        $purchases = JgptProjectPurchase::create($datas);
-        /*
-		//判断请求中是否包含name=file的上传文件
-		$hasfile = $request->hasFile('file');
-        if($hasfile){
-            $upfile = $request->file('file');
-        	// $uploader->postFileupload($file);
-			$result = $uploader->save($upfile,'jgpt','qycq');
-
-			$file->path = $result['path'];
-			$file->name = $result['name'];
-	        $file->project_type = 'qycq';
-	        $file->table_id = $datas['id'];
-	        $file->id = (string)Str::uuid();
-	        
-        }
-
-        DB::transaction(function () use($datas,$hasfile,$file) {
-            $purchases = JgptProjectPurchase::create($datas);
-            if($hasfile){
-            	$file->save();
-            }
-        });
-*/
-        
-        $logService->addReceiveLog('接收',null,null,$receive_message,1,$receipt);
-
-        return $this->response->array($receipt)->setStatusCode(201);
-    	// return $this->response->created();
-    }
-    public function files(Request $request){
-        $hasfiles = $request->hasFile('file');
-        if($hasfiles){
-            $upfiles = $request->file('file');
-            $uploader = new WbjkFileUploadHandler();
-            // $uploader->postFileupload($file);
-            $result = $uploader->batchUpload($upfiles,'jgpt','qycq');
-
-            $file->path = $result['path'];
-            $file->name = $result['name'];
-            $file->project_type = 'qycq';
-            $file->table_id = $datas['id'];
-            $file->id = (string)Str::uuid();
-            
-        }
-    }
-    public function file(Request $request){
-        $hasfile = $request->hasFile('file');
-        if($hasfile){
-            $upfile = $request->file('file');
-            // $uploader->postFileupload($file);
-            $result = $uploader->save($upfile,'jgpt','qycq');
-
-            $file->path = $result['path'];
-            $file->name = $result['name'];
-            $file->project_type = 'qycq';
-            $file->table_id = $datas['id'];
-            $file->id = (string)Str::uuid();
-            
-        }
+        $this->jgpt_model_class = JgptProjectPurchase::class;
+        $this->jgpt_service = $jgptProjectPurchaseService;
+        $this->model_class = ProjectPurchase::class;
+        $this->service = $projectPurchaseService;
+        $this->logService = $logService;
+        $this->project_type = 'qycg';
     }
 
     /*
@@ -149,61 +69,6 @@ class JgptProjectPurchasesController extends Controller
         }
 
         return $this->response->array($receipt)->setStatusCode(201);
-    } 
-
-    /*
-     [
-        datas => [
-            xmbh => '',
-            title => '',
-            records => []
-        ],
-        file=[]
-     ]
-    * 接收合同
-    */
-    public function contract(JgptProjectPurchaseRequest $request,FileUploadHandler $uploader,ProcessService $process)
-    {
-        $datas = $request->datas;       
-        $datas = json_decode($datas,true);
-        $purchase = JgptProjectPurchase::where('jgpt_key',$datas['jgpt_key'])->first();
-        if($purchase == null){
-            return $this->response->error('未找到项目', 422);
-        }        
-        //判断请求中是否包含name=file的上传文件
-        $hasfile = $request->hasFile('file');
-        if($hasfile){
-            $upfile = $request->file('file');
-            // $uploader->postFileupload($file);
-            $result = $uploader->save($upfile,'jgpt','qycq');
-
-            $jgptfile = new jgptfile;
-            $jgptfile->path = $result['path'];
-            $jgptfile->name = $result['name'];
-            $jgptfile->project_type = 'qycq';
-            $jgptfile->table_id = $purchase['id'];
-            $jgptfile->id = (string)Str::uuid();
-            
-        }
-
-
-        DB::transaction(function () use($datas,$hasfile,$jgptfile,$process) {
-            $title = $datas['title'];
-            $xmbh = $datas['xmbh'];
-            $project = Project::where('xmbh',$xmbh);
-
-            if($hasfile){
-                $jgptfile->save();
-            }
-            $file = new File;
-            $file->id = (string)Str::uuid();
-            $file->project_id = $project->id;
-            $file->path = $jgptfile->path;
-            $file->name = $jgptfile->name;
-            $file->save();
-
-            $process->next('qycg',$project->id,'企业上传合同');
-        });
     } 
 
     /*

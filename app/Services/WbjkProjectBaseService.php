@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 class WbjkProjectBaseService
 {
 	public $project_type_code;
-	public $model_class;
-	public $detail_service_class;
+	public $model_class;//接口业务表对应的模型CLASS
+	public $detail_service_class;//业务表对应的业务service class
 
     public $fields_detail = [];
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
@@ -30,8 +30,8 @@ class WbjkProjectBaseService
 
     /**
      * 根据字段列表，从接口数据表中获取业务数据
-     * param $jgptDeatil 接口业务数据的模型实例
-     * param $fields 要获取的字段列表
+     * @param $jgptDeatil 接口业务数据的模型实例
+     * @param $fields 要获取的字段列表
      * return 业务数据array
      */
     private function getData($jgptDeatil,$fields){
@@ -52,9 +52,9 @@ class WbjkProjectBaseService
 
     /**
      * 发送请求
-     * $url 相对地址,例如 api/assets/backfill/transaction
-     * $data 要发送的数据部分
-     * $detail_id 业务明细表ID
+     * @param $url 相对地址,例如 api/assets/backfill/transaction
+     * @param $data 要发送的数据部分
+     * @param $detail_id 业务明细表ID
      */
     public function send($url,$data,$detail_id){
         $url = $this->getSendUrl($url);
@@ -70,7 +70,7 @@ class WbjkProjectBaseService
         return $json_result;
     }
 
-    public function sendFile($url,$file_path,$detail_id){
+    public function sendFile($url,$data,$detail_id,$file_path){
         $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
         $url = $this->getSendUrl($url);
         $data = array(
@@ -85,7 +85,7 @@ class WbjkProjectBaseService
 
     /**
      * 获取完整的发送地址
-     * $url 相对地址,例如 api/assets/backfill/transaction
+     * @param $url 相对地址,例如 api/assets/backfill/transaction
      */
     protected function getSendUrl($url){
         return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
@@ -102,6 +102,37 @@ class WbjkProjectBaseService
         return $model;
 	}
 
+    /**
+     * 根据jgpt_key获取接口数据的模型实例
+     * @param $jgpt_detail 模型实例
+     * @param $files_data array ,示例如下：
+     array(
+        'files' =>[
+            ['path' => 'storay/uploads/files/111.text']
+            ['path' => 'storay/uploads/files/222.docx']
+        ],
+        'images' =>[
+            [
+                'path' => 'storay/uploads/files/111.text',
+                'name' => '111.text'
+            ]
+            [
+                'path' => 'storay/uploads/files/222.docx',
+                name' => '222.docx'
+            ]
+        ],
+     )
+     * @return 
+     */
+    public function saveFilesAndImages($jgpt_detail,$files_data){
+        DB::transaction(function () use($jgpt_detail,$files_data) {
+            $fileserice = new JgptFileService();
+            $fileserice->batchStore($jgpt_detail,$files_data['files']);
+            $imageserice = new JgptImageService();
+            $imageserice->batchStore($jgpt_detail,$files_data['images']);
+        });
+    }
+
     //状态更新
     public function updateStatus($id,$status){
         $model = $this->model_class::find($id);
@@ -110,7 +141,30 @@ class WbjkProjectBaseService
         return $model;
     }
 
-    //业务员接收申请
+    /**
+     * 根据jgpt_key获取接口数据的模型实例
+     * @param $key 监管平台发送过来的jgpt_key
+     * @return 模型实例
+     */
+    public function getModelForKey($key){
+        $detail = $this->model_class::where('jgpt_key',$datas['jgpt_key'])->first();
+        return $detail;
+    }
+
+    /**
+     * 判断jgpt_key在数据库中是否存在
+     * @param $key 监管平台发送过来的jgpt_key
+     * @return 存在：true，不存在：false
+     */
+    public function isExistForKey($key){
+        $isExist = $this->model_class::where('jgpt_key',$key)->exists();
+        return $isExist;
+    }
+
+    /**
+     * 业务员接收申请
+     * @param $id 接口业务表ID
+     */
     public function receive($id){
         $jgptDeatil = $this->model_class::find($id);
 
@@ -170,4 +224,14 @@ class WbjkProjectBaseService
     }     
     */
 
+    public function saveContract($detail,$files_data){
+        DB::transaction(function () use($jgpt_detail,$files_data) {
+            $this->updateStatus($jgpt_detail->id,92);
+
+            $detail = $jgpt_detail->detail;
+
+            $projectLeaseService = new ProjectLeaseService;
+            $projectLeaseService->saveContract($detail,$files_data);
+        });
+    }
 }

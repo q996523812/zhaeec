@@ -34,13 +34,6 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             'jyTimeRemark' => $detail->jysj_bz,
             'bzjEndTime' => $detail->bzj_jn_time_end,
             'ptPhone' => $detail->jypt_lxfs,
-
-            // 'djtime' => $detail->yxdj_sj,
-            // 'price' => $detail->yxdj_fs,
-            // 'jntime' => $detail->bzj_jn_time_end,
-            // 'djtime' => $detail->zbwj_dj,
-            // 'jyphone' => $detail->jypt_lxfs,
-            // 'remarks' => $detail->notes,
         ];
         $result = null;
         try{
@@ -83,25 +76,30 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
         return $json_result;
     }   
 
+    /**
+     *接口：发送中标通知书
+     */
     public function zbNotice($project_id){
+        $url = 'api/assets/backfill/winningbid';
         $project = Project::find($project_id)->first();
         $zbtz = WinNotice::where('project_id',$project_id)->first();
-        $result = [];
-        try{
-            $result['data'] = $this->zbNoticeData($project,$zbtz);
-        }
-        catch(\Exception $e){
-            $result['data_error'] = $e->getMessage();
-        }
-        try{
-            $result['file'] = $this->zbNoticeFile($project,$zbtz);
-        }
-        catch(\Exception $e){
-            $result['file_error'] = $e->getMessage();
-        }
-        throw new \Exception(json_encode($result));
+        $data = [
+            'pcode' => $zbtz->tzsbh,
+            'zbpname' => $zbtz->xmbh,
+            'bdmc' => $zbtz->title,
+            'zbContent' => $zbtz->zbnr,
+            'zbPhone' => $zbtz->zbf_phone,
+            'zbType' => $zbtz->zbf_lx_1,
+            'cjzj' => $zbtz->cjj_zj,
+            'cjdj' => $zbtz->cjj_dj,
+            'zbjyWay' => $zbtz->jyfs,
+            'jyPlace' => $zbtz->jycd,
+            'zbfArea' => $zbtz->zbf_qy,
+        ];
+        $file_path = $zbtz->file_path;
+        $result = $this->sendFile($url,$data,$project->detail_id,$file_path);
 
-        // $result['file'] = $this->zbNoticeFile($project,$zbtz);
+        return $result;
     }
 
     public function zbNoticeData($project,$zbtz){

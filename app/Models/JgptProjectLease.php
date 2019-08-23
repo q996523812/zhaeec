@@ -18,4 +18,9 @@ class JgptProjectLease extends Model
         // return $this->hasMany(Image::class, 'imagetable_id', 'project_id');
         return $this->morphMany(Image::class, 'imagetable');
     }
+
+    public function detail()
+    {
+        return $this->hasOne(ProjectLease::class,'id','detail_id');
+    }
 }

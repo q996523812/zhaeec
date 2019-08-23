@@ -32,14 +32,5 @@ class JgptProjectLeasesController extends WbjkProjectBaseController
         
     }
 
-    public function sendGp($id,Content $content){
-        $jgpt_detail = JgptProjectLease::find($id);
-        $result = $this->service->sendGpData($jgpt_detail->detail_id);
-        if($result['success']){
-            return $content->withSuccess('Title', $result['msg']);
-        }
-        else{
-            return $content->withError('Title', $result['msg']);
-        }
-    }
+
 }

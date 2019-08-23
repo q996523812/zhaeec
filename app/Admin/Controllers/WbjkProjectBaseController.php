@@ -203,4 +203,17 @@ class WbjkProjectBaseController extends Controller
         $jgptDetail = $this->service->back($id);
         return redirect()->route('jgpt.'.$this->projectTypeCode.'.index');
     }
+
+
+    //发送挂牌数据
+    public function sendGp($id,Content $content){
+        $jgpt_detail = $this->detail_class::find($id);
+        $result = $this->service->sendGpData($jgpt_detail->detail_id);
+        if($result['success']){
+            return $content->withSuccess('Title', $result['msg']);
+        }
+        else{
+            return $content->withError('Title', $result['msg']);
+        }
+    }
 }

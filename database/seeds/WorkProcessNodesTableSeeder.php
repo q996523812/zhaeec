@@ -100,9 +100,9 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'83','部门审批',3,$role_id_1,'','82','84'),
             $this->create($work_process_id,'84','风控审批',4,$role_id_2,'','82','85'),
             $this->create($work_process_id,'85','领导审批',5,$role_id_3,'','82','89'),
-            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','98'),
+            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','91'),
 
-            $this->create($work_process_id,'98','上传合同',1,$role_id_0,'','','99'),
+            $this->create($work_process_id,'91','上传合同',1,$role_id_0,'','','99'),
             $this->create($work_process_id,'99','结束',6,$role_id_0,'','',''),
 
         ];
@@ -186,9 +186,9 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'83','部门审批',3,$role_id_1,'','82','84'),
             $this->create($work_process_id,'84','风控审批',4,$role_id_2,'','82','85'),
             $this->create($work_process_id,'85','领导审批',5,$role_id_3,'','82','89'),
-            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','98'),
+            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','91'),
 
-            $this->create($work_process_id,'98','上传合同',1,$role_id_0,'','','99'),
+            $this->create($work_process_id,'91','上传合同',1,$role_id_0,'','','99'),
             $this->create($work_process_id,'99','结束',6,$role_id_0,'','',''),
 
         ];
@@ -253,9 +253,9 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'83','部门审批',3,$role_id_1,'','82','84'),
             $this->create($work_process_id,'84','风控审批',4,$role_id_2,'','82','85'),
             $this->create($work_process_id,'85','领导审批',5,$role_id_3,'','82','89'),
-            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','98'),
+            $this->create($work_process_id,'89','发布',6,$role_id_4,'','82','91'),
 
-            $this->create($work_process_id,'98','上传合同',1,$role_id_0,'','','99'),
+            $this->create($work_process_id,'91','上传合同',1,$role_id_0,'','','99'),
             $this->create($work_process_id,'99','结束',6,$role_id_0,'','',''),
 
         ];

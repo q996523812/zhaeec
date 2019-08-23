@@ -3,47 +3,108 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Handlers\WbjkFileUploadHandler;
+use App\Services\InterfaceLogService;
+use App\Exceptions\VerifyException;
 
 class ProjectLBaseController extends Controller
 {
 
 	protected $jgpt_model_class;
-	protected $model_class;
 	protected $jgpt_service;
+	protected $model_class;
 	protected $service;
+	protected $logService;
+	protected $project_type;
 
+	public function __construct()
+    {
+
+    }
     /*
-	 *申请业务接口,接收单个表单数据
+	 *业务申请：数据接口
 	 *
-	 *Primarykey为原系统主键标识，下同
+	 *jgpt_key为原系统主键标识，下同
 	 *
-	 *接收：业务数据，json格式{"Primarykey":"",......},
+	 *接收：业务数据，json格式{"jgpt_key":"",......},
 	 *
-	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":"","Primarykey",""}
+	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":""}
 	 */
-    public function store(){
-        $receipt = [
-            'success' => 'true',
+    public function store(Request $request)
+    {
+        $result = [
+            'success' => true,
             'message' => '',
             'status_code' => '200'
         ];
-    	//解析参数到模板
-    	$datas = $request->datas;
-        $receive_message = $request->all();
-        $datas = json_decode($datas,true);
-    	$logService = new InterfaceLogService();
-		if($this->jgpt_model_class::where('jgpt_key',$datas['jgpt_key'])->exists()){
-            $logService->addReceiveLog('接收',null,$datas['title'],$receive_message,0,'重复请求，数据已存在');
-			return $this->response->error('重复请求，数据已存在', 422);
-            // $result['message'] = '重复请求，数据已存在';
-            // return $this->response->array($datas)->setStatusCode(202);
-		}
-        $jgpt_detail = $this->jgpt_service->save($datas);
-
-        $logService->addReceiveLog('接收',null,null,$receive_message,1,$receipt);
-
-        return $this->response->array($receipt)->setStatusCode(201);
+        $datas = $request->datas;
+        try{
+        	$datas = json_decode($datas,true);
+    		if($this->jgpt_service->isExistForKey($datas['jgpt_key'])){
+                throw new VerifyException('重复请求，数据已存在');
+    		}
+            $this->jgpt_service->save($datas);
+        }
+        catch(VerifyException $ve){
+            $result['success'] = false;
+            $result['message'] = $ve->getMessage();
+            $result['status_code'] = 422;
+            
+        }
+        catch(\Exception $e){
+        	$result['success'] = false;
+            $result['message'] = $e->getMessage();
+            $result['status_code'] = 433;
+            // return $this->response->error('重复请求，数据已存在', 433);
+        }
+        $this->logService->addLog('接收',$datas,$result['success'],$result);
+        return $this->response->array($result)->setStatusCode($result['status_code']);
     	// return $this->response->created();
+    }
+
+    /**
+     * 业务申请：文件接口
+     * @param $action 中文字符串，发送/接收
+     * @param $message array 发送/接收到的内容
+     * @param $is_success 是否发送/接收成功，1 成功，0失败
+     * @param $receipt array 发送/接收消息后收到/发送的回执
+     * @return 模型实例
+     */
+    public function files(Request $request){
+        $result = [
+            'success' => true,
+            'message' => '',
+            'status_code' => '200'
+        ];
+        $params = $request->params;
+        try{
+	        
+	        $params = json_decode($params,true);
+	        $datas = $params['datas'];
+	        $jgpt_key = $datas['jgpt_key'];
+	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
+                throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
+    		}
+	        $jgpt_detail = $this->jgpt_service->getModelForKey($datas['jgpt_key']);
+
+	        //保存文件
+	        $uploader = new WbjkFileUploadHandler();
+	        $files_data = $uploader->receive($this->project_type);
+	        //地址保存到数据库
+	        $this->jgpt_service->saveFilesAndImages($jgpt_detail,$files_data);
+	    }
+        catch(VerifyException $ve){
+            $result['success'] = false;
+            $result['message'] = $ve->getMessage();
+            $result['status_code'] = 422;
+        }
+        catch(\Exception $e){
+            $result['message'] = $e->getMessage();
+            $result['status_code'] = 433;
+            // return $this->response->error('重复请求，数据已存在', 433);
+        }
+        $this->logService->addLog('接收',$params,$result['success'],$result);
+        return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 
     /*
@@ -58,67 +119,47 @@ class ProjectLBaseController extends Controller
     public function batchStore(){
 
     }
-    /*
-	 *单个接收文件接口
-	 *
-	 *Primarykey为原系统主键标识，下同
-	 *
-	 *接收：业务数据，json格式{"Primarykey":"",......},
-	 *
-	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":"","Primarykey",""}
-	 */
-    public function file(Request $request){
 
-    }
-    /*
-	 *批量接收文件接口
-	 *
-	 *Primarykey为原系统主键标识，下同
-	 *
-	 *接收：业务数据，json格式{"Primarykey":"",......},
-	 *
-	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":"","Primarykey",""}
-	 */
-    public function files(Request $request){
-    	$result = [
-            'success' => 'true',
+    /**
+     * 上传合同接口
+     * @return array 
+     */
+    public function contract(Request $request){
+        $result = [
+            'success' => true,
             'message' => '',
             'status_code' => '200'
         ];
-        $hasfile = $request->hasFile('file');
-        $result['hasfile'] = $hasfile;
-        if($hasfile){
-            $upfiles = $request->file('file');
-            $uploader = new WbjkFileUploadHandler();
-            $result1 = $uploader->batchUpload($upfiles,'jgpt','zczl');
-// JgptFile
-            
+        $params = $request->params;
+        try{
+	        
+	        $params = json_decode($params,true);
+	        $datas = $params['datas'];
+	        $jgpt_key = $datas['jgpt_key'];
+	        if(!$this->jgpt_service->isExistForKey($datas['jgpt_key'])){
+                throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
+    		}
+	        $jgpt_detail = $this->jgpt_service->getModelForKey($datas['jgpt_key']);
+	        // $detail = $jgpt_detail->detail;
+	        //保存文件
+	        $uploader = new WbjkFileUploadHandler();
+	        $files_data = $uploader->receive($this->project_type);
+	        //地址保存到数据库
+	        $this->jgpt_service->saveContract($jgpt_detail,$files_data);
+	    }
+        catch(VerifyException $ve){
+            $result['success'] = false;
+            $result['message'] = $ve->getMessage();
+            $result['status_code'] = 422;
         }
-        return $this->response->array($result)->setStatusCode(201);
+        catch(\Exception $e){
+            $result['message'] = $e->getMessage();
+            $result['status_code'] = 433;
+            // return $this->response->error('重复请求，数据已存在', 433);
+        }
+        $this->logService->addLog('接收',$params,$result['success'],$result);
+        return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 
-    /*
-	 *撤销业务接口
-	 *
-	 *接收：Primarykey
-	 *
-	 *返回：{"code":"","message":"","Primarykey",""}
-	 */
-    public function cancel(Request $request)
-    {
-
-    }
-
-    /*
-	 *批量撤销业务接口
-	 *
-	 *接收：Primarykey
-	 *
-	 *返回：{"code":"","message":"","Primarykey",""}
-	 */
-    public function batchCancel(Request $request)
-    {
-
-    }
 
 }
