@@ -42,7 +42,13 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             // 'jyphone' => $detail->jypt_lxfs,
             // 'remarks' => $detail->notes,
         ];
-        $result = $this->send($url,$data,$detail->id);
+        $result = null;
+        try{
+            $result = $this->send($url,$data,$detail->id);
+        }
+        catch(\Exception e){
+            throw e->getMessage();
+        }
         return $result;
     }
 

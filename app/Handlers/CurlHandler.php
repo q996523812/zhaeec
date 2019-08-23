@@ -33,6 +33,7 @@ class CurlHandler
                     $params = json_encode($params);
                 }
             }
+            
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
