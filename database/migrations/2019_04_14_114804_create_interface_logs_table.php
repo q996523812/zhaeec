@@ -26,7 +26,6 @@ class CreateInterfaceLogsTable extends Migration
             $table->datetime('receive_time')->comment('接收时间')->nullable();//接收时间
             $table->unsignedInteger('is_receive_success')->comment('是否接收成功，1 成功，0失败')->nullable();//是否接收成功，1 成功，0失败
             $table->text('receive_receipt')->comment('收到消息后发送给对方的回执')->nullable();//收到消息后发送给对方的回执
-           
             $table->timestamps();
         });
     }

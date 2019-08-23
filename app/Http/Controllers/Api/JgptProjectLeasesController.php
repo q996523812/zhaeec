@@ -15,9 +15,16 @@ use App\Handlers\StreamFileHandler;
 use App\Services\InterfaceLogService;
 use App\Services\JgptFileService;
 use App\Services\JgptImageService;
+use App\Services\JgptProjectLeaseService;
 
 class JgptProjectLeasesController extends Controller
 {
+    protected $service;
+    public function __construct(JgptProjectLeaseService $jgptProjectLeaseService,InterfaceLogService $logService)
+    {
+        $this->service = $jgptProjectLeaseService;
+    }
+
     /*
 	 *申请业务接口
 	 *
@@ -27,7 +34,7 @@ class JgptProjectLeasesController extends Controller
 	 *
 	 *返回：接收成功/失败标志及错误类容，json格式{"code":"","message":"","Primarykey",""}
 	 */
-    public function store(JgptProjectLeaseRequest $request,FileUploadHandler $uploader,JgptFile $file,InterfaceLogService $logService)
+    public function store(JgptProjectLeaseRequest $request,InterfaceLogService $logService)
     {
     	//解析参数到模板
     	$datas = $request->datas; 
@@ -39,12 +46,8 @@ class JgptProjectLeasesController extends Controller
             $logService->addReceiveLog('接收',$datas['xmbh'],$datas['title'],$receive_message,0,'重复请求，数据已存在');
 			return $this->response->error('重复请求，数据已存在', 422);
 		}
-		$datas['id'] = (string)Str::uuid();
-		$datas['status'] = 5;
-        
-        DB::transaction(function () use($datas) {
-            $purchases = JgptProjectLease::create($datas);
-        });
+
+        $this->service->save($datas);
 
     	$result = [
             'success' => 'true',
@@ -54,7 +57,7 @@ class JgptProjectLeasesController extends Controller
 
         $logService->addReceiveLog('接收',$datas['xmbh'],$datas['title'],$receive_message,1,$result);
         
-        return $this->response->array($result)->setStatusCode(201);
+        return $this->response->array($result)->setStatusCode(200);
     	// return $this->response->created();
     }
     public function files(Request $request,InterfaceLogService $logService){
@@ -103,7 +106,7 @@ class JgptProjectLeasesController extends Controller
         $aaa = $stream->receive($filepath);
         $result['aaa'] = $aaa;
         $result['aaa_type'] = gettype($aaa);
-        return $this->response->array($result)->setStatusCode(201);
+        return $this->response->array($result)->setStatusCode(200);
     }
     /*
 	 *撤销业务接口
@@ -139,7 +142,7 @@ class JgptProjectLeasesController extends Controller
         $interfaceLog->save();
 
 
-        return $this->response->array($result)->setStatusCode(201);
+        return $this->response->array($result)->setStatusCode(200);
     } 
 
        /*

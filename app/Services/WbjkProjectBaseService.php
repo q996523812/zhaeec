@@ -91,11 +91,14 @@ class WbjkProjectBaseService
         return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
     }
 
-	//自动保存接口数据
+	//用于保存接收到的外部业务数据
 	public function save($data){
 		$data['id'] = (string)Str::uuid();
-        $datas['status'] = 5;
-		$model = $this->model_class::create($data);
+        $data['status'] = 5;
+        $model = DB::transaction(function () use($data) {
+            $model = $this->model_class::create($data);
+            return $model;
+        });
         return $model;
 	}
 
@@ -131,11 +134,11 @@ class WbjkProjectBaseService
                 $fileService = new FileService();
                 $fileService->batchStore($detail,$jgptfiles->toArray());
             }
-            // if(count($jgptDeatil->images)){
-            //     $jgptimages = $jgptDeatil->images;
-            //     $imageService = new ImageService();
-            //     $imageService->batchStore($detail,$jgptfiles->toArray());
-            // }
+            if(count($jgptDeatil->images)){
+                $jgptimages = $jgptDeatil->images;
+                $imageService = new ImageService();
+                $imageService->batchStore($detail,$jgptfiles->toArray());
+            }
 	    });
 
         return $jgptDeatil;
