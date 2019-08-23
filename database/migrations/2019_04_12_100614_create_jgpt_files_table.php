@@ -19,7 +19,7 @@ class CreateJgptFilesTable extends Migration
             $table->string('project_type')->nullable();
             $table->string('file_type')->nullable();
             $table->string('path');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

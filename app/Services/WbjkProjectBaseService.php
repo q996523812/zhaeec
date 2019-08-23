@@ -23,8 +23,10 @@ class WbjkProjectBaseService
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
     // protected $IP_TEST = '47.112.15.51';
     // protected $PORT_TEST = '8090';
-    protected $IP = '47.112.15.51';
-    protected $PORT = '8090';
+    // protected $IP = '47.112.15.51';
+    // protected $PORT = '8090';
+    protected $IP = '172.20.10.3';
+    protected $PORT = '8088';
 
     /**
      * 根据字段列表，从接口数据表中获取业务数据
@@ -67,38 +69,17 @@ class WbjkProjectBaseService
         $json_result = json_decode($result,true);
         return $json_result;
     }
-    public function send2($url,$data,$detail_id){
+
+    public function sendFile($url,$file_path,$detail_id){
+        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
         $url = $this->getSendUrl($url);
-        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
-        $data['uuid'] = $jgpt_detail->jgpt_key;
-
-        $streamHandler = new StreamFileHandler;
-        $result = $streamHandler->send2($url,$data);
-
-        return $result;
-    }
-
-    public function sendFile($url,$file,$detail_id){
-        
-        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
-        $url = $this->getSendUrl($url).'/'.$jgpt_detail->jgpt_key;
-        $data['uuid'] = $jgpt_detail->jgpt_key;
-
+        $data = array(
+            'uuid' => $jgpt_detail->jgpt_key
+        );
         $curlHandler = new JgptCurlHandler;
-        $result = $curlHandler->curl2($url,$data,file_get_contents($file));
+        $result = $curlHandler->curlFile($url,$data,$file_path);
 
         $result = json_decode($result,true);
-        return $result;
-    }
-    public function sendFile2($url,$file,$detail_id){
-        
-        $jgpt_detail = $this->model_class::where('detail_id',$detail_id)->first();
-        $url = $this->getSendUrl($url).'/'.$jgpt_detail->jgpt_key;
-        $data['uuid'] = $jgpt_detail->jgpt_key;
-
-        $streamHandler = new StreamFileHandler;
-        $result = $streamHandler->send($url,$file);
-
         return $result;
     }
 
@@ -117,6 +98,14 @@ class WbjkProjectBaseService
 		$model = $this->model_class::create($data);
         return $model;
 	}
+
+    //状态更新
+    public function updateStatus($id,$status){
+        $model = $this->model_class::find($id);
+        $model->status = $status;
+        $model->save();
+        return $model;
+    }
 
     //业务员接收申请
     public function receive($id){

@@ -35,7 +35,7 @@ class StreamFileHandler
 			$opts = array( 
 			  	'http' => array( 
 				    'method' => 'POST', 
-				    'header' => 'content-type:application/x-www-form-urlencoded', 
+				    'header' => 'content-type:multipart/form-data', 
 				    'content' => http_build_query($data) 
 			  	) 
 			); 

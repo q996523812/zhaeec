@@ -94,10 +94,13 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             $result['file_error'] = $e->getMessage();
         }
         throw new \Exception(json_encode($result));
+
+        // $result['file'] = $this->zbNoticeFile($project,$zbtz);
     }
 
     public function zbNoticeData($project,$zbtz){
         $url = 'api/assets/backfill/winningbid';
+        // $url = 'gzb/api/assets/backfill/winningbid';
         $data = [
             'pcode' => $zbtz->tzsbh,
             'zbpname' => $zbtz->xmbh,
@@ -111,16 +114,15 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
             'jyPlace' => $zbtz->jycd,
             'zbfArea' => $zbtz->zbf_qy,
         ];
-        // $result = $this->send($url,$data,$project->detail_id);
-        $result = $this->send2($url,$data,$project->detail_id);
+        $result = $this->send($url,$data,$project->detail_id);
         return $result;
     }
     public function zbNoticeFile($project,$zbtz){
-        $url = 'api/assets/backfill/filesupload';
+        $url = 'api/assets/backfill/filesupload/CzpropertyEntityZb';
+        // $url = 'gzb/api/assets/backfill/filesupload/CzpropertyEntityZb';
         // $file = $zbtz->files->first();
         $file = $zbtz->file_path;
-        // $result = $this->sendFile($url,$file,$project->detail_id);
-        $result = $this->sendFile2($url,$file,$project->detail_id);
+        $result = $this->sendFile($url,$file,$project->detail_id);
         return $result;
     } 
 
