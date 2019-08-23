@@ -147,7 +147,7 @@ class WbjkProjectBaseService
      * @return 模型实例
      */
     public function getModelForKey($key){
-        $detail = $this->model_class::where('jgpt_key',$datas['jgpt_key'])->first();
+        $detail = $this->model_class::where('jgpt_key',$key)->first();
         return $detail;
     }
 
@@ -224,7 +224,7 @@ class WbjkProjectBaseService
     }     
     */
 
-    public function saveContract($detail,$files_data){
+    public function saveContract($jgpt_detail,$files_data){
         DB::transaction(function () use($jgpt_detail,$files_data) {
             $this->updateStatus($jgpt_detail->id,92);
 

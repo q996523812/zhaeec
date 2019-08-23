@@ -145,6 +145,7 @@ class ProjectLBaseController extends Controller
             else{
                 $result['params_ccc'] = 111;
             }
+
             $type = gettype($datas);
             $result['datas_type'] = $type;
             $jgpt_key = null;
@@ -166,12 +167,15 @@ class ProjectLBaseController extends Controller
                 throw new VerifyException('原数据表不存在,UUID：'.$datas['jgpt_key']);
     		}
 	        $jgpt_detail = $this->jgpt_service->getModelForKey($datas['jgpt_key']);
+
 	        // $detail = $jgpt_detail->detail;
 	        //保存文件
 	        $uploader = new WbjkFileUploadHandler();
 	        $files_data = $uploader->receive($this->project_type);
+
 	        //地址保存到数据库
 	        $this->jgpt_service->saveContract($jgpt_detail,$files_data);
+
 	    }
         catch(VerifyException $ve){
             $result['success'] = false;

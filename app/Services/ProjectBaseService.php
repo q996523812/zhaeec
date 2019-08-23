@@ -123,17 +123,17 @@ class ProjectBaseService
      * @return 
      */
     public function saveFilesAndImages($detail,$files_data){
-        DB::transaction(function () use($jgpt_detail,$files_data) {
+        DB::transaction(function () use($detail,$files_data) {
             $fileserice = new FileService();
-            $fileserice->batchStore($jgpt_detail,$files_data['files']);
+            $fileserice->batchStore($detail,$files_data['files']);
             $imageserice = new ImageService();
-            $imageserice->batchStore($jgpt_detail,$files_data['images']);
+            $imageserice->batchStore($detail,$files_data['images']);
         });
     }
 
 
     public function saveContract($detail,$files_data){
-    	DB::transaction(function () use($jgpt_detail,$files_data) {
+    	DB::transaction(function () use($detail,$files_data) {
             $this->saveFilesAndImages($detail,$files_data);
             $processService = new ProcessService();
             $processService->next($detail->id,'企业上传合同',null);
