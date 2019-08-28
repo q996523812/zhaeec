@@ -43,10 +43,10 @@ class WbjkProjectBaseService
     protected static $STATUS_60 = 60;//竞价结果已发送
     protected static $STATUS_69 = 69;//评标结果待接收或者接收失败
     protected static $STATUS_70 = 70;//评标结果已接收
-    protected static $STATUS_69 = 89;//中标通知待发送或者发送失败
-    protected static $STATUS_70 = 90;//中标通知已发送
-    protected static $STATUS_69 = 91;//合同待接收或者接收失败
-    protected static $STATUS_70 = 92;//合同已接收
+    protected static $STATUS_89 = 89;//中标通知待发送或者发送失败
+    protected static $STATUS_90 = 90;//中标通知已发送
+    protected static $STATUS_91 = 91;//合同待接收或者接收失败
+    protected static $STATUS_92 = 92;//合同已接收
     
     /**
      * 根据字段列表，从接口数据表中获取业务数据
