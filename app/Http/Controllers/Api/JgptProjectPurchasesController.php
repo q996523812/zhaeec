@@ -19,7 +19,7 @@ use App\Services\JgptProjectPurchaseService;
 use App\Services\ProjectPurchaseService;
 use App\Exceptions\VerifyException;
 
-class JgptProjectPurchasesController extends Controller
+class JgptProjectPurchasesController extends ProjectLBaseController
 {
     public function __construct(JgptProjectPurchaseService $jgptProjectPurchaseService,InterfaceLogService $logService,ProjectPurchaseService $projectPurchaseService)
     {

@@ -67,7 +67,9 @@ $api->version('v1', [
     $api->post('qycg/pbresult', 'JgptProjectPurchasesController@pbResult')->name('api.qycg.pbresult');
     //上传合同  
     $api->post('qycg/contract', 'JgptProjectPurchasesController@contract')->name('api.qycg.contract');
-     
+    //采购请求附件
+    $api->post('qycg/files', 'JgptProjectPurchasesController@files')->name('api.qycg.files');
+
     //租赁请求    
     $api->post('zczl/create', 'JgptProjectLeasesController@store')->name('api.zczl.store');
     //租赁撤销  

@@ -20,11 +20,37 @@
 </div>
 
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">成交价格</label>
+  <label for="type" class="col-sm-2  control-label">成交价格(总价)(万元)</label>
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="gpjg_zj" name="gpjg_zj" value="{{$detail->gpjg_zj}}" class="form-control money gpjg_zj" placeholder="输入 成交价格">
+      <input type="text" id="price_total" name="price_total" value="{{$detail->price_total}}" class="form-control money price_total" placeholder="输入 总价">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">成交价格(单价)(万元)</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="price_unit" name="price_unit" value="{{$detail->price_unit}}" class="form-control money price_unit" placeholder="输入 单价">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">成交价格说明</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <input type="text" id="price_note" name="price_note" value="{{$detail->price_note}}" class="form-control money price_note" placeholder="输入 成交价格说明">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">成交时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="transaction_date" name="transaction_date" value="{{$detail->transaction_date}}" class="form-control transaction_date" placeholder="输入 成交时间">
     </div>
   </div>
 </div>
@@ -78,17 +104,18 @@
           city: "{{$detail->wtf_city}}",
           district: "{{$detail->wtf_area}}"
         });
-
+*/
         //日期
-        $('.gp_date_start').parent().datetimepicker({
+        $('.transaction_date').parent().datetimepicker({
           "format":"YYYY-MM-DD",
           "locale":"zh-CN",
           "allowInputToggle":true
         });
 
         //金额、数字
-        $('.gpjg_zj').inputmask({"alias":"decimal","rightAlign":true});
-*/
+        $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
+        $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
+
         //下拉框
         
     });

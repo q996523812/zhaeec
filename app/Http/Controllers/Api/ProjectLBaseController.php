@@ -46,19 +46,16 @@ class ProjectLBaseController extends Controller
     		}
             $this->jgpt_service->save($datas);
         }
-        catch(VerifyException $ve){
-            $result['success'] = false;
-            $result['message'] = $ve->getMessage();
-            $result['status_code'] = 422;
-            
+        catch(VerifyException $e){
+            $result = $e->customFunction();
+            Log::error($e);
+            // return $this->response->error('重复请求，数据已存在', 422);
         }
         catch(\Exception $e){
-        	$result['success'] = false;
-            $result['message'] = $e->getMessage();
-            $result['status_code'] = 433;
-            // return $this->response->error('重复请求，数据已存在', 433);
+            $result = $this->serviceException();
+            Log::error($e);
         }
-        $this->logService->addLog('接收',$datas,$result['success'],$result);
+        $this->logService->addReceiveLog($datas,$result['success'],$result);
         return $this->response->array($result)->setStatusCode($result['status_code']);
     	// return $this->response->created();
     }
@@ -96,17 +93,16 @@ class ProjectLBaseController extends Controller
 	        //地址保存到数据库
 	        $this->jgpt_service->saveFilesAndImages($jgpt_detail,$files_data);
 	    }
-        catch(VerifyException $ve){
-            $result['success'] = false;
-            $result['message'] = $ve->getMessage();
-            $result['status_code'] = 422;
+        catch(VerifyException $e){
+            $result = $e->customFunction();
+            Log::error($e);
+            // return $this->response->error('重复请求，数据已存在', 422);
         }
         catch(\Exception $e){
-            $result['message'] = $e->getMessage();
-            $result['status_code'] = 433;
-            // return $this->response->error('重复请求，数据已存在', 433);
+            $result = $this->serviceException();
+            Log::error($e);
         }
-        $this->logService->addLog('接收',$params,$result['success'],$result);
+        $this->logService->addReceiveLog($params,$result['success'],$result);
         return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 
@@ -149,32 +145,28 @@ class ProjectLBaseController extends Controller
 	        $uploader = new WbjkFileUploadHandler();
 	        $files_data = $uploader->receive($this->project_type);
 
-	        //地址保存到数据库
+	        //文件地址保存到数据库
 	        $this->jgpt_service->saveContract($jgpt_detail,$files_data);
 
 	    }
         catch(VerifyException $e){
-            $result['success'] = false;
-            $result['message'] = $e->getMessage();
-            $result['status_code'] = 422;
-            Log::info($e);
+            $result = $e->customFunction();
+            Log::error($e);
+            // return $this->response->error('重复请求，数据已存在', 422);
         }
         catch(\Exception $e){
-            $result['success'] = false;
-            $result['message'] = $e->getMessage();
-            $result['status_code'] = 500;
-            Log::info($e);
-            // return $this->response->error('重复请求，数据已存在', 433);
+            $result = $this->serviceException();
+            Log::error($e);
         }
-        $this->logService->addLog('接收',$datas,$result['success'],$result);
+        $this->logService->addReceiveLog($datas,$result['success'],$result);
         return $this->response->array($result)->setStatusCode($result['status_code']);
     }
 
     /**
      *处理获取的参数
      */
-    public function dealParams($params){
-        $type = gettype($params);
+    protected function dealParams($params){
+        // $type = gettype($params);
         if(is_array($params)){
             
         }
@@ -185,5 +177,17 @@ class ProjectLBaseController extends Controller
             throw new \Exception('参数格式不正确');
         }
         return $params;
+    }
+
+    /**
+     *处理服务器运行错误异常
+     */
+    protected function serviceException($message){
+        $result = array(
+            'success' => false,
+            'message' => $message,
+            'status_code' => 500,
+        );
+        return $result;
     }
 }

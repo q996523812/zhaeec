@@ -20,6 +20,12 @@ class VerifyException extends Exception{
 	}
 	public function customFunction() {    
          //为这个异常自定义一个处理方法
-	     echo "按自定义的方法处理出现的这个类型的异常<br>";
+	     // echo "按自定义的方法处理出现的这个类型的异常<br>";
+        $result = array(
+        	'success' => false,
+        	'message' => $this->getMessage(),
+        	'status_code' => 422,
+        );
+        return $result;
 	}
 }

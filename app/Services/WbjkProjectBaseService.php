@@ -28,6 +28,26 @@ class WbjkProjectBaseService
     protected $IP = '172.20.10.3';
     protected $PORT = '8088';
 
+    protected static $STATUS_5 = 5;//接口已接收到业务申请数据
+    protected static $STATUS_6 = 6;//业务申请已撤销或者已退回
+    protected static $STATUS_7 = 7;//业务申请已被中心业务员接受
+    protected static $STATUS_19 = 19;//挂牌信息待发送或者发送失败
+    protected static $STATUS_20 = 20;//挂牌信息已发送
+    protected static $STATUS_29 = 29;//流标信息待发送或者发送失败
+    protected static $STATUS_30 = 30;//流标信息已发送
+    protected static $STATUS_39 = 39;//中止信息待发送或者发送失败
+    protected static $STATUS_40 = 40;//中止信息已发送
+    protected static $STATUS_49 = 49;//终结信息待发送或者发送失败
+    protected static $STATUS_50 = 50;//终结信息已发送
+    protected static $STATUS_59 = 59;//竞价结果待发送或者发送失败
+    protected static $STATUS_60 = 60;//竞价结果已发送
+    protected static $STATUS_69 = 69;//评标结果待接收或者接收失败
+    protected static $STATUS_70 = 70;//评标结果已接收
+    protected static $STATUS_69 = 89;//中标通知待发送或者发送失败
+    protected static $STATUS_70 = 90;//中标通知已发送
+    protected static $STATUS_69 = 91;//合同待接收或者接收失败
+    protected static $STATUS_70 = 92;//合同已接收
+    
     /**
      * 根据字段列表，从接口数据表中获取业务数据
      * @param $jgptDeatil 接口业务数据的模型实例
@@ -94,13 +114,21 @@ class WbjkProjectBaseService
 	//用于保存接收到的外部业务数据
 	public function save($data){
 		$data['id'] = (string)Str::uuid();
-        $data['status'] = 5;
+        $data['status'] = WbjkProjectBaseService::$STATUS_5;
         $model = DB::transaction(function () use($data) {
             $model = $this->model_class::create($data);
             return $model;
         });
         return $model;
 	}
+    public function update($data){
+        $jgpt_detail = $this->getModelForKey($data['jgpt_key']);
+        $model = DB::transaction(function () use($data,$jgpt_detail) {
+            $model = $jgpt_detail->update($data);
+            return $model;
+        });
+        return $model;
+    }
 
     /**
      * 根据jgpt_key获取接口数据的模型实例

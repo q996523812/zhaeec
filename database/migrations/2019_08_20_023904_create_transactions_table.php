@@ -17,7 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->string('project_id');
             $table->string('intentional_parties_id')->comment('中标方，意向方信息表ID');
-            $table->decimal('price',26,6)->comment('成交价格');
+            $table->decimal('price_total',26,6)->comment('成交价格(总价)');
+            $table->decimal('price_unit',26,6)->comment('成交价格(单价)')->nullable();
+            $table->text('price_note')->comment('成交价格备注')->nullable();
+            $table->datetime('transaction_date')->comment('成交时间')->nullable();
             $table->decimal('service_charge_receivable',26,6)->comment('中心应收服务费')->default(0);
             $table->decimal('service_charge_received',26,6)->comment('中心已收服务费')->nullable();
             $table->decimal('wtf_service_fee_payable',26,6)->comment('委托方应缴服务费')->default(0);
