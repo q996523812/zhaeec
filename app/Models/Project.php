@@ -27,6 +27,16 @@ class Project extends Model
     {
         return $this->hasOne(ProjectPurchase::class,'id','detail_id');
     }
+
+    public function detail(){
+        if($this->type === 'zczl'){
+            return $this->projectLease();
+        }
+        else{
+            return $this->projectPurchase();
+        }
+    }
+
     public function workProcessRecords(){
     	return $this->hasMany(WorkProcessRecord::class,'table_id','detail_id');
     }
@@ -43,5 +53,38 @@ class Project extends Model
     {
         return $this->hasMany(IntentionalParty::class);
     }
-     
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
+    public function transactionAnnouncement()
+    {
+        return $this->hasOne(TransactionAnnouncement::class);
+    }
+
+    public function winNotice()
+    {
+        return $this->hasOne(WinNotice::class);
+    }
+
+    public function paymentNotice()
+    {
+        return $this->hasOne(PaymentNotice::class);
+    }
+
+    public function transactionConfirmation()
+    {
+        return $this->hasOne(TransactionConfirmation::class);
+    }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+
+    public function bidResult()
+    {
+        return $this->hasOne(BidResult::class);
+    }
+
 }

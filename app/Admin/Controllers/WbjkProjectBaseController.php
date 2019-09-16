@@ -169,11 +169,49 @@ class WbjkProjectBaseController extends Controller
                 case 5:
                     $bottons = $getBotton('接收','接收','edit2',$rec->id,'edit');
                     break;
-                case 7:
+                case 7://已接收，等待自动发送挂牌数据
+                    break;
+                /*******业务公共部分*********/
+                case 119://自动发送挂牌数据失败，等待手工发送，下同
                     $bottons = $getBotton('发送挂牌数据','发送挂牌数据','edit2',$rec->id,'sendGp');
+                    break;
+                case 139://流标
+                    
+                    break;
+                case 149://终结公告
+                    
+                    break;
+                case 159://中止公告
+                    
+                    break;
+                case 169://恢复公告
+                    
+                    break;
+
+                /*******租赁业务部分*********/
+                case 219://竞价结果
+                    
+                    break;
+                case 229://成交公告（竞价版）
+                    
+                    break;
+                case 239://中标通知
                     $bottons .= $getBotton('发送中标通知','发送中标通知','edit2',$rec->id,'sendZbNotice');
                     break;
-                
+                case 269://交易鉴证
+                    
+                    break;
+
+                /*******采购业务部分*********/
+                case 319://评标结果
+                    $json_result = $JgptService->lbNotice($project->detail_id);
+                    break;
+                case 339://成交公告（评标版）
+                    $json_result = $JgptService->pbResult($project_id);
+                    break;
+                case 349://中标通知
+                    $bottons .= $getBotton('发送中标通知','发送中标通知','edit2',$rec->id,'sendZbNotice');
+                    break;
             }
             $actions->append($bottons); 
 
@@ -210,6 +248,8 @@ class WbjkProjectBaseController extends Controller
     public function sendGp($id,Content $content){
         $jgpt_detail = $this->detail_class::find($id);
         $result = $this->service->sendGpData($jgpt_detail->detail_id);
+        $project = Project::where('detail_id',$jgpt_detail->detail_id)->first();
+        $this->service->updateStatusAfterSend($jgpt_detail,$result['success'],$project->process,$jgpt_detail->status);
         if($result['success']){
             return $content->withSuccess('Title', $result['msg']);
         }
@@ -224,6 +264,8 @@ class WbjkProjectBaseController extends Controller
         $detail = $jgpt_detail->detail;
         $project = $detail->project;
         $result = $this->service->zbNotice($detail->project_id);
+        $project = Project::where('detail_id',$jgpt_detail->detail_id)->first();
+        $this->service->updateStatusAfterSend($jgpt_detail,$result['success'],$project->process,$jgpt_detail->status);
         if($result['success']){
             return $content->withSuccess('Title', $result['msg']);
         }

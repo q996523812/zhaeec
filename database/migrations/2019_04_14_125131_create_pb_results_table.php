@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreatePbResultsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * 评标结果表
      *
      * @return void
      */

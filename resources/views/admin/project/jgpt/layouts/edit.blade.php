@@ -1,5 +1,5 @@
 
-@include('admin.project.image._list_style') 
+@include('admin.image._style') 
 
 <div class="warning-message">
 
@@ -25,11 +25,11 @@
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.file._show') 
+          @include('admin.file._show') 
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-          
+          @include('admin.image._show') 
         </div>
 
         <!--提交审批-->

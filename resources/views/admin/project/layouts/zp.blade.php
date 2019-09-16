@@ -40,7 +40,7 @@
           });
           $('.btn-back').on('click', function () {
               $("#operation").val("流标");
-              $("#process").val("21");
+              $("#process").val("131");
               $(".form-horizontal").submit();
               return false;
           });

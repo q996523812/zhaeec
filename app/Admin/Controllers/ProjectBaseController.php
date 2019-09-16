@@ -238,7 +238,7 @@ class ProjectBaseController extends Controller
             
             // 当前行的数据数组
             $rec = $actions->row;
-            if($rec->process >= 13){
+            if($rec->process >= 113){
                 $actions->disableDelete();
                 $actions->disableEdit();
             }
@@ -247,53 +247,109 @@ class ProjectBaseController extends Controller
             $stop = "<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>";
             $recover = "<a href='/admin/suspends/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复</a>";
             $winnotices = "<a href='/admin/winnotices/insert/$rec->project_id' style='float: right;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>";
+            $uploadcontract = "<a href='/admin/htxx/edit/$rec->project_id' style='margin-left:10px;' title='上传合同'><i class='fa fa-edit'></i>上传合同</a>";
+
+            $yxdj = "<a href='/admin/yxdj/list/edit/$rec->project_id' style='margin-left:10px;' title='录入意向方'><i class='fa fa-edit2'></i>录入意向方</a>";
+
+            $cjxx = "<a href='/admin/cjxx/edit/$rec->project_id' style='margin-left:10px;' title='录入竞价结果'><i class='fa fa-edit2'></i>录入竞价结果</a>";
+            $cjgg = "<a href='/admin/cjgg/edit/$rec->project_id' style='margin-left:10px;' title='录入成交公告'><i class='fa fa-edit2'></i>录入成交公告</a>";
+            $zbtz = "<a href='/admin/zbtz/edit/$rec->project_id' style='margin-left:10px;' title='录入中标通知'><i class='fa fa-edit2'></i>录入中标通知</a>";
+            $sftz = "<a href='/admin/sftz/edit/$rec->project_id' style='margin-left:10px;' title='录入收费通知'><i class='fa fa-edit2'></i>录入缴费通知</a>";
+            $jyjz = "<a href='/admin/jyjz/edit/$rec->project_id' style='margin-left:10px;' title='交易鉴证'><i class='fa fa-edit2'></i>交易鉴证</a>";
 
             $bottons = "";
             switch($rec->process){
-                case 20:
+                case 120:
                     $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
+                    $bottons .= $yxdj;
                     $bottons .= $getBotton('确认摘牌','摘牌','edit2',$rec->id,'showzp');
                     $bottons .= $pause;
-                    $bottons .= $stop;                   
+                    $bottons .= $stop;
                     break;
-                case 21:
+                case 131:
                     $bottons .= $getBotton('录入流标通知书','录入流标通知书','edit2',$rec->id,'editlb');
                     break;
-                case 31:
+                case 141:
+                    $bottons .= $stop;
+                    break;
+                case 151:
                     $bottons .= $pause;
                     break;
-                case 32:
+                case 152:
                     $bottons .= $pause;
                     break;
-                case 30:
+                case 160:
                     $bottons .= $recover;
-                    break;    
-                case 41:
-                    $bottons .= $stop;
                     break;
-                case 42:
-                    $bottons .= $stop;
-                    break;               
-                case 51:
-                    $bottons .= $getBotton('录入竞价结果','录入竞价结果','edit2',$rec->id,'editjj');
+                
+                /************竞价部分*************/
+                case 211:
+                    $bottons .= $cjxx;
                     break;
-                case 52:
-                    $bottons .= $getBotton('录入竞价结果','修改竞价结果','edit2',$rec->id,'editjj');
-                    break;               
-                case 61:
+                case 212:
+                    $bottons .= $cjxx;
+                    break;
+                case 221:
+                    $bottons .= $cjgg;
+                    break;
+                case 222:
+                    $bottons .= $cjgg;
+                    break;
+                case 231:
+                    $bottons .= $zbtz;
+                    break;
+                case 232:
+                    $bottons .= $zbtz;
+                    break;
+                case 241:
+                    $bottons .= $sftz;
+                    break;
+                case 242:
+                    $bottons .= $sftz;
+                    break;
+                case 251:
+                    $bottons .= $uploadcontract;
+                    break;
+                case 261:
+                    $bottons .= $jyjz;
+                    break;
+                case 262:
+                    $bottons .= $jyjz;
+                    break;
+
+                /************评标部分*************/
+                case 311:
                     $bottons .= $getBotton('录入评标结果','录入评标结果','edit2',$rec->id,'editpb');
                     break; 
-                case 62:
+                case 312:
                     $bottons .= $getBotton('录入评标结果','修改评标结果','edit2',$rec->id,'editpb');
-                    break;   
-                case 81:
-                    $bottons .= $winnotices;
                     break;
-                case 82:
-                    $bottons .= $winnotices;
-                    break;    
-                case 98:
-                    $actions->append("<a href='/admin/zczl/uploadcontract/$rec->id' style='float: left;margin-left:10px;'><i class='fa fa-edit'></i>上传合同</a>"); 
+                case 321:
+                    $bottons .= $cjxx;
+                    break; 
+                case 322:
+                    $bottons .= $cjxx;
+                    break;
+                case 331:
+                    $bottons .= $cjgg;
+                    break; 
+                case 332:
+                    $bottons .= $cjgg;
+                    break;
+                case 341:
+                    $bottons .= $zbtz;
+                    break;
+                case 342:
+                    $bottons .= $zbtz;
+                    break;
+                case 351:
+                    $actions .= $sftz;
+                    break;
+                case 352:
+                    $actions .= $sftz;
+                    break;
+                case 361:
+                    $bottons .= $uploadcontract;
                     break;
             }
             $actions->append($bottons); 
@@ -349,11 +405,33 @@ class ProjectBaseController extends Controller
         return redirect()->route($this->projectTypeCode.'.index');
     }
 
+
     public function getOptionHistory($project_id){
         $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$project_id)
                 ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
                 ->get();
         return $records;
+    }
+
+    public function approval($id, Content $content){
+        $project = Project::find($id);
+        $pbresults = $project->pbResults()->get();
+        $detail = $project->detail;
+        $url = 'admin.project.'.$project->type.'.approval';
+        $records = $this->getOptionHistory($id);
+        $datas = [
+            'detail' => $detail,
+            'records' => $records,
+            'pbresults' => $pbresults,
+            'yxfs' => $project->intentionalParties,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'projecttype' => 'projects',
+        ]; 
+        return $content
+            ->header('审批')
+            // body 方法可以接受 Laravel 的视图作为参数
+            ->body(view($url, $datas));  
     }
     /**摘牌
      *@param $id 明细表ID
@@ -429,11 +507,11 @@ class ProjectBaseController extends Controller
             'projecttype' => $this->projectTypeCode,
             'yxfs' => $detail->intentionalParties,
             'files' => $detail->files,
-            // 'images' => $detail->images,
+            'images' => $detail->images,
         ];
         return $content
             ->header('评标结果录入')
-            ->body(view('admin.project.wljj.edit', $datas));  
+            ->body(view('admin.cjxx.edit', $datas));  
     } 
 
     public function jj(Request $request){

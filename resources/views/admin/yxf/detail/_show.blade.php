@@ -12,7 +12,7 @@
         <tr>
           <td class=" control-label">意向方类型</td>
           <td colspan="3">
-            <div id="customertype">ffffffffff</div>
+            <div id="customertype"></div>
           </td>
         </tr>
         <tr>

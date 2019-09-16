@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateWinNoticesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * 中标通知
      *
      * @return void
      */
@@ -20,6 +20,13 @@ class CreateWinNoticesTable extends Migration
             $table->string('tzsbh')->comment('通知书编号')->nullable();//通知书编号
             $table->string('xmbh')->comment('项目编号')->nullable()->index();//项目编号
             $table->string('title')->comment('项目名称')->nullable()->index();//项目名称
+            $table->datetime('gp_date_start')->comment('挂牌开始时间')->nullable();
+            $table->datetime('gp_date_end')->comment('挂牌结束时间')->nullable();
+
+            /**资产租赁**/
+            $table->unsignedInteger('zlqx')->comment('租赁期限（月限）')->nullable();
+
+
             $table->string('zbnr')->comment('中标内容')->nullable();//中标内容
             $table->string('zbr')->comment('中标人（受让方）')->nullable();//中标人（受让方）
             $table->string('zbf_phone')->comment('受让方手机号')->nullable();//受让方手机号

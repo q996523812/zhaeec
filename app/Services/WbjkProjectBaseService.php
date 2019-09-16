@@ -170,6 +170,37 @@ class WbjkProjectBaseService
     }
 
     /**
+     *
+     *@param jgpt_detail 待更新的接口数据实例
+     *@param success 接口发送是否成功
+     *@param status_success 成功后的状态
+     *@param status_failed 失败后的状态，取业务流程中最后一级审批的节点值，
+            例如：119、139、149......219、229......319......
+     *@param
+     
+     */
+    public function updateStatusAfterSend($jgpt_detail,$success,$status_success,$status_failed){
+        $status = $jgpt_detail->status;
+        if($success){
+            $jgpt_status = $status_success;
+        }
+        else{
+            $jgpt_status = $status_failed;
+        }
+        $JgptService->updateStatus($jgpt_detail->id,$status);
+    }
+
+    /**
+     * 根据业务明细表ID（detail_id）获取接口数据的模型实例
+     * @param $detail_id 监管平台发送过来的jgpt_key
+     * @return 模型实例
+     */
+    public function getModelForKey($detail_id){
+        $detail = $this->model_class::where('detail_id',$detail_id)->first();
+        return $detail;
+    }
+
+    /**
      * 根据jgpt_key获取接口数据的模型实例
      * @param $key 监管平台发送过来的jgpt_key
      * @return 模型实例
@@ -204,7 +235,7 @@ class WbjkProjectBaseService
         DB::transaction(function () use($jgptDeatil,$data_datail,$data_project) {
 	        
             $detailService = new $this->detail_service_class;
-            $detail = $detailService->add($data_datail,$data_project,11);
+            $detail = $detailService->add($data_datail,$data_project,111);
 
             $jgptDeatil->update([
                 'status'=>7,

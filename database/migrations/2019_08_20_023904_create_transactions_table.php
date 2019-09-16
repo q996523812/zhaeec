@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->string('project_id');
             $table->string('intentional_parties_id')->comment('中标方，意向方信息表ID');
+            $table->unsignedInteger('currency_unit')->comment('金额单位，1：元，10000：万元')->default(1);
             $table->decimal('price_total',26,6)->comment('成交价格(总价)');
             $table->decimal('price_unit',26,6)->comment('成交价格(单价)')->nullable();
             $table->text('price_note')->comment('成交价格备注')->nullable();

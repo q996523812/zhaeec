@@ -56,10 +56,10 @@
                       <button type="submit" class="btn btn-primary btn-back">退回</button>
                     </div>
                   </div>
-                </div>                                               
+                </div>
               </div>
-            </div>         
-          </form> 
+            </div>
+          </form>
         </div>
     </div>
 

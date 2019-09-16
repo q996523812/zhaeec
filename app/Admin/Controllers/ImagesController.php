@@ -7,6 +7,11 @@ use App\Models\Project;
 use App\Models\ProjectLease;
 use App\Models\ProjectPurchase;
 use App\Models\IntentionalParty;
+use App\Models\Transaction;
+use App\Models\TransactionAnnouncement;
+use App\Models\WinNotice;
+use App\Models\PaymentNotice;
+use App\Models\Contract;
 use App\Http\Controllers\Controller;
 use App\Handlers\ImageUploadHandler;
 use App\Transformers\ImageTransformer;
@@ -69,6 +74,21 @@ class ImagesController extends Controller
                 break;    
             case 'qycg':
                 $model = ProjectPurchase::class;
+                break;
+            case 'transaction':
+                $model = Transaction::class;
+                break;
+            case 'cjgg':
+                $model = TransactionAnnouncement::class;
+                break;
+            case 'zbtz':
+                $model = WinNotice::class;
+                break;
+            case 'jftz':
+                $model = PaymentNotice::class;
+                break;
+            case 'htxx':
+                $model = Contract::class;
                 break;
         }
         return $model;

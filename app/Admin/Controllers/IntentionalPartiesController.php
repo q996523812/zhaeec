@@ -53,7 +53,7 @@ class IntentionalPartiesController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ]; 
-        $url = 'admin.project.yxf.show';   
+        $url = 'admin.yxf.detail.show';   
         return $content
             ->header('编辑')
             // body 方法可以接受 Laravel 的视图作为参数
@@ -76,7 +76,7 @@ class IntentionalPartiesController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ]; 
-        $url = 'admin.project.yxf.edit';   
+        $url = 'admin.yxf.detail.edit';   
         return $content
             ->header('编辑')
             // body 方法可以接受 Laravel 的视图作为参数
@@ -99,7 +99,7 @@ class IntentionalPartiesController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ];
-        $url = 'admin.project.yxf.edit';
+        $url = 'admin.yxf.detail.edit';
         return $content
             ->header('新增')
             ->body(view($url,$datas));  
@@ -206,7 +206,7 @@ class IntentionalPartiesController extends Controller
         // $detail = new IntentionalParty();
         $result = [
             'success' => 'true',
-            'message' => $insert,
+            'message' => $detail,
             'detail_id' => $detail->id,
             'project_id' => $detail->project_id,
             'status_code' => '200'
@@ -244,10 +244,10 @@ class IntentionalPartiesController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ]; 
-        $url = 'admin.project.yxf.approval';   
+        $url = 'admin.yxf.detail.approval';   
         return $content
             ->header('审批')
-            ->body(view($url, $datas));         
+            ->body(view($url, $datas));
     } 
 
     public function approval(Request $request){
@@ -267,7 +267,7 @@ class IntentionalPartiesController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ]; 
-        $url = 'admin.project.yxf.confirm';   
+        $url = 'admin.yxf.detail.confirm';   
         return $content
             ->header('审批')
             ->body(view($url, $datas));         
@@ -283,4 +283,27 @@ class IntentionalPartiesController extends Controller
         return redirect()->route('yxdj.index');
     }
 
+    public function listEdit($project_id,Content $content){
+        $project = Project::find($project_id);
+        $yxfs = $project->intentionalParties;
+        $datas = [
+            'project' => $project,
+            'yxfs' => $yxfs,
+        ]; 
+        $url = 'admin.yxf.list.edit';
+        return $content
+            ->header('意向登记')
+            ->body(view($url, $datas));
+    }
+
+    public function listShow($project_id,Content $content){
+
+        $datas = [
+            'project_id' => $project_id,
+        ]; 
+        $url = 'admin.yxf.list.show';
+        return $content
+            ->header('意向登记')
+            ->body(view($url, $datas));
+    }
 }

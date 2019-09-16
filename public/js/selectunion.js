@@ -25,7 +25,7 @@
 	};
 	SelectUnion.prototype = {
 		//初始化方法，核心逻辑代码
-		init : function(){
+		init : function(){console.log(111);
 			this.bind(this.settings.selectchange);
 			this.reset();
 		},

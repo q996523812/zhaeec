@@ -3,17 +3,29 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use App\Services\TransactionService;
+use App\Http\Requests\TransactionRequest;
 
 class TransactionsController extends Controller
 {
     use HasResourceActions;
 
+    private $service;
+    private $module_type;
+
+    public function __construct(TransactionService $transactionService)
+    {
+        $this->service = $transactionService;
+        $this->module_type = 'cjxx';
+    }
     /**
      * Index interface.
      *
@@ -50,12 +62,26 @@ class TransactionsController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function edit($id, Content $content)
+    public function edit($project_id, Content $content)
     {
+        $project = Project::find($project_id);
+        // $detail = $this->detail_class::find($id);
+        $transaction = $project->transaction;
+        if(empty($transaction)){
+            $transaction = new Transaction();
+            $transaction->project_id = $project_id;
+        }
+        $datas = [
+            'detail' => $transaction,
+            'projecttype' => $this->module_type,
+            'yxfs' => $project->intentionalParties,
+            'files' => $transaction->files,
+            'images' => $transaction->images,
+        ];
         return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+            ->header('成交信息录入')
+            ->description('根据网络竞价结果或者成交公告，录入成交信息，并上传附件报价记录或者企业盖章的成交公告')
+            ->body(view('admin.'.$this->module_type.'.edit', $datas)); 
     }
 
     /**
@@ -149,5 +175,59 @@ class TransactionsController extends Controller
         $form->number('status', 'Status')->default(1);
 
         return $form;
+    }
+
+    protected $fields = [
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','charge_rule_id'],
+        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','charge_rule_id'],
+    ];
+
+    public function insert(TransactionRequest $request){
+        $data = $request->only($this->fields['insert']);
+        $project_id = $request->project_id;
+        $transaction = $this->service->insert($project_id,$data);
+        $result = [
+            'success' => 'true',
+            'message' => $transaction,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }
+    
+    public function modify(TransactionRequest $request){
+        $data = $request->only($this->fields['update']);
+        $id = $request->id;
+        $transaction = $this->service->modify($id,$data);
+        $result = [
+            'success' => 'true',
+            'message' => $transaction,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }
+
+    public function submit(Request $request){
+        $id = $request->id;
+        $transaction = Transaction::find($id);
+        $project = $transaction->project;
+        $transaction = $this->service->submit($project);
+        return redirect()->route($project->type.'.index');
+    }
+
+    public function approval($project_id,Content $content)
+    {
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $model = $project->transaction;
+        $datas = [
+            'detail' => $model,
+            'projecttype' => $this->module_type,
+            'files' => $model->files,
+            'images' => $model->images,
+        ];
+        return $content
+            ->header('成交信息审批')
+            // ->description('录入正式发布的成交公告')
+            ->body(view('admin.'.$this->module_type.'.approval', $datas)); 
     }
 }

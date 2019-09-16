@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateMarginAcountsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * 保证金账户表
      *
      * @return void
      */

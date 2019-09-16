@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateIntentionalPartiesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * 意向方信息表，报名表
      *
      * @return void
      */

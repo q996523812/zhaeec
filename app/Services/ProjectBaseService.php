@@ -66,7 +66,7 @@ class ProjectBaseService
 	}
 
 	public function submit($id){
-		$process = 13;
+		$process = 113;
 		$detail = $this->model_class::find($id);
 		$project = $detail->project;
 		$detail->process = $process;
@@ -74,7 +74,7 @@ class ProjectBaseService
 		
 		DB::transaction(function () use($detail) {
 			$processService = new ProcessService();
-			$processService->create($this->project_type_code,$detail->id,'提交',13);
+			$processService->create($this->project_type_code,$detail->id,'提交',113);
 		});
 	}	
 

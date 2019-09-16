@@ -72,12 +72,15 @@ class ProcessService
 	}
 
 	/**
+	 *1、更新流程实例、2、添加流程操作记录、3、更新业务表流程节点、
+	 *4、当尾数为9的流程节点完成时，更新业务主表（project）状态status
+	 *
 		$table_id 业务表ID
 		$isNext 	1、退回，2、进入下一个流程
 		$operation	操作名称：提交，审批通过、审批退回等
 		$reason		通过/退回理由		
 		$nodecode	动作结束后所处节点，即本操作将流程发送到那个节点，此时发送节点已经明确，
-	 */	
+	 */
 	public function refreshInstance($table_id,$isNext=2 ,$reason=null,$operation,$nodecode=null){
 		//流程实例
 		$instanceService = new WorkProcessInstanceService();
@@ -101,6 +104,9 @@ class ProcessService
 		if($process->type != 'yxdj'){
 			//业务表为项目明细表时，更新项目主表（project）的流程状态
 			$project = $model->project;
+			//当审批前流程节点为特定的节点时，需要更新状态status，主意与process的顺序。
+			$project->status = $this->getStatus($project);
+
 			$project->process = $nextnode->code;
 			$project->process_name = $nextnode->name;
 			$project->save();
@@ -172,54 +178,59 @@ class ProcessService
 		$endNode = array('19','29','39','49');
 		$project = Project::find($project_id);
 		$JgptService = $this->getService($project->type);
-		if($project->type == 'qycg'){
-			$detail = $project->projectPurchase()->first();
-			if($detail->sjly == '监管平台'){
-				switch($node){
-					case 19:
-						$json_result = $JgptService->sendGpData($project->detail_id);
-						break;
-					case 29:
-						// $json_result = $JgptService->lbNotice($project->detail_id);
-						break;
-					case 39:
-						$json_result = $JgptService->pbResult($project_id);
-						break;
-					case 49:
-						$json_result = $JgptService->zbNotice($project_id);
-						break;
-						
-				}
+		$detail = $project->detail;
+		$jgpt_detail = $JgptService->getModelForKey($project->detail_id);
+
+		$jgpt_status = $jgpt_detail->status;
+		$json_result = null;
+		if($detail->sjly == '监管平台'){
+			switch($node){
+				/*******业务公共部分*********/
+				case 119://挂牌
+					$json_result = $JgptService->sendGpData($project->detail_id);
+					break;
+				case 139://流标
+					// $json_result = $JgptService->lbNotice($project->detail_id);
+					break;
+				case 149://终结公告
+					// $json_result = $JgptService->end($project_id);
+					break;
+				case 159://中止公告
+					// $json_result = $JgptService->pause($project_id);
+					break;
+				case 169://恢复公告
+					// $json_result = $JgptService->pause($project_id);
+					break;
+
+				/*******租赁业务部分*********/
+				case 219://竞价结果
+					$json_result = $JgptService->sendJjResult($project_id);
+					break;
+				case 229://成交公告（竞价版）
+					$json_result = $JgptService->sendCjAnnouncement($project_id);
+					break;
+				case 239://中标通知
+					$json_result = $JgptService->sendZbNotice($project_id);
+					break;
+				case 269://交易鉴证
+					$json_result = $JgptService->sendZbNotice($project_id);
+					break;
+
+				/*******采购业务部分*********/
+				case 319://评标结果
+					$json_result = $JgptService->lbNotice($project->detail_id);
+					break;
+				case 339://成交公告（评标版）
+					$json_result = $JgptService->pbResult($project_id);
+					break;
+				case 349://中标通知
+					$json_result = $JgptService->zbNotice($project_id);
+					break;
 			}
 		}
-		else if($project->type == 'zczl'){
-			$detail = $project->projectLease()->first();
-			if($detail->sjly == '监管平台'){
-				switch($node){
-					case 19://挂牌
-						$json_result = $JgptService->sendGpData($project->detail_id);
-						break;
-					case 29://流标
-						// $json_result = $JgptService->lbNotice($project->detail_id);
-						break;
-					case 39://中止公告
-						// $json_result = $JgptService->pause($project_id);
-						break;
-					case 49://终结公告
-						// $json_result = $JgptService->end($project_id);
-						break;
-					case 59://竞价结果
-						$json_result = $JgptService->jjResult($project_id);
-						break;
-					case 69://评标结果
-						$json_result = $JgptService->pbResult($project_id);
-						break;
-					case 89://中标通知
-						$json_result = $JgptService->zbNotice($project_id);
-						break;						
-				}
-			}
-		}
+		$status = $json_result['status'];
+		//接口数据发送成功，则取当前节点，不成功，则取发送前的节点
+		$JgptService->updateStatusAfterSend($jgpt_detail,$json_result['success'],$project->process,$node);
 	}
 
 	public function getService($project_type){
@@ -235,4 +246,32 @@ class ProcessService
 		return $JgptService;
 	}
 
+	private function getStatus($project){
+		$status = $project->status;
+		$process = $project->process;
+		switch($process){
+			case 119:
+				$status = 11;
+				break;
+			case 139:
+				$status = 12;
+				break;
+			case 149:
+				$status = 16;
+				break;
+			case 159:
+				$status = 13;
+				break;
+			case 169:
+				$status = 11;
+				break;
+			case 219:
+				$status = 14;
+				break;
+			case 319:
+				$status = 14;
+				break;
+		}
+		return $status;
+	}
 }

@@ -1,4 +1,4 @@
-@include('admin.project.image._list_style') 
+@include('admin.image._style') 
 <div class="warning-message">
 
 </div>
@@ -27,15 +27,15 @@
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.file._show') 
+          @include('admin.file._show') 
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-          @include('admin.project.image._show')
+          @include('admin.image._show')
         </div>
         <!--意向方-->
         <div class="tab-pane fade" id="tab4">
-          @include('admin.project.yxf._list_show')
+          @include('admin.yxf.list._show')
         </div>
         <!--操作记录-->
         <div class="tab-pane fade" id="tab5">
@@ -52,9 +52,11 @@
 
         <!--审批-->
         <div class="tab-pane fade in active" id="tab8">
-          <form action="/admin/projects/approval/{{$detail->project_id}}" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
+          <form action="/admin/projects/approval" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
             <input type="hidden" id="isNext" name="isNext" value="" class="isNext" >
+            <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id" >
+            <input type="hidden" id="project_id" name="project_id" value="{{$detail->project_id}}" class="project_id" >
             <div class="box-body">
               <div class="fields-group">
                 <div class="row">

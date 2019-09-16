@@ -4,27 +4,28 @@ namespace App\Admin\Controllers;
 
 use App\Models\WinNotice;
 use App\Models\Project;
+use App\Models\IntentionalParty;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Encore\Admin\Facades\Admin;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Services\ProcessService;
+use App\Http\Requests\WinNoticeRequest;
 use App\Services\WinNoticeService;
+use App\Services\IntentionalPartyService;
 
 class WinNoticesController extends Controller
 {
     use HasResourceActions;
     protected $service;
+    private $module_type;
 
     public function __construct(WinNoticeService $winNoticeService)
     {
         $this->service = $winNoticeService;
+        $this->module_type = 'zbtz';
     }
 
     /**
@@ -63,12 +64,49 @@ class WinNoticesController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function edit($id, Content $content)
+    public function edit($project_id, Content $content)
     {
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $model = $project->winNotice;
+        if(empty($model)){
+            // $intentional_parties_ids = $project->transaction->intentional_parties_id;
+            // $intentionalPartyService = new IntentionalPartyService();
+            // $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
+
+            $zbf = IntentionalParty::find($project->transaction->intentional_parties_id);
+            $cjgg = $project->transactionAnnouncement;
+            $cjxx = $project->transaction;
+
+            $model = new WinNotice();
+            $model->project_id = $project_id;
+            $model->type = $project->type;
+            $model->xmbh = $project->xmbh;
+            $model->title = $project->title;
+            $model->zbnr = $project->title;
+            $model->zbr = $zbf->name;
+            $model->zbf_phone = $zbf->contact_phone;
+            $model->zbf_lx_1 = $zbf->companytype;
+            $model->zbf_lx_2 = $zbf->economytype;
+            $model->jysj = $cjgg->jy_date;
+            $model->cjj_zj = $cjxx->price_total;
+            $model->cjj_dj = $cjxx->price_unit;
+            $model->cjj_bz = $cjxx->price_note;
+            $model->jyfs = $detail->jyfs;
+            $model->jycd = $cjgg->jycd;
+            $model->zbf_qy = $zbf->area;
+        }
+
+        $datas = [
+            'detail' => $model,
+            'projecttype' => $this->module_type,
+            'files' => $model->files,
+            'images' => $model->images,
+        ];
         return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+            ->header('中标通知录入')
+            // ->description('录入正式发布的成交公告')
+            ->body(view('admin.'.$this->module_type.'.edit', $datas)); 
     }
 
     /**
@@ -207,31 +245,58 @@ class WinNoticesController extends Controller
         return $form;
     }
 
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function insert($project_id, Content $content)
+    protected $fields = [
+        'type','xmbh','title','gp_date_start','gp_date_end','zlqx','zbnr','zbr','zbf_phone','zbf_lx_1','zbf_lx_2','jysj','cjj_zj','cjj_dj','cjj_bz','jyfs','jycd','zbf_qy','zbhyq','tzs_fs','tzs_fs_1','tzs_fs_2','tzs_fs_3','tzs_fs_4','notes','issue_time',
+    ];
+
+    public function insert(WinNoticeRequest $request){
+        $data = $request->only($this->fields);
+        $project_id = $request->project_id;
+        $model = $this->service->save($project_id,$data);
+        $result = [
+            'success' => 'true',
+            'message' => $model,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }
+    
+    public function modify(WinNoticeRequest $request){
+        $data = $request->only($this->fields);
+        $id = $request->id;
+        $winNotice = WinNotice::find($id);
+        $model = $this->service->modify($winNotice,$data);
+        $result = [
+            'success' => 'true',
+            'message' => $model,
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }
+
+    public function submit(Request $request){
+        $id = $request->id;
+        $model = WinNotice::find($id);
+        $project = $model->project;
+        $this->service->submit($project);
+        return redirect()->route($project->type.'.index');
+    }
+
+    public function approval($project_id, Content $content)
     {
-        
         $project = Project::find($project_id);
+        $detail = $project->detail;
+        $model = $project->winNotice;
         $datas = [
-            'project' => $project,
-        ]; 
-        // dump($project);
-        // return [];
+            'detail' => $model,
+            'projecttype' => $this->module_type,
+            'files' => $model->files,
+            'images' => $model->images,
+        ];
         return $content
-            ->header('中标通知书')
-            ->body(view('admin.project.zbnotice.insert', $datas));  
+            ->header('成交公告审批')
+            ->description('录入正式发布的成交公告')
+            ->body(view('admin.'.$this->module_type.'.approval', $datas)); 
     }
 
-
-    public function add(Request $request){
-        $data = $request->all();
-        $winNotice = $this->service->add($data);
-
-        return redirect()->route('winnotices.index');
-    }
 }

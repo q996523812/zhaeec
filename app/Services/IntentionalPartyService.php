@@ -46,11 +46,21 @@ class IntentionalPartyService
 	}
 
 	public function approval($id,$reason,$operation,$nodecode){
-		
 		DB::transaction(function () use($id,$reason,$operation,$nodecode) {
 			$process = new ProcessService();
 			$process->next($id,$reason,$operation,$nodecode);
 		});
 	}	
+
+	/**
+	 *@param $ids 字符串，以","分割，例如：1,2,3
+	 *@return  意向方名称，以","分割，例如：a,b,c
+	 */
+	public function findNamesByIds($ids){
+		$ids = explode(',',$ids);
+		$names = IntentionalParty::whereIn('id',$ids)->pluck('name');
+		$names = implode(',',$names->toArray());
+		return $names;
+	}
 
 }

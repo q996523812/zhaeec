@@ -16,3 +16,20 @@
 
 @import 'admin_project';
 
+	.print .title{
+		text-align:center;font-size:30px;font-weight:bold;
+	}
+	.print .call{
+		text-align:left;
+		margin-top:40px;
+	}
+	.print .content{
+		text-indent:35px;
+	}
+	.print .content p{
+		line-height:2em;
+	}
+	.print .inscription{
+		text-align:right;
+		page-break-after:always;
+	}

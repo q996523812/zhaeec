@@ -48,7 +48,7 @@ class WorkProcessInstanceService
 		//下一个操作节点
 		$nextnode = null;
 		if($isNext == 2){//审批通过
-			if($node->code == '20'){
+			if($node->code == '120'){
 				$nextnode = $nodes->where('code',$nodecode)->first();
 			}
 			else{

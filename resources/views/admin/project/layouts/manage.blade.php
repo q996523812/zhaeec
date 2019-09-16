@@ -1,4 +1,4 @@
-@include('admin.project.image._list_style') 
+@include('admin.image._style') 
 <div class="warning-message">
 
 </div>
@@ -26,15 +26,15 @@
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.file._edit') 
+          @include('admin.file._edit') 
         </div>
         <!--图片-->
         <div class="tab-pane fade" id="tab3">
-          @include('admin.project.image._edit')
+          @include('admin.image._edit')
         </div>
         <!--意向方-->
         <div class="tab-pane fade" id="tab4">
-          @include('admin.project.yxf._list')
+          @include('admin.yxf.list._edit')
         </div>
         <!--操作记录-->
         <div class="tab-pane fade" id="tab5">

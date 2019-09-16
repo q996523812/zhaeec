@@ -40,7 +40,7 @@ class CreateProjectLeasesTable extends Migration
             $table->string('gpjg_sm')->comment('租金说明')->nullable();//
             $table->decimal('gpjg_zj',26,6)->comment('总租金')->nullable();//
             $table->decimal('gpjg_dj',26,6)->comment('月租金/单价')->nullable();//
-            $table->unsignedInteger('zlqx')->comment('租赁期限（月限）');//
+            $table->unsignedInteger('zlqx')->comment('租赁期限（月限）');
             $table->string('jymd')->comment('交易目的');//
             $table->string('zclb')->comment('资产类别');//
             $table->string('fbfs')->comment('信息发布方式');//

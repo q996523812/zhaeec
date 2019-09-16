@@ -18,6 +18,7 @@ use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\ProcessService;
+use Illuminate\Support\Facades\Log;
 
 class ProjectsController extends Controller
 {
@@ -109,6 +110,7 @@ class ProjectsController extends Controller
             ->body($this->form());
     }
 
+
     /**
      * Make a grid builder.
      *
@@ -158,6 +160,7 @@ class ProjectsController extends Controller
             $filter->like('xmbh', '项目编号');
 
         });
+
         $grid->actions(function ($actions) use($user){
             // $actions->disableView();
             $actions->disableDelete();
@@ -165,14 +168,125 @@ class ProjectsController extends Controller
             // 当前行的数据数组
             $rec = $actions->row;
             // $aprovePage = $this->getAprovePage($rec->type);
-            $fbnodes = array('19','29','39','49','59','69','79','89');
-            $spnodes = array('13','14','15','23','24','25','33','34','35','43','44','45','53','54','55','63','64','65','73','74','75','83','84','85');
+            $fbnodes = array(
+                '119','129','139','149','159','169','179','189',
+                '219','229','239','249','259','269','279','289',
+                '319','329','339','349','359','369','379','389',
+            );
+            $spnodes = array(
+                '113','114','115','123','124','125','133','134','135',
+                '143','144','145','153','154','155','163','164','165',
+                '173','174','175','183','184','185','193','194','195',
+                '213','214','215','223','224','225','233','234','235',
+                '243','244','245','253','254','255','263','264','265',
+                '273','274','275','283','284','285','293','294','295',
+                '313','314','315','323','324','325','333','334','335',
+                '343','344','345','353','354','355','363','364','365',
+                '373','374','375','383','384','385','393','394','395',
+            );
             if(in_array($rec->process,$fbnodes) ){
-                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>发布</i></a>");
+                //$actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>发布</i></a>");
             }
             else if(in_array($rec->process,$spnodes) ){
-                $actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>审批</i></a>");
+                //$actions->append("<a href='/admin/projects/showapproval/$rec->id' style='margin-left:10px;'><i class='fa fa-edit'>审批</i></a>");
             }
+
+            $bottons = null;
+            switch($rec->process){
+                case 113:
+                case 114:
+                case 115:
+                    $bottons = getButtion($rec->type,$rec->id,'审批');
+                    break;
+                case 119:
+                    $bottons = getButtion($rec->type,$rec->id,'发布');
+                    break;
+
+                case 213:
+                case 214:
+                case 215:
+                    $bottons = getButtion('cjxx',$rec->id,'审批');
+                    break;
+                case 219:
+                    $bottons = getButtion('cjxx',$rec->id,'确认');
+                    break;
+                case 223:
+                case 224:
+                case 225:
+                    $bottons = getButtion('cjgg',$rec->id,'审批');
+                    break;
+                case 229:
+                    $bottons = getButtion('cjgg',$rec->id,'发布');
+                    break;
+                case 233:
+                case 234:
+                case 235:
+                    $bottons = getButtion('zbtz',$rec->id,'审批');
+                    break;
+                case 239:
+                    $bottons = getButtion('zbtz',$rec->id,'确认');
+                    break;
+                case 243:
+                case 244:
+                case 245:
+                    $bottons = getButtion('sftz',$rec->id,'审批');
+                    break;
+                case 249:
+                    $bottons = getButtion('sftz',$rec->id,'确认');
+                    break;
+                case 263:
+                case 264:
+                case 265:
+                    $bottons = getButtion('jyjz',$rec->id,'审批');
+                    break;
+                case 269:
+                    $bottons = getButtion('jyjz',$rec->id,'确认');
+                    break;
+                
+                case 313:
+                case 314:
+                case 315:
+                    $bottons = getButtion('pbjg',$rec->id,'审批');
+                    break;
+                case 319:
+                    $bottons = getButtion('pbjg',$rec->id,'发布');
+                    break;
+                case 323:
+                case 324:
+                case 325:
+                    $bottons = getButtion('cjxx',$rec->id,'审批');
+                    break;
+                case 329:
+                    $bottons = getButtion('cjxx',$rec->id,'确认');
+                    break;
+                case 333:
+                case 334:
+                case 335:
+                    $bottons = getButtion('cjgg',$rec->id,'审批');
+                    break;
+                case 339:
+                    $bottons = getButtion('cjgg',$rec->id,'发布');
+                    break;
+                case 343:
+                case 344:
+                case 345:
+                    $bottons = getButtion('zbtz',$rec->id,'审批');
+                    break;
+                case 349:
+                    $bottons = getButtion('zbtz',$rec->id,'确认');
+                    break;
+                case 353:
+                case 354:
+                case 355:
+                    $bottons = getButtion('sftz',$rec->id,'审批');
+                    break;
+                case 359:
+                    $bottons = getButtion('sftz',$rec->id,'确认');
+                    break;
+                
+
+            }
+            $actions->append($bottons);
             
         });
         $grid->disableCreateButton();//禁用新增按钮
@@ -305,24 +419,34 @@ class ProjectsController extends Controller
             ->body(view($url, $datas));  
     }
 
-    public function approval($id,Request $request,ProcessService $processService){
+    public function approval(Request $request,ProcessService $processService){
+        $id = $request->id;
+        $project_id = $request->project_id;
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
         $isNext = $request->isNext;
+
+        $message = '操作成功！';
+        $project = Project::find($project_id);
+        $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
+        try{
         // DB::transaction(function () use($id,$reason,$operation,$process,$isNext,$processService) {
         //     $project = Project::find($id);
         //     // $processService->next($project->detail_id,$reason,$operation,$nodecode=null);
         //     $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
         //     $processService->postGZW($id,$project->process);
         // });
-
-        $project = Project::find($id);
-        $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
-        $processService->postGZW($id,$project->process);
-        
+            $processService->postGZW($project_id,$project->process);
+        }
+        catch(\Exception $e){
+            $message = '审核成功，但自动接口消息发送失败，请前往“接收租赁项目”手动发送！';
+            Log::error($e);
+            throw new \Exception($message);
+        }
         return redirect('/admin/projects');
-        // return [];
+        // return redirect('/admin/projects')->withInfo('Title', $message);
+        // return view('projects.index')->with('Title', $message);
     }
 
 }
