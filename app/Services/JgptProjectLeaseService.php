@@ -30,6 +30,24 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
     }
 
     /**
+     *@param $id 接口表ID
+     *@param $option 退回、通过、流标、中止、终结
+     *@param $remarks 备注
+     */
+    public function sendReject($id,$option,$remarks){
+        $url = 'api/transaction/assets/checked';
+        $model = $this->model_class::find($id);
+        $datas = [
+            'uuid' => $model->jgpt_key,
+            'checkedOptions' => $option,
+            'checkedRemarks' => $remarks,
+        ];
+        $curlHandler = new JgptCurlHandler;
+        $result = $curlHandler->curl($url,$datas);
+        return $result;
+    }
+    
+    /**
      *挂牌数据，无文件
      *
      */
@@ -160,7 +178,7 @@ class JgptProjectLeaseService extends WbjkProjectBaseService
      *接口：发送中标通知书,有文件
      */
     public function sendZbNotice($project_id){
-        $url = 'api/assets/backfill/winningbid';
+        $url = 'api/transaction/assets/backfill/winningbid';
         $project = Project::find($project_id)->first();
         $zbtz = $project->winNotice;
         $data = [

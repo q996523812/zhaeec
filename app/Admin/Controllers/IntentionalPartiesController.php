@@ -48,7 +48,9 @@ class IntentionalPartiesController extends Controller
     {
         $detail = IntentionalParty::find($id);
         $datas = [
-            'detail' => $detail,
+            'project' => $project,
+            'id'=>$model->id,
+            'yxf' => $detail,
             'projecttype' => 'yxdj',
             'files' => $detail->files,
             'images' => $detail->images,
@@ -69,12 +71,15 @@ class IntentionalPartiesController extends Controller
      */
     public function edit($id, Content $content)
     {      
-        $detail = IntentionalParty::find($id);
+        $model = IntentionalParty::find($id);
+        $project = $model->project;
         $datas = [
-            'detail' => $detail,
+            'project' => $project,
+            'id'=>$model->id,
+            'yxf' => $model,
             'projecttype' => 'yxdj',
-            'files' => $detail->files,
-            'images' => $detail->images,
+            'files' => $model->files,
+            'images' => $model->images,
         ]; 
         $url = 'admin.yxf.detail.edit';   
         return $content
@@ -91,13 +96,16 @@ class IntentionalPartiesController extends Controller
      */
     public function create($project_id,Content $content)
     {
-        $detail = new IntentionalParty();
-        $detail->project_id = $project_id;
+        $project = Project::find($project_id);
+        $model = new IntentionalParty();
+        $model->project_id = $project_id;
         $datas = [
-            'detail' => $detail,
+            'project' => $project,
+            'id'=>$model->id,
+            'yxf' => $model,
             'projecttype' => 'yxdj',
-            'files' => $detail->files,
-            'images' => $detail->images,
+            'files' => $model->files,
+            'images' => $model->images,
         ];
         $url = 'admin.yxf.detail.edit';
         return $content
@@ -237,12 +245,14 @@ class IntentionalPartiesController extends Controller
     }   
 
     public function showapproval($id,Content $content){
-        $detail = IntentionalParty::find($id);
+        $model = IntentionalParty::find($id);
+        $project = $model->project;
         $datas = [
-            'detail' => $detail,
+            'project' => $project,
+            'yxf' => $model,
             'projecttype' => 'yxdj',
-            'files' => $detail->files,
-            'images' => $detail->images,
+            'files' => $model->files,
+            'images' => $model->images,
         ]; 
         $url = 'admin.yxf.detail.approval';   
         return $content
@@ -260,12 +270,14 @@ class IntentionalPartiesController extends Controller
         return redirect()->route('yxdj.index');
     }
     public function showconfirm($id,Content $content){
-        $detail = IntentionalParty::find($id);
+        $model = IntentionalParty::find($id);
+        $project = $model->project;
         $datas = [
-            'detail' => $detail,
+            'project' => $project,
+            'yxf' => $model,
             'projecttype' => 'yxdj',
-            'files' => $detail->files,
-            'images' => $detail->images,
+            'files' => $model->files,
+            'images' => $model->images,
         ]; 
         $url = 'admin.yxf.detail.confirm';   
         return $content

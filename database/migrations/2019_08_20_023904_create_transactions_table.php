@@ -17,15 +17,18 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->string('project_id');
             $table->string('intentional_parties_id')->comment('中标方，意向方信息表ID');
-            $table->unsignedInteger('currency_unit')->comment('金额单位，1：元，10000：万元')->default(1);
-            $table->decimal('price_total',26,6)->comment('成交价格(总价)');
-            $table->decimal('price_unit',26,6)->comment('成交价格(单价)')->nullable();
+            $table->unsignedInteger('currency_unit')->comment('金额单位，1：元，10000：万元，默认为元')->default(1);
+            $table->decimal('price_total',26,6)->comment('成交价格(总价)(万元)');
+            $table->decimal('price_unit',26,6)->comment('成交价格(单价)(万元)')->nullable();
             $table->text('price_note')->comment('成交价格备注')->nullable();
             $table->datetime('transaction_date')->comment('成交时间')->nullable();
+            
             $table->decimal('service_charge_receivable',26,6)->comment('中心应收服务费')->default(0);
             $table->decimal('service_charge_received',26,6)->comment('中心已收服务费')->nullable();
+            $table->string('wtf_charge_rule_id')->comment('委托方收费规则');
             $table->decimal('wtf_service_fee_payable',26,6)->comment('委托方应缴服务费')->default(0);
             $table->decimal('wtf_service_fee_paid',26,6)->comment('委托方已缴服务费')->nullable();
+            $table->string('zbf_charge_rule_id')->comment('中标方收费规则');
             $table->decimal('zbf_service_fee_payable',26,6)->comment('中标方应缴服务费')->default(0);
             $table->decimal('zbf_service_fee_paid',26,6)->comment('中标方已缴服务费')->nullable();
             $table->string('charge_rule_id')->comment('应用的收费规则，收费规则表ID')->nullable();

@@ -3,12 +3,16 @@
 namespace App\Admin\Controllers;
 
 use App\Models\BidResultSub;
+use App\Models\BidResult;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use App\Http\Requests\BidResultSubRequest;
+use App\Services\BidResultSubService;
 
 class BidResultSubsController extends Controller
 {
@@ -37,10 +41,17 @@ class BidResultSubsController extends Controller
      */
     public function show($id, Content $content)
     {
+        $sub = BidResultSub::find($id);
+        $bidResult = $sub->bidResult;
+        $datas = [
+            'pbjg' => $bidResult,
+            'sub' => $sub,
+            'projecttype' => 'pbjg',
+        ]; 
+        $url = 'admin.pbjg.detail.show';
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('评标结果')
+            ->body(view($url, $datas));
     }
 
     /**
@@ -52,10 +63,19 @@ class BidResultSubsController extends Controller
      */
     public function edit($id, Content $content)
     {
+        $sub = BidResultSub::find($id);
+        $bidResult = $sub->bidResult;
+        $yxfs = $bidResult->project->intentionalParties;
+        $datas = [
+            'pbjg' => $bidResult,
+            'sub' => $sub,
+            'yxfs' => $yxfs,
+            'projecttype' => 'pbjg',
+        ]; 
+        $url = 'admin.pbjg.detail.edit';
         return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+            ->header('评标结果')
+            ->body(view($url, $datas));
     }
 
     /**
@@ -64,12 +84,22 @@ class BidResultSubsController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function create(Content $content)
+    public function create($bidResult_id,Content $content)
     {
+        $bidResult = BidResult::find($bidResult_id);
+        $sub = new BidResultSub();
+        $sub->bid_result_id = $bidResult->id;
+        $yxfs = $bidResult->project->intentionalParties;
+        $datas = [
+            'pbjg' => $bidResult,
+            'sub' => $sub,
+            'yxfs' => $yxfs,
+            'projecttype' => 'pbjg',
+        ]; 
+        $url = 'admin.pbjg.detail.edit';
         return $content
-            ->header('Create')
-            ->description('description')
-            ->body($this->form());
+            ->header('评标结果')
+            ->body(view($url, $datas));
     }
 
     /**
@@ -145,5 +175,13 @@ class BidResultSubsController extends Controller
         $form->text('pm', 'Pm');
 
         return $form;
+    }
+
+    public function insert(Request $request){
+        $this->store();
+        $bid_result_id = $request->bid_result_id;
+        $bid_result = BidResult::find($bid_result_id);
+
+        return redirect('admin/pbjg/list/edit/'.$bid_result->project->id);
     }
 }

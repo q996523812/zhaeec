@@ -84,6 +84,10 @@ class WinNoticesController extends Controller
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
             $model->zbnr = $project->title;
+            $model->gp_date_start = $project->gp_date_start;
+            $model->gp_date_end = $project->gp_date_end;
+            $model->jydj = $project->price;
+            
             $model->zbr = $zbf->name;
             $model->zbf_phone = $zbf->contact_phone;
             $model->zbf_lx_1 = $zbf->companytype;
@@ -98,7 +102,9 @@ class WinNoticesController extends Controller
         }
 
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id' => $model->id,
+            'zbtz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -288,7 +294,8 @@ class WinNoticesController extends Controller
         $detail = $project->detail;
         $model = $project->winNotice;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'zbtz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

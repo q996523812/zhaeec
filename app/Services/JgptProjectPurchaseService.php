@@ -57,7 +57,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
      *@param $option 退回、通过、流标、中止、终结
      *@param $remarks 备注
      */
-    public function sendReject($id,$option,$remarks){
+    public function sendChecked($id,$option,$remarks){
         $url = 'api/transaction/purchase/checked';
         $model = $this->model_class::find($id);
         $datas = [
@@ -70,6 +70,10 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
         return $result;
     }
 
+    /**
+     *发送挂牌数据，无文件
+     *
+     */
     public function sendGpData($purchase_id){
         $url = 'api/transaction/purchase/backfill/transaction';
         $purchase = ProjectPurchase::find($purchase_id)->first();
@@ -89,7 +93,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
             'entrustAgencyLink' => $purchase->zbdl_lxfs,
             'projectRemarks' => $purchase->notes,
         ];
-        $result = $this->send($url,$datas,$purchase_id)
+        $result = $this->send($url,$datas,$purchase_id);
         return $result;
     }
 
@@ -138,9 +142,9 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
                 $list[] = $row;
             }
             return $list;
-        }
+        };
         $data = [
-            
+            'list' => $list,
         ];
         $result = $this->send($url,$data,$detail->id);
 
@@ -161,24 +165,61 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
     }     
     */
 
-    public function pbResult($project_id){
+    /**
+     *评标结果，有文件
+     *
+     */
+    public function sendPbResult($project_id){
         $url = 'api/transaction/purchase/backfill/biddingresults';
         $project = Project::find($project_id);
-        $pbjg = PbResult::where('project_id',$project_id)->get();        
+        $pbjg = PbResult::where('project_id',$project_id)->get();
+        $subPidResults = $project->PidResult->SubPidResults;
+        $list = function ()use($subPidResults){
+            $list = [];
+            foreach($subPidResults as $subPidResult) {
+                $row = [
+                    'projectNo' => $subPidResult->xmbh,
+                    'projectName' => $subPidResult->title,
+                    'tbPerson' => $subPidResult->tbr,
+                    'jjf' => $subPidResult->jjf,
+                    'jsf' => $subPidResult->jsf,
+                    'zf' => $subPidResult->zf,
+                    'tbbj' => $subPidResult->tbbj,
+                    'pm' => $subPidResult->pm,
+                ];
+                $list[] = $row;
+            }
+            return $list;
+        };
+
         $datas = [
             'title' => $project->title,
-            'records' => $pbjg,       
+            'list' => $list,
         ];
         $result = $this->send($url,$data,$detail->id);
 
         return $result;
     }   
 
-    public function zbNotice($project_id){
+    /**
+     *中标通知，有文件
+     *
+     */
+    public function sendZbNotice($project_id){
         $url = 'api/transaction/purchase/backfill/winningbid';
         $project = Project::find($project_id);
         $zbtz = WinNotice::where('project_id',$project_id)->first();
-        $datas = $zbtz;
+        $datas = [
+            'zbNo' => $zbtz->tzsbh,
+            'zbContent' => $zbtz->title,
+            'zbPhone' => $zbtz->zbf_phone,
+            'zbType' => $zbtz->zbf_lx_1,//类型指那个类型？
+            'zbTotalPrice' => $zbtz->cjj_zj,
+            'zbUnitPrice' => $zbtz->cjj_dj,
+            'zbTransactionWay' => $zbtz->jyfs,
+            'zbTransactionPlace' => $zbtz->jycd,
+            'zbArea' => $zbtz->zbf_qy,
+        ];
         $result = $this->send($url,$data,$detail->id);
 
         return $result;

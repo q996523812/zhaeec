@@ -1,7 +1,7 @@
 <form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">    
     {{ csrf_field() }}
-    <input type="hidden" id="project_id" name="project_id" value="{{$detail->project_id}}" class="project_id">
-    <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id">
+    <input type="hidden" id="project_id" name="project_id" value="{{$yxf->project_id}}" class="project_id">
+    <input type="hidden" id="id" name="id" value="{{$yxf->id}}" class="id">
     <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="projecttype">
 <div class="fields-group">
 
@@ -18,7 +18,7 @@
         <tr>
           <td class=" control-label">客户名称</td>
           <td colspan="3">
-            <input type="text" id="name" name="name" value="{{$detail->name}}" class="form-control name" placeholder="输入 客户名称">
+            <input type="text" id="name" name="name" value="{{$yxf->name}}" class="form-control name" placeholder="输入 客户名称">
           </td>
         </tr>
         <tr>
@@ -28,7 +28,7 @@
           </td>
           <td class=" control-label">证件号码</td>
           <td>
-            <input type="text" id="id_code" name="id_code" value="{{$detail->id_code}}" class="form-control id_code" placeholder="输入 证件号码">
+            <input type="text" id="id_code" name="id_code" value="{{$yxf->id_code}}" class="form-control id_code" placeholder="输入 证件号码">
           </td>
         </tr>
         <tr>
@@ -59,14 +59,14 @@
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="found_date" name="found_date" value="{{$detail->found_date}}" class="form-control found_date" placeholder="输入 成立时间">
+              <input type="text" id="found_date" name="found_date" value="{{$yxf->found_date}}" class="form-control found_date" placeholder="输入 成立时间">
             </div>
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">注册地址</td>
           <td colspan="3">
-            <input type="text" id="registered_address" name="registered_address" value="{{$detail->registered_address}}" class="form-control registered_address" placeholder="输入 注册地址">
+            <input type="text" id="registered_address" name="registered_address" value="{{$yxf->registered_address}}" class="form-control registered_address" placeholder="输入 注册地址">
           </td>
         </tr>
         <tr class="company">
@@ -76,7 +76,7 @@
                 <div class="col-sm-6">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-                    <input type="text" id="registered_capital" name="registered_capital" value="{{$detail->registered_capital}}" class="form-control money registered_capital" placeholder="输入 注册资本">
+                    <input type="text" id="registered_capital" name="registered_capital" value="{{$yxf->registered_capital}}" class="form-control money registered_capital" placeholder="输入 注册资本">
                   </div>
                 </div>
                 <div class="col-sm-3">
@@ -86,7 +86,7 @@
           </td>
           <td class=" control-label">法定代表人</td>
           <td>
-            <input type="text" id="legal_representative" name="legal_representative" value="{{$detail->legal_representative}}" class="form-control legal_representative" placeholder="输入 法定代表人">
+            <input type="text" id="legal_representative" name="legal_representative" value="{{$yxf->legal_representative}}" class="form-control legal_representative" placeholder="输入 法定代表人">
           </td>
         </tr>
         <tr class="company">
@@ -121,23 +121,23 @@
         <tr class="company">
           <td class=" control-label">经营范围</td>
           <td colspan="3">
-            <input type="text" id="scope" name="scope" value="{{$detail->scope}}" class="form-control scope" placeholder="输入 经营范围">
+            <input type="text" id="scope" name="scope" value="{{$yxf->scope}}" class="form-control scope" placeholder="输入 经营范围">
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">主体资格证明</td>
           <td colspan="3">
-            <input type="text" id="credit_cer" name="credit_cer" value="{{$detail->credit_cer}}" class="form-control credit_cer" placeholder="输入 主体资格证明">
+            <input type="text" id="credit_cer" name="credit_cer" value="{{$yxf->credit_cer}}" class="form-control credit_cer" placeholder="输入 主体资格证明">
           </td>
         </tr>
         <tr class="person">
           <td class=" control-label">工作单位</td>
           <td>
-            <input type="text" id="work_unit" name="work_unit" value="{{$detail->work_unit}}" class="form-control work_unit" placeholder="输入 工作单位">
+            <input type="text" id="work_unit" name="work_unit" value="{{$yxf->work_unit}}" class="form-control work_unit" placeholder="输入 工作单位">
           </td>
           <td class=" control-label">职务</td>
           <td>
-            <input type="text" id="work_duty" name="work_duty" value="{{$detail->work_duty}}" class="form-control work_duty" placeholder="输入 职务">
+            <input type="text" id="work_duty" name="work_duty" value="{{$yxf->work_duty}}" class="form-control work_duty" placeholder="输入 职务">
           </td>
         </tr>
 
@@ -162,9 +162,9 @@
         //行政区划下拉框联动
         $("#distpicker1").distpicker({
           autoSelect: false,
-          province: "{{$detail->province}}",
-          city: "{{$detail->city}}",
-          district: "{{$detail->area}}"
+          province: "{{$yxf->province}}",
+          city: "{{$yxf->city}}",
+          district: "{{$yxf->area}}"
         });
 
         //日期
@@ -181,34 +181,34 @@
         $('#isgz').selecter({
           autoSelect: false,
           type: "sf",
-          selectvalue: "{{$detail->isgz}}",
+          selectvalue: "{{$yxf->isgz}}",
           savetype: 2,
         });
         $('#registered_capital_currency').selecter({
           autoSelect: false,
           type: "currency",
-          selectvalue: "{{$detail->registered_capital_currency}}"
+          selectvalue: "{{$yxf->registered_capital_currency}}"
         });
         $('#companytype').selecter({
           autoSelect: false,
           type: "companytype",
-          selectvalue: "{{$detail->companytype}}"
+          selectvalue: "{{$yxf->companytype}}"
         });
         $('#economytype').selecter({
           autoSelect: false,
           type: "economytype",
-          selectvalue: "{{$detail->economytype}}"
+          selectvalue: "{{$yxf->economytype}}"
         });
         $('#scale').selecter({
           autoSelect: false,
           type: "scale",
-          selectvalue: "{{$detail->scale}}"
+          selectvalue: "{{$yxf->scale}}"
         });
 
         //联动下拉框
         $('#customertype').selectunion({
           type: "customertype",
-          selectvalue: "{{$detail->customertype}}",
+          selectvalue: "{{$yxf->customertype}}",
           savetype: 2,
           selectchange: function(){
             if($('#customertype').find(':selected').data('code')==1){
@@ -222,17 +222,17 @@
           },
           subid: 'id_type',
           subtype: "id_type",
-          subselectvalue: "{{$detail->id_type}}",
+          subselectvalue: "{{$yxf->id_type}}",
           subsavetype: 1,
           
         });
         $('#industry1').selectunion({
           type: "industry1",
-          selectvalue: "{{$detail->industry1}}",
+          selectvalue: "{{$yxf->industry1}}",
           savetype: 1,
           subid: 'industry2',
           subtype: "industry2",
-          subselectvalue: "{{$detail->industry2}}",
+          subselectvalue: "{{$yxf->industry2}}",
           subsavetype: 1,
           
         });

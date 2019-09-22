@@ -1,0 +1,137 @@
+<?php
+
+namespace App\Admin\Controllers;
+
+use App\Models\Acount;
+use App\Http\Controllers\Controller;
+use Encore\Admin\Controllers\HasResourceActions;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Show;
+
+class AcountsController extends Controller
+{
+    use HasResourceActions;
+
+    /**
+     * Index interface.
+     *
+     * @param Content $content
+     * @return Content
+     */
+    public function index(Content $content)
+    {
+        return $content
+            ->header('Index')
+            ->description('description')
+            ->body($this->grid());
+    }
+
+    /**
+     * Show interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function show($id, Content $content)
+    {
+        return $content
+            ->header('Detail')
+            ->description('description')
+            ->body($this->detail($id));
+    }
+
+    /**
+     * Edit interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function edit($id, Content $content)
+    {
+        return $content
+            ->header('Edit')
+            ->description('description')
+            ->body($this->form()->edit($id));
+    }
+
+    /**
+     * Create interface.
+     *
+     * @param Content $content
+     * @return Content
+     */
+    public function create(Content $content)
+    {
+        return $content
+            ->header('Create')
+            ->description('description')
+            ->body($this->form());
+    }
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        $grid = new Grid(new Acount);
+
+        $grid->id('Id');
+        $grid->name('Name');
+        $grid->bank('Bank');
+        $grid->code('Code');
+        $grid->type('Type');
+        $grid->default('Default');
+        $grid->deleted_at('Deleted at');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
+
+        return $grid;
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        $show = new Show(Acount::findOrFail($id));
+
+        $show->id('Id');
+        $show->name('Name');
+        $show->bank('Bank');
+        $show->code('Code');
+        $show->type('Type');
+        $show->default('Default');
+        $show->deleted_at('Deleted at');
+        $show->created_at('Created at');
+        $show->updated_at('Updated at');
+
+        return $show;
+    }
+
+    /**
+     * Make a form builder.
+     *
+     * @return Form
+     */
+    protected function form()
+    {
+        $form = new Form(new Acount);
+
+        $form->text('name', 'Name');
+        $form->text('bank', 'Bank');
+        $form->text('code', 'Code');
+        $form->number('type', 'Type');
+        $form->number('default', 'Default');
+
+        return $form;
+    }
+}

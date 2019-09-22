@@ -24,7 +24,7 @@
                 <div class="row">
                   <div class="container table-responsive col-md-12 align-items-center"> 
                     <div class="col-md-8">
-                      <input type="hidden" name="id" value="{{$detail->id}}" class="id form-control">
+                      <input type="hidden" name="id" value="{{$id}}" class="id form-control">
                       <input type="hidden" name="projecttype" value="{{$projecttype}}" class="projecttype">
                       {{csrf_field()}}
                     </div>           

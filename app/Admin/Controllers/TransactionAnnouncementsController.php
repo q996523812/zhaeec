@@ -55,6 +55,15 @@ class TransactionAnnouncementsController extends Controller
             ->body($this->detail($id));
     }
 
+    public function print($id, Content $content)
+    {
+        $model = TransactionAnnouncement::find($id);
+        $datas = [
+            'cjgg' => $model,
+        ];
+        return view('admin.'.$this->module_type.'.print', $datas);
+    }
+
     /**
      * Edit interface.
      *
@@ -73,14 +82,18 @@ class TransactionAnnouncementsController extends Controller
             $intentionalPartyService = new IntentionalPartyService();
             $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
 
+            $cjxx = $project->transaction;
+
             $model = new TransactionAnnouncement();
             $model->project_id = $project_id;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
             $model->wtf = $detail->wtf_name;
             $model->zbf = $zbf;
-            $model->price = $project->price;
+            $model->price = $cjxx->price_total;
             $model->jyfs = $detail->jyfs;
+            $model->jy_date = $cjxx->transaction_date;
+            
             if($project->type === 'zczl'){
                 $model->jycd = '电脑终端';
             }
@@ -88,7 +101,9 @@ class TransactionAnnouncementsController extends Controller
         }
 
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id' => $model->id,
+            'cjgg' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -235,7 +250,8 @@ class TransactionAnnouncementsController extends Controller
         $detail = $project->detail;
         $model = $project->transactionAnnouncement;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'cjgg' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

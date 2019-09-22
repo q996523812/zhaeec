@@ -179,7 +179,7 @@ class ProcessService
 		$project = Project::find($project_id);
 		$JgptService = $this->getService($project->type);
 		$detail = $project->detail;
-		$jgpt_detail = $JgptService->getModelForKey($project->detail_id);
+		$jgpt_detail = $JgptService->getModelForDetailId($project->detail_id);
 
 		$jgpt_status = $jgpt_detail->status;
 		$json_result = null;
@@ -218,19 +218,19 @@ class ProcessService
 
 				/*******采购业务部分*********/
 				case 319://评标结果
-					$json_result = $JgptService->lbNotice($project->detail_id);
+					$json_result = $JgptService->sendPbResult($project_id);
 					break;
 				case 339://成交公告（评标版）
-					$json_result = $JgptService->pbResult($project_id);
+					
 					break;
 				case 349://中标通知
-					$json_result = $JgptService->zbNotice($project_id);
+					$json_result = $JgptService->sendZbNotice($project_id);
 					break;
 			}
 		}
-		$status = $json_result['status'];
 		//接口数据发送成功，则取当前节点，不成功，则取发送前的节点
 		$JgptService->updateStatusAfterSend($jgpt_detail,$json_result['success'],$project->process,$node);
+		return $json_result['success'];
 	}
 
 	public function getService($project_type){

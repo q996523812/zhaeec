@@ -15,31 +15,10 @@ class BidResultService
 
     }
 
-    public function save($project_id,$data){
-        $project = Project::find($project_id);
-        $bidResult = $project->bidResult;
-        $model = null;
-        if(empty($bidResult)){
-            $model = $this->insert($project,$data);
-        }
-        else{
-            $model = $this->modify($bidResult,$data);
-        }
-        return $model;
-    }
-
-    public function insert($project,$data){
+    public function insert($project){
         $data['id'] = (string)Str::uuid();
         $model = DB::transaction(function () use($project,$data) {
         	$model = $project->bidResult()->create($data);
-		    return $model;
-		});
-        return $model;
-	}
-
-    public function modify($bidResult,$data){
-        $model = DB::transaction(function () use($bidResult,$data) {
-        	$model = $bidResult->update($data);
 		    return $model;
 		});
         return $model;

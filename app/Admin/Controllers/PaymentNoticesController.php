@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PaymentNoticeRequest;
 use App\Services\PaymentNoticeService;
 use App\Services\IntentionalPartyService;
+use App\Services\AcountService;
 
 class PaymentNoticesController extends Controller
 {
@@ -72,16 +73,31 @@ class PaymentNoticesController extends Controller
             $intentionalPartyService = new IntentionalPartyService();
             $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
 
+            $cjxx = $project->transaction;
+
+            $acountService = new AcountService();
+            $account = $acountService->getServiceFeeAccount();
+
             $model = new PaymentNotice();
             $model->project_id = $project_id;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
+            $model->wtf = $detail->wtf_name;
+            $model->zbf = $zbf;
+            $model->zbjg_xx = $cjxx->price_total * $cjxx->currency_unit;
+            $model->wtf_fwf_xx = $cjxx->wtf_service_fee_payable * $cjxx->currency_unit;
+            $model->zbf_fwf_xx = $cjxx->zbf_service_fee_payable * $cjxx->currency_unit;
             
-            
+            $model->account_name = $account->name;
+            $model->account_bank = $account->bank;
+            $model->account_code = $account->code;
+            $model->remark = '注:在银行的汇款进帐单的“备注”或“付款理由”栏上注明：“XXX项目交易服务费”字样。';
         }
 
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id' => $model->id,
+            'sftz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -163,7 +179,7 @@ class PaymentNoticesController extends Controller
 
 
     protected $fields = [
-        'xmbh','title'
+        'xmbh','title','wtf','zbf','zbjg_xx','zbjg_dx','wtf_fwf_xx','wtf_fwf_dx','zbf_fwf_xx','zbf_fwf_dx','hk_date','account_name','account_bank','account_code','remark','email','qf_date'
     ];
 
     public function insert(PaymentNoticeRequest $request){
@@ -205,7 +221,8 @@ class PaymentNoticesController extends Controller
         $detail = $project->detail;
         $model = $project->paymentNotice;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'sftz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -220,7 +237,7 @@ class PaymentNoticesController extends Controller
     {
         $model = PaymentNotice::find($id);
         $datas = [
-            'detail' => $model,
+            'sftz' => $model,
         ];
         return view('admin.'.$this->module_type.'.print_zbf',$datas);
     }
@@ -228,7 +245,7 @@ class PaymentNoticesController extends Controller
     {
         $model = PaymentNotice::find($id);
         $datas = [
-            'detail' => $model,
+            'sftz' => $model,
         ];
         return view('admin.'.$this->module_type.'.print_wtf',$datas);
     }

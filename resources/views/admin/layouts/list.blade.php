@@ -12,8 +12,7 @@
   </div>
   <div class="box-body">
     <div id="myTabContent" class="tab-content">
-
-        @include('admin.yxf.list._edit') 
+        @yield('content')
     </div>
 
   </div>

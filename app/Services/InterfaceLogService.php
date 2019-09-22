@@ -60,15 +60,21 @@ class InterfaceLogService
 
     protected function formatToJson($o){
         // $type = gettype($params);
-        if(is_array($o)){
-            $o = json_encode($o,JSON_UNESCAPED_UNICODE);
-        }
-        else if(is_string($o)){
-
+        if($o === null){
+            return null;
         }
         else{
-            throw new \Exception('参数格式不正确');
+            if(is_array($o)){
+                $o = json_encode($o,JSON_UNESCAPED_UNICODE);
+            }
+            else if(is_string($o)){
+
+            }
+            else{
+                throw new \Exception('参数格式不正确');
+            }
         }
+        
         return $o;
     }
 }

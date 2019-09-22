@@ -1,7 +1,7 @@
 <form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">    
     {{ csrf_field() }}
-    <input type="hidden" id="project_id" name="project_id" value="{{$detail->project_id}}" class="project_id">
-    <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id">
+    <input type="hidden" id="project_id" name="project_id" value="{{$yxf->project_id}}" class="project_id">
+    <input type="hidden" id="id" name="id" value="{{$yxf->id}}" class="id">
     <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="projecttype">
 <div class="fields-group">
 
@@ -18,17 +18,17 @@
         <tr>
           <td class=" control-label">客户名称</td>
           <td colspan="3">
-            {{$detail->name}}
+            {{$yxf->name}}
           </td>
         </tr>
         <tr>
           <td class=" control-label">证件类型</td>
           <td>
-            {{$detail->id_type}}
+            {{$yxf->id_type}}
           </td>
           <td class=" control-label">证件号码</td>
           <td>
-            {{$detail->id_code}}
+            {{$yxf->id_code}}
           </td>
         </tr>
         <tr>
@@ -36,13 +36,13 @@
           <td colspan="3">
               <div id="distpicker1">
                 <div class="col-sm-3">
-                  {{$detail->province}}
+                  {{$yxf->province}}
                 </div>
                 <div class="col-sm-3">
-                  {{$detail->city}}
+                  {{$yxf->city}}
                 </div>
                 <div class="col-sm-3">
-                  {{$detail->area}}
+                  {{$yxf->area}}
                 </div>
               </div>
           </td>
@@ -53,13 +53,13 @@
           </td>
           <td class=" control-label">成立时间</td>
           <td>
-            {{$detail->found_date}}
+            {{$yxf->found_date}}
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">注册地址</td>
           <td colspan="3">
-            {{$detail->registered_address}}
+            {{$yxf->registered_address}}
           </td>
         </tr>
         <tr class="company">
@@ -67,16 +67,16 @@
           <td>
             <div>
                 <div class="col-sm-6">
-                  {{$detail->registered_capital}}
+                  {{$yxf->registered_capital}}
                 </div>
                 <div class="col-sm-3">
-                  {{$detail->registered_capital_currency}}
+                  {{$yxf->registered_capital_currency}}
                 </div>
             </div>
           </td>
           <td class=" control-label">法定代表人</td>
           <td>
-            {{$detail->legal_representative}}
+            {{$yxf->legal_representative}}
           </td>
         </tr>
         <tr class="company">
@@ -84,10 +84,10 @@
           <td colspan="3">
             <div>
                 <div class="col-sm-4">
-                  {{$detail->industry1}}
+                  {{$yxf->industry1}}
                 </div>
                 <div class="col-sm-4">
-                  {{$detail->industry2}}
+                  {{$yxf->industry2}}
                 </div>
             </div>
           </td>
@@ -95,39 +95,39 @@
         <tr class="company">
           <td class=" control-label">企业类型</td>
           <td>
-            {{$detail->companytype}}
+            {{$yxf->companytype}}
           </td>
           <td class=" control-label">经济类型</td>
           <td>
-            {{$detail->economytype}}
+            {{$yxf->economytype}}
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">经营规模</td>
           <td colspan="3">
-            {{$detail->scale}}
+            {{$yxf->scale}}
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">经营范围</td>
           <td colspan="3">
-            {{$detail->scope}}
+            {{$yxf->scope}}
           </td>
         </tr>
         <tr class="company">
           <td class=" control-label">主体资格证明</td>
           <td colspan="3">
-            {{$detail->credit_cer}}
+            {{$yxf->credit_cer}}
           </td>
         </tr>
         <tr class="person">
           <td class=" control-label">工作单位</td>
           <td>
-            {{$detail->work_unit}}
+            {{$yxf->work_unit}}
           </td>
           <td class=" control-label">职务</td>
           <td>
-            {{$detail->work_duty}}
+            {{$yxf->work_duty}}
           </td>
         </tr>
 
@@ -142,12 +142,12 @@
     $(document).ready(function(){
         page_show();
         function page_show(){
-          $('#customertype').html(select_datas['customertype']['{{$detail->customertype}}']);
-          if('{{$detail->sfgz}}'){
-            $('#sfgz').html(select_datas['sf']['{{$detail->sfgz}}']);
+          $('#customertype').html(select_datas['customertype']['{{$yxf->customertype}}']);
+          if('{{$yxf->sfgz}}'){
+            $('#sfgz').html(select_datas['sf']['{{$yxf->sfgz}}']);
           }
           
-            if({{$detail->customertype}} ==1){
+            if({{$yxf->customertype}} ==1){
               $('.company').hide();
               $('.person').show();
             }

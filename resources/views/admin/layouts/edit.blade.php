@@ -14,14 +14,14 @@
     </ul>
 
     <div class="box-tools">
-      @include('admin.buttons._group')
+      @yield('buttons')
     </div>
   </div>
   <div class="box-body">
     <div id="myTabContent" class="tab-content">
         <!--基本信息-->
         <div class="tab-pane fade in active" id="tab1">
-          @yield('content')        
+          @yield('content')
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab2">
@@ -36,7 +36,7 @@
         <div class="tab-pane fade" id="tab4">
           <form action="/admin/{{$projecttype}}/submit" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
             {{csrf_field()}}
-            <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id">
+            <input type="hidden" id="id" name="id" value="{{$id}}" class="id">
             <input type="hidden" id="process" name="process" value="13">
             <div class="btn-group pull-center">
                 <button type="submit" class="btn btn-primary btn-pass">提交</button>

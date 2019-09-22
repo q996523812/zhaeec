@@ -29,7 +29,11 @@ class WinNoticeService
     }
 
     public function insert($project,$data){
+        $projectCodeService = new ProjectCodeService();
+        $projectcode = $projectCodeService->create('zbtz');
         $data['id'] = (string)Str::uuid();
+        $data['tzsbh'] = $projectcode;
+        
         $model = DB::transaction(function () use($project,$data) {
             $model = $project->winNotice()->create($data);
             return $model;

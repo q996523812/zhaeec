@@ -70,17 +70,30 @@ class TransactionsController extends Controller
         if(empty($transaction)){
             $transaction = new Transaction();
             $transaction->project_id = $project_id;
+            $transaction->wtf_service_fee_payable = 0;
+            
         }
         $datas = [
-            'detail' => $transaction,
+            'project' => $project,
+            'id' => $transaction->id,
+            'cjxx' => $transaction,
             'projecttype' => $this->module_type,
             'yxfs' => $project->intentionalParties,
             'files' => $transaction->files,
             'images' => $transaction->images,
         ];
+        $description = null;
+        switch($project->type){
+            case 'zczl':
+                $description = '根据网络竞价结果，录入成交信息，并上传附件报价记录';
+                break;
+            case 'qycg':
+                $description = '根据企业盖章的成交公告，录入成交信息，并将该公告作为附件上传';
+                break;
+        }
         return $content
             ->header('成交信息录入')
-            ->description('根据网络竞价结果或者成交公告，录入成交信息，并上传附件报价记录或者企业盖章的成交公告')
+            ->description($description)
             ->body(view('admin.'.$this->module_type.'.edit', $datas)); 
     }
 
@@ -178,8 +191,8 @@ class TransactionsController extends Controller
     }
 
     protected $fields = [
-        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','charge_rule_id'],
-        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','charge_rule_id'],
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id'],
+        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id'],
     ];
 
     public function insert(TransactionRequest $request){
@@ -220,7 +233,8 @@ class TransactionsController extends Controller
         $detail = $project->detail;
         $model = $project->transaction;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'cjxx' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

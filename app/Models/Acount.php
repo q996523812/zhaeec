@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Acount extends Model
 {
-    //
+    protected $guarded = [];
 }

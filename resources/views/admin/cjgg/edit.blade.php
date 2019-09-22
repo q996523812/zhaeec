@@ -1,8 +1,13 @@
 @extends('admin.layouts.edit')
 
-@section('listurl','/admin/projectleases')
-@section('printurl','/admin/cjgg/print')
-@section('filetable_type',1)
+@section('buttons')
+	<div class="btn-group float-right" style="margin-right: 10px">
+		<a href="/admin/cjgg/print/{{$cjgg->id}}" class="btn btn-sm btn-default btn-print" target="_blank"><i class="fa fa-print"></i> 打印</a>
+	</div>
+    <div class="btn-group float-right" style="margin-right: 10px">
+      <a href="/admin/{{$project->type}}" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
+    </div>
+@endsection
 
 @section('content')
   @include('admin.cjgg._edit')

@@ -174,6 +174,8 @@ class ProjectBaseController extends Controller
     protected function getDatasToView($detail){
         
         $datas = [
+            'project' => $detail->project,
+            'id' => $detail->id,
             'detail' => $detail,
             'projecttype' => $this->projectTypeCode,
             'yxfs' => $detail->intentionalParties,
@@ -251,16 +253,18 @@ class ProjectBaseController extends Controller
 
             $yxdj = "<a href='/admin/yxdj/list/edit/$rec->project_id' style='margin-left:10px;' title='录入意向方'><i class='fa fa-edit2'></i>录入意向方</a>";
 
-            $cjxx = "<a href='/admin/cjxx/edit/$rec->project_id' style='margin-left:10px;' title='录入竞价结果'><i class='fa fa-edit2'></i>录入竞价结果</a>";
+            $cjxx = "<a href='/admin/cjxx/edit/$rec->project_id' style='margin-left:10px;' title='录入成交信息'><i class='fa fa-edit2'></i>录入成交信息</a>";
             $cjgg = "<a href='/admin/cjgg/edit/$rec->project_id' style='margin-left:10px;' title='录入成交公告'><i class='fa fa-edit2'></i>录入成交公告</a>";
             $zbtz = "<a href='/admin/zbtz/edit/$rec->project_id' style='margin-left:10px;' title='录入中标通知'><i class='fa fa-edit2'></i>录入中标通知</a>";
             $sftz = "<a href='/admin/sftz/edit/$rec->project_id' style='margin-left:10px;' title='录入收费通知'><i class='fa fa-edit2'></i>录入缴费通知</a>";
             $jyjz = "<a href='/admin/jyjz/edit/$rec->project_id' style='margin-left:10px;' title='交易鉴证'><i class='fa fa-edit2'></i>交易鉴证</a>";
 
+            $pbjg = "<a href='/admin/pbjg/list/edit/$rec->project_id' style='margin-left:10px;' title='评标结果'><i class='fa fa-edit2'></i>录入评标结果</a>";
+
             $bottons = "";
             switch($rec->process){
                 case 120:
-                    $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
+                    // $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
                     $bottons .= $yxdj;
                     $bottons .= $getBotton('确认摘牌','摘牌','edit2',$rec->id,'showzp');
                     $bottons .= $pause;
@@ -319,10 +323,10 @@ class ProjectBaseController extends Controller
 
                 /************评标部分*************/
                 case 311:
-                    $bottons .= $getBotton('录入评标结果','录入评标结果','edit2',$rec->id,'editpb');
+                    $bottons .= $pbjg;
                     break; 
                 case 312:
-                    $bottons .= $getBotton('录入评标结果','修改评标结果','edit2',$rec->id,'editpb');
+                    $bottons .= $pbjg;
                     break;
                 case 321:
                     $bottons .= $cjxx;
@@ -343,10 +347,10 @@ class ProjectBaseController extends Controller
                     $bottons .= $zbtz;
                     break;
                 case 351:
-                    $actions .= $sftz;
+                    $bottons .= $sftz;
                     break;
                 case 352:
-                    $actions .= $sftz;
+                    $bottons .= $sftz;
                     break;
                 case 361:
                     $bottons .= $uploadcontract;

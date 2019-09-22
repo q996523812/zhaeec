@@ -8,6 +8,6 @@ class BidResultSub extends Model
 {
     public function bidResult()
     {
-        return $this->belongsTo(BidResultSub::class);
+        return $this->belongsTo(BidResult::class);
     }
 }

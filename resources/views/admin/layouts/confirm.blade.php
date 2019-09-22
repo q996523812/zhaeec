@@ -13,9 +13,7 @@
     </ul>
 
     <div class="box-tools">
-      <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
-      </div>
+      @yield('buttons')
     </div>
   </div>
   <div class="box-body">
@@ -38,8 +36,8 @@
           <form action="/admin/yxdj/approval" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
              {{ csrf_field() }}
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
-            <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id" >
-            <input type="hidden" id="project_id" name="project_id" value="{{$detail->project_id}}" class="project_id" >
+            <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id" >
+            @yield('modelid')
             <div class="box-body">
               <div class="fields-group">
                 <div class="row">

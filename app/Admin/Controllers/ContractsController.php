@@ -80,7 +80,9 @@ class ContractsController extends Controller
         }
 
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id'=>$model->id,
+            'htxx' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -206,7 +208,8 @@ class ContractsController extends Controller
         $detail = $project->detail;
         $model = $project->contract;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'htxx' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

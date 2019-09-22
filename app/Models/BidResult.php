@@ -23,7 +23,7 @@ class BidResult extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function pbResultSubs()
+    public function bidResultSubs()
     {
         return $this->hasMany(BidResultSub::class);
     }

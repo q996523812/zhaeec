@@ -11,8 +11,7 @@
     </ul>
 
     <div class="box-tools">
-      @include('admin.buttons._print')
-      @include('admin.buttons._list')
+      @yield('buttons')
     </div>
   </div>
   <div class="box-body">

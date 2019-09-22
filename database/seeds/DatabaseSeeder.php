@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectCodesTableSeeder::class);
         $this->call(MarginAcountsTableSeeder::class);
         $this->call(AcountsTableSeeder::class);
+        $this->call(ChargeRulesTableSeeder::class);
+        $this->call(ChargeRuleSubsTableSeeder::class);
     }
 }

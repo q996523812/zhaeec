@@ -246,10 +246,10 @@ class ProjectsController extends Controller
                 case 313:
                 case 314:
                 case 315:
-                    $bottons = getButtion('pbjg',$rec->id,'审批');
+                    $bottons = getButtion('pbjg/list',$rec->id,'审批');
                     break;
                 case 319:
-                    $bottons = getButtion('pbjg',$rec->id,'发布');
+                    $bottons = getButtion('pbjg/list',$rec->id,'发布');
                     break;
                 case 323:
                 case 324:
@@ -419,7 +419,7 @@ class ProjectsController extends Controller
             ->body(view($url, $datas));  
     }
 
-    public function approval(Request $request,ProcessService $processService){
+    public function approval(Request $request,ProcessService $processService,Content $content){
         $id = $request->id;
         $project_id = $request->project_id;
         $reason = $request->reason;
@@ -427,6 +427,7 @@ class ProjectsController extends Controller
         $process = $request->process;
         $isNext = $request->isNext;
 
+        $isSuccess = true;
         $message = '操作成功！';
         $project = Project::find($project_id);
         $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
@@ -437,14 +438,34 @@ class ProjectsController extends Controller
         //     $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
         //     $processService->postGZW($id,$project->process);
         // });
-            $processService->postGZW($project_id,$project->process);
+            $sendNodes = ['119','139','149','159','169','219','229','239','269','319','339','349'];
+            if(in_array($project->process,$sendNodes)){
+                $isSuccess = $processService->postGZW($project_id,$project->process);
+            }
         }
         catch(\Exception $e){
-            $message = '审核成功，但自动接口消息发送失败，请前往“接收租赁项目”手动发送！';
+            $isSuccess = false;
             Log::error($e);
-            throw new \Exception($message);
         }
-        return redirect('/admin/projects');
+
+        if($isSuccess){
+            return redirect('/admin/projects');
+        }
+        else{
+            if($project->type === 'zczl'){
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收租赁项目”手动发送！';
+            }
+            else{
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收采购项目”手动发送！';
+            }
+            return $content
+            ->header('Index')
+            ->description('description')
+            ->body($this->grid())->withWarning('Warning', $message);
+        }
+        // return redirect('/admin/projects');
+        // return $this->index(Content $content);
+        
         // return redirect('/admin/projects')->withInfo('Title', $message);
         // return view('projects.index')->with('Title', $message);
     }

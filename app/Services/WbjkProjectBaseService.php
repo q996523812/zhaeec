@@ -187,7 +187,7 @@ class WbjkProjectBaseService
         else{
             $jgpt_status = $status_failed;
         }
-        $JgptService->updateStatus($jgpt_detail->id,$status);
+        $this->updateStatus($jgpt_detail->id,$status);
     }
 
     /**
@@ -195,9 +195,9 @@ class WbjkProjectBaseService
      * @param $detail_id 监管平台发送过来的jgpt_key
      * @return 模型实例
      */
-    public function getModelForKey($detail_id){
-        $detail = $this->model_class::where('detail_id',$detail_id)->first();
-        return $detail;
+    public function getModelForDetailId($detail_id){
+        $model = $this->model_class::where('detail_id',$detail_id)->first();
+        return $model;
     }
 
     /**
@@ -206,8 +206,8 @@ class WbjkProjectBaseService
      * @return 模型实例
      */
     public function getModelForKey($key){
-        $detail = $this->model_class::where('jgpt_key',$key)->first();
-        return $detail;
+        $model = $this->model_class::where('jgpt_key',$key)->first();
+        return $model;
     }
 
     /**

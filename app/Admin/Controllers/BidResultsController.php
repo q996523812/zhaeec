@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\BidResult;
+use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -25,37 +26,28 @@ class BidResultsController extends Controller
         $this->service = $bidResultService;
         $this->module_type = 'pbjg.list';
     }
-    /**
-     * Index interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function index(Content $content)
-    {
-        return $content
-            ->header('Index')
-            ->description('description')
-            ->body($this->grid());
-    }
 
     /**
-     * Show interface.
+     * 显示列表，不能进行新增、修改、删除等操作
      *
      * @param mixed $id
      * @param Content $content
      * @return Content
      */
-    public function show($id, Content $content)
+    public function show($project_id, Content $content)
     {
+        $project = Project::find($project_id);
+        $datas = [
+            'pbjg' => $project->bidResult,
+        ]; 
+        $url = 'admin.pbjg.list.edit';
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('评标结果')
+            ->body(view($url, $datas));
     }
 
     /**
-     * Edit interface.
+     * 显示列表，可以进行新增、修改、删除等操作
      *
      * @param mixed $id
      * @param Content $content
@@ -64,38 +56,24 @@ class BidResultsController extends Controller
     public function edit($project_id, Content $content)
     {
         $project = Project::find($project_id);
-        $detail = $project->detail;
         $model = $project->bidResult;
         if(empty($model)){
-            $data = ['project_id'=>$project_id];
-            $model = $this->service->save($project_id,$data);
+            $model = $this->service->insert($project);
         }
-
         $datas = [
-            'detail' => $model,
-            'projecttype' => $this->module_type,
+            'project' => $project,
+            'id'=>$model->id,
+            'pbjg' => $model,
             'files' => $model->files,
             'images' => $model->images,
-        ];
+            'projecttype' => 'pbjg',
+        ]; 
+        $url = 'admin.pbjg.list.edit';
         return $content
-            ->header('上传合同')
-            // ->description('录入正式发布的成交公告')
-            ->body(view('admin.'.$this->module_type.'.edit', $datas)); 
+            ->header('评标结果')
+            ->body(view($url, $datas));
     }
 
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
-    {
-        return $content
-            ->header('Create')
-            ->description('description')
-            ->body($this->form());
-    }
 
     /**
      * Make a grid builder.
@@ -159,9 +137,10 @@ class BidResultsController extends Controller
     {
         $project = Project::find($project_id);
         $detail = $project->detail;
-        $model = $project->contract;
+        $model = $project->bidResult;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'pbjg' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

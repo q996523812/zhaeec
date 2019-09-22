@@ -18,9 +18,8 @@
               <div class="row">
                 <div class="container table-responsive col-md-12 align-items-center"> 
                   <div class="col-md-8">
-                    <input type="hidden" name="id" value="{{$detail->id}}" class="id">
+                    <input type="hidden" name="id" value="{{$id}}" class="id">
                     <input type="hidden" name="projecttype" value="{{$projecttype}}" class="projecttype">
-                    <input type="hidden" name="filetable_type" value="@yield('filetable_type')" class="filetable_type">
                     {{csrf_field()}}
                   </div> 
                   <!--          

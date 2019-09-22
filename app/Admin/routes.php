@@ -102,6 +102,19 @@ Route::group([
     $router->get('pbresults/{id}', 'PbResultsController@show');
     $router->post('pbresults/insert', 'PbResultsController@insert');
 
+    $router->get('pbjg/list/edit/{project_id}', 'BidResultsController@edit');
+    $router->get('pbjg/list/show/{project_id}', 'BidResultsController@show');
+    $router->get('pbjg/list/approval/{project_id}', 'BidResultsController@approval');
+    $router->post('pbjg/list/submit', 'BidResultsController@submit');
+
+    $router->get('pbjg/create/{bidResult_id}', 'BidResultSubsController@create');
+    $router->get('pbjg/edit/{id}', 'BidResultSubsController@edit');
+    $router->get('pbjg/show/{id}', 'BidResultSubsController@show');
+    $router->post('pbjg/insert', 'BidResultSubsController@insert');
+    $router->post('pbjg/modify', 'BidResultSubsController@modify');
+
+
+
     /****************5、成交信息********************/
     //成交信息
     $router->get('cjxx', 'TransactionsController@index')->name('cjxx.index');
@@ -164,9 +177,10 @@ Route::group([
 
 
     /****************10、其他相关********************/
-    //保证金账户
+    //账户管理
 
     //收费规则
+    $router->post('sfgz/getCharge', 'ChargeRulesController@getCharge');
 
     //收费规则子表
 

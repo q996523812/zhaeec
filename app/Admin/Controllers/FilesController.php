@@ -12,6 +12,7 @@ use App\Models\TransactionAnnouncement;
 use App\Models\WinNotice;
 use App\Models\PaymentNotice;
 use App\Models\Contract;
+use App\Models\BidResult;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -76,7 +77,7 @@ class FilesController extends Controller
             case 'qycg':
                 $model = ProjectPurchase::class;
                 break;
-            case 'transaction':
+            case 'cjxx':
                 $model = Transaction::class;
                 break;
             case 'cjgg':
@@ -90,6 +91,9 @@ class FilesController extends Controller
                 break;
             case 'htxx':
                 $model = Contract::class;
+                break;
+            case 'pbjg':
+                $model = BidResult::class;
                 break;
             
 

@@ -12,8 +12,7 @@
     </ul>
 
     <div class="box-tools">
-      @include('admin.buttons._print')
-      @include('admin.buttons._list')
+      @yield('buttons')
     </div>
   </div>
   <div class="box-body">
@@ -36,8 +35,8 @@
           <form action="@yield('approvalurl')" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
             <input type="hidden" id="isNext" name="isNext" value="" class="isNext" >
-            <input type="hidden" id="id" name="id" value="{{$detail->id}}" class="id" >
-            <input type="hidden" id="project_id" name="project_id" value="{{$detail->project_id}}" class="project_id" >
+            <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id" >
+             @yield('modelid')
             <div class="box-body">
               <div class="fields-group">
                 <div class="row">
