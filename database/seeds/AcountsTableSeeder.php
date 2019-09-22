@@ -27,7 +27,7 @@ class AcountsTableSeeder extends Seeder
      *@param code
      *@param default 是否默认账号：0，否；1：是；
      *@param type 账户类型：1：保证金，2：服务费；
-     
+     *@return
      */
     private function create($name,$bank,$code,$default,$type){
         $row = [
