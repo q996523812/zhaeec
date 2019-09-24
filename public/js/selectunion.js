@@ -25,8 +25,8 @@
 	};
 	SelectUnion.prototype = {
 		//初始化方法，核心逻辑代码
-		init : function(){console.log(111);
-			this.bind(this.settings.selectchange);
+		init : function(){
+			this.bind();
 			this.reset();
 		},
 		output : function(element,type,selectvalue,savetype){
@@ -36,6 +36,10 @@
 			var _savetype = savetype;
 			var _data = [];
 			var _select_data = {};
+
+			if (!_element || !_element.length) {
+				return;
+			}
 			if(_type === this.settings.subtype){
 				_select_data = select_datas[_type][this.element.find(':selected').data('code')];
 			}
@@ -43,10 +47,15 @@
 				_select_data = select_datas[_type];
 			}
 			
-
 			if ($.isPlainObject(_select_data)) {
 				$.each(_select_data, function (code, name) {
-					var selected = name === _selectvalue;
+					var selected = null;
+					if(_savetype == 2){
+						selected = code === _selectvalue;
+					}
+					else{
+						selected = name === _selectvalue;
+					}
 					_data.push({
 						code: code,
 						name: name,
@@ -84,10 +93,15 @@
 			return list.join('');
 		},
 		//绑定事件
-		bind : function(selectchange){
+		bind : function(){
 			this.element.on(EVENT_CHANGE, (this._changeProvince = $.proxy(function () {
-				this.output($('#'+this.settings.subid)[0],this.settings.subtype,this.settings.subselectvalue,this.settings.subsavetype);
-				selectchange();
+				var _element = $('#'+this.settings.subid)[0];
+				var _type = this.settings.subtype;
+				var _selectvalue = this.settings.subselectvalue;
+				var _savetype = this.settings.subsavetype;
+
+				this.output(_element,_type,_selectvalue,_savetype);
+				this.settings.selectchange();
 			}, this)));
 
 			// this.element.on(EVENT_CHANGE, this._changeProvince = function () {
@@ -100,18 +114,25 @@
 			this.element.off(EVENT_CHANGE, this._changeProvince);
 		},
 		reset : function(){
-			this.output(this.element,this.settings.type,this.settings.selectedvalue,this.settings.savetype);
-			this.output($('#'+this.settings.subid)[0],this.settings.subtype,this.settings.subselectvalue,this.settings.subsavetype);
-			// this.element.prop('selected', true).trigger(EVENT_CHANGE);
+			this.output(this.element,this.settings.type,this.settings.selectvalue,this.settings.savetype);
+			this.element.prop('selected', true).trigger(EVENT_CHANGE);
 		},
 		//删除插件
 		destroy: function () {
 		  this.unbind();
-		  this.$element.removeData(NAMESPACE);
+		  this.$element.removeData(pluginName);
 		}
 	};
-	$.fn.selectunion = function(options) {
-		var a = new SelectUnion(this, options);
+	$.fn.selectunion = function(option) {
+		// var a = new SelectUnion(this, options);
+		var $this = $(this);
+		var data = $this.data(pluginName);
+		var options;
+		if (!data) {
+			options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
+			data = new SelectUnion(this, options);
+		}
+		return ;
 	};
 
 })(jQuery, window, document);

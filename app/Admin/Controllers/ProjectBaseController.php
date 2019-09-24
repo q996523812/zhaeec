@@ -264,7 +264,7 @@ class ProjectBaseController extends Controller
             $bottons = "";
             switch($rec->process){
                 case 120:
-                    // $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
+                    $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
                     $bottons .= $yxdj;
                     $bottons .= $getBotton('确认摘牌','摘牌','edit2',$rec->id,'showzp');
                     $bottons .= $pause;

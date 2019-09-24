@@ -56,12 +56,31 @@ class WbjkProjectBaseService
      */
     private function getData($jgptDeatil,$fields){
         $data = [];
+        $arr_jgpt_detail = $jgptDeatil->toArray();
         foreach ($fields as $field) {
-            if($field === 'price'){
-                $data[$field] = $jgptDeatil->toArray()['gpjg_zj'];
-            }
-            else{
-                $data[$field] = $jgptDeatil->toArray()[$field];
+            switch ($field) {
+                case 'price':
+                    $data[$field] = $jgptDeatil->toArray()['gpjg_zj'];
+                    break;
+                case 'bdyx':
+                    switch ($jgptDeatil->bdyx) {
+                        case '购买服务':
+                            $data[$field] = 1;
+                            break;
+                        case '物资':
+                            $data[$field] = 2;
+                            break;
+                        case '工程':
+                            $data[$field] = 3;
+                            break;
+                        default :
+                            $data[$field] = $jgptDeatil->toArray()[$field];
+                            break;
+                    }
+                    break;
+                default:
+                    $data[$field] = $jgptDeatil->toArray()[$field];
+                    break;
             }
         }
         // foreach ($jgptDeatil->toArray() as $key => $value) {

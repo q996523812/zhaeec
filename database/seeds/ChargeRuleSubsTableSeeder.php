@@ -11,8 +11,8 @@ class ChargeRuleSubsTableSeeder extends Seeder
     	$memo = '以成交金额为基数，按差额定率累进法计算。计费区间中，开始区间不包含本数，结束区间包含本数';
     	$zczl_1 = ChargeRule::where('project_type','zczl')->where('charge_type',1)->first()->id;
     	$qycg_1 = ChargeRule::where('project_type','qycg')->where('charge_type',1)->where('service_type',1)->first()->id;
-    	$qycg_2 = ChargeRule::where('project_type','qycg')->where('charge_type',1)->where('service_type',1)->first()->id;
-    	$qycg_3 = ChargeRule::where('project_type','qycg')->where('charge_type',1)->where('service_type',1)->first()->id;
+    	$qycg_2 = ChargeRule::where('project_type','qycg')->where('charge_type',1)->where('service_type',2)->first()->id;
+    	$qycg_3 = ChargeRule::where('project_type','qycg')->where('charge_type',1)->where('service_type',3)->first()->id;
     	
         $rows = [
         	$this->create($zczl_1,'按租赁年限计费（年）',1,0,5,0.012,null),

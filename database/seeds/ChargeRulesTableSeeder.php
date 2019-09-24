@@ -14,8 +14,8 @@ class ChargeRulesTableSeeder extends Seeder
         	$this->create('zczl','资产租赁','2','手工录入','','',''),//用于手工录入非标准收费金额
             $this->create('zczl','资产租赁','3','不收取服务费','','',''),
 
-        	$this->create('qycg','企业采购','1','按标准收取','1','货物招标',$memo),
-            $this->create('qycg','企业采购','1','按标准收取','2','服务招标',$memo),
+            $this->create('qycg','企业采购','1','按标准收取','1','服务招标',$memo),
+        	$this->create('qycg','企业采购','1','按标准收取','2','货物招标',$memo),
             $this->create('qycg','企业采购','1','按标准收取','3','工程招标',$memo),
             $this->create('qycg','企业采购','2','手工录入','','',''),//用于手工录入非标准收费金额
             $this->create('qycg','企业采购','3','不收取服务费','','',''),

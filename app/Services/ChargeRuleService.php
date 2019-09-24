@@ -22,7 +22,7 @@ class ChargeRuleService
 
     public function calculation($project,$amount,$service_type){
     	$rule = $this->getRule($project,$service_type);
-    	$subs = $rule->subs;
+    	$subs = $rule->subs->orderBy('seq', 'asc');
     	$charge = 0;
 		switch($project->type){
     		case 'zczl':
@@ -47,7 +47,7 @@ class ChargeRuleService
     			$rule = $rules->first();
     			break;
     		case 'qycg':
-    			$rule = $rules->where('service_type',$service_type)->first();
+    			$rule = $rules->where('service_type',$project->bdyx)->first();
     			break;
     	}
     	return $rule;
@@ -56,7 +56,7 @@ class ChargeRuleService
     /**
      *计算服务费：租赁项目
      *@param subs 收费标准,费率列表
-     *@param amount 成交价格
+     *@param amount 成交价格,单价
      *@param years 租赁期限
      */
     public function zczl($subs,$amount,$years){
@@ -69,7 +69,7 @@ class ChargeRuleService
     /**
      *计算服务费：采购项目
      *@param subs 收费标准,费率列表
-     *@param amount 成交价格
+     *@param amount 成交价格，总价
      *@param service_type 服务类型
      */
     public function qycg($subs,$amount){

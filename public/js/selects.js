@@ -53,13 +53,19 @@
 		  if (!$select || !$select.length) {
 		    return;
 		  }
-
 		  value = options["selectvalue"];		 
 		  districts = select_datas[options.type];
 // console.log(districts);
 		  if ($.isPlainObject(districts)) {
 		    $.each(districts, function (code, address) {
-		      var selected = address === value;
+		      // var selected = address === value;
+		      var selected = null;
+		      if(options.savetype == 2){
+			  	selected = code === value;
+			  }
+			  else{
+			  	selected = address === value;
+			  }
 
 		      if (selected) {
 		        matched = true;
@@ -130,7 +136,6 @@
 		      '</option>'
 		    );
 		  });
-
 		  return list.join('');
 		},
 

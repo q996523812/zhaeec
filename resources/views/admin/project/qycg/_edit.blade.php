@@ -401,7 +401,8 @@
         $('#bdyx').selecter({
           autoSelect: false,
           type: "bdyx",
-          selectvalue: "{{$detail->bdyx}}"
+          selectvalue: "{{$detail->bdyx}}",
+          savetype:2
         });
         $('#xmpz').selecter({
           autoSelect: false,
