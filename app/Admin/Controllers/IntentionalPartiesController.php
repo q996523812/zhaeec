@@ -46,14 +46,14 @@ class IntentionalPartiesController extends Controller
      */
     public function show($id, Content $content)
     {
-        $detail = IntentionalParty::find($id);
+        $model = IntentionalParty::find($id);
         $datas = [
-            'project' => $project,
+            'project' => $model->project,
             'id'=>$model->id,
-            'yxf' => $detail,
+            'yxf' => $model,
             'projecttype' => 'yxdj',
-            'files' => $detail->files,
-            'images' => $detail->images,
+            'files' => $model->files,
+            'images' => $model->images,
         ]; 
         $url = 'admin.yxf.detail.show';   
         return $content
@@ -241,8 +241,9 @@ class IntentionalPartiesController extends Controller
         $id = $request->id;
         $this->service->submit($id);
         $project = IntentionalParty::find($id)->project;
-        return redirect()->route($project->type.'.index');
-    }   
+        return redirect('admin/yxdj/list/edit/'.$project->id);
+        // return back();
+    }
 
     public function showapproval($id,Content $content){
         $model = IntentionalParty::find($id);
@@ -281,18 +282,19 @@ class IntentionalPartiesController extends Controller
         ]; 
         $url = 'admin.yxf.detail.confirm';   
         return $content
-            ->header('审批')
+            ->header('意向登记')
+            ->description('最后登记确认')
             ->body(view($url, $datas));         
     } 
 
     public function confirm(Request $request){
         $id = $request->id;
-        
+        $model = IntentionalParty::find($id);
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
         $this->service->approval($id,$reason,$operation,null);
-        return redirect()->route('yxdj.index');
+        return redirect('admin/yxdj/list/edit/'.$model->project_id);
     }
 
     public function listEdit($project_id,Content $content){

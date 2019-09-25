@@ -26,7 +26,7 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">成交价格(总价)(万元)</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="price_total" name="price_total" value="{{$cjxx->price_total}}" class="form-control money price_total" placeholder="输入 总价">
     </div>
@@ -35,7 +35,7 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">成交价格(单价)(万元)</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="price_unit" name="price_unit" value="{{$cjxx->price_unit}}" class="form-control money price_unit" placeholder="输入 单价">
     </div>
@@ -50,10 +50,10 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group">
   <label for="type" class="col-sm-2  control-label">成交时间</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
       <input type="text" id="transaction_date" name="transaction_date" value="{{$cjxx->transaction_date}}" class="form-control transaction_date" placeholder="输入 成交时间">
     </div>
@@ -63,7 +63,7 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">中心应收服务费</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="service_charge_receivable" name="service_charge_receivable" value="{{$cjxx->service_charge_receivable}}" class="form-control money service_charge_receivable" placeholder="输入 中心应收服务费" readonly="readoly">
     </div>
@@ -80,22 +80,11 @@
       </select>
     </div>
   </div>
-  @if($project->type === 'qycg')
-  <div class="col-sm-2">
-    <div class="input-group">
-      <select id="wtf_service_type" name="wtf_service_type" class="form-control">
-        <option value="1">货物招标</option>
-        <option value="2">服务招标</option>
-        <option value="3">工程招标</option>
-      </select>
-    </div>
-  </div>
-  @endif
 </div>
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">委托方应缴服务费</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="wtf_service_fee_payable" name="wtf_service_fee_payable" value="{{$cjxx->wtf_service_fee_payable}}" class="form-control money wtf_service_fee_payable" placeholder="输入 委托方应缴服务费">
     </div>
@@ -112,22 +101,11 @@
       </select>
     </div>
   </div>
-  @if($project->type === 'qycg')
-  <div class="col-sm-2">
-    <div class="input-group">
-      <select id="zbf_service_type" name="zbf_service_type" class="form-control">
-        <option value="1">货物招标</option>
-        <option value="2">服务招标</option>
-        <option value="3">工程招标</option>
-      </select>
-    </div>
-  </div>
-  @endif
 </div>
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">中标方应缴服务费</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="zbf_service_fee_payable" name="zbf_service_fee_payable" value="{{$cjxx->zbf_service_fee_payable}}" class="form-control money zbf_service_fee_payable" placeholder="输入 中标方应缴服务费">
     </div>
@@ -171,84 +149,55 @@
         //下拉框
         
 
-        @if($project->type === 'qycg')
-          //中标方
-          $("#zbf_charge_type").on('change',function(){
-            if(this.value == 1){
-              $("#zbf_service_fee_payable").attr("readonly","readonly");
-              $("#zbf_service_type").show();
-            }
-            else if(this.value == 2){
-              $("#zbf_service_fee_payable").removeAttr("readonly");
-              $("#zbf_service_type").hide();
-            }
-            else{
-              $("#zbf_service_type").hide();
-              $("#zbf_service_fee_payable").attr("readonly","readonly");
-              $("#zbf_service_fee_payable").val(0);
-              $("#zbf_service_fee_payable").trigger("change");
-            }
-            $("#charge_type").val(this.value);
-          });
-          $("#zbf_service_type").on('change',function(){
-            $("#service_type").val(this.value);
+        $("#zbf_charge_type").on('change',function(){
+          if(this.value == 1){
+            $("#zbf_service_fee_payable").attr("readonly","readonly");
             getCharge("zbf");
-          });
-          //委托方
-          $("#wtf_charge_type").on('change',function(){
-            if(this.value == 1){
-              $("#wtf_service_fee_payable").attr("readonly","readonly");
-              $("#service_type").show();
-            }
-            else if(this.value == 2){
-              $("#wtf_service_fee_payable").removeAttr("readonly");
-              $("#service_type").hide();
-            }
-            else{
-              $("#wtf_service_type").hide();
-              $("#wtf_service_fee_payable").attr("readonly","readonly");
-              $("#wtf_service_fee_payable").val(0);
-              $("#wtf_service_fee_payable").trigger("change");
-            }
-            $("#charge_type").val(this.value);
-          });
-          $("#wtf_service_type").on('change',function(){
-            $("#service_type").val(this.value);
+            
+          }
+          else if(this.value == 2){
+            $("#zbf_service_fee_payable").removeAttr("readonly");
+          }
+          else{
+            $("#zbf_service_fee_payable").attr("readonly","readonly");
+            $("#zbf_service_fee_payable").val(0);
+            $("#zbf_service_fee_payable").trigger("change");
+          }
+          $("#charge_type").val(this.value);
+        });
+        $("#wtf_charge_type").on('change',function(){
+          if(this.value == 1){
+            $("#wtf_service_fee_payable").attr("readonly","readonly");
             getCharge("wtf");
-          });
+          }
+          else if(this.value == 2){
+            $("#wtf_service_fee_payable").removeAttr("readonly");
+          }
+          else{
+            $("#wtf_service_fee_payable").attr("readonly","readonly");
+            $("#wtf_service_fee_payable").val(0);
+            $("#wtf_service_fee_payable").trigger("change");
+          }
+          $("#charge_type").val(this.value);
+        });
 
-        @elseif($project->type === 'zczl')
-          $("#zbf_charge_type").on('change',function(){
-            if(this.value == 1){
-              $("#zbf_service_fee_payable").attr("readonly","readonly");
-              getCharge("zbf");
-            }
-            else if(this.value == 2){
-              $("#zbf_service_fee_payable").removeAttr("readonly");
-            }
-            else{
-              $("#zbf_service_fee_payable").attr("readonly","readonly");
-              $("#zbf_service_fee_payable").val(0);
-              $("#zbf_service_fee_payable").trigger("change");
-            }
-            $("#charge_type").val(this.value);
-          });
-          $("#wtf_charge_type").on('change',function(){
-            if(this.value == 1){
-              $("#wtf_service_fee_payable").attr("readonly","readonly");
-              getCharge("wtf");
-            }
-            else if(this.value == 2){
-              $("#wtf_service_fee_payable").removeAttr("readonly");
-            }
-            else{
-              $("#wtf_service_fee_payable").attr("readonly","readonly");
-              $("#wtf_service_fee_payable").val(0);
-              $("#wtf_service_fee_payable").trigger("change");
-            }
-            $("#charge_type").val(this.value);
-          });
-        @endif
+        $("#price_total").on('blur',function(){
+          if($("#wtf_charge_type").val() == 1 ){console.log(1111);
+            getCharge("wtf");
+          }
+          if($("#zbf_charge_type").val() == 1 ){console.log(2222);
+            getCharge("zbf");
+          }
+        });
+        $("#price_unit").on('blur',function(){
+          if($("#wtf_charge_type").val() == 1 ){console.log(3333);
+            getCharge("wtf");
+          }
+          if($("#zbf_charge_type").val() == 1 ){console.log(4444);
+            getCharge("zbf");
+          }
+        });
+
 
         $('#zbf_charge_type').trigger("change");
         $('#wtf_charge_type').trigger("change");
@@ -268,7 +217,7 @@
             processData: false,
             contentType: false,
             success : function(str_reponse){
-              // console.log(str_reponse);
+              console.log(str_reponse);
               $("#"+type+"_service_fee_payable").val(str_reponse.charge);
               $("#"+type+"_service_fee_payable").trigger("change");
               $("#"+type+"_charge_rules_id").val(str_reponse.rule_id)

@@ -17,7 +17,9 @@
         </tr>
         <tr>
           <td><a href="/admin/cjgg/show/{{$detail->project->transactionAnnouncement->id}}">成交公告</a></td>
-          <td><a href="/admin/cjgg/print/{{$detail->project->transactionAnnouncement->id}}">打印</a></td>
+          <td>
+            <a href="/admin/cjgg/print/{{$detail->project->transactionAnnouncement->id}}" target="_blank">打印</a>
+          </td>
           <td>
             @foreach($detail->project->transactionAnnouncement->files as $file)
             <div><a href="{{$file->path}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></div>
@@ -47,7 +49,7 @@
             @endforeach
           </td>
         </tr>
-        @empty($detail->project->transactionConfirmation)
+        @isset($detail->project->transactionConfirmation)
         <tr>
           <td><a href="/admin/jyjz/show/{{$detail->project->transactionConfirmation->id}}">交易鉴证</a></td>
           <td>
@@ -59,7 +61,7 @@
             @endforeach
           </td>
         </tr>
-        @endempty
+        @endisset
       </tbody>
     </table>
   </div>

@@ -32,6 +32,7 @@
             <input type="text" id="zbr" name="zbr" value="{{$zbtz->zbr}}" class="form-control zbr" placeholder="输入 中标方">
           </td>
         </tr>
+        @if($zbf->customertype == 1)
         <tr>
           <td class=" control-label">中标方手机号码</td>
           <td colspan="3">
@@ -41,6 +42,7 @@
             </div>
           </td>
         </tr>
+        @elseif($zbf->customertype == 2)
         <tr>
           <td class=" control-label">中标方类型</td>
           <td colspan="3">
@@ -62,7 +64,7 @@
             <input type="text" id="scope" name="scope" value="{{$zbtz->scope}}" class="form-control scope" placeholder="输入 中标方所属区域">
           </td>
         </tr>
-
+        @endif
         <tr>
           <td class=" control-label">挂牌期限</td>
           <td colspan="3">
@@ -243,7 +245,10 @@
         <tr>
           <td class=" control-label">交易机构(盖章)及签发时间</td>
           <td colspan="3">
-            <input type="text" id="issue_time" name="issue_time" value="{{$zbtz->issue_time}}" class="form-control issue_time">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+              <input type="text" id="issue_time" name="issue_time" value="{{$zbtz->issue_time}}" class="form-control date issue_time">
+            </div>
           </td>
         </tr>
         

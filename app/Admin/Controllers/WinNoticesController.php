@@ -105,6 +105,7 @@ class WinNoticesController extends Controller
             'project' => $project,
             'id' => $model->id,
             'zbtz' => $model,
+            'zbf' => $zbf,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

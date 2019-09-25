@@ -1,5 +1,5 @@
 @extends('admin.layouts.print')
 
 @section('content')
-  @include('admin.cjgg._show')
+  @include('admin.jyjz._show')
 @endsection

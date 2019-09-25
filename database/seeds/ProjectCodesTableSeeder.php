@@ -14,17 +14,30 @@ class ProjectCodesTableSeeder extends Seeder
     public function run()
     {
         $rows = [
-        	$this->create(1,'采购项目实质进场业务','qycg','CGJ',1),
-        	$this->create(2,'采购项目信息公示业务','qycg2','CG',1),
-        	$this->create(3,'经营权出让业务信息公示','jyq','CR',1),
-        	$this->create(4,'企业产权','qycq','C',1),
-        	$this->create(5,'实物资产','swzc','D',1),
-        	$this->create(6,'信息预披露','ypl','YP',1),
-        	$this->create(7,'增资扩股','zzkg','ZZ',1),
-        	$this->create(8,'租赁项目信息公示','zczl','ZL',1),
-        	$this->create(9,'物业租赁','wyzl','L',1),
-        	$this->create(10,'中标通知','zbtz','ZB',1),
-        	
+        	// $this->create(1,'采购项目实质进场业务','qycg','CGJ',1),
+        	// $this->create(2,'采购项目信息公示业务','qycg2','CG',1),
+        	// $this->create(3,'经营权出让业务信息公示','jyq','CR',1),
+        	// $this->create(4,'企业产权','qycq','C',1),
+        	// $this->create(5,'实物资产','swzc','D',1),
+        	// $this->create(6,'信息预披露','ypl','YP',1),
+        	// $this->create(7,'增资扩股','zzkg','ZZ',1),
+        	// $this->create(8,'租赁项目信息公示','zczl','ZL',1),
+        	// $this->create(9,'物业租赁','wyzl','L',1),
+        	// $this->create(10,'中标通知','zbtz','ZB',1),
+        	// $this->create(11,'收费通知','sftz','SF',1),
+
+
+            $this->create(1,'信息预披露','ypl','YP',1),
+            $this->create(2,'企业采购','qycg','CG',1),
+            $this->create(3,'资产租赁','zczl','ZL',1),
+            $this->create(4,'企业产权','qycq','C',1),
+            $this->create(5,'资产转让','zczr','D',1),
+            $this->create(6,'增资扩股','zzkg','ZZ',1),
+            $this->create(7,'招商引资','zsyz','ZS',1),
+            $this->create(8,'债权转让','zqzr','ZQ',1),
+            $this->create(9,'公共资源','ggzy','G',1),
+            $this->create(10,'中标通知','zbtz','ZB',1),
+            $this->create(11,'收费通知','sftz','SF',1),
         ];
 
         // 将数据集合插入到数据库中

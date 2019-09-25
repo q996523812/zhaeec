@@ -20,8 +20,8 @@ class CreateChargeRuleSubsTable extends Migration
             $table->unsignedInteger('seq')->comment('顺序数');
             $table->Integer('start')->comment('计费区间开始点(含)');
             $table->Integer('end')->comment('计费区间结束点(不含)')->nullable();
-            $table->decimal('rate')->comment('费率');
-            $table->decimal('quick_num')->comment('速算数,金额，万元')->nullable();
+            $table->decimal('rate',26,6)->comment('费率');
+            $table->decimal('quick_num',26,6)->comment('速算数,金额，万元')->nullable();
             $table->timestamps();
         });
     }

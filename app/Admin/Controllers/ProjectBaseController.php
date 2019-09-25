@@ -75,6 +75,7 @@ class ProjectBaseController extends Controller
     {
         $detail = $this->detail_class::find($id);
         $datas = $this->getDatasToView($detail);
+        $datas['cjxx'] = $detail->project->transaction;
         $url = $this->getViewUrl('show');  
         return $content
             ->header($this->projectTypeName.'-查看')
@@ -251,7 +252,7 @@ class ProjectBaseController extends Controller
             $winnotices = "<a href='/admin/winnotices/insert/$rec->project_id' style='float: right;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>";
             $uploadcontract = "<a href='/admin/htxx/edit/$rec->project_id' style='margin-left:10px;' title='上传合同'><i class='fa fa-edit'></i>上传合同</a>";
 
-            $yxdj = "<a href='/admin/yxdj/list/edit/$rec->project_id' style='margin-left:10px;' title='录入意向方'><i class='fa fa-edit2'></i>录入意向方</a>";
+            $yxdj = "<a href='/admin/yxdj/list/edit/$rec->project_id' style='margin-left:10px;' title='意向登记'><i class='fa fa-edit2'></i>意向登记</a>";
 
             $cjxx = "<a href='/admin/cjxx/edit/$rec->project_id' style='margin-left:10px;' title='录入成交信息'><i class='fa fa-edit2'></i>录入成交信息</a>";
             $cjgg = "<a href='/admin/cjgg/edit/$rec->project_id' style='margin-left:10px;' title='录入成交公告'><i class='fa fa-edit2'></i>录入成交公告</a>";
@@ -264,7 +265,7 @@ class ProjectBaseController extends Controller
             $bottons = "";
             switch($rec->process){
                 case 120:
-                    $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
+                    // $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
                     $bottons .= $yxdj;
                     $bottons .= $getBotton('确认摘牌','摘牌','edit2',$rec->id,'showzp');
                     $bottons .= $pause;

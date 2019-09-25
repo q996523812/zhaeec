@@ -20,11 +20,11 @@ class CreatePaymentNoticesTable extends Migration
             $table->string('title')->comment('项目名称/标的名称');
             $table->string('wtf')->comment('委托方');
             $table->string('zbf')->comment('中标方');
-            $table->string('zbjg_xx')->comment('中标价格，小写(元)');
+            $table->decimal('zbjg_xx',26,6)->comment('中标价格，小写(元)');
             $table->string('zbjg_dx')->comment('中标价格，大写');
-            $table->string('wtf_fwf_xx')->comment('委托方服务费，小写(元)');
-            $table->string('wtf_fwf_dx')->comment('委托方服务费，大写');
-            $table->string('zbf_fwf_xx')->comment('中标方服务费，小写(元)');
+            $table->decimal('wtf_fwf_xx',26,6)->comment('委托方服务费，小写(元)')->nullable();
+            $table->string('wtf_fwf_dx')->comment('委托方服务费，大写')->nullable();
+            $table->decimal('zbf_fwf_xx',26,6)->comment('中标方服务费，小写(元)');
             $table->string('zbf_fwf_dx')->comment('中标方服务费，大写');
             $table->datetime('hk_date')->comment('汇款时间。在XX日期之前汇款至指定账户');
             $table->string('account_name')->comment('账户名');

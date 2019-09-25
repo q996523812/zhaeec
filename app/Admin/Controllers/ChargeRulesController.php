@@ -154,15 +154,25 @@ class ChargeRulesController extends Controller
     public function getCharge(Request $request){
         $project = Project::find($request->project_id);
         $service_type = $request->service_type;
-        $amount = $request->amount;
+        $price_total = $request->price_total;
+        $price_unit = $request->price_unit;
 
-        $result = $this->service->calculation($project,$amount,$service_type);
-        $this->service->test();
+        $active = false;
+        $charge = null;
+        if($project->type === 'qycg' && !($price_total === null)){
+            $active = true;
+        }
+        if($project->type === 'zczl' && !($price_unit === null)){
+            $active = true;
+        }
+        if($active){
+            $charge = $this->service->calculation($project,$price_total,$price_unit);
+        }
+
         $result = [
             'success' => 'true',
-            'charge' => $result['charge'],
-            'rule_id' => $result['rule_id'],
-            'status_code' => '200'
+            'charge' => $charge,
+            'status_code' => '200',
         ];
         return response()->json($result);
     }

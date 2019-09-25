@@ -42,7 +42,7 @@
         </div>
         <!--成交信息-->
         <div class="tab-pane fade" id="tab6">
-          @include('admin.cjxx.show')
+          @include('admin.cjxx._show')
         </div>
         <!--通知单-->
         <div class="tab-pane fade" id="tab7">

@@ -38,7 +38,10 @@ class IntentionalPartyService
 
 	public function submit($id){
 		$detail = IntentionalParty::find($id);
-		
+		$instance = $detail->instance;
+		if(!empty($instance)){
+			return;
+		}
 		DB::transaction(function () use($detail) {
 			$process = new ProcessService();
 			$process->create('yxdj',$detail->id,'提交',13);

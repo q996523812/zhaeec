@@ -110,7 +110,8 @@
             contentType: false,
             success : function(str_reponse){console.log(str_reponse);
               alert("保存成功");
-              if(!$("#id").val()){console.log(str_reponse.message.id);
+              if($("#id").val() == ""){
+                console.log(str_reponse.message.id);
                 // $("#id").val(str_reponse.detail_id)
                 $(".id").val(str_reponse.message.id);
                 $(".project_id").val(str_reponse.message.project_id);

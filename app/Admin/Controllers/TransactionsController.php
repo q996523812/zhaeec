@@ -12,6 +12,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Http\Request;
 use App\Services\TransactionService;
+use App\Services\ChargeRuleService;
 use App\Http\Requests\TransactionRequest;
 
 class TransactionsController extends Controller
@@ -20,11 +21,13 @@ class TransactionsController extends Controller
 
     private $service;
     private $module_type;
+    private $chargeRuleService;
 
-    public function __construct(TransactionService $transactionService)
+    public function __construct(TransactionService $transactionService,ChargeRuleService $chargeRuleService)
     {
         $this->service = $transactionService;
         $this->module_type = 'cjxx';
+        $this->chargeRuleService = $chargeRuleService;
     }
     /**
      * Index interface.
@@ -198,11 +201,20 @@ class TransactionsController extends Controller
     public function insert(TransactionRequest $request){
         $data = $request->only($this->fields['insert']);
         $project_id = $request->project_id;
+
+        $project = Project::find($project_id);
+        $zbf_charge_type = $request->zbf_charge_type;
+        $wtf_charge_type = $request->wtf_charge_type;
+        $zbf_chargeRule = $this->chargeRuleService->getRuleByType($project,$zbf_charge_type);
+        $wtf_chargeRule = $this->chargeRuleService->getRuleByType($project,$wtf_charge_type);
+        $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
+        $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
+
         $transaction = $this->service->insert($project_id,$data);
         $result = [
             'success' => 'true',
             'message' => $transaction,
-            'status_code' => '200'
+            'status_code' => '200',
         ];
         return response()->json($result);
     }
@@ -210,6 +222,15 @@ class TransactionsController extends Controller
     public function modify(TransactionRequest $request){
         $data = $request->only($this->fields['update']);
         $id = $request->id;
+
+        $project = Transaction::find($id)->project;
+        $zbf_charge_type = $request->zbf_charge_type;
+        $wtf_charge_type = $request->wtf_charge_type;
+        $zbf_chargeRule = $this->chargeRuleService->getRuleByType($project,$zbf_charge_type);
+        $wtf_chargeRule = $this->chargeRuleService->getRuleByType($project,$wtf_charge_type);
+        $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
+        $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
+
         $transaction = $this->service->modify($id,$data);
         $result = [
             'success' => 'true',

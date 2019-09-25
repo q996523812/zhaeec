@@ -33,7 +33,7 @@
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/yxdj/approval" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
+          <form action="/admin/yxdj/confirm" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="approvalForm">
              {{ csrf_field() }}
             <input type="hidden" id="operation" name="operation" value="" class="operation" >
             <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id" >

@@ -88,7 +88,9 @@ class TransactionConfirmationsController extends Controller
         }
 
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id' => $model->id,
+            'jyjz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,
@@ -238,7 +240,9 @@ class TransactionConfirmationsController extends Controller
         $detail = $project->detail;
         $model = $project->transactionConfirmation;
         $datas = [
-            'detail' => $model,
+            'project' => $project,
+            'id' => $model->id,
+            'jyjz' => $model,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

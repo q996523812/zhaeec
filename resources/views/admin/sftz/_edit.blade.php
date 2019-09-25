@@ -8,12 +8,10 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">项目编号</label>
   <div class="col-sm-8">
-    <div class="input-group">
-      <div class="input-group">
+      <div class="input-group col-sm-4">
         <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
         <input type="text" id="xmbh" name="xmbh" value="{{$sftz->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readonly="readonly">
       </div>
-    </div>
   </div>
 </div>
 
@@ -48,9 +46,10 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">中标价格，小写</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="zbjg_xx" name="zbjg_xx" value="{{$sftz->zbjg_xx}}" class="form-control zbjg_xx" placeholder="输入 中标价格" readonly="readonly">
+      <input type="text" id="zbjg_xx" name="zbjg_xx" value="{{$sftz->zbjg_xx}}" class="form-control money zbjg_xx" placeholder="输入 中标价格" readonly="readonly">
+      <span class="input-group-addon">元</span>
     </div>
   </div>
 </div>
@@ -66,9 +65,10 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">委托方服务费，小写</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="wtf_fwf_xx" name="wtf_fwf_xx" value="{{$sftz->wtf_fwf_xx}}" class="form-control wtf_fwf_xx" placeholder="输入 委托方服务费" readonly="readonly">
+      <input type="text" id="wtf_fwf_xx" name="wtf_fwf_xx" value="{{$sftz->wtf_fwf_xx}}" class="form-control money wtf_fwf_xx" placeholder="输入 委托方服务费" readonly="readonly">
+      <span class="input-group-addon">元</span>
     </div>
   </div>
 </div>
@@ -85,9 +85,10 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">中标方服务费，小写</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="zbf_fwf_xx" name="zbf_fwf_xx" value="{{$sftz->zbf_fwf_xx}}" class="form-control zbf_fwf_xx" placeholder="输入 中标方服务费" readonly="readonly">
+      <input type="text" id="zbf_fwf_xx" name="zbf_fwf_xx" value="{{$sftz->zbf_fwf_xx}}" class="form-control money zbf_fwf_xx" placeholder="输入 中标方服务费" readonly="readonly">
+      <span class="input-group-addon">元</span>
     </div>
   </div>
 </div>
@@ -103,7 +104,7 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">汇款时间。在XX日期之前汇款至指定账户</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
       <input type="text" id="hk_date" name="hk_date" value="{{$sftz->hk_date}}" class="form-control date hk_date" placeholder="输入 成交时间">
     </div>
@@ -157,7 +158,7 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">通知签发日期、落款日期</label>
   <div class="col-sm-8">
-    <div class="input-group">
+    <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
       <input type="text" id="qf_date" name="qf_date" value="{{$sftz->qf_date}}" class="form-control date qf_date" placeholder="输入 通知签发日期、落款日期">
     </div>
