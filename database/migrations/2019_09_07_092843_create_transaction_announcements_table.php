@@ -14,7 +14,7 @@ class CreateTransactionAnnouncementsTable extends Migration
     public function up()
     {
         Schema::create('transaction_announcements', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->string('project_id');
             $table->string('xmbh')->comment('项目编号');
             $table->string('title')->comment('项目名称/标的名称');

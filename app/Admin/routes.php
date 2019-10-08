@@ -199,6 +199,26 @@ Route::group([
     $router->get('suspends/end/{id}', 'SuspendsController@end');
     $router->post('suspends/submit/{project_id}', 'SuspendsController@submit');
 
+    //公告
+
+    $router->get('zzgg/edit/{project_id}', 'AnnouncementPausesController@edit');
+    $router->get('zzgg/show/{id}', 'AnnouncementPausesController@show');
+    $router->get('zzgg/approval/{project_id}', 'AnnouncementPausesController@approval');
+    $router->get('zzgg/print/{id}', 'AnnouncementPausesController@print');
+    $router->get('zzgg/choice/{project_id}', 'AnnouncementPausesController@choice');
+    $router->post('zzgg/insert', 'AnnouncementPausesController@insert');
+    $router->post('zzgg/modify', 'AnnouncementPausesController@modify');
+    $router->post('zzgg/submit', 'AnnouncementPausesController@submit');
+
+    $router->get('hfgg/edit/{project_id}', 'AnnouncementRecoversController@edit');
+    $router->get('hfgg/show/{id}', 'AnnouncementRecoversController@show');
+    $router->get('hfgg/approval/{project_id}', 'AnnouncementRecoversController@approval');
+    $router->get('hfgg/print/{id}', 'AnnouncementRecoversController@print');
+    $router->get('hfgg/choice/{project_id}', 'AnnouncementRecoversController@choice');
+    $router->post('hfgg/insert', 'AnnouncementRecoversController@insert');
+    $router->post('hfgg/modify', 'AnnouncementRecoversController@modify');
+    $router->post('hfgg/submit', 'AnnouncementRecoversController@submit');
+
     /****************12、流程设置********************/
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');
     $router->get('workprocesses/create', 'WorkProcessesController@create');

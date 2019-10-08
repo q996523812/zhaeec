@@ -74,6 +74,7 @@ class ProjectsController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
             'projecttype' => 'projects',
+            'cjxx' => $detail->project->transaction,
         ]; 
         return $content
             ->header('审批')
@@ -200,6 +201,51 @@ class ProjectsController extends Controller
                     break;
                 case 119:
                     $bottons = getButtion($rec->type,$rec->id,'发布');
+                    break;
+
+                case 133:
+                case 134:
+                case 135:
+                    $bottons = getButtion('lbgg',$rec->id,'审批');
+                    break;
+                case 139:
+                    $bottons = getButtion('lbgg',$rec->id,'发布');
+                    break;
+
+                case 143:
+                case 144:
+                case 145:
+                    $bottons = getButtion('zjgg',$rec->id,'审批');
+                    break;
+                case 149:
+                    $bottons = getButtion('zjgg',$rec->id,'发布');
+                    break;
+
+                case 153:
+                case 154:
+                case 155:
+                    $bottons = getButtion('zzgg',$rec->id,'审批');
+                    break;
+                case 159:
+                    $bottons = getButtion('zzgg',$rec->id,'发布');
+                    break;
+
+                case 163:
+                case 164:
+                case 165:
+                    $bottons = getButtion('hfgg',$rec->id,'审批');
+                    break;
+                case 169:
+                    $bottons = getButtion('hfgg',$rec->id,'发布');
+                    break;
+
+                case 173:
+                case 174:
+                case 175:
+                    $bottons = getButtion('yqgg',$rec->id,'审批');
+                    break;
+                case 179:
+                    $bottons = getButtion('yqgg',$rec->id,'发布');
                     break;
 
                 case 213:
@@ -438,9 +484,11 @@ class ProjectsController extends Controller
         //     $processService->refreshInstance($project->detail_id,$isNext,$reason,$operation,null);
         //     $processService->postGZW($id,$project->process);
         // });
-            $sendNodes = ['119','139','149','159','169','219','229','239','269','319','339','349'];
-            if(in_array($project->process,$sendNodes)){
-                $isSuccess = $processService->postGZW($project_id,$project->process);
+            if($project->detail->sjly == '监管平台'){
+                $sendNodes = ['119','139','149','159','169','219','229','239','269','319','339','349'];
+                if(in_array($project->process,$sendNodes)){
+                    $isSuccess = $processService->postGZW($project_id,$project->process);
+                }
             }
         }
         catch(\Exception $e){

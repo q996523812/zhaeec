@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->decimal('price', 26, 6)->nullable();
             $table->datetime('gp_date_start')->nullable();
             $table->datetime('gp_date_end')->nullable();
+            $table->unsignedInteger('delay_number')->comment('延期次数')->default(0);
             //0：删除、1：正常（已保存）、11：挂牌、12：流标、13：暂停、14:成交、15：弃标、16：其它原因用户取消挂牌或者终结挂牌
             //其中用于接口数据的状态： 5：接口已保存、6：接口已退回、7：接口已接收、
             $table->unsignedInteger('status')->default(1)->comment('0：删除、1：正常（已保存）、11：挂牌、12：流标、13：暂停、14:成交、15：弃标、16：其它原因用户取消挂牌或者终结挂牌');

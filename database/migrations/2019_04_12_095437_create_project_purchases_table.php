@@ -34,6 +34,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();
             $table->text('bdgk')->comment('标的概况')->nullable();
             $table->text('other')->comment('其它需要披露的事项')->nullable();
+            $table->unsignedInteger('gpqx')->comment('挂牌期限')->nullable();
             $table->datetime('gp_date_start')->comment('挂牌开始日期')->nullable();
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
             $table->string('sfhs')->comment('是否含税')->nullable();

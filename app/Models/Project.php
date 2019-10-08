@@ -87,4 +87,8 @@ class Project extends Model
         return $this->hasOne(BidResult::class);
     }
 
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }

@@ -11,6 +11,7 @@ use App\Models\Project;
 use App\Models\ProjectLease;
 use App\Models\ProjectPurchase;
 use App\Models\IntentionalParty;
+use App\Models\Announcement;
 use Illuminate\Support\Str;
 
 class ProcessService
@@ -104,12 +105,27 @@ class ProcessService
 		if($process->type != 'yxdj'){
 			//业务表为项目明细表时，更新项目主表（project）的流程状态
 			$project = $model->project;
+
+			$process_old = $project->process;//更新前的流程状态
 			//当审批前流程节点为特定的节点时，需要更新状态status，主意与process的顺序。
 			$project->status = $this->getStatus($project);
 
 			$project->process = $nextnode->code;
 			$project->process_name = $nextnode->name;
 			$project->save();
+
+			if(in_array($process_old,[131,132,133,134,135,139,141,142,143,144,145,149,151,152,153,154,155,159,161,162,163,164,165,169,171,172,173,174,175,179])){
+				$announcement = $project->announcements()->where('process',$process_old)->first();
+				$announcement_process_new = null;
+				if(in_array($process_old,[139,149,159,169,179])){
+					$announcement_process_new = 999;
+				}
+				else{
+					$announcement_process_new = $nextnode->code;
+				}
+				$announcement->process = $announcement_process_new;
+				$announcement->save();
+			}
 		}
 
 		

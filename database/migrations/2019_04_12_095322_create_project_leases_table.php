@@ -34,6 +34,7 @@ class CreateProjectLeasesTable extends Migration
             $table->string('pzjg')->comment('挂牌交易批准机构');//
             $table->text('bdgk')->comment('项目(标的)概况');//
             $table->text('other')->comment('其它需要披露的事项')->nullable();//
+            $table->unsignedInteger('gpqx')->comment('挂牌期限')->nullable();
             $table->datetime('gp_date_start')->comment('公告开始日期')->nullable();//
             $table->datetime('gp_date_end')->comment('公告结束日期')->nullable();//
             $table->string('sfhs')->comment('是否含税');//

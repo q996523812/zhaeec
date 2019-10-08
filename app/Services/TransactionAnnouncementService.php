@@ -29,6 +29,7 @@ class TransactionAnnouncementService
     }
 
     public function insert($project,$data){
+        $data['id'] = (string)Str::uuid();
         $model = DB::transaction(function () use($project,$data) {
         	$model = $project->transactionAnnouncement()->create($data);
 		    return $model;

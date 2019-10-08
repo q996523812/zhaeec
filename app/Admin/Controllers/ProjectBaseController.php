@@ -246,10 +246,18 @@ class ProjectBaseController extends Controller
                 $actions->disableEdit();
             }
             
-            $pause = "<a href='/admin/suspends/pause/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止</a>";
-            $stop = "<a href='/admin/suspends/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>";
-            $recover = "<a href='/admin/suspends/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复</a>";
-            $winnotices = "<a href='/admin/winnotices/insert/$rec->project_id' style='float: right;margin-left:10px;'><i class='fa fa-edit'></i>录入中标信息</a>";
+            $pause = "<a href='/admin/zzgg/choice/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止</a>";
+            $stop = "<a href='/admin/zjgg/choice/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结</a>";
+            $recover = "<a href='/admin/hfgg/choice/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复</a>";
+            $delay = "<a href='/admin/yqgg/choice/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa fa-mail-reply'></i>延期</a>";
+            $change = "<a href='/admin/bggg/choice/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更</a>";
+
+            $zzgg = "<a href='/admin/zzgg/edit/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止公告</a>";
+            $zjgg = "<a href='/admin/zjgg/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结公告</a>";
+            $hfgg = "<a href='/admin/hfgg/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复公告</a>";
+            $yqgg = "<a href='/admin/yqgg/recover/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa fa-mail-reply'></i>延期公告</a>";
+            $bggg = "<a href='/admin/bggg/recover/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更公告</a>";
+
             $uploadcontract = "<a href='/admin/htxx/edit/$rec->project_id' style='margin-left:10px;' title='上传合同'><i class='fa fa-edit'></i>上传合同</a>";
 
             $yxdj = "<a href='/admin/yxdj/list/edit/$rec->project_id' style='margin-left:10px;' title='意向登记'><i class='fa fa-edit2'></i>意向登记</a>";
@@ -275,16 +283,19 @@ class ProjectBaseController extends Controller
                     $bottons .= $getBotton('录入流标通知书','录入流标通知书','edit2',$rec->id,'editlb');
                     break;
                 case 141:
-                    $bottons .= $stop;
+                    $bottons .= $zjgg;
                     break;
                 case 151:
-                    $bottons .= $pause;
+                    $bottons .= $zzgg;
                     break;
                 case 152:
-                    $bottons .= $pause;
+                    $bottons .= $zzgg;
                     break;
                 case 160:
                     $bottons .= $recover;
+                    break;
+                case 161:
+                    $bottons .= $hfgg;
                     break;
                 
                 /************竞价部分*************/
@@ -376,7 +387,7 @@ class ProjectBaseController extends Controller
     protected function add(Request $request){
         $data_detail = $request->only($this->fields['insert']);
         $data_project = $request->only($this->fields_project['insert']);
-        $detail = $this->service->add($data_detail,$data_project,11,null);
+        $detail = $this->service->add($data_detail,$data_project,111,null);
         
         $result = [
             'success' => 'true',
@@ -393,8 +404,9 @@ class ProjectBaseController extends Controller
         $detail_id = $request->id;
         $data_detail = $request->only($this->fields['update']);
         $data_project = $request->only($this->fields_project['update']);
+        $data_project['price'] = $data_detail['gpjg_zj'];
 
-        $this->service->update($detail_id,$data_detail,$data_project,11,null);
+        $this->service->update($detail_id,$data_detail,$data_project,111,null);
         $result = [
             'success' => 'true',
             'message' => '',

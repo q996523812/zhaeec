@@ -41,6 +41,7 @@ class WorkProcessNodesTableSeeder extends Seeder
     }
 
     private $roles = [2,3,4,5,6];
+
     private function createDefault($type){
         $work_process_id = $this->getProcessId($type);
         //角色ID
@@ -51,12 +52,12 @@ class WorkProcessNodesTableSeeder extends Seeder
         $role_id_4 = $this->roles[4];//综合部，发布
         
         $nodes = [
-            $this->create($work_process_id,'111','录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','确认挂牌',6,$role_id_4,'','112','120'),
+            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
+            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
+            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
+            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
             $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
@@ -81,12 +82,19 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
             $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
 
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','120','163'),
+            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
             $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
             $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
             $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
             $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
             $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
+
+            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
+            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
+            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
+            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
 
 /******************************************竞价****************************************/
 //竞价结果、成交信息，附件：竞价记录
@@ -210,12 +218,12 @@ class WorkProcessNodesTableSeeder extends Seeder
         $role_id_4 = $this->roles[4];//综合部，发布
         
         $nodes = [
-            $this->create($work_process_id,'111','录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','确认挂牌',6,$role_id_4,'','112','120'),
+            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
+            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
+            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
+            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
             $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
@@ -240,12 +248,19 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
             $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
 
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','120','163'),
+            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
             $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
             $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
             $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
             $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
             $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
+
+            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
+            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
+            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
+            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
 
 //竞价结果、成交信息，附件：竞价记录
             $this->create($work_process_id,'211','【竞价结果】录入',1,$role_id_0,'','','213'),
@@ -304,12 +319,12 @@ class WorkProcessNodesTableSeeder extends Seeder
         $role_id_4 = $this->roles[4];//综合部，发布
         
         $nodes = [
-            $this->create($work_process_id,'111','录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','确认挂牌',6,$role_id_4,'','112','120'),
+            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
+            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
+            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
+            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
             $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
@@ -334,12 +349,19 @@ class WorkProcessNodesTableSeeder extends Seeder
             $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
             $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
 
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','120','163'),
+            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
             $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
             $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
             $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
             $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
             $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
+
+            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
+            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
+            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
+            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
+            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
 
 //评标结果
             $this->create($work_process_id,'311','【评标结果】录入',1,$role_id_0,'','','313'),

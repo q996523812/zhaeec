@@ -15,6 +15,7 @@
           <td>打印</td>
           <td>下载</td>
         </tr>
+        @if($detail->project->transactionAnnouncement)
         <tr>
           <td><a href="/admin/cjgg/show/{{$detail->project->transactionAnnouncement->id}}">成交公告</a></td>
           <td>
@@ -26,6 +27,8 @@
             @endforeach
           </td>
         </tr>
+        @endif
+        @if($detail->project->winNotice)
         <tr>
           <td><a href="/admin/cjgg/show/{{$detail->project->winNotice->id}}">中标通知</a></td>
           <td>
@@ -37,6 +40,8 @@
             @endforeach
           </td>
         </tr>
+        @endif
+        @if($detail->project->paymentNotice)
         <tr>
           <td><a href="/admin/sftz/show/{{$detail->project->paymentNotice->id}}">收费通知</a></td>
           <td>
@@ -49,6 +54,7 @@
             @endforeach
           </td>
         </tr>
+        @endif
         @isset($detail->project->transactionConfirmation)
         <tr>
           <td><a href="/admin/jyjz/show/{{$detail->project->transactionConfirmation->id}}">交易鉴证</a></td>
