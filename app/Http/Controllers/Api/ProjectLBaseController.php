@@ -52,7 +52,7 @@ class ProjectLBaseController extends Controller
             // return $this->response->error('重复请求，数据已存在', 422);
         }
         catch(\Exception $e){
-            $result = $this->serviceException();
+            $result = $this->serviceException($e->getMessage());
             Log::error($e);
         }
         $this->logService->addReceiveLog($datas,$result['success'],$result);
@@ -99,7 +99,7 @@ class ProjectLBaseController extends Controller
             // return $this->response->error('重复请求，数据已存在', 422);
         }
         catch(\Exception $e){
-            $result = $this->serviceException();
+            $result = $this->serviceException($e->getMessage());
             Log::error($e);
         }
         $this->logService->addReceiveLog($params,$result['success'],$result);
