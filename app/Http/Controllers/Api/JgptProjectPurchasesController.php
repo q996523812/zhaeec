@@ -71,6 +71,51 @@ class JgptProjectPurchasesController extends ProjectLBaseController
         return $this->response->array($receipt)->setStatusCode(201);
     } 
 
+
+
+    /**
+     * 企业上传企业盖章的成交公告
+     * @return array 
+     */
+    public function cjgg(Request $request){
+        $result = [
+            'success' => true,
+            'message' => '',
+            'status_code' => '200'
+        ];
+        $params = $request->params;
+        try{
+            $params = $this->dealParams($params);
+            $datas = $params['datas'];
+            $datas = $this->dealParams($datas);
+            $jgpt_key = $datas['jgpt_key'];
+
+            if(!$this->jgpt_service->isExistForKey($jgpt_key)){
+                throw new VerifyException('原数据表不存在,UUID：'.$jgpt_key);
+            }
+            $jgpt_detail = $this->jgpt_service->getModelForKey($jgpt_key);
+
+            //保存文件
+            $uploader = new WbjkFileUploadHandler();
+            $files_data = $uploader->receive($this->project_type);
+
+            //文件地址保存到数据库
+            // $this->jgpt_service->saveContract($jgpt_detail,$files_data);
+            $this->jgpt_service->saveCjgg($jgpt_detail,$files_data);
+        }
+        catch(VerifyException $e){
+            $result = $e->customFunction();
+            Log::error($e);
+            // return $this->response->error('重复请求，数据已存在', 422);
+        }
+        catch(\Exception $e){
+            $result = $this->serviceException($e->getMessage());
+            Log::error($e);
+        }
+        $this->logService->addReceiveLog($datas,$result['success'],$result);
+        return $this->response->array($result)->setStatusCode($result['status_code']);
+    }
+
     /*
      [
         datas => [

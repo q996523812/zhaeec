@@ -21,12 +21,12 @@ class WbjkProjectBaseService
 
     public $fields_detail = [];
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
-    // protected $IP_TEST = '47.112.15.51';
-    // protected $PORT_TEST = '8090';
+    protected $IP_TEST = '47.112.15.51';
+    protected $PORT_TEST = '8090';
     // protected $IP = '47.112.15.51';
     // protected $PORT = '8090';
-    protected $IP = '172.20.10.3';
-    protected $PORT = '8088';
+    // protected $IP = '172.20.10.3';
+    // protected $PORT = '8088';
 
     protected static $STATUS_5 = 5;//接口已接收到业务申请数据
     protected static $STATUS_6 = 6;//业务申请已撤销或者已退回

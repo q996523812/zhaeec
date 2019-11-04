@@ -64,7 +64,9 @@ $api->version('v1', [
     //采购撤销  
     $api->post('qycg/cancel', 'JgptProjectPurchasesController@cancel')->name('api.qycg.cancel');
     //评标结果  
-    $api->post('qycg/pbresult', 'JgptProjectPurchasesController@pbResult')->name('api.qycg.pbresult');
+    // $api->post('qycg/pbresult', 'JgptProjectPurchasesController@pbResult')->name('api.qycg.pbresult');
+    //评标结果  
+    $api->post('qycg/cjgg', 'JgptProjectPurchasesController@cjgg')->name('api.qycg.cjgg');
     //上传合同  
     $api->post('qycg/contract', 'JgptProjectPurchasesController@contract')->name('api.qycg.contract');
     //采购请求附件
