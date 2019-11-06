@@ -158,7 +158,7 @@ class WbjkProjectBaseController extends Controller
             return $a; 
         };
         $grid->actions(function ($actions)use(&$getBotton){
-            $actions->disableView();
+            //$actions->disableView();
             $actions->disableDelete();
             $actions->disableEdit();
             // 当前行的数据数组
@@ -170,6 +170,7 @@ class WbjkProjectBaseController extends Controller
                     $bottons = $getBotton('接收','接收','edit2',$rec->id,'edit');
                     break;
                 case 7://已接收，等待自动发送挂牌数据
+                    $bottons = $getBotton('发送挂牌数据','发送挂牌数据','edit2',$rec->id,'sendGp');
                     break;
                 /*******业务公共部分*********/
                 case 119://自动发送挂牌数据失败，等待手工发送，下同
