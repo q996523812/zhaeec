@@ -58,6 +58,7 @@ class CurlHandler
 
         if ($response === FALSE) {
             //echo "cURL Error: " . curl_error($ch);
+            Log::info('666');
             return false;
         }
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
