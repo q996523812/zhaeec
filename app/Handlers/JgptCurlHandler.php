@@ -2,6 +2,7 @@
 namespace App\Handlers;
 use Illuminate\Support\Arr;
 use App\Services\InterfaceLogService;
+use Illuminate\Support\Facades\Log;
 
 class JgptCurlHandler
 {
