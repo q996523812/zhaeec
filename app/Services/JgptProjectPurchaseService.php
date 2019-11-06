@@ -77,7 +77,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
      */
     public function sendGpData($purchase_id){Log::info($purchase_id);
         $url = 'api/transaction/purchase/backfill/transaction';
-        $purchase = ProjectPurchase::find($purchase_id)->first();
+        $purchase = ProjectPurchase::find($purchase_id);
         Log::info($purchase);
         $datas = [
             'projectNo' => $purchase->xmbh,
