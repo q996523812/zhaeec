@@ -274,4 +274,14 @@ class WbjkProjectBaseController extends Controller
             return $content->withError('Title', $result['msg']);
         }
     }
+
+    public function sendPage($id,Content $content){
+        $detail = $this->detail_class::find($id);
+        $datas = $this->getDatasToView($detail);
+        $url = $this->getViewUrl('send');  
+        return $content
+            ->header($this->projectTypeName.'-查看')
+            // body 方法可以接受 Laravel 的视图作为参数
+            ->body(view($url, $datas)); 
+    }
 }
