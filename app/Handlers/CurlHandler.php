@@ -1,5 +1,6 @@
 <?php
 namespace App\Handlers;
+use Illuminate\Support\Facades\Log;
 
 class CurlHandler
 {
@@ -58,6 +59,14 @@ class CurlHandler
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
         curl_close($ch);
+
+        Log::info('response');
+        Log::info($response);
+        Log::info('httpCode');
+        Log::info($httpCode);
+        Log::info('httpInfo');
+        Log::info($httpInfo);
+
         return $response;
     }
 
