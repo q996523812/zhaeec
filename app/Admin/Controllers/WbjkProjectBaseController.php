@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Services\MarginAcountService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class WbjkProjectBaseController extends Controller
 {
@@ -250,6 +251,7 @@ class WbjkProjectBaseController extends Controller
     //发送挂牌数据
     public function sendGp($id,Content $content){
         $jgpt_detail = $this->detail_class::find($id);
+        Log::info($jgpt_detail);
         $result = $this->service->sendGpData($jgpt_detail->detail_id);
         $project = Project::where('detail_id',$jgpt_detail->detail_id)->first();
         $this->service->updateStatusAfterSend($jgpt_detail,$result['success'],$project->process,$jgpt_detail->status);

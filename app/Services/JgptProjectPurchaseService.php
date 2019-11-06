@@ -18,6 +18,7 @@ use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
 use App\Handlers\CurlHandler;
 use App\Handlers\JgptCurlHandler;
+use Illuminate\Support\Facades\Log;
 
 class JgptProjectPurchaseService extends WbjkProjectBaseService
 {
@@ -77,6 +78,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
     public function sendGpData($purchase_id){
         $url = 'api/transaction/purchase/backfill/transaction';
         $purchase = ProjectPurchase::find($purchase_id)->first();
+        Log::info($purchase);
         $datas = [
             'projectNo' => $purchase->xmbh,
             'projectOpenTalksTime' => $purchase->jy_date,//交易时间
