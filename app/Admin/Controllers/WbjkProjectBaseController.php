@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -171,7 +172,7 @@ class WbjkProjectBaseController extends Controller
                     break;
                 case 7://已接收，等待自动发送挂牌数据
                     $bottons = $getBotton('发送挂牌数据','发送挂牌数据','edit2',$rec->id,'sendGp');
-                    
+
                     break;
                 /*******业务公共部分*********/
                 case 119://自动发送挂牌数据失败，等待手工发送，下同
