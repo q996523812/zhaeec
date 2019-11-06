@@ -23,7 +23,7 @@ class CurlHandler
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
         curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_VERBOSE , true);
         
         if ($https) {
@@ -57,7 +57,7 @@ class CurlHandler
 
         if ($response === FALSE) {
             //echo "cURL Error: " . curl_error($ch);
-            Log::info("CURL Error: " . curl_error($ch));
+            Log::error("CURL Error: " . curl_error($ch));
             return false;
         }
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
