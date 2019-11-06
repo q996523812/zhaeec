@@ -27,6 +27,7 @@ class CurlHandler
         curl_setopt($ch, CURLOPT_VERBOSE , true);
         
         if ($https) {
+            Log::info('1111111111');
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); // 对认证证书来源的检查
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // 从证书中检查SSL加密算法是否存在
         }
