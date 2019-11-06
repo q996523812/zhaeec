@@ -21,6 +21,7 @@ class JgptCurlHandler
 			'datas' => $data,
 		];
 		$result = CurlHandler::curl($url,$param,1,0);
+		Log::info($result);
 		$result = json_decode($result,true);
 
 		// $message = json_encode($message,JSON_UNESCAPED_UNICODE);
