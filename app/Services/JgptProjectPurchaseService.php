@@ -75,10 +75,10 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
      *发送挂牌数据，无文件
      *
      */
-    public function sendGpData($purchase_id){Log::info($purchase_id);
+    public function sendGpData($purchase_id){
         $url = 'api/transaction/purchase/backfill/transaction';
         $purchase = ProjectPurchase::find($purchase_id);
-        Log::info($purchase);
+        
         $datas = [
             'projectNo' => $purchase->xmbh,
             'projectOpenTalksTime' => $purchase->jy_date,//交易时间
