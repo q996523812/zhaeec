@@ -127,8 +127,8 @@ class WbjkProjectBaseService
      * @param $url 相对地址,例如 api/assets/backfill/transaction
      */
     protected function getSendUrl($url){
-        return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
-        //return 'http://'.$this->IP.':'.$this->PORT.'/gzb/'.$url;
+        // return 'http://'.$this->IP.':'.$this->PORT.'/'.$url;
+        return 'http://'.$this->IP.':'.$this->PORT.'/gzb/'.$url;
     }
 
 	//用于保存接收到的外部业务数据
