@@ -146,7 +146,7 @@ class BidResultsController extends Controller
             'images' => $model->images,
         ];
         return $content
-            ->header('合同信息审批')
+            ->header('评标结果审批')
             ->body(view('admin.'.$this->module_type.'.approval', $datas)); 
     }
 }
