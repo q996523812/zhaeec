@@ -87,7 +87,7 @@ Route::group([
     $router->get('yxdj/showapproval/{id}', 'IntentionalPartiesController@showapproval');
     $router->post('yxdj/approval', 'IntentionalPartiesController@approval');
     $router->get('yxdj/showconfirm/{id}', 'IntentionalPartiesController@showconfirm');
-    $router->post('yxdj/confirm/{id}', 'IntentionalPartiesController@confirm');
+    $router->post('yxdj/confirm', 'IntentionalPartiesController@confirm');
 
     $router->get('yxdj/list/edit/{project_id}', 'IntentionalPartiesController@listEdit');
     $router->get('yxdj/list/show/{project_id}', 'IntentionalPartiesController@listShow');
