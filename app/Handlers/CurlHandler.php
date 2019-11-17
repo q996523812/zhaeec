@@ -34,8 +34,8 @@ class CurlHandler
         if ($ispost) {
             if ($params) {
                 if (is_array($params)) {
-                    //$params = json_encode($params);
-                    $params = json_encode(json_encode($params));
+                    $params = json_encode($params);
+                    // $params = json_encode(json_encode($params));
                 }
             }
             Log::error($params);

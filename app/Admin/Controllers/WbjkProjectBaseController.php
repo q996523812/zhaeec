@@ -253,12 +253,19 @@ class WbjkProjectBaseController extends Controller
         $jgpt_detail = $this->detail_class::find($id);
         $result = $this->service->sendGpData($jgpt_detail->detail_id);
         $project = Project::where('detail_id',$jgpt_detail->detail_id)->first();
-        $this->service->updateStatusAfterSend($jgpt_detail,$result['success'],$project->process,$jgpt_detail->status);
-        if($result['success']){
-            return $content->withSuccess('Title', $result['msg']);
+
+        $success = false;
+        if($result['code'] == '200'){
+            $success = true;
+        }
+        $msg = $result['msg'];
+
+        $this->service->updateStatusAfterSend($jgpt_detail,$success,$project->process,$jgpt_detail->status);
+        if($success){
+            return $content->withSuccess('Title', $msg);
         }
         else{
-            return $content->withError('Title', $result['msg']);
+            return $content->withError('Title', $msg);
         }
     }
 
@@ -269,12 +276,19 @@ class WbjkProjectBaseController extends Controller
         $project = $detail->project;
         $result = $this->service->zbNotice($detail->project_id);
         $project = Project::where('detail_id',$jgpt_detail->detail_id)->first();
-        $this->service->updateStatusAfterSend($jgpt_detail,$result['success'],$project->process,$jgpt_detail->status);
-        if($result['success']){
-            return $content->withSuccess('Title', $result['msg']);
+
+        $success = false;
+        if($result['code'] == '200'){
+            $success = true;
+        }
+        $msg = $result['msg'];
+
+        $this->service->updateStatusAfterSend($jgpt_detail,$success,$project->process,$jgpt_detail->status);
+        if($success){
+            return $content->withSuccess('Title', $msg);
         }
         else{
-            return $content->withError('Title', $result['msg']);
+            return $content->withError('Title', $msg);
         }
     }
 
