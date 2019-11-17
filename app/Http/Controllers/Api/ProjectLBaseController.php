@@ -41,8 +41,9 @@ class ProjectLBaseController extends Controller
         $datas = $request->datas;
         try{
         	$datas = json_decode($datas,true);
+            //$datas = $this->formatToJson($datas);
 
-            $this->check($datas);
+            //$this->check($datas);
 
     		if($this->jgpt_service->isExistForKey($datas['jgpt_key'])){
                 throw new VerifyException('重复请求，数据已存在');
@@ -62,7 +63,25 @@ class ProjectLBaseController extends Controller
         return $this->response->array($result)->setStatusCode($result['status_code']);
     	// return $this->response->created();
     }
-
+    protected function formatToJson($o){
+        // $type = gettype($params);
+        if($o === null){
+            return null;
+        }
+        else{
+            if(is_array($o)){
+                //$o = json_encode($o,JSON_UNESCAPED_UNICODE);
+            }
+            else if(is_string($o)){
+                $o = json_decode($o,true);
+            }
+            else{
+                throw new \Exception('参数格式不正确');
+            }
+        }
+        
+        return $o;
+    }
     public function check($datas){
         $errorinfo = '';
         if(empty($datas['jgpt_key'])){
