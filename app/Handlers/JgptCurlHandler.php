@@ -28,7 +28,7 @@ class JgptCurlHandler
 
 		// $message = json_encode($message,JSON_UNESCAPED_UNICODE);
 		$success = 1;
-		if($result['status'] === 200){
+		if($result['code'] === 200){
 			$success = 1;
 		}
 		else{
