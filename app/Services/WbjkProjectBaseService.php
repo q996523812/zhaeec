@@ -25,7 +25,7 @@ class WbjkProjectBaseService
     //protected $PORT_TEST = '8090';
     protected $IP = '47.112.15.51';
     protected $PORT = '8090';
-    // protected $IP = '172.20.10.3';
+    // protected $IP = '192.168.43.208';
     // protected $PORT = '8088';
 
     protected static $STATUS_5 = 5;//接口已接收到业务申请数据

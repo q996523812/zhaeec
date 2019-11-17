@@ -71,7 +71,16 @@ class JgptProjectPurchasesController extends ProjectLBaseController
         return $this->response->array($receipt)->setStatusCode(201);
     } 
 
-
+    public function check($datas){
+        $errorinfo = '';
+        if(empty($datas['jgpt_key'])){
+            $errorinfo .= 'jgpt_key不能为空;';
+        }
+        if(empty($datas['title'])){
+            $errorinfo .= '项目名称title不能为空;';
+        }
+        throw new VerifyException($errorinfo);
+    }
 
     /**
      * 企业上传企业盖章的成交公告

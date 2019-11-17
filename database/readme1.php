@@ -1,4 +1,5 @@
 
+windows下生成ssh key：
 
 一、生成ssh key
 1、打开Git bash
@@ -31,6 +32,12 @@
 	出现提示：Are you sure you want to continue connection(yes/no)?
   输入yes回车
 
+
+linux下生成ssh key：
+
+1、$ ssh-keygen -t rsa -C "q996523812"
+2、$ cat /home/hadoop/.ssh/id_rsa.pub
+3、在GitHub上添加ssh keys
 
 三、下载项目
 $ composer config -g repo.packagist composer https://packagist.phpcomposer.com

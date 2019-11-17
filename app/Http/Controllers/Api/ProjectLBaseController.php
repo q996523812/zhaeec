@@ -41,6 +41,9 @@ class ProjectLBaseController extends Controller
         $datas = $request->datas;
         try{
         	$datas = json_decode($datas,true);
+
+            $this->check($datas);
+
     		if($this->jgpt_service->isExistForKey($datas['jgpt_key'])){
                 throw new VerifyException('重复请求，数据已存在');
     		}
@@ -60,6 +63,16 @@ class ProjectLBaseController extends Controller
     	// return $this->response->created();
     }
 
+    public function check($datas){
+        $errorinfo = '';
+        if(empty($datas['jgpt_key'])){
+            $errorinfo .= 'jgpt_key不能为空;';
+        }
+        if(empty($datas['title'])){
+            $errorinfo .= '项目名称title不能为空;';
+        }
+        throw new VerifyException($errorinfo);
+    }
     /**
      * 业务申请：文件接口
      * @param $action 中文字符串，发送/接收
