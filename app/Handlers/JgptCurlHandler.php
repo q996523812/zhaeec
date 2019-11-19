@@ -8,7 +8,7 @@ class JgptCurlHandler
 {
 
 	public function curl($url,$data){
-		$key = 'GZW';//由国资委指定
+		$key = '1234567890';//由国资委指定
 		$randomNum = rand(10000, 99999);
 		$time = time();
 		$AA = [MD5($key),$time,$randomNum];
