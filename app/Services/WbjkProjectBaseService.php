@@ -315,14 +315,13 @@ class WbjkProjectBaseService
     }
 
     public function saveCjgg($jgpt_detail,$files_data){
-        DB::transaction(function () use($jgpt_detail,$files_data) {
-            $this->updateStatus($jgpt_detail->id,92);
-
+        DB::transaction(function () use($jgpt_detail,$files_data,$this) {
+            
             $detail = $jgpt_detail->detail;
 
-            $announcementService = new AnnouncementService();
-            $announcement = $announcementService->insert($project,$data,$process);
-            $this->saveFilesAndImages($announcement,$files_data);
+            $transactionService = new TransactionService();
+            $transaction = $transactionService->insert($project,$data,$process);
+            $this->saveFilesAndImages($transaction,$files_data);
         });
     }
     public function saveFilesAndImages($detail,$files_data){
