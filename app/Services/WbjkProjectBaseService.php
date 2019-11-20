@@ -315,7 +315,7 @@ class WbjkProjectBaseService
     }
 
     public function saveCjgg($jgpt_detail,$files_data){
-        DB::transaction(function () use($jgpt_detail,$files_data,$this) {
+        DB::transaction(function () use($jgpt_detail,$files_data) {
             
             $detail = $jgpt_detail->detail;
 
@@ -324,13 +324,6 @@ class WbjkProjectBaseService
             $this->saveFilesAndImages($transaction,$files_data);
         });
     }
-    public function saveFilesAndImages($detail,$files_data){
-        DB::transaction(function () use($detail,$files_data) {
-            $fileserice = new FileService();
-            $fileserice->batchStore($detail,$files_data['files']);
-            $imageserice = new ImageService();
-            $imageserice->batchStore($detail,$files_data['images']);
-        });
-    }
+
 
 }
