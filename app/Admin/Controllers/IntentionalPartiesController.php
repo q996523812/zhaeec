@@ -295,7 +295,7 @@ class IntentionalPartiesController extends Controller
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
-        $this->service->approval($id,$reason,$operation,null);
+        // $this->service->approval($id,$reason,$operation,null);
 
         $project = $model->project;
         $isSuccess = true;
@@ -306,7 +306,7 @@ class IntentionalPartiesController extends Controller
                 
                 if(in_array($model->process,$sendNodes)){
                     Log::error('confirm  '.'111111111111111');
-                    $isSuccess = $processService->postYxfGZW($project->id,$model->process);
+                    $isSuccess = $processService->postYxfGZW($model->id,$model->process);
                 }
             }
         }
