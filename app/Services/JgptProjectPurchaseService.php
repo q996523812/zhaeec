@@ -6,6 +6,7 @@ use App\Models\JgptProjectPurchase;
 use App\Models\ProjectPurchase;
 use App\Models\Project;
 use App\Models\InterestedParty;
+use App\Models\IntentionalParty;
 use App\Models\PbResult;
 use App\Models\BidResult;
 use App\Models\BidResultSub;
@@ -159,7 +160,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
         // $project = $detail->project;
         // $yxfs = $project->interestedParties;
 
-        $yxf = InterestedParty::find($yxf_id);
+        $yxf = IntentionalParty::find($yxf_id);
                 $row = [
                     'name' => $yxf->name,
                     'idType' => $yxf->id_type,
