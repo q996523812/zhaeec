@@ -11,9 +11,13 @@ class JgptCurlHandler
 		$key = '1234567890';//由国资委指定
 		$randomNum = rand(10000, 99999);
 		$time = time();
-		$AA = [MD5($key),$time,$randomNum];
-		$token = MD5(implode('',Arr::sort($AA)));
-
+		$AA = [$time,$randomNum,MD5($key)];
+		Log::info($AA);
+		//Log::info('AA = '.implode('',Arr::sort($AA)));
+		//$token = MD5(implode('',Arr::sort($AA)));
+		$token = MD5(implode('',$AA));
+		
+		
 		$param = [
 			'randomNum' =>  $randomNum,
 			'time' => $time,

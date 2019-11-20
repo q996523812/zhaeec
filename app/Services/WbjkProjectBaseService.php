@@ -25,8 +25,8 @@ class WbjkProjectBaseService
     //protected $PORT_TEST = '8090';
     protected $IP = '47.112.15.51';
     protected $PORT = '8090';
-    // protected $IP = '192.168.43.208';
-    // protected $PORT = '8088';
+    // protected $IP = '192.168.43.62';
+    // protected $PORT = '8080';
 
     protected static $STATUS_5 = 5;//接口已接收到业务申请数据
     protected static $STATUS_6 = 6;//业务申请已撤销或者已退回
