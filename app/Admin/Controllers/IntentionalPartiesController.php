@@ -12,6 +12,8 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use App\Services\IntentionalPartyService;
 use Illuminate\Http\Request;
+use App\Services\ProcessService;
+use Illuminate\Support\Facades\Log;
 
 class IntentionalPartiesController extends Controller
 {
@@ -287,13 +289,45 @@ class IntentionalPartiesController extends Controller
             ->body(view($url, $datas));         
     } 
 
-    public function confirm(Request $request){
+    public function confirm(Request $request,ProcessService $processService,Content $content){
         $id = $request->id;
         $model = IntentionalParty::find($id);
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
         $this->service->approval($id,$reason,$operation,null);
+
+        $project = $model->project;
+        $isSuccess = true;
+        $message = '操作成功！';
+        try{
+            if($project->detail->sjly == '监管平台'){
+                $sendNodes = ['19'];
+                if(in_array($model->process,$sendNodes)){
+                    $isSuccess = $processService->postGZW($project_id,$project->process);
+                }
+            }
+        }
+        catch(\Exception $e){
+            $isSuccess = false;
+            Log::error($e);
+        }
+
+        if($isSuccess){
+            return redirect('/admin/yxdj/list/edit/'.$project->id);
+        }
+        else{
+            if($project->type === 'zczl'){
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收租赁项目”手动发送！';
+            }
+            else{
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收采购项目”手动发送！';
+            }
+            return $content
+            ->header('Index')
+            ->description('description')
+            ->body($this->grid())->withWarning('Warning', $message);
+        }
         return redirect('admin/yxdj/list/edit/'.$model->project_id);
     }
 

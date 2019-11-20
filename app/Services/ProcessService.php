@@ -201,6 +201,9 @@ class ProcessService
 		$json_result = null;
 		if($detail->sjly == '监管平台'){
 			switch($node){
+				case 19:
+					$json_result = $JgptService->sendYxfAll($project->detail_id);
+					break;
 				/*******业务公共部分*********/
 				case 119://挂牌
 					$json_result = $JgptService->sendGpData($project->detail_id);
