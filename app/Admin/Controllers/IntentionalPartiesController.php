@@ -303,8 +303,10 @@ class IntentionalPartiesController extends Controller
         try{
             if($project->detail->sjly == '监管平台'){
                 $sendNodes = ['19'];
+                
                 if(in_array($model->process,$sendNodes)){
-                    $isSuccess = $processService->postGZW($project->id,$project->process);
+                    Log::error('confirm  '.'111111111111111');
+                    $isSuccess = $processService->postGZW($project->id,$model->process);
                 }
             }
         }
