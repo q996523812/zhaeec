@@ -251,6 +251,26 @@ class ProcessService
 		$JgptService->updateStatusAfterSend($jgpt_detail,$json_result['success'],$project->process,$node);
 		return $json_result['success'];
 	}
+	public function postYxfGZW($yxf_id,$node){
+		$intentionalParty = IntentionalParty::find($yxf_id);
+		$project = $intentionalParty->project;
+		$JgptService = $this->getService($project->type);
+		$detail = $project->detail;
+		$jgpt_detail = $JgptService->getModelForDetailId($project->detail_id);
+
+		$jgpt_status = $jgpt_detail->status;
+		$json_result = null;
+		if($detail->sjly == '监管平台'){
+			switch($node){
+				case 19:
+					$json_result = $JgptService->sendYxfAll($yxf_id);
+					break;
+			}
+		}
+		//接口数据发送成功，则取当前节点，不成功，则取发送前的节点
+		// $JgptService->updateStatusAfterSend($jgpt_detail,$json_result['success'],$project->process,$node);
+		return $json_result['success'];
+	}
 
 	public function getService($project_type){
 		$JgptService = null;

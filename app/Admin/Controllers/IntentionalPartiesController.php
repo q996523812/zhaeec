@@ -306,7 +306,7 @@ class IntentionalPartiesController extends Controller
                 
                 if(in_array($model->process,$sendNodes)){
                     Log::error('confirm  '.'111111111111111');
-                    $isSuccess = $processService->postGZW($project->id,$model->process);
+                    $isSuccess = $processService->postYxfGZW($project->id,$model->process);
                 }
             }
         }

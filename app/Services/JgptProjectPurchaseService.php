@@ -153,6 +153,51 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
         return $result;
     }
 
+    public function sendYxf($yxf_id){
+        $url = 'api/transaction/purchase/backfill/enroll';
+        $detail = ProjectPurchase::find($detail_id);
+        $project = $detail->project;
+        $yxfs = $project->interestedParties;
+
+        $yxf = InterestedParty::find($yxf_id);
+                $row = [
+                    'name' => $yxf->name,
+                    'idType' => $yxf->id_type,
+                    'idCode' => $yxf->id_code,
+                    'province' => $yxf->province,
+                    'city' => $yxf->city,
+                    'area' => $yxf->area,
+                    'isGz' => $yxf->isgz,
+                    'registeredAddress' => $yxf->registered_address,
+                    'registeredCapital' => $yxf->registered_capital,
+                    'registeredCapitalCurrency' => $yxf->registered_capital_currency,
+                    'foundDate' => $yxf->found_date,
+                    'legalRepresentative' => $yxf->legal_representative,
+                    'industry1' => $yxf->industry1,
+                    'industry2' => $yxf->industry2,
+                    'companyType' => $yxf->companytype,
+                    'economyType' => $yxf->economytype,
+                    'scale' => $yxf->scale,
+                    'scope' => $yxf->scope,
+                    'creditCer' => $yxf->credit_cer,
+                    'workUnit' => $yxf->work_unit,
+                    'workDuty' => $yxf->work_duty,
+                    'contactName' => $yxf->contact_name,
+                    'contactPhone' => $yxf->contact_phone,
+                    'contactEMail' => $yxf->contact_email,
+                    'contactFax' => $yxf->contact_fax,
+                    'accountCode' => $yxf->account_code,
+                    'accountBank' => $yxf->account_bank,
+                    'accountName' => $yxf->account_name,
+                ];
+        $list[] = $row;
+        $data = [
+            'list' => $list,
+        ];
+        $result = $this->send($url,$data,$detail->id);
+
+        return $result;
+    }
 
 /*
     public function lbNotice($project_id){
