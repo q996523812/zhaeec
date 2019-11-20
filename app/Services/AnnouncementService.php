@@ -28,11 +28,10 @@ class AnnouncementService
         return $model;
     }
 
-    public function insert($project,$data,$process){
+    public function insert($project,$data){
         $data['id'] = (string)Str::uuid();
-        $data['process'] = $process;
         $data['project_id'] = $project->id;
-        $model = DB::transaction(function () use($project,$data,$process) {
+        $model = DB::transaction(function () use($project,$data) {
             $model = Announcement::create($data);
         	// $model = $project->announcements()->create($data);
 		    return $model;
