@@ -226,8 +226,10 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
         $list = [];
         foreach($subPidResults as $subPidResult) {
             $row = [
-                'projectNo' => $subPidResult->xmbh,
-                'projectName' => $subPidResult->title,
+                // 'projectNo' => $subPidResult->xmbh,
+                // 'projectName' => $subPidResult->title,
+                'projectNo' => $project->xmbh,
+                'projectName' => $project->title,
                 'tbPerson' => $subPidResult->tbr,
                 'jjf' => $subPidResult->jjf,
                 'jsf' => $subPidResult->jsf,
