@@ -105,7 +105,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
      */
     public function sendYxfAll($detail_id){
         $url = 'api/transaction/purchase/backfill/enroll';
-        $detail = ProjectLease::find($detail_id);
+        $detail = ProjectPurchase::find($detail_id);
         $project = $detail->project;
         $yxfs = $project->interestedParties;
         $list = function ()use($yxfs){
