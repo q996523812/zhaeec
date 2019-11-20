@@ -156,47 +156,44 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
 
     public function sendYxf($yxf_id){
         $url = 'api/transaction/purchase/backfill/enroll';
-        // $detail = ProjectPurchase::find($detail_id);
-        // $project = $detail->project;
-        // $yxfs = $project->interestedParties;
 
         $yxf = IntentionalParty::find($yxf_id);
         $detail = $yxf->project->detail;
-                $row = [
-                    'name' => $yxf->name,
-                    'idType' => $yxf->id_type,
-                    'idCode' => $yxf->id_code,
-                    'province' => $yxf->province,
-                    'city' => $yxf->city,
-                    'area' => $yxf->area,
-                    'isGz' => $yxf->isgz,
-                    'registeredAddress' => $yxf->registered_address,
-                    'registeredCapital' => $yxf->registered_capital,
-                    'registeredCapitalCurrency' => $yxf->registered_capital_currency,
-                    'foundDate' => $yxf->found_date,
-                    'legalRepresentative' => $yxf->legal_representative,
-                    'industry1' => $yxf->industry1,
-                    'industry2' => $yxf->industry2,
-                    'companyType' => $yxf->companytype,
-                    'economyType' => $yxf->economytype,
-                    'scale' => $yxf->scale,
-                    'scope' => $yxf->scope,
-                    'creditCer' => $yxf->credit_cer,
-                    'workUnit' => $yxf->work_unit,
-                    'workDuty' => $yxf->work_duty,
-                    'contactName' => $yxf->contact_name,
-                    'contactPhone' => $yxf->contact_phone,
-                    'contactEMail' => $yxf->contact_email,
-                    'contactFax' => $yxf->contact_fax,
-                    'accountCode' => $yxf->account_code,
-                    'accountBank' => $yxf->account_bank,
-                    'accountName' => $yxf->account_name,
-                ];
+        $row = [
+            'name' => $yxf->name,
+            'idType' => $yxf->id_type,
+            'idCode' => $yxf->id_code,
+            'province' => $yxf->province,
+            'city' => $yxf->city,
+            'area' => $yxf->area,
+            'isGz' => $yxf->isgz,
+            'registeredAddress' => $yxf->registered_address,
+            'registeredCapital' => $yxf->registered_capital,
+            'registeredCapitalCurrency' => $yxf->registered_capital_currency,
+            'foundDate' => $yxf->found_date,
+            'legalRepresentative' => $yxf->legal_representative,
+            'industry1' => $yxf->industry1,
+            'industry2' => $yxf->industry2,
+            'companyType' => $yxf->companytype,
+            'economyType' => $yxf->economytype,
+            'scale' => $yxf->scale,
+            'scope' => $yxf->scope,
+            'creditCer' => $yxf->credit_cer,
+            'workUnit' => $yxf->work_unit,
+            'workDuty' => $yxf->work_duty,
+            'contactName' => $yxf->contact_name,
+            'contactPhone' => $yxf->contact_phone,
+            'contactEMail' => $yxf->contact_email,
+            'contactFax' => $yxf->contact_fax,
+            'accountCode' => $yxf->account_code,
+            'accountBank' => $yxf->account_bank,
+            'accountName' => $yxf->account_name,
+        ];
         $list[] = $row;
-        $data = [
+        $datas = [
             'list' => $list,
         ];
-        $result = $this->send($url,$data,$detail->id);
+        $result = $this->send($url,$datas,$detail->id);
 
         return $result;
     }
@@ -221,31 +218,30 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
     public function sendPbResult($project_id){
         $url = 'api/transaction/purchase/backfill/biddingresults';
         $project = Project::find($project_id);
-        $pbjg = PbResult::where('project_id',$project_id)->get();
-        $subPidResults = $project->PidResult->SubPidResults;
-        $list = function ()use($subPidResults){
-            $list = [];
-            foreach($subPidResults as $subPidResult) {
-                $row = [
-                    'projectNo' => $subPidResult->xmbh,
-                    'projectName' => $subPidResult->title,
-                    'tbPerson' => $subPidResult->tbr,
-                    'jjf' => $subPidResult->jjf,
-                    'jsf' => $subPidResult->jsf,
-                    'zf' => $subPidResult->zf,
-                    'tbbj' => $subPidResult->tbbj,
-                    'pm' => $subPidResult->pm,
-                ];
-                $list[] = $row;
-            }
-            return $list;
-        };
+        $pbjg = BidResult::where('project_id',$project_id)->get()->first();
 
+        $subPidResults = $pbjg->bidResultSubs;
+
+        $detail = $project->detail;
+        $list = [];
+        foreach($subPidResults as $subPidResult) {
+            $row = [
+                'projectNo' => $subPidResult->xmbh,
+                'projectName' => $subPidResult->title,
+                'tbPerson' => $subPidResult->tbr,
+                'jjf' => $subPidResult->jjf,
+                'jsf' => $subPidResult->jsf,
+                'zf' => $subPidResult->zf,
+                'tbbj' => $subPidResult->tbbj,
+                'pm' => $subPidResult->pm,
+            ];
+            $list[] = $row;
+        }
         $datas = [
             'title' => $project->title,
             'list' => $list,
         ];
-        $result = $this->send($url,$data,$detail->id);
+        $result = $this->send($url,$datas,$detail->id);
 
         return $result;
     }   
@@ -269,7 +265,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
             'zbTransactionPlace' => $zbtz->jycd,
             'zbArea' => $zbtz->zbf_qy,
         ];
-        $result = $this->send($url,$data,$detail->id);
+        $result = $this->send($url,$datas,$detail->id);
 
         return $result;
     } 

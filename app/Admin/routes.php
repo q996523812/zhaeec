@@ -240,6 +240,7 @@ Route::group([
     $router->post('jgpt/qycg/receive', 'JgptProjectPurchasesController@receive');
     $router->get('jgpt/qycg/sendGp/{id}', 'JgptProjectPurchasesController@sendGp');
     $router->get('jgpt/qycg/sendZbNotice/{id}', 'JgptProjectPurchasesController@sendZbNotice');
+    $router->get('jgpt/qycg/sendPbResult/{id}', 'JgptProjectPurchasesController@sendPbResult');
     
     // $router->put('jgptprojectpurchases/{id}', 'JgptProjectPurchasesController@back');
     //资产租赁
