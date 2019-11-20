@@ -161,6 +161,7 @@ class JgptProjectPurchaseService extends WbjkProjectBaseService
         // $yxfs = $project->interestedParties;
 
         $yxf = IntentionalParty::find($yxf_id);
+        $detail = $yxf->project->detail;
                 $row = [
                     'name' => $yxf->name,
                     'idType' => $yxf->id_type,
