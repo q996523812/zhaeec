@@ -263,7 +263,7 @@ class ProcessService
 		if($detail->sjly == '监管平台'){
 			switch($node){
 				case 19:
-					$json_result = $JgptService->sendYxfAll($yxf_id);
+					$json_result = $JgptService->sendYxf($yxf_id);
 					break;
 			}
 		}
