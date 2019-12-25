@@ -166,34 +166,6 @@ class WorkProcessNodesTableSeeder extends Seeder
         return $nodes;
     }
 
-    //联合资格审查
-    private function createLhzgscjgqr($work_process_id,$nextnode){
-        $lr = 141;
-        $th = 142;
-        $sp1 = 143;
-        $sp2 = 144;
-        $sp3 = 145;
-        $sp4 = 146;
-        $sp5 = 149;
-        //角色ID
-        $role_id_0 = $this->roles[0];//业务员
-        $role_id_1 = $this->roles[1];//部门，1级审批
-        $role_id_2 = $this->roles[2];//风控，2级审批
-        $role_id_3 = $this->roles[3];//领导，3级审批
-        $role_id_4 = $this->roles[5];//总经理，4级审批
-        $role_id_5 = $this->roles[6];//董事长，5级审批
-        $role_id_6 = $this->roles[4];//综合部，发布
-        
-        $nodes = [
-            $this->create($work_process_id,$lr,'【联合资格审查】录入中',1,$role_id_0,'','',$sp1),
-            $this->create($work_process_id,$th,'【联合资格审查】已退回',2,$role_id_0,'','',$sp1),
-            $this->create($work_process_id,$sp1,'【联合资格审查】部门审批',3,$role_id_1,'',$th,$sp2),
-            $this->create($work_process_id,$sp2,'【联合资格审查】风控审批',4,$role_id_2,'',$th,$sp3),
-            $this->create($work_process_id,$sp3,'【联合资格审查】分管领导审批',5,$role_id_3,'',$th,$sp4),
-            $this->create($work_process_id,$sp4,'【联合资格审查】总经理审批',6,$role_id_4,'',$th,$nextnode),
-        ];
-        return $nodes;
-    }
 
     /**
      *子流程
