@@ -15,20 +15,21 @@ class CreateProjectLeasesTable extends Migration
     {
         Schema::create('project_leases', function (Blueprint $table) {
             $table->string('id');
-            $table->string('wtf_name')->comment('委托方名称');//委托方名称
-            $table->string('wtf_qyxz')->comment('企业性质');//企业性质
-            $table->string('wtf_province')->comment('省');//
-            $table->string('wtf_city')->comment('市')->nullable();//
-            $table->string('wtf_area')->comment('区')->nullable();//
-            $table->string('wtf_street')->comment('详细地址');//
-            $table->string('wtf_yb')->comment('邮编');//
-            $table->string('wtf_fddbr')->comment('法定代表人');//
-            $table->string('wtf_phone')->comment('联系电话');//
-            $table->string('wtf_fax')->comment('传真');//
-            $table->string('wtf_email')->comment('邮箱');//
-            $table->string('wtf_jt')->comment('所属集团');//
-            $table->string('wtf_dlr_name')->comment('委托代理人名称');//
-            $table->string('wtf_dlr_phone')->comment('委托代理人联系电话');//
+            $table->string('wtf_name')->comment('委托方名称')->nullable();//委托方名称
+            $table->string('wtf_qyxz')->comment('企业性质')->nullable();//企业性质
+            $table->string('wtf_province')->comment('省')->nullable();//
+            $table->string('wtf_city')->comment('市')->nullable()->nullable();//
+            $table->string('wtf_area')->comment('区')->nullable()->nullable();//
+            $table->string('wtf_street')->comment('详细地址')->nullable();//
+            $table->string('wtf_yb')->comment('邮编')->nullable();//
+            $table->string('wtf_fddbr')->comment('法定代表人')->nullable();//
+            $table->string('wtf_phone')->comment('联系电话')->nullable();//
+            $table->string('wtf_fax')->comment('传真')->nullable();//
+            $table->string('wtf_email')->comment('邮箱')->nullable();//
+            $table->string('wtf_jt')->comment('所属集团')->nullable();//
+            $table->string('wtf_dlr_name')->comment('委托代理人名称')->nullable();//
+            $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();//
+            
             $table->string('xmbh')->comment('项目编号')->unique()->nullable();//
             $table->string('title')->comment('标的名称');//
             $table->string('pzjg')->comment('挂牌交易批准机构');//
@@ -39,7 +40,7 @@ class CreateProjectLeasesTable extends Migration
             $table->datetime('gp_date_end')->comment('公告结束日期')->nullable();//
             $table->string('sfhs')->comment('是否含税');//
             $table->string('gpjg_sm')->comment('租金说明')->nullable();//
-            $table->decimal('gpjg_zj',26,6)->comment('总租金')->nullable();//
+            $table->decimal('gpjg',26,6)->comment('总租金')->nullable();//
             $table->decimal('gpjg_dj',26,6)->comment('月租金/单价')->nullable();//
             $table->unsignedInteger('zlqx')->comment('租赁期限（年）');
             $table->string('jymd')->comment('交易目的');//
@@ -80,11 +81,16 @@ class CreateProjectLeasesTable extends Migration
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');
             $table->string('sjly')->comment('数据来源')->nullable()->default('业务录入');
+            $table->unsignedInteger('date_type')->comment('挂牌日期类型：1：工作日、2：日历日')->default(1);
+            $table->unsignedInteger('is_member_in')->comment('是否会员带入：1：是（会员带入）、2：否（自有项目）')->default(1);
+            $table->string('customer_id')->comment('会员表ID')->nullable();
+
+            $table->unsignedInteger('is_examination')->comment('是否联合资格审查')->default(2);
 
 
-            $table->string('bzj_zhm')->comment('账户名')->nullable();
-            $table->string('bzj_bank')->comment('开户行')->nullable();
-            $table->string('bzj_zh')->comment('账号')->nullable();
+            $table->string('bail_account_code')->comment('账户名')->nullable();
+            $table->string('bail_account_name')->comment('开户行')->nullable();
+            $table->string('bail_account_bank')->comment('账号')->nullable();
            
             $table->timestamps();
         });

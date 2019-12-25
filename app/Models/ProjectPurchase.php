@@ -34,5 +34,15 @@ class ProjectPurchase extends Model
     public function intentionalParties()
     {
         return $this->hasMany(IntentionalParty::class,'project_id','project_id');
-    }  
+    }
+
+    public function targetCompanyBaseInfo()
+    {
+        return $this->hasOne(TargetCompanyBaseInfo::class,'project_id','project_id');
+    }
+
+    public function transactionMode()
+    {
+        return $this->hasOne(TransactionMode::class,'project_id','project_id');
+    }
 }

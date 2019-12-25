@@ -41,14 +41,13 @@ class ProjectBaseService
         $data_project['id'] = $data_detail['project_id'];
         $data_project['detail_id'] = $data_detail['id'];
         $data_project['xmbh'] = $projectcode;
-        $data_project['price'] = $data_detail['gpjg_zj'];
+        $data_project['price'] = $data_detail['gpjg'];
         $data_project['user_id'] = $user->id;
         $data_project['status'] = 1;
         $data_project['type'] = $this->project_type_code;
         $data_project['process'] = $process;
         $data_project['process_name'] = $node->name;
 
-        
         $detail = DB::transaction(function () use($data_detail,$data_project) {
 			$detail = $this->model_class::create($data_detail);
 		    $project = $detail->project()->create($data_project);
@@ -65,27 +64,24 @@ class ProjectBaseService
 		});
 	}
 
-	public function submit($id){
+	public function submit($id,$next_user_id){
 		$process = 113;
 		$detail = $this->model_class::find($id);
-		$project = $detail->project;
-		$detail->process = $process;
-		$project->process = $process;
-		
-		DB::transaction(function () use($detail) {
+
+		DB::transaction(function () use($detail,$next_user_id) {
 			$processService = new ProcessService();
-			$processService->create($this->project_type_code,$detail->id,'提交',113);
+			$processService->create2($this->project_type_code,$detail->id,'提交',113,$next_user_id);
 		});
 	}	
 
 	/** 确认摘牌/流标
-     *@param $id 项目主表ID
+     *@param $project_id 项目明细表ID
      */
-	public function zp($id,$process,$operation){
-		DB::transaction(function () use($id,$process,$operation) {
+	public function zp($detail_id,$process,$operation){
+		DB::transaction(function () use($detail_id,$process,$operation) {
             //流程
             $processService = new ProcessService();
-            $processService->next($id,null,$operation,$process);
+            $processService->next($detail_id,null,$operation,$process);
         });
 	}
 
@@ -139,4 +135,29 @@ class ProjectBaseService
             // $processService->next($detail->id,'企业上传合同',null);
         });
     }
+
+    //----------------------------------
+    public function gprqSave($project_id,$gp_date_start,$gp_date_end){
+        $project = Project::find($project_id);
+        $datas = [
+            'gp_date_start' => $gp_date_start,
+            'gp_date_end' => $gp_date_end,
+        ];
+        DB::transaction(function () use($project,$datas) {
+            $project->update($datas);
+            $project->detail()->update($datas);
+        });
+    }
+
+    public function lhscSave($project_id,$yxfs){
+        DB::transaction(function () use($yxfs) {
+            for($i = 0 ;$i< $yxfs->count();$i++){
+                $yxf = $yxfs[$i];
+                $yxf->save();
+            }
+        });
+    }
+
+
+
 }

@@ -35,6 +35,12 @@ class ProjectLease extends Model
     {
         return $this->hasMany(IntentionalParty::class,'project_id','project_id');
     }
+
+    public function sellerInfo()
+    {
+        return $this->hasOne(SellerInfo::class,'project_id','project_id');
+    }
+
     // public function getGpDateStartAttribute()
     // {
     //     return date('Y-m-d', Carbon::parse($this->attributes['gp_date_start']));

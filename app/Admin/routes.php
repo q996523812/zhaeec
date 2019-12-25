@@ -68,6 +68,111 @@ Route::group([
     $router->get('zczl/print/{id}', 'ProjectLeasesController@print');
     $router->get('zczl/approval/{id}', 'ProjectLeasesController@approval');
     
+    //产权转让
+    $router->get('cqzr', 'ProjectConveyancingsController@index')->name('cqzr.index');
+    $router->get('cqzr/create', 'ProjectConveyancingsController@create');
+    $router->post('cqzr', 'ProjectConveyancingsController@insert');
+    $router->get('cqzr/{id}/edit', 'ProjectConveyancingsController@edit');
+    $router->post('cqzr/update', 'ProjectConveyancingsController@modify');
+    $router->get('cqzr/{id}', 'ProjectConveyancingsController@show');
+    $router->post('cqzr/submit', 'ProjectConveyancingsController@submit');
+    $router->get('cqzr/showzp/{id}', 'ProjectConveyancingsController@showzp');
+    $router->post('cqzr/zp/{id}', 'ProjectConveyancingsController@zp');
+    $router->get('cqzr/copy/{id}', 'ProjectConveyancingsController@copy');
+    $router->get('cqzr/manage/{id}', 'ProjectConveyancingsController@manage');
+    $router->get('cqzr/print/{id}', 'ProjectConveyancingsController@print');
+    $router->get('cqzr/approval/{id}', 'ProjectConveyancingsController@approval');
+
+    //增资扩股
+    $router->get('zzkg', 'ProjectCapitalIncreasesController@index')->name('zzkg.index');
+    $router->get('zzkg/create', 'ProjectCapitalIncreasesController@create');
+    $router->post('zzkg', 'ProjectCapitalIncreasesController@insert');
+    $router->get('zzkg/{id}/edit', 'ProjectCapitalIncreasesController@edit');
+    $router->post('zzkg/update', 'ProjectCapitalIncreasesController@modify');
+    $router->get('zzkg/{id}', 'ProjectCapitalIncreasesController@show');
+    $router->post('zzkg/submit', 'ProjectCapitalIncreasesController@submit');
+    $router->get('zzkg/showzp/{id}', 'ProjectCapitalIncreasesController@showzp');
+    $router->post('zzkg/zp/{id}', 'ProjectCapitalIncreasesController@zp');
+    $router->get('zzkg/copy/{id}', 'ProjectCapitalIncreasesController@copy');
+    $router->get('zzkg/manage/{id}', 'ProjectCapitalIncreasesController@manage');
+    $router->get('zzkg/print/{id}', 'ProjectCapitalIncreasesController@print');
+    $router->get('zzkg/approval/{id}', 'ProjectCapitalIncreasesController@approval');
+
+    //资产转让
+    $router->get('zczr', 'ProjectTransferAssetsController@index')->name('zczr.index');
+    $router->get('zczr/create', 'ProjectTransferAssetsController@create');
+    $router->post('zczr', 'ProjectTransferAssetsController@insert');
+    $router->get('zczr/{id}/edit', 'ProjectTransferAssetsController@edit');
+    $router->post('zczr/update', 'ProjectTransferAssetsController@modify');
+    $router->get('zczr/{id}', 'ProjectTransferAssetsController@show');
+    $router->post('zczr/submit', 'ProjectTransferAssetsController@submit');
+    $router->get('zczr/showzp/{id}', 'ProjectTransferAssetsController@showzp');
+    $router->post('zczr/zp/{id}', 'ProjectTransferAssetsController@zp');
+    $router->get('zczr/copy/{id}', 'ProjectTransferAssetsController@copy');
+    $router->get('zczr/manage/{id}', 'ProjectTransferAssetsController@manage');
+    $router->get('zczr/print/{id}', 'ProjectTransferAssetsController@print');
+    $router->get('zczr/approval/{id}', 'ProjectTransferAssetsController@approval');
+
+
+    //标的/融资企业基本情况
+    $router->post('bdqy', 'TargetCompanyBaseInfosController@insert');
+    $router->post('bdqy/update', 'TargetCompanyBaseInfosController@modify');
+
+    //标的/融资企业股权结构
+    $router->post('bdqygqjg', 'TargetCompanyOwnershipStructuresController@insert');
+    $router->post('bdqygqjg/update', 'TargetCompanyOwnershipStructuresController@modify');
+
+    //审计报告
+    $router->post('sjbg', 'AuditReportsController@insert');
+    $router->post('sjbg/update', 'AuditReportsController@modify');
+
+    //财务报表
+    $router->post('cwbb', 'FinancialStatementsController@insert');
+    $router->post('cwbb/update', 'FinancialStatementsController@modify');
+
+    //评估情况
+    $router->post('pgqk', 'AssessmentsController@insert');
+    $router->post('pgqk/update', 'AssessmentsController@modify');
+
+    //转让方
+    $router->post('zrf', 'SellerInfosController@insert');
+    $router->post('zrf/update', 'SellerInfosController@modify');
+
+    //监管信息
+    $router->post('jgxx', 'SupervisesController@insert');
+    $router->post('jgxx/update', 'SupervisesController@modify');
+
+    //挂牌时间
+    $router->get('gpsj/edit/{project_id}', 'ProjectBaseController@gpsjEdit');
+    $router->post('gpsj/modify', 'ProjectBaseController@gpsjSave');
+    $router->post('gpsj/submit', 'ProjectBaseController@gpsjSubmit');
+    $router->get('gpsj/approval/{project_id}', 'ProjectBaseController@gpsjApproval');
+
+    //摘牌
+    $router->get('zp/edit/{project_id}', 'ProjectBaseController@zpEdit');
+    $router->post('zp/{project_id}', 'ProjectBaseController@zp');
+
+    //联合资格审查
+    $router->get('lhsc/edit/{project_id}', 'ProjectBaseController@lhscEdit');
+    $router->post('lhsc/modify', 'ProjectBaseController@lhscSave');
+    $router->post('lhsc/submit', 'ProjectBaseController@lhscSubmit');
+    $router->get('lhsc/approval/{project_id}', 'ProjectBaseController@lhscApproval');
+
+    //联合资格审查确认
+    $router->get('lhscqr/edit/{project_id}', 'ProjectBaseController@lhscqrEdit');
+    $router->post('lhscqr/submit', 'ProjectBaseController@lhscqrSubmit');
+    $router->get('lhscqr/approval/{project_id}', 'ProjectBaseController@lhscqrApproval');
+
+    //确认交易方式
+    $router->get('jyfs/edit/{project_id}', 'TransactionModesController@edit');
+    $router->post('jyfs/insert', 'TransactionModesController@insert');
+    $router->post('jyfs/modify', 'TransactionModesController@modify');
+    $router->post('jyfs/submit', 'TransactionModesController@submit');
+    $router->get('jyfs/approval/{project_id}', 'TransactionModesController@approval');
+
+    //查询所有业务员权限用户
+    $router->post('user/business', 'AdminUsersController@getBusinessUsers');
+
     /****************2、文件与图片********************/
     $router->post('images/store', 'ImagesController@store');
     $router->post('images/destroy', 'ImagesController@destroy');    

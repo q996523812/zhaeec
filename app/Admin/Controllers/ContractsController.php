@@ -166,7 +166,7 @@ class ContractsController extends Controller
     }
 
     protected $fields = [
-        'xmbh','title','code'
+        'code','sign_date','effect_date','term_date_start','term_date_end'
     ];
 
     public function insert(ContractRequest $request){

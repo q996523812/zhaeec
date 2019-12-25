@@ -58,6 +58,14 @@ class CreateIntentionalPartiesTable extends Migration
             $table->unsignedInteger('status')->default(1);
             $table->unsignedInteger('process')->comment('流程节点')->nullable();
             $table->string('process_name')->comment('流程节点中文名称')->nullable();
+            $table->string('examination')->comment('联合资格审查结果')->nullable();
+            $table->string('ptf_opinion')->comment('平台意见：1：通过、2：不通过')->nullable();
+            $table->string('ptf_desc')->comment('平台意见')->nullable();
+            $table->string('wtf_opinion')->comment('委托方意见：1：通过、2：不通过')->nullable();
+            $table->string('wtf_desc')->comment('委托方意见')->nullable();
+
+            $table->unsignedInteger('is_member_in')->comment('是否会员带入：1：是（会员带入）、2：否（自有项目）')->default(2);
+            
             $table->timestamps();
         });
     }

@@ -194,8 +194,8 @@ class TransactionsController extends Controller
     }
 
     protected $fields = [
-        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id'],
-        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id'],
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type'],
+        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type'],
     ];
 
     public function insert(TransactionRequest $request){
@@ -205,11 +205,15 @@ class TransactionsController extends Controller
         $project = Project::find($project_id);
         $zbf_charge_type = $request->zbf_charge_type;
         $wtf_charge_type = $request->wtf_charge_type;
-        $zbf_chargeRule = $this->chargeRuleService->getRuleByType($project,$zbf_charge_type);
-        $wtf_chargeRule = $this->chargeRuleService->getRuleByType($project,$wtf_charge_type);
-        $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
-        $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
 
+        if($zbf_charge_type == 1){
+            $zbf_chargeRule = $this->chargeRuleService->getRuleByType($project,$zbf_charge_type);
+            $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
+        }
+        if($wtf_charge_type == 1){
+            $wtf_chargeRule = $this->chargeRuleService->getRuleByType($project,$wtf_charge_type);
+            $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
+        }
         $transaction = $this->service->insert($project_id,$data);
         $result = [
             'success' => 'true',

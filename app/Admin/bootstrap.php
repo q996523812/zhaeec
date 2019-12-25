@@ -32,4 +32,5 @@ Admin::js('/js/checkbox.data.js?a='.rand(1000,9999));
 Admin::js('/js/checkbox.js?a='.rand(1000,9999));
 Admin::js('/js/selectunion.js?a='.rand(1000,9999));
 Admin::js('/js/convertFromNumToChina.js?a='.rand(1000,9999));
+Admin::js('/js/radio.js?a='.rand(1000,9999));
 // Admin::js('/resources/js/admin_project.js');

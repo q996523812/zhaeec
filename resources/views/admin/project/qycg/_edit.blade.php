@@ -73,7 +73,7 @@
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="gpjg_zj" name="gpjg_zj" value="{{$detail->gpjg_zj}}" class="form-control money gpjg_zj" placeholder="输入 预算价格">
+              <input type="text" id="gpjg" name="gpjg" value="{{$detail->gpjg}}" class="form-control money gpjg" placeholder="输入 预算价格">
             </div>
           </td>
           <td class=" control-label">是否含税</td>
@@ -175,7 +175,7 @@
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
               <input type="text" id="bzj_jn_time_end" name="bzj_jn_time_end" value="{{$detail->bzj_jn_time_end}}" class="form-control bzj_jn_time_end" placeholder="输入 交纳保证金截止时间">
-            </div>        
+            </div>
           </td>
         </tr>
         <tr>
@@ -191,19 +191,19 @@
           <td rowspan="3" class=" control-label">缴纳保证金账户</td>
           <td class="control-label">账户名称</td>
           <td colspan="2">
-            <input type="text" id="bzj_zhm" name="bzj_zhm" value="{{$detail->bzj_zhm}}" class="form-control bzj_zhm" placeholder="输入 账户名称">
+            <input type="text" id="bail_account_name" name="bail_account_name" value="{{$detail->bail_account_name}}" class="form-control bail_account_name" placeholder="输入 账户名称">
           </td>
         </tr>
         <tr>
           <td class=" control-label">开户行</td>
           <td colspan="2">
-            <input type="text" id="bzj_bank" name="bzj_bank" value="{{$detail->bzj_bank}}" class="form-control bzj_bank" placeholder="输入 开户行">
+            <input type="text" id="bail_account_bank" name="bail_account_bank" value="{{$detail->bail_account_bank}}" class="form-control bail_account_bank" placeholder="输入 开户行">
           </td>
         </tr>
         <tr>
           <td class=" control-label">账号</td>
           <td colspan="2">
-            <input type="text" id="bzj_zh" name="bzj_zh" value="{{$detail->bzj_zh}}" class="form-control bzj_zh" placeholder="输入 账号">
+            <input type="text" id="bail_account_code" name="bail_account_code" value="{{$detail->bail_account_code}}" class="form-control bail_account_code" placeholder="输入 账号">
           </td>
         </tr>
         <tr>
@@ -226,6 +226,7 @@
         </tr>
 
         <!--委托方-->
+        <!--
         <tr>
           <td rowspan="9" class=" control-label">委托方</td>
           <td class=" control-label">名称</td>
@@ -307,6 +308,7 @@
             <input type="text" id="wtf_dlr_phone" name="wtf_dlr_phone" value="{{$detail->wtf_dlr_phone}}" class="form-control wtf_dlr_phone" placeholder="输入 委托代理人电话">
           </td>
         </tr>
+      -->
       </tbody>
     </table>
   </div>
@@ -365,7 +367,7 @@
         });
 
         //金额、数字
-        $('.gpjg_zj').inputmask({"alias":"decimal","rightAlign":true});
+        $('.gpjg').inputmask({"alias":"decimal","rightAlign":true});
         $('.jjfd').inputmask({"alias":"decimal","rightAlign":true});
         $('.bzj').inputmask({"alias":"decimal","rightAlign":true});
         $('.gq').inputmask({"alias":"decimal","rightAlign":true});

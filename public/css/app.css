@@ -10681,6 +10681,12 @@ a.text-dark:focus {
   font-size: 20px;
 }
 
+.project-table .table tbody th {
+  vertical-align: middle;
+  text-align: center;
+  background: #F2F2F2;
+}
+
 .project-table .money {
   text-align: right;
 }

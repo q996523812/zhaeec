@@ -7,6 +7,13 @@ use App\Models\ProjectLease;
 use App\Models\WorkProcess;
 use App\Models\WorkProcessNode;
 use App\Models\PbResult;
+use App\Models\TargetCompanyBaseInfo;
+use App\Models\TargetCompanyOwnershipStructure;
+use App\Models\AuditReport;
+use App\Models\FinancialStatement;
+use App\Models\Assessment;
+use App\Models\SellerInfo;
+use App\Models\Supervise;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -21,6 +28,8 @@ use Illuminate\Support\Str;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
 use App\Services\MarginAcountService;
+use App\Services\ProjectBaseService;
+use App\Services\ProjectService;
 use App\Http\Requests\ProjectLeasesRequest;
 use Carbon\Carbon;
 
@@ -119,6 +128,7 @@ class ProjectBaseController extends Controller
         $detail = new $this->detail_class;
         $this->getMarginAcount($detail);
         $datas = $this->getDatasToView($detail);
+
         $url = $this->getViewUrl('edit');
         return $content
             ->header('新增')
@@ -137,7 +147,7 @@ class ProjectBaseController extends Controller
         $detail = $this->detail_class::find($id);
         $detail->id = '';
         $detail->project_id = '';
-        $detail->process = '11';
+        $detail->process = '111';
         $detail->xmbh = '';
         
         $datas = $this->getDatasToView($detail);
@@ -173,7 +183,6 @@ class ProjectBaseController extends Controller
     }
 
     protected function getDatasToView($detail){
-        
         $datas = [
             'project' => $detail->project,
             'id' => $detail->id,
@@ -183,14 +192,109 @@ class ProjectBaseController extends Controller
             'files' => $detail->files,
             'images' => $detail->images,
         ];
-        return $datas;        
+
+        // $datas['bdqy'] = new TargetCompanyBaseInfo;
+        // $datas['sj'] = new AuditReport;
+        // $datas['cwbb'] = new FinancialStatement;
+        // $datas['pgqk'] = new Assessment;
+        // $datas['zrf'] = new SellerInfo;
+        // $datas['jgxx'] = new Supervise;
+        $project =$detail->project;
+        $bdqy = $detail->targetCompanyBaseInfo;
+        if(empty($bdqy)){
+            $bdqy = new TargetCompanyBaseInfo;
+        }
+        $sjbgs = $detail->auditReports;
+        
+        if(empty($sjbgs) || $sjbgs->Count()<1){
+            $sjbg = new AuditReport;
+            switch ($this->projectTypeCode) {
+                case 'qycg':
+                    # code...
+                    break;
+                case 'zczl':
+                    # code...
+                    break;
+                case 'zczr':
+                    # code...
+                    break;
+                case 'cqzr':
+                    $datas['sj'] = new AuditReport;
+                    break;
+                case 'zzkg':
+                    $datas['sj1'] = new AuditReport;
+                    $datas['sj2'] = new AuditReport;
+                    $datas['sj3'] = new AuditReport;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        else{
+            switch ($this->projectTypeCode) {
+                case 'qycg':
+                    # code...
+                    break;
+                case 'zczl':
+                    # code...
+                    break;
+                case 'zczr':
+                    # code...
+                    break;
+                case 'cqzr':
+                    $datas['sj'] = $sjbgs[0];
+                    break;
+                case 'zzkg':
+                    $datas['sj1'] = $sjbgs[0];
+                    $datas['sj2'] = $sjbgs[1];
+                    $datas['sj3'] = $sjbgs[2];
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $cwbbs = $detail->financialStatement;
+        if(empty($cwbb)){
+            $cwbb = new FinancialStatement;
+        }
+        $pgqk = $detail->assessment;
+        if(empty($pgqk)){
+            $pgqk = new Assessment;
+        }
+        $zrf = $detail->sellerInfo;
+        if(empty($zrf)){
+            $zrf = new SellerInfo;
+        }
+        $jgxx = $detail->supervise;
+        if(empty($jgxx)){
+            $jgxx = new Supervise;
+        }
+
+        $datas['bdqy'] = $bdqy;
+        $datas['cwbb'] = $cwbb;
+        $datas['pgqk'] = $pgqk;
+        $datas['zrf'] = $zrf;
+        $datas['jgxx'] = $jgxx;
+        
+        // switch($this->projectTypeCode){
+        //     case 'cqzr':
+            
+        //         $datas['bdqy'] = $bdqy;
+        //         $datas['sj'] = $sjbg;
+        //         break;
+        // }
+        return $datas;
     }
     protected function getMarginAcount($detail){
         $accountService = new MarginAcountService();
         $account = $accountService->getDefault();
-        $detail->bzj_zhm = $account->name;
-        $detail->bzj_bank = $account->bank;
-        $detail->bzj_zh = $account->account;
+        $detail->bail_account_code = $account->name;
+        $detail->bail_account_name = $account->bank;
+        $detail->bail_account_bank = $account->account;
     }
     /**
      * Make a grid builder.
@@ -209,16 +313,63 @@ class ProjectBaseController extends Controller
             $filter->like('xmbh', '项目编号');
         });
         $grid->xmbh('项目编号');
-        $grid->wtf_name('委托方名称');
+        $grid->sellerInfo_id('委托方名称')->display(function($sellerInfo_id){
+            $name = '';
+            switch ($this->project->type) {
+                case 'qycg':
+                case 'zzkg':
+                    $seller = $this->targetCompanyBaseInfo;
+                    if(!empty($seller)){
+                        $name = $seller->compName;
+                    }
+                    break;
+                case 'zczl':
+                case 'cqzr':
+                case 'zczr':
+                    $seller = $this->sellerInfo;
+                    if(!empty($seller)){
+                        $name = $seller->sellerName;
+                    }
+                    break;
+            }
+            return $name;
+        });
+        // $grid->column('委托方名称')->display(function () {
+        //     $seller = $this->sellerInfo;
+        //     if(!empty($seller)){
+        //         $name = $seller->sellerName;
+        //     }
+        //     return $name;
+        // });
         $grid->title('项目名称');
-        $grid->gpjg_zj('挂牌金额(总价)');
+        $grid->gpjg('挂牌金额(总价)');
         $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
             return date('Y-m-d',strtotime($gp_date_start));
         });
         $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
             return date('Y-m-d',strtotime($gp_date_end));
         });
-        $grid->sjly('项目来源');
+        $grid->sjly('项目来源')->display(function($sellerInfo_id){
+            $ssjt = '';
+            switch ($this->project->type) {
+                case 'qycg':
+                case 'zzkg':
+                    $wtf = $this->targetCompanyBaseInfo;
+                    if(!empty($wtf)){
+                        $ssjt = $wtf->ssjt;
+                    }
+                    break;
+                case 'zczl':
+                case 'cqzr':
+                case 'zczr':
+                    $wtf = $this->sellerInfo;
+                    if(!empty($wtf)){
+                        $ssjt = $wtf->ssjt;
+                    }
+                    break;
+            }
+            return $ssjt;
+        });
         $grid->process_name('项目状态');
         // $workProcess = WorkProcess::where('status',1)->where('type',$this->projectTypeCode)->first();       
         // $nodes = $workProcess->nodes; 
@@ -270,103 +421,102 @@ class ProjectBaseController extends Controller
 
             $pbjg = "<a href='/admin/pbjg/list/edit/$rec->project_id' style='margin-left:10px;' title='评标结果'><i class='fa fa-edit2'></i>录入评标结果</a>";
 
+            $gpsj = "<a href='/admin/gpsj/edit/$rec->project_id' style='margin-left:10px;' title='挂牌时间'><i class='fa fa-edit2'></i>录入挂牌时间</a>";
+            $zp = "<a href='/admin/zp/edit/$rec->project_id' style='margin-left:10px;' title='摘牌'><i class='fa fa-edit2'></i>摘牌</a>";
+            $lhsc = "<a href='/admin/lhsc/edit/$rec->project_id' style='margin-left:10px;' title='联合资格审查'><i class='fa fa-edit2'></i>联合资格审查</a>";
+            $lhscqr = "<a href='/admin/lhscqr/edit/$rec->project_id' style='margin-left:10px;' title='联合资格审查确认'><i class='fa fa-edit2'></i>联合资格审查确认</a>";
+            $jyfs = "<a href='/admin/jyfs/edit/$rec->project_id' style='margin-left:10px;' title='确认交易方式'><i class='fa fa-edit2'></i>确认交易方式</a>";
+
             $bottons = "";
+
             switch($rec->process){
                 case 120:
                     // $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
                     $bottons .= $yxdj;
-                    $bottons .= $getBotton('确认摘牌','摘牌','edit2',$rec->id,'showzp');
+                    $bottons .= $zp;
                     $bottons .= $pause;
                     $bottons .= $stop;
                     break;
+                case 111:
+                case 112:
+                    //项目录入
+                    break;
+                case 121:
+                case 122:
+                    //项目信息发布（录入挂牌时间）
+                    $bottons .= $gpsj;
+                    break;
                 case 131:
-                    $bottons .= $getBotton('录入流标通知书','录入流标通知书','edit2',$rec->id,'editlb');
+                case 132:
+                    //联合资格审查
+                    $bottons .= $lhsc;
                     break;
                 case 141:
-                    $bottons .= $zjgg;
+                case 142:
+                    //确认联合资格审查
+                    $bottons .= $lhscqr;
                     break;
                 case 151:
-                    $bottons .= $zzgg;
-                    break;
                 case 152:
-                    $bottons .= $zzgg;
-                    break;
-                case 160:
-                    $bottons .= $recover;
+                    //交易方式确定
+                    $bottons .= $jyfs;
                     break;
                 case 161:
-                    $bottons .= $hfgg;
+                case 162:
+                    //评标结果公示
+                    $bottons .= $pbjg;
                     break;
-                
-                /************竞价部分*************/
+                case 171:
+                case 172:
+                    //成交信息录入
+                    $bottons .= $cjxx;
+                    break;
+                case 181:
+                case 182:
+                    //成交公告发布
+                    $bottons .= $cjgg;
+                    break;
+                case 191:
+                case 192:
+                    //中标通知
+                    $bottons .= $zbtz;
+                    break;
+                case 201:
+                case 202:
+                    //收费通知
+                    $bottons .= $sftz;
+                    break;
                 case 211:
-                    $bottons .= $cjxx;
-                    break;
                 case 212:
-                    $bottons .= $cjxx;
+                    //合同
+                    $bottons .= $uploadcontract;
                     break;
                 case 221:
-                    $bottons .= $cjgg;
-                    break;
                 case 222:
-                    $bottons .= $cjgg;
+                    //交易鉴证
+                    $bottons .= $jyjz;
                     break;
                 case 231:
-                    $bottons .= $zbtz;
-                    break;
                 case 232:
-                    $bottons .= $zbtz;
+                    //流标
                     break;
                 case 241:
-                    $bottons .= $sftz;
-                    break;
                 case 242:
-                    $bottons .= $sftz;
+                    //中止
                     break;
                 case 251:
-                    $bottons .= $uploadcontract;
+                case 252:
+                    //恢复
                     break;
                 case 261:
-                    $bottons .= $jyjz;
-                    break;
                 case 262:
-                    $bottons .= $jyjz;
+                    //终结
                     break;
-
-                /************评标部分*************/
-                case 311:
-                    $bottons .= $pbjg;
-                    break; 
-                case 312:
-                    $bottons .= $pbjg;
+                case 271:
+                case 272:
+                    //延期
                     break;
-                case 321:
-                    $bottons .= $cjxx;
-                    break; 
-                case 322:
-                    $bottons .= $cjxx;
-                    break;
-                case 331:
-                    $bottons .= $cjgg;
-                    break; 
-                case 332:
-                    $bottons .= $cjgg;
-                    break;
-                case 341:
-                    $bottons .= $zbtz;
-                    break;
-                case 342:
-                    $bottons .= $zbtz;
-                    break;
-                case 351:
-                    $bottons .= $sftz;
-                    break;
-                case 352:
-                    $bottons .= $sftz;
-                    break;
-                case 361:
-                    $bottons .= $uploadcontract;
-                    break;
+                
             }
             $actions->append($bottons); 
 
@@ -404,7 +554,7 @@ class ProjectBaseController extends Controller
         $detail_id = $request->id;
         $data_detail = $request->only($this->fields['update']);
         $data_project = $request->only($this->fields_project['update']);
-        $data_project['price'] = $data_detail['gpjg_zj'];
+        $data_project['price'] = $data_detail['gpjg'];
 
         $this->service->update($detail_id,$data_detail,$data_project,111,null);
         $result = [
@@ -418,7 +568,8 @@ class ProjectBaseController extends Controller
 
     public function submit(Request $request){
         $detail_id = $request->id;
-        $this->service->submit($detail_id);
+        $fhr_user_id = $request->fhr;
+        $this->service->submit($detail_id,$fhr_user_id);
         return redirect()->route($this->projectTypeCode.'.index');
     }
 
@@ -436,48 +587,21 @@ class ProjectBaseController extends Controller
         $detail = $project->detail;
         $url = 'admin.project.'.$project->type.'.approval';
         $records = $this->getOptionHistory($id);
-        $datas = [
-            'detail' => $detail,
-            'records' => $records,
-            'pbresults' => $pbresults,
-            'yxfs' => $project->intentionalParties,
-            'files' => $detail->files,
-            'images' => $detail->images,
-            'projecttype' => 'projects',
-        ]; 
+        $datas = $this->getDatasToView($detail);
+        $datas['pbresults'] = $pbresults;
+        // $datas = [
+        //     'detail' => $detail,
+        //     'records' => $records,
+        //     'pbresults' => $pbresults,
+        //     'yxfs' => $project->intentionalParties,
+        //     'files' => $detail->files,
+        //     'images' => $detail->images,
+        //     'projecttype' => 'projects',
+        // ]; 
         return $content
             ->header('审批')
             // body 方法可以接受 Laravel 的视图作为参数
             ->body(view($url, $datas));  
-    }
-    /**摘牌
-     *@param $id 明细表ID
-     */
-    public function showzp($id, Content $content)
-    {
-        $detial = $this->detail_class::find($id);
-        $records = $this->getOptionHistory($detial->project_id);
-        // $pbresults = PbResult::where('project_id',$detial->project_id)->get();
-        $datas = [
-            'detial' => $detial,
-            'records' => $records,
-            'projecttype' => $this->projectTypeCode,
-            'pbresults' => '',
-        ]; 
-        $url = $this->getViewUrl('zp');
-        return $content
-            ->header('摘牌')
-            ->body(view($url, $datas));  
-    }
-
-    /**摘牌/流标
-     *@param $id 项目主表ID
-     */
-    public function zp($id,Request $request){
-        $process = $request->process;
-        $operation = $request->operation;
-        $this->service->zp($id,$process,$operation);
-        return redirect()->route($this->projectTypeCode.'.index');
     }
 
     /**
@@ -542,4 +666,253 @@ class ProjectBaseController extends Controller
 
         return response()->json($result);
     }
+
+    //===========================================================
+    //显示挂牌日期编辑页面
+    public function gpsjEdit($project_id, Content $content){
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $datas = [
+            'detail' => $detail,
+            'project' => $project,
+            'projecttype' => 'gpsj',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+        ];
+        return $content
+            ->header('挂牌日期录入')
+            ->body(view('admin.gpsj.edit', $datas));
+    }
+
+    //挂牌日期保存
+    protected function gpsjSave(Request $request){
+        $detail_id = $request->id;
+        $project_id = $request->project_id;
+        $gp_date_start = $request->gp_date_start;
+        $gp_date_end = $request->gp_date_end;
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+        try{
+            $baseService = new ProjectBaseService();
+            $detail = $baseService->gprqSave($project_id,$gp_date_start,$gp_date_end);
+        }
+        catch(\Exception $e){
+            $result['success'] = 'false';
+            $result['message'] = '保存失败，请联系管理员';
+            Log::error($e);
+        }
+        // $detail = $this->service->gprqSave($project_id,$gp_date_start,$gp_date_end);
+        return response()->json($result);
+    }
+
+    public function gpsjSubmit(Request $request){
+        $detail_id = $request->id;
+        $project_id = $request->project_id;
+        $project = Project::find($project_id);
+        $projectService = new ProjectService();
+        $projectService->submit($project,'挂牌时间录入');
+        return redirect()->route($project->type.'.index');
+    }
+    //显示挂牌日期审批页面
+    public function gpsjApproval($project_id, Content $content){
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $datas = [
+            'detail' => $detail,
+            'project' => $project,
+            'projecttype' => 'gpsj',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+        ];
+        return $content
+            ->header('挂牌日期审批')
+            ->body(view('admin.gpsj.approval', $datas));
+    }
+
+    /**摘牌
+     *@param $id 明细表ID
+     */
+    public function zpEdit($project_id, Content $content)
+    {
+        $project = Project::find($project_id);
+        // $records = $this->getOptionHistory($detial->project_id);
+        $datas = [
+            'detail' => $project->detail,
+            'project' => $project,
+            'projecttype' => 'zp',
+        ];
+        return $content
+            ->header('挂牌日期录入')
+            ->body(view('admin.zp.edit', $datas));
+    }
+
+    /**摘牌/流标
+     *@param $id 项目主表ID
+     */
+    public function zp($project_id,Request $request){
+        $process = '';
+        $operation = $request->operation;
+        $operationtype = $request->operationtype;
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        if($operationtype == '1'){//摘牌
+            $is_examination = $detail->is_examination;
+            if($is_examination == '1'){//是，
+                $process = 131;//联合资格审查
+            }
+            else if($is_examination == '2'){//否
+                $process = 151;//确定交易方式
+            }
+        }
+        else if($operationtype == '2'){//流标
+            $process = 231;
+        }
+        $baseService = new ProjectBaseService();
+        $baseService->zp($detail->id,$process,$operation);
+        return redirect()->route($project->type.'.index');
+    }
+
+
+    /**联合资格审查
+     */
+    public function lhscEdit($project_id, Content $content)
+    {
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        // $records = $this->getOptionHistory($detial->project_id);
+        $datas = [
+            'detail' => $project->detail,
+            'project' => $project,
+            'projecttype' => 'lhsc',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'yxfs' => $project->intentionalParties,
+        ];
+        return $content
+            ->header('联合资格审查')
+            ->body(view('admin.lhsc.edit', $datas));
+    }
+
+    //联合资格审查保存
+    protected function lhscSave(Request $request){
+        $project_id = $request->project_id;
+        $project = Project::find($project_id);
+        $yxfs = $project->intentionalParties;
+        for($i = 0 ;$i< $yxfs->count();$i++){
+            $ptf_opinion_name = 'ptf_opinion'.$i;
+            $ptf_desc_name = 'ptf_desc'.$i;
+            $wtf_opinion_name = 'wtf_opinion'.$i;
+            $wtf_desc_name = 'wtf_desc'.$i;
+
+            $yxfs[$i]->ptf_opinion = $request->$ptf_opinion_name;
+            $yxfs[$i]->ptf_desc = $request->$ptf_desc_name;
+            $yxfs[$i]->wtf_opinion = $request->$wtf_opinion_name;
+            $yxfs[$i]->wtf_desc = $request->$wtf_desc_name;
+
+        }
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'status_code' => '200'
+        ];
+        try{
+            $baseService = new ProjectBaseService();
+            $detail = $baseService->lhscSave($project_id,$yxfs);
+        }
+        catch(\Exception $e){
+            $result['success'] = 'false';
+            $result['message'] = '保存失败，请联系管理员';
+            Log::error($e);
+        }
+        return response()->json($result);
+    }
+
+    public function lhscSubmit(Request $request){
+        $detail_id = $request->id;
+        $project_id = $request->project_id;
+        $project = Project::find($project_id);
+        $projectService = new ProjectService();
+        $projectService->submit($project,'联合资格审查录入');
+        return redirect()->route($project->type.'.index');
+    }
+
+    //显示联合资格审查审批页面
+    public function lhscApproval($project_id, Content $content){
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $datas = [
+            'detail' => $detail,
+            'project' => $project,
+            'projecttype' => 'lhsc',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'yxfs' => $project->intentionalParties,
+        ];
+        return $content
+            ->header('联合资格审审批')
+            ->body(view('admin.lhsc.approval', $datas));
+    }
+
+    /**联合资格审查确认
+     */
+    public function lhscqrEdit($project_id, Content $content)
+    {
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        // $records = $this->getOptionHistory($detial->project_id);
+        $datas = [
+            'detail' => $project->detail,
+            'project' => $project,
+            'projecttype' => 'lhscqr',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'yxfs' => $project->intentionalParties,
+        ];
+        return $content
+            ->header('联合资格审查确认')
+            ->body(view('admin.lhsc.edit', $datas));
+    }
+
+    public function lhscqrSubmit(Request $request){
+        $detail_id = $request->id;
+        $project_id = $request->project_id;
+        $project = Project::find($project_id);
+        $projectService = new ProjectService();
+        $projectService->submit($project,'联合资格审查确认录入');
+        return redirect()->route($project->type.'.index');
+    }
+
+    //显示联合资格审查审批页面
+    public function lhscqrApproval($project_id, Content $content){
+        $project = Project::find($project_id);
+        $detail = $project->detail;
+        $datas = [
+            'detail' => $detail,
+            'project' => $project,
+            'projecttype' => 'lhscqr',
+            'id' => $detail->id,
+            'project_id' => $project->id,
+            'files' => $detail->files,
+            'images' => $detail->images,
+            'yxfs' => $project->intentionalParties,
+        ];
+        return $content
+            ->header('联合资格审查确认审批')
+            ->body(view('admin.lhscqr.approval', $datas));
+    }
+
+
 }

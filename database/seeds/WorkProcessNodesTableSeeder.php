@@ -12,12 +12,16 @@ class WorkProcessNodesTableSeeder extends Seeder
         $zczl = $this->createZczl();
         $qycg = $this->createQycg();
         $yxdj = $this->createYxdj();
-
-        $rows = array_merge($zczl,$qycg,$yxdj);
+        $cqzr = $this->createCqzr();
+        $zzkg = $this->createZzkg();
+        $zczr = $this->createZczr();
+        $rows = array_merge($zczl,$qycg,$yxdj,$cqzr,$zzkg,$zczr);
 
         // 将数据集合插入到数据库中
         WorkProcessNode::insert($rows);
     }
+
+    private $roles = [2,3,4,5,6,8,9];
 
     private function create($work_process_id,$code,$name,$seq,$role_id,$jurisdiction,$back_node_code,$next_node_code){
         $row = [
@@ -40,154 +44,8 @@ class WorkProcessNodesTableSeeder extends Seeder
         return $work_process->id;
     }
 
-    private $roles = [2,3,4,5,6];
-
-    private function createDefault($type){
-        $work_process_id = $this->getProcessId($type);
-        //角色ID
-        $role_id_0 = $this->roles[0];//业务员
-        $role_id_1 = $this->roles[1];//部门，1级审批
-        $role_id_2 = $this->roles[2];//风控，2级审批
-        $role_id_3 = $this->roles[3];//领导，3级审批
-        $role_id_4 = $this->roles[4];//综合部，发布
-        
-        $nodes = [
-            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
-            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
-
-            $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
-            $this->create($work_process_id,'132','【流标】退回',2,$role_id_0,'','','133'),
-            $this->create($work_process_id,'133','【流标】部门审批',3,$role_id_1,'','132','134'),
-            $this->create($work_process_id,'134','【流标】风控审批',4,$role_id_2,'','132','135'),
-            $this->create($work_process_id,'135','【流标】领导审批',5,$role_id_3,'','132','139'),
-            $this->create($work_process_id,'139','【流标】发布',6,$role_id_4,'','132','999'),
-
-            $this->create($work_process_id,'141','【终结】录入',1,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'142','【终结】退回',2,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'143','【终结】部门审批',3,$role_id_1,'','142','144'),
-            $this->create($work_process_id,'144','【终结】风控审批',4,$role_id_2,'','142','145'),
-            $this->create($work_process_id,'145','【终结】领导审批',5,$role_id_3,'','142','149'),
-            $this->create($work_process_id,'149','【终结】发布',6,$role_id_4,'','142','999'),
-
-            $this->create($work_process_id,'151','【中止】录入',1,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'152','【中止】退回',2,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'153','【中止】部门审批',3,$role_id_1,'','152','154'),
-            $this->create($work_process_id,'154','【中止】风控审批',4,$role_id_2,'','152','155'),
-            $this->create($work_process_id,'155','【中止】领导审批',5,$role_id_3,'','152','159'),
-            $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
-            $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
-
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
-            $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
-            $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
-            $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
-            $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
-            $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
-
-            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
-            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
-            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
-            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
-
-/******************************************竞价****************************************/
-//竞价结果、成交信息，附件：竞价记录
-            $this->create($work_process_id,'211','【竞价结果】录入',1,$role_id_0,'','','213'),
-            $this->create($work_process_id,'212','【竞价结果】退回',2,$role_id_0,'','','213'),
-            $this->create($work_process_id,'213','【竞价结果】部门审批',3,$role_id_1,'','212','214'),
-            $this->create($work_process_id,'214','【竞价结果】风控审批',4,$role_id_2,'','212','215'),
-            $this->create($work_process_id,'215','【竞价结果】领导审批',5,$role_id_3,'','212','219'),
-            $this->create($work_process_id,'219','【竞价结果】确认',6,$role_id_4,'','212','221'),
-
-//成交公告（竞价版）
-            $this->create($work_process_id,'221','【成交公告】录入',1,$role_id_0,'','','223'),
-            $this->create($work_process_id,'222','【成交公告】退回',2,$role_id_0,'','','223'),
-            $this->create($work_process_id,'223','【成交公告】部门审批',3,$role_id_1,'','222','224'),
-            $this->create($work_process_id,'224','【成交公告】风控审批',4,$role_id_2,'','222','225'),
-            $this->create($work_process_id,'225','【成交公告】领导审批',5,$role_id_3,'','222','229'),
-            $this->create($work_process_id,'229','【成交公告】发布',6,$role_id_4,'','222','231'),
-
-//中标通知
-            $this->create($work_process_id,'231','【中标通知】录入',1,$role_id_0,'','','233'),
-            $this->create($work_process_id,'232','【中标通知】退回',2,$role_id_0,'','','233'),
-            $this->create($work_process_id,'233','【中标通知】部门审批',3,$role_id_1,'','232','234'),
-            $this->create($work_process_id,'234','【中标通知】风控审批',4,$role_id_2,'','232','235'),
-            $this->create($work_process_id,'235','【中标通知】领导审批',5,$role_id_3,'','232','239'),
-            $this->create($work_process_id,'239','【中标通知】确认',6,$role_id_4,'','232','241'),
-
-//收费通知
-            $this->create($work_process_id,'241','【收费通知】录入',1,$role_id_0,'','','243'),
-            $this->create($work_process_id,'242','【收费通知】退回',2,$role_id_0,'','','243'),
-            $this->create($work_process_id,'243','【收费通知】部门审批',3,$role_id_1,'','242','244'),
-            $this->create($work_process_id,'244','【收费通知】风控审批',4,$role_id_2,'','242','245'),
-            $this->create($work_process_id,'245','【收费通知】领导审批',5,$role_id_3,'','242','249'),
-            $this->create($work_process_id,'249','【收费通知】确认',6,$role_id_4,'','242','251'),
-
-//上传合同
-            $this->create($work_process_id,'251','【合同】上传',1,$role_id_0,'','','261'),
-
-            $this->create($work_process_id,'261','【成交确认书】录入',1,$role_id_0,'','','263'),
-            $this->create($work_process_id,'262','【成交确认书】退回',2,$role_id_0,'','','263'),
-            $this->create($work_process_id,'263','【成交确认书】部门审批',3,$role_id_1,'','262','264'),
-            $this->create($work_process_id,'264','【成交确认书】风控审批',4,$role_id_2,'','262','265'),
-            $this->create($work_process_id,'265','【成交确认书】领导审批',5,$role_id_3,'','262','269'),
-            $this->create($work_process_id,'269','【成交确认书】确认',6,$role_id_4,'','262','999'),
-
-/******************************************评标****************************************/
-//评标结果
-            $this->create($work_process_id,'311','【评标结果】录入',1,$role_id_0,'','','313'),
-            $this->create($work_process_id,'312','【评标结果】退回',2,$role_id_0,'','','313'),
-            $this->create($work_process_id,'313','【评标结果】部门审批',3,$role_id_1,'','312','314'),
-            $this->create($work_process_id,'314','【评标结果】风控审批',4,$role_id_2,'','312','315'),
-            $this->create($work_process_id,'315','【评标结果】领导审批',5,$role_id_3,'','312','319'),
-            $this->create($work_process_id,'319','【评标结果】发布',6,$role_id_4,'','312','321'),
-
-//成交信息，附件：企业盖章版成交公告
-            $this->create($work_process_id,'321','【成交信息】录入',1,$role_id_0,'','','323'),
-            $this->create($work_process_id,'322','【成交信息】退回',2,$role_id_0,'','','323'),
-            $this->create($work_process_id,'323','【成交信息】部门审批',3,$role_id_1,'','322','324'),
-            $this->create($work_process_id,'324','【成交信息】风控审批',4,$role_id_2,'','322','325'),
-            $this->create($work_process_id,'325','【成交信息】领导审批',5,$role_id_3,'','322','329'),
-            $this->create($work_process_id,'329','【成交信息】确认',6,$role_id_4,'','322','331'),
-
-//成交公告（评标版）
-            $this->create($work_process_id,'331','【成交公告】录入',1,$role_id_0,'','','333'),
-            $this->create($work_process_id,'332','【成交公告】退回',2,$role_id_0,'','','333'),
-            $this->create($work_process_id,'333','【成交公告】部门审批',3,$role_id_1,'','332','334'),
-            $this->create($work_process_id,'334','【成交公告】风控审批',4,$role_id_2,'','332','335'),
-            $this->create($work_process_id,'335','【成交公告】领导审批',5,$role_id_3,'','332','339'),
-            $this->create($work_process_id,'339','【成交公告】发布',6,$role_id_4,'','332','341'),
-
-//中标通知
-            $this->create($work_process_id,'341','【中标通知】录入',1,$role_id_0,'','','343'),
-            $this->create($work_process_id,'342','【中标通知】退回',2,$role_id_0,'','','343'),
-            $this->create($work_process_id,'343','【中标通知】部门审批',3,$role_id_1,'','342','344'),
-            $this->create($work_process_id,'344','【中标通知】风控审批',4,$role_id_2,'','342','345'),
-            $this->create($work_process_id,'345','【中标通知】领导审批',5,$role_id_3,'','342','349'),
-            $this->create($work_process_id,'349','【中标通知】确认',6,$role_id_4,'','342','351'),
-//收费通知
-            $this->create($work_process_id,'351','【收费通知】录入',1,$role_id_0,'','','353'),
-            $this->create($work_process_id,'352','【收费通知】退回',2,$role_id_0,'','','353'),
-            $this->create($work_process_id,'353','【收费通知】部门审批',3,$role_id_1,'','352','354'),
-            $this->create($work_process_id,'354','【收费通知】风控审批',4,$role_id_2,'','352','355'),
-            $this->create($work_process_id,'355','【收费通知】领导审批',5,$role_id_3,'','352','359'),
-            $this->create($work_process_id,'359','【收费通知】确认',6,$role_id_4,'','352','361'),
-
-//上传合同
-            $this->create($work_process_id,'361','【合同】上传',1,$role_id_0,'','','999'),
 
 
-            $this->create($work_process_id,'999','【结束】',6,$role_id_0,'','',''),
-
-        ];
-        return $nodes;
-    }
 
     private function createYxdj(){
         $work_process_id = $this->getProcessId('yxdj');
@@ -208,107 +66,170 @@ class WorkProcessNodesTableSeeder extends Seeder
         ];
         return $nodes;
     }
-    private function createZczl(){
-        $work_process_id = $this->getProcessId('zczl');
+
+    //项目呈批
+    private function createXmcp($work_process_id){
         //角色ID
         $role_id_0 = $this->roles[0];//业务员
         $role_id_1 = $this->roles[1];//部门，1级审批
         $role_id_2 = $this->roles[2];//风控，2级审批
         $role_id_3 = $this->roles[3];//领导，3级审批
-        $role_id_4 = $this->roles[4];//综合部，发布
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
         
         $nodes = [
-            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
-            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
-
-            $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
-            $this->create($work_process_id,'132','【流标】退回',2,$role_id_0,'','','133'),
-            $this->create($work_process_id,'133','【流标】部门审批',3,$role_id_1,'','132','134'),
-            $this->create($work_process_id,'134','【流标】风控审批',4,$role_id_2,'','132','135'),
-            $this->create($work_process_id,'135','【流标】领导审批',5,$role_id_3,'','132','139'),
-            $this->create($work_process_id,'139','【流标】发布',6,$role_id_4,'','132','999'),
-
-            $this->create($work_process_id,'141','【终结】录入',1,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'142','【终结】退回',2,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'143','【终结】部门审批',3,$role_id_1,'','142','144'),
-            $this->create($work_process_id,'144','【终结】风控审批',4,$role_id_2,'','142','145'),
-            $this->create($work_process_id,'145','【终结】领导审批',5,$role_id_3,'','142','149'),
-            $this->create($work_process_id,'149','【终结】发布',6,$role_id_4,'','142','999'),
-
-            $this->create($work_process_id,'151','【中止】录入',1,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'152','【中止】退回',2,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'153','【中止】部门审批',3,$role_id_1,'','152','154'),
-            $this->create($work_process_id,'154','【中止】风控审批',4,$role_id_2,'','152','155'),
-            $this->create($work_process_id,'155','【中止】领导审批',5,$role_id_3,'','152','159'),
-            $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
-            $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
-
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
-            $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
-            $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
-            $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
-            $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
-            $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
-
-            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
-            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
-            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
-            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
-
-//竞价结果、成交信息，附件：竞价记录
-            $this->create($work_process_id,'211','【竞价结果】录入',1,$role_id_0,'','','213'),
-            $this->create($work_process_id,'212','【竞价结果】退回',2,$role_id_0,'','','213'),
-            $this->create($work_process_id,'213','【竞价结果】部门审批',3,$role_id_1,'','212','214'),
-            $this->create($work_process_id,'214','【竞价结果】风控审批',4,$role_id_2,'','212','215'),
-            $this->create($work_process_id,'215','【竞价结果】领导审批',5,$role_id_3,'','212','219'),
-            $this->create($work_process_id,'219','【竞价结果】确认',6,$role_id_4,'','212','221'),
-
-//成交公告（竞价版）
-            $this->create($work_process_id,'221','【成交公告】录入',1,$role_id_0,'','','223'),
-            $this->create($work_process_id,'222','【成交公告】退回',2,$role_id_0,'','','223'),
-            $this->create($work_process_id,'223','【成交公告】部门审批',3,$role_id_1,'','222','224'),
-            $this->create($work_process_id,'224','【成交公告】风控审批',4,$role_id_2,'','222','225'),
-            $this->create($work_process_id,'225','【成交公告】领导审批',5,$role_id_3,'','222','229'),
-            $this->create($work_process_id,'229','【成交公告】发布',6,$role_id_4,'','222','231'),
-
-//中标通知
-            $this->create($work_process_id,'231','【中标通知】录入',1,$role_id_0,'','','233'),
-            $this->create($work_process_id,'232','【中标通知】退回',2,$role_id_0,'','','233'),
-            $this->create($work_process_id,'233','【中标通知】部门审批',3,$role_id_1,'','232','234'),
-            $this->create($work_process_id,'234','【中标通知】风控审批',4,$role_id_2,'','232','235'),
-            $this->create($work_process_id,'235','【中标通知】领导审批',5,$role_id_3,'','232','239'),
-            $this->create($work_process_id,'239','【中标通知】确认',6,$role_id_4,'','232','241'),
-
-//收费通知
-            $this->create($work_process_id,'241','【收费通知】录入',1,$role_id_0,'','','243'),
-            $this->create($work_process_id,'242','【收费通知】退回',2,$role_id_0,'','','243'),
-            $this->create($work_process_id,'243','【收费通知】部门审批',3,$role_id_1,'','242','244'),
-            $this->create($work_process_id,'244','【收费通知】风控审批',4,$role_id_2,'','242','245'),
-            $this->create($work_process_id,'245','【收费通知】领导审批',5,$role_id_3,'','242','249'),
-            $this->create($work_process_id,'249','【收费通知】确认',6,$role_id_4,'','242','251'),
-
-//上传合同
-            $this->create($work_process_id,'251','【合同】上传',1,$role_id_0,'','','261'),
-
-            $this->create($work_process_id,'261','【成交确认书】录入',1,$role_id_0,'','','263'),
-            $this->create($work_process_id,'262','【成交确认书】退回',2,$role_id_0,'','','263'),
-            $this->create($work_process_id,'263','【成交确认书】部门审批',3,$role_id_1,'','262','264'),
-            $this->create($work_process_id,'264','【成交确认书】风控审批',4,$role_id_2,'','262','265'),
-            $this->create($work_process_id,'265','【成交确认书】领导审批',5,$role_id_3,'','262','269'),
-            $this->create($work_process_id,'269','【成交确认书】确认',6,$role_id_4,'','262','999'),
-
-            $this->create($work_process_id,'999','【结束】',6,$role_id_0,'','',''),
-
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
         ];
         return $nodes;
     }
+
+    //项目发布
+    private function createXmfb($work_process_id){
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+        ];
+        return $nodes;
+    }
+
+    //联合资格审查
+    private function createLhzgsc($work_process_id,$nextnode){
+        $lr = 131;
+        $th = 132;
+        $sp1 = 133;
+        $sp2 = 134;
+        $sp3 = 135;
+        $sp4 = 136;
+        $sp5 = 139;
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,$lr,'【联合资格审查】录入中',1,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$th,'【联合资格审查】已退回',2,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$sp1,'【联合资格审查】部门审批',3,$role_id_1,'',$th,$sp2),
+            $this->create($work_process_id,$sp2,'【联合资格审查】风控审批',4,$role_id_2,'',$th,$sp3),
+            $this->create($work_process_id,$sp3,'【联合资格审查】分管领导审批',5,$role_id_3,'',$th,$sp4),
+            $this->create($work_process_id,$sp4,'【联合资格审查】总经理审批',6,$role_id_4,'',$th,$nextnode),
+        ];
+        return $nodes;
+    }
+
+    //联合资格审查
+    private function createLhzgscjgqr($work_process_id,$nextnode){
+        $lr = 141;
+        $th = 142;
+        $sp1 = 143;
+        $sp2 = 144;
+        $sp3 = 145;
+        $sp4 = 146;
+        $sp5 = 149;
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,$lr,'【联合资格审查】录入中',1,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$th,'【联合资格审查】已退回',2,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$sp1,'【联合资格审查】部门审批',3,$role_id_1,'',$th,$sp2),
+            $this->create($work_process_id,$sp2,'【联合资格审查】风控审批',4,$role_id_2,'',$th,$sp3),
+            $this->create($work_process_id,$sp3,'【联合资格审查】分管领导审批',5,$role_id_3,'',$th,$sp4),
+            $this->create($work_process_id,$sp4,'【联合资格审查】总经理审批',6,$role_id_4,'',$th,$nextnode),
+        ];
+        return $nodes;
+    }
+
+    //联合资格审查
+    private function createLhzgscjgqr($work_process_id,$nextnode){
+        $lr = 141;
+        $th = 142;
+        $sp1 = 143;
+        $sp2 = 144;
+        $sp3 = 145;
+        $sp4 = 146;
+        $sp5 = 149;
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,$lr,'【联合资格审查】录入中',1,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$th,'【联合资格审查】已退回',2,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$sp1,'【联合资格审查】部门审批',3,$role_id_1,'',$th,$sp2),
+            $this->create($work_process_id,$sp2,'【联合资格审查】风控审批',4,$role_id_2,'',$th,$sp3),
+            $this->create($work_process_id,$sp3,'【联合资格审查】分管领导审批',5,$role_id_3,'',$th,$sp4),
+            $this->create($work_process_id,$sp4,'【联合资格审查】总经理审批',6,$role_id_4,'',$th,$nextnode),
+        ];
+        return $nodes;
+    }
+
+    /**
+     *子流程
+     * $work_process_id
+     * $startnode 开始节点
+     * $nextnode 子流程结束后的下一个节点
+     * $subname 子流程名称
+     */
+    private function subProcess($work_process_id,$startnode,$nextnode,$subName){
+        $lr = $startnode;
+        $th = $startnode+1;
+        $sp1 = $startnode+2;
+        $sp2 = $startnode+3;
+        $sp3 = $startnode+4;
+        $sp4 = $startnode+5;
+        $sp5 = $startnode+8;
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[4];//综合
+        
+        $nodes = [
+            $this->create($work_process_id,$lr,'【'.$subName.'】录入中',1,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$th,'【'.$subName.'】已退回',2,$role_id_0,'','',$sp1),
+            $this->create($work_process_id,$sp1,'【'.$subName.'】部门审批',3,$role_id_1,'',$th,$sp2),
+            $this->create($work_process_id,$sp2,'【'.$subName.'】风控审批',4,$role_id_2,'',$th,$sp3),
+            $this->create($work_process_id,$sp3,'【'.$subName.'】分管领导审批',5,$role_id_3,'',$th,$sp4),
+            $this->create($work_process_id,$sp4,'【'.$subName.'】总经理审批',6,$role_id_4,'',$th,$nextnode),
+        ];
+        
+        return $nodes;
+    }
+
+    //企业采购
     private function createQycg(){
         $work_process_id = $this->getProcessId('qycg');
         //角色ID
@@ -316,102 +237,241 @@ class WorkProcessNodesTableSeeder extends Seeder
         $role_id_1 = $this->roles[1];//部门，1级审批
         $role_id_2 = $this->roles[2];//风控，2级审批
         $role_id_3 = $this->roles[3];//领导，3级审批
-        $role_id_4 = $this->roles[4];//综合部，发布
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
         
         $nodes = [
-            $this->create($work_process_id,'111','【挂牌】录入中',1,$role_id_0,'','','113'),
-            $this->create($work_process_id,'112','【挂牌】已退回',2,$role_id_0,'','','113'),
-            $this->create($work_process_id,'113','【挂牌】部门审批',3,$role_id_1,'','112','114'),
-            $this->create($work_process_id,'114','【挂牌】风控审批',4,$role_id_2,'','112','115'),
-            $this->create($work_process_id,'115','【挂牌】领导审批',5,$role_id_3,'','112','119'),
-            $this->create($work_process_id,'119','【挂牌】确认挂牌',6,$role_id_4,'','112','120'),
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
 
-            $this->create($work_process_id,'131','【流标】录入',1,$role_id_0,'','','133'),
-            $this->create($work_process_id,'132','【流标】退回',2,$role_id_0,'','','133'),
-            $this->create($work_process_id,'133','【流标】部门审批',3,$role_id_1,'','132','134'),
-            $this->create($work_process_id,'134','【流标】风控审批',4,$role_id_2,'','132','135'),
-            $this->create($work_process_id,'135','【流标】领导审批',5,$role_id_3,'','132','139'),
-            $this->create($work_process_id,'139','【流标】发布',6,$role_id_4,'','132','999'),
-
-            $this->create($work_process_id,'141','【终结】录入',1,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'142','【终结】退回',2,$role_id_0,'','120','143'),
-            $this->create($work_process_id,'143','【终结】部门审批',3,$role_id_1,'','142','144'),
-            $this->create($work_process_id,'144','【终结】风控审批',4,$role_id_2,'','142','145'),
-            $this->create($work_process_id,'145','【终结】领导审批',5,$role_id_3,'','142','149'),
-            $this->create($work_process_id,'149','【终结】发布',6,$role_id_4,'','142','999'),
-
-            $this->create($work_process_id,'151','【中止】录入',1,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'152','【中止】退回',2,$role_id_0,'','120','153'),
-            $this->create($work_process_id,'153','【中止】部门审批',3,$role_id_1,'','152','154'),
-            $this->create($work_process_id,'154','【中止】风控审批',4,$role_id_2,'','152','155'),
-            $this->create($work_process_id,'155','【中止】领导审批',5,$role_id_3,'','152','159'),
-            $this->create($work_process_id,'159','【中止】发布',6,$role_id_4,'','152','160'),
-            $this->create($work_process_id,'160','【中止】已暂停',7,$role_id_0,'','','120'),
-
-            $this->create($work_process_id,'161','【恢复】录入',1,$role_id_0,'','160','163'),
-            $this->create($work_process_id,'162','【恢复】退回',2,$role_id_0,'','120','163'),
-            $this->create($work_process_id,'163','【恢复】部门审批',3,$role_id_1,'','162','164'),
-            $this->create($work_process_id,'164','【恢复】风控审批',4,$role_id_2,'','162','165'),
-            $this->create($work_process_id,'165','【恢复】领导审批',5,$role_id_3,'','162','169'),
-            $this->create($work_process_id,'169','【恢复】发布',6,$role_id_4,'','162','120'),
-
-            $this->create($work_process_id,'171','【延期】录入',1,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'172','【延期】退回',2,$role_id_0,'','120','173'),
-            $this->create($work_process_id,'173','【延期】部门审批',3,$role_id_1,'','172','174'),
-            $this->create($work_process_id,'174','【延期】风控审批',4,$role_id_2,'','172','175'),
-            $this->create($work_process_id,'175','【延期】领导审批',5,$role_id_3,'','172','179'),
-            $this->create($work_process_id,'179','【延期】发布',6,$role_id_4,'','172','120'),
-
-//评标结果
-            $this->create($work_process_id,'311','【评标结果】录入',1,$role_id_0,'','','313'),
-            $this->create($work_process_id,'312','【评标结果】退回',2,$role_id_0,'','','313'),
-            $this->create($work_process_id,'313','【评标结果】部门审批',3,$role_id_1,'','312','314'),
-            $this->create($work_process_id,'314','【评标结果】风控审批',4,$role_id_2,'','312','315'),
-            $this->create($work_process_id,'315','【评标结果】领导审批',5,$role_id_3,'','312','319'),
-            $this->create($work_process_id,'319','【评标结果】发布',6,$role_id_4,'','312','321'),
-
-//成交信息，附件：企业盖章版成交公告
-            $this->create($work_process_id,'321','【成交信息】录入',1,$role_id_0,'','','323'),
-            $this->create($work_process_id,'322','【成交信息】退回',2,$role_id_0,'','','323'),
-            $this->create($work_process_id,'323','【成交信息】部门审批',3,$role_id_1,'','322','324'),
-            $this->create($work_process_id,'324','【成交信息】风控审批',4,$role_id_2,'','322','325'),
-            $this->create($work_process_id,'325','【成交信息】领导审批',5,$role_id_3,'','322','329'),
-            $this->create($work_process_id,'329','【成交信息】确认',6,$role_id_4,'','322','331'),
-
-//成交公告（评标版）
-            $this->create($work_process_id,'331','【成交公告】录入',1,$role_id_0,'','','333'),
-            $this->create($work_process_id,'332','【成交公告】退回',2,$role_id_0,'','','333'),
-            $this->create($work_process_id,'333','【成交公告】部门审批',3,$role_id_1,'','332','334'),
-            $this->create($work_process_id,'334','【成交公告】风控审批',4,$role_id_2,'','332','335'),
-            $this->create($work_process_id,'335','【成交公告】领导审批',5,$role_id_3,'','332','339'),
-            $this->create($work_process_id,'339','【成交公告】发布',6,$role_id_4,'','332','341'),
-
-//中标通知
-            $this->create($work_process_id,'341','【中标通知】录入',1,$role_id_0,'','','343'),
-            $this->create($work_process_id,'342','【中标通知】退回',2,$role_id_0,'','','343'),
-            $this->create($work_process_id,'343','【中标通知】部门审批',3,$role_id_1,'','342','344'),
-            $this->create($work_process_id,'344','【中标通知】风控审批',4,$role_id_2,'','342','345'),
-            $this->create($work_process_id,'345','【中标通知】领导审批',5,$role_id_3,'','342','349'),
-            $this->create($work_process_id,'349','【中标通知】确认',6,$role_id_4,'','342','351'),
-//收费通知
-            $this->create($work_process_id,'351','【收费通知】录入',1,$role_id_0,'','','353'),
-            $this->create($work_process_id,'352','【收费通知】退回',2,$role_id_0,'','','353'),
-            $this->create($work_process_id,'353','【收费通知】部门审批',3,$role_id_1,'','352','354'),
-            $this->create($work_process_id,'354','【收费通知】风控审批',4,$role_id_2,'','352','355'),
-            $this->create($work_process_id,'355','【收费通知】领导审批',5,$role_id_3,'','352','359'),
-            $this->create($work_process_id,'359','【收费通知】确认',6,$role_id_4,'','352','361'),
-
-//上传合同
-            $this->create($work_process_id,'361','【合同】上传',1,$role_id_0,'','','999'),
-
-
-            $this->create($work_process_id,'999','【结束】',6,$role_id_0,'','',''),
-
+            $this->create($work_process_id,'999','【结束】',1,$role_id_0,'','',''),
         ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,231,999,'流标'),
+            $this->subProcess($work_process_id,241,250,'中止'),
+            $this->subProcess($work_process_id,251,120,'恢复'),
+            $this->subProcess($work_process_id,261,999,'终结'),
+            $this->subProcess($work_process_id,271,120,'延期'),
+
+            $this->subProcess($work_process_id,151,161,'交易方式确定'),
+            $this->subProcess($work_process_id,161,171,'评标结果公示'),//
+            $this->subProcess($work_process_id,171,181,'成交信息录入'),
+            $this->subProcess($work_process_id,181,191,'成交公告'),
+            $this->subProcess($work_process_id,191,201,'中标通知'),
+            $this->subProcess($work_process_id,201,211,'收费通知'),
+            $this->subProcess($work_process_id,211,999,'合同')
+            
+        );
+        // dd($nodes);
         return $nodes;
     }
 
+    //资产租赁
+    private function createZczl(){
+        $work_process_id = $this->getProcessId('zczl');
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
+
+            $this->create($work_process_id,'999','【结束】',1,$role_id_0,'','',''),
+        ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,231,999,'流标'),
+            $this->subProcess($work_process_id,241,250,'中止'),
+            $this->subProcess($work_process_id,251,120,'恢复'),
+            $this->subProcess($work_process_id,261,999,'终结'),
+            $this->subProcess($work_process_id,271,120,'延期'),
+
+            $this->subProcess($work_process_id,131,141,'联合资格审查'),
+            $this->subProcess($work_process_id,141,151,'确认联合资格审查'),
+            $this->subProcess($work_process_id,151,171,'交易方式确定'),
+            $this->subProcess($work_process_id,171,181,'成交信息录入'),
+            $this->subProcess($work_process_id,181,191,'成交公告'),
+            $this->subProcess($work_process_id,191,201,'中标通知'),
+            $this->subProcess($work_process_id,201,211,'收费通知'),
+            $this->subProcess($work_process_id,211,999,'合同')
+            
+        );
+        // dd($nodes);
+        return $nodes;
+    }
+
+    //产权转让
+    private function createCqzr(){
+        $work_process_id = $this->getProcessId('cqzr');
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
+
+            $this->create($work_process_id,'999','【结束】',1,$role_id_0,'','',''),
+        ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,231,999,'流标'),
+            $this->subProcess($work_process_id,241,250,'中止'),
+            $this->subProcess($work_process_id,251,120,'恢复'),
+            $this->subProcess($work_process_id,261,999,'终结'),
+            $this->subProcess($work_process_id,271,120,'延期'),
+
+            $this->subProcess($work_process_id,131,141,'联合资格审查'),
+            $this->subProcess($work_process_id,141,151,'确认联合资格审查'),
+            $this->subProcess($work_process_id,151,171,'交易方式确定'),
+            $this->subProcess($work_process_id,171,191,'成交信息录入'),
+            $this->subProcess($work_process_id,191,201,'中标通知'),
+            $this->subProcess($work_process_id,201,211,'收费通知'),
+            $this->subProcess($work_process_id,211,221,'合同'),
+            $this->subProcess($work_process_id,221,181,'交易鉴证'),
+            $this->subProcess($work_process_id,181,999,'成交公告')
+        );
+        // dd($nodes);
+        return $nodes;
+    }
+
+    //增资扩股
+    private function createZzkg(){
+        $work_process_id = $this->getProcessId('zzkg');
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
+
+            $this->create($work_process_id,'999','【结束】',1,$role_id_0,'','',''),
+        ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,231,999,'流标'),
+            $this->subProcess($work_process_id,241,250,'中止'),
+            $this->subProcess($work_process_id,251,120,'恢复'),
+            $this->subProcess($work_process_id,261,999,'终结'),
+            $this->subProcess($work_process_id,271,120,'延期'),
+
+            $this->subProcess($work_process_id,131,141,'联合资格审查'),
+            $this->subProcess($work_process_id,141,151,'确认联合资格审查'),
+            $this->subProcess($work_process_id,151,171,'交易方式确定'),
+            $this->subProcess($work_process_id,171,191,'成交信息录入'),
+            $this->subProcess($work_process_id,191,201,'中标通知'),
+            $this->subProcess($work_process_id,201,211,'收费通知'),
+            $this->subProcess($work_process_id,211,221,'合同'),
+            $this->subProcess($work_process_id,221,181,'交易鉴证'),
+            $this->subProcess($work_process_id,181,999,'成交公告')
+        );
+        // dd($nodes);
+        return $nodes;
+    }
+
+    //资产转让
+    private function createZczr(){
+        $work_process_id = $this->getProcessId('zczr');
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+            $this->create($work_process_id,'120','挂牌中',7,$role_id_0,'','',''),
+
+            $this->create($work_process_id,'999','【结束】',1,$role_id_0,'','',''),
+        ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,231,999,'流标'),
+            $this->subProcess($work_process_id,241,250,'中止'),
+            $this->subProcess($work_process_id,251,120,'恢复'),
+            $this->subProcess($work_process_id,261,999,'终结'),
+            $this->subProcess($work_process_id,271,120,'延期'),
+
+            $this->subProcess($work_process_id,131,141,'联合资格审查'),
+            $this->subProcess($work_process_id,141,151,'确认联合资格审查'),
+            $this->subProcess($work_process_id,151,171,'交易方式确定'),
+            $this->subProcess($work_process_id,171,191,'成交信息录入'),
+            $this->subProcess($work_process_id,191,201,'中标通知'),
+            $this->subProcess($work_process_id,201,211,'收费通知'),
+            $this->subProcess($work_process_id,211,221,'合同'),
+            $this->subProcess($work_process_id,221,181,'交易鉴证'),
+            $this->subProcess($work_process_id,181,999,'成交公告')
+        );
+        // dd($nodes);
+        return $nodes;
+    }
 
 }
 

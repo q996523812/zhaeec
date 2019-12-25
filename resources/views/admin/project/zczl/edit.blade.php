@@ -1,4 +1,4 @@
-@extends('admin.project.layouts.edit')
+@extends('admin.project.zczl.layouts.edit')
 
 @section('listurl','/admin/zczl')
 @section('printurl','/admin/zczl/print')

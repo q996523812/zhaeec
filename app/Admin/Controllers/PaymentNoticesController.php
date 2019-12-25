@@ -82,7 +82,25 @@ class PaymentNoticesController extends Controller
             $model->project_id = $project_id;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
-            $model->wtf = $detail->wtf_name;
+            switch($project->type){
+                case 'qycg':
+                    $model->wtf = $detail->targetCompanyBaseInfo->compName;
+                    break;
+                case 'zczl':
+                    $model->wtf = $detail->sellerInfo->sellerName;
+                    break;
+                case 'cqzr':
+                    $model->wtf = $detail->sellerInfo->sellerName;
+                    break;
+                case 'zzkg':
+                    $model->wtf = $detail->targetCompanyBaseInfo->compName;
+                    break;
+                case 'zczr':
+                    $model->wtf = $detail->sellerInfo->sellerName;
+                    break;
+                
+            }
+            
             $model->zbf = $zbf;
             $model->zbjg_xx = $cjxx->price_total * $cjxx->currency_unit;
             $model->wtf_fwf_xx = $cjxx->wtf_service_fee_payable * $cjxx->currency_unit;

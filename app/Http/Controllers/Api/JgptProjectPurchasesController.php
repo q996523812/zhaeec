@@ -18,6 +18,7 @@ use App\Services\InterfaceLogService;
 use App\Services\JgptProjectPurchaseService;
 use App\Services\ProjectPurchaseService;
 use App\Exceptions\VerifyException;
+use Illuminate\Support\Facades\Log;
 
 class JgptProjectPurchasesController extends ProjectLBaseController
 {
@@ -92,7 +93,8 @@ class JgptProjectPurchasesController extends ProjectLBaseController
             'message' => '',
             'status_code' => '200'
         ];
-        $params = $request->params;
+        $params = $request->params;Log::error('params = '.$params);
+        $datas = null;
         try{
             $params = $this->dealParams($params);
             $datas = $params['datas'];

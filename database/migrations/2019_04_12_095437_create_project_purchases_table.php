@@ -29,6 +29,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('wtf_jt')->comment('所属集团')->nullable();
             $table->string('wtf_dlr_name')->comment('委托代理人名称')->nullable();
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();
+            
             $table->string('xmbh')->comment('项目编号')->unique()->nullable();
             $table->string('title')->comment('标的名称')->nullable();
             $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();
@@ -39,7 +40,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
             $table->string('sfhs')->comment('是否含税')->nullable();
             $table->string('gpjg_sm')->comment('预算价格说明')->nullable();
-            $table->decimal('gpjg_zj',26,6)->comment('预算价格')->nullable();
+            $table->decimal('gpjg',26,6)->comment('预算价格（总价）')->nullable();
             $table->string('bdyx')->comment('项目(标的)意向')->nullable();
             $table->string('xmpz')->comment('项目配置类型')->nullable();
             $table->string('gq')->comment('工期')->nullable();
@@ -66,12 +67,16 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('project_id');
             // $table->foreign('project_id')->references('id')->on('projects');
             $table->string('sjly')->comment('数据来源')->nullable()->default('业务录入');
+            $table->unsignedInteger('date_type')->comment('挂牌日期类型：1：工作日、2：日历日')->default(1);
+            $table->unsignedInteger('is_member_in')->comment('是否会员带入：1：是（会员带入）、2：否（自有项目）')->default(1);
+            $table->string('customer_id')->comment('会员表ID')->nullable();
 
+            $table->unsignedInteger('is_examination')->comment('是否联合资格审查')->default(2);
 
-            $table->string('bzj_zhm')->comment('账户名')->nullable();
-            $table->string('bzj_bank')->comment('开户行')->nullable();
-            $table->string('bzj_zh')->comment('账号')->nullable();
-                       
+            $table->string('bail_account_code')->comment('账户名')->nullable();
+            $table->string('bail_account_name')->comment('开户行')->nullable();
+            $table->string('bail_account_bank')->comment('账号')->nullable();
+           
             $table->timestamps();
         });
     }

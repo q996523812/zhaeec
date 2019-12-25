@@ -46,8 +46,9 @@ class FileService
 	        $file->name = $data['name'];
 	        $file->path = $data['path'];
 	        $files[] = $file;
+	        $model->files()->save($file);
 		}
-		$files = $model->files()->saveMany($files);
+		// $files = $model->files()->saveMany($files);
 		return $files;
 	}
 

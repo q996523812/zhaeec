@@ -36,6 +36,43 @@
   </div>
 </div>
 
+<div class="form-group">
+  <label for="type" class="col-sm-2  control-label">签约时间</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="sign_date" name="sign_date" value="{{$htxx->sign_date}}" class="form-control date sign_date" placeholder="输入 签约时间">
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="type" class="col-sm-2  control-label">合同生效时间</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="effect_date" name="effect_date" value="{{$htxx->effect_date}}" class="form-control date effect_date" placeholder="输入 合同生效时间">
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="type" class="col-sm-2  control-label">合同期限开始日期</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="term_date_start" name="term_date_start" value="{{$htxx->term_date_start}}" class="form-control date term_date_start" placeholder="输入 合同期限开始日期">
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="type" class="col-sm-2  control-label">合同期限结束日期</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="term_date_end" name="term_date_end" value="{{$htxx->term_date_end}}" class="form-control date term_date_end" placeholder="输入 合同期限结束日期">
+    </div>
+  </div>
+</div>
+
 
 
 </div>

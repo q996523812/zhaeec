@@ -12,6 +12,7 @@ use App\Handlers\StreamFileHandler;
 use Illuminate\Support\Str;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class WbjkProjectBaseService
 {
@@ -180,7 +181,14 @@ class WbjkProjectBaseService
             $imageserice->batchStore($jgpt_detail,$files_data['images']);
         });
     }
-
+    public function saveFilesAndImages2($model,$files_data){
+        DB::transaction(function () use($model,$files_data) {
+            $fileserice = new FileService();
+            $fileserice->batchStore($model,$files_data['files']);
+            $imageserice = new ImageService();
+            $imageserice->batchStore($model,$files_data['images']);
+        });
+    }
     //状态更新
     public function updateStatus($id,$status){
         $model = $this->model_class::find($id);
@@ -318,10 +326,13 @@ class WbjkProjectBaseService
         DB::transaction(function () use($jgpt_detail,$files_data) {
             
             $detail = $jgpt_detail->detail;
-
+            $project = $detail->project;
+            $data = [];
             $transactionService = new TransactionService();
-            $transaction = $transactionService->insert($project,$data,$process);
-            $this->saveFilesAndImages($transaction,$files_data);
+            $transaction = $transactionService->insert($project->id,$data);
+            Log::info('---------------------transaction -------------------');
+            Log::info($transaction);
+            // $this->saveFilesAndImages2($transaction,$files_data);
         });
     }
 

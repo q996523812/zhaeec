@@ -27,13 +27,37 @@ class Project extends Model
     {
         return $this->hasOne(ProjectPurchase::class,'id','detail_id');
     }
+    public function projectConveyancing()
+    {
+        return $this->hasOne(ProjectConveyancing::class,'id','detail_id');
+    }
+    public function projectCapitalIncrease()
+    {
+        return $this->hasOne(ProjectCapitalIncrease::class,'id','detail_id');
+    }
+    public function projectTransferAsset()
+    {
+        return $this->hasOne(ProjectTransferAsset::class,'id','detail_id');
+    }
 
     public function detail(){
-        if($this->type === 'zczl'){
-            return $this->projectLease();
-        }
-        else{
-            return $this->projectPurchase();
+        switch($this->type){
+            case 'zczl':
+                return $this->projectLease();
+                break;
+            case 'qycg':
+                return $this->projectPurchase();
+                break;
+            case 'cqzr':
+                return $this->ProjectConveyancing();
+                break;
+            case 'zzkg':
+                return $this->ProjectCapitalIncrease();
+                break;
+            case 'zczr':
+                return $this->projectTransferAsset();
+                break;
+            
         }
     }
 
@@ -91,4 +115,23 @@ class Project extends Model
     {
         return $this->hasMany(Announcement::class);
     }
+
+    public function targetCompanyBaseInfo()
+    {
+        return $this->hasOne(TargetCompanyBaseInfo::class);
+    }
+
+    public function auditReports()
+    {
+        return $this->hasMany(AuditReport::class);
+    }
+    public function transactionMode()
+    {
+        return $this->hasOne(TransactionMode::class);
+    }
+    public function assetInfo()
+    {
+        return $this->hasOne(AssetInfo::class);
+    }
+
 }

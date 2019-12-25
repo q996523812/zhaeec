@@ -198,7 +198,8 @@ class ProjectLBaseController extends Controller
      *处理获取的参数
      */
     protected function dealParams($params){
-        // $type = gettype($params);
+        $type = gettype($params);
+        Log::info('type = '.$type);
         if(is_array($params)){
             
         }

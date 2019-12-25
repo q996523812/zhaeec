@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Support\Str;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TransactionService
 {
@@ -16,9 +17,12 @@ class TransactionService
     }
 
     public function insert($project_id,$data){
+        $data['id'] = (string)Str::uuid();
+        $data['project_id'] = $project_id;
     	$project = Project::find($project_id);
         $model = DB::transaction(function () use($project,$data) {
-        	$model = $project->transaction()->create($data);
+        	// $model = $project->transaction()->create($data);
+            $model = Transaction::create($data);
 		    return $model;
 		});
         return $model;

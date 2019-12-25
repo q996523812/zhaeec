@@ -92,12 +92,15 @@ class WinNoticesController extends Controller
             $model->zbf_phone = $zbf->contact_phone;
             $model->zbf_lx_1 = $zbf->companytype;
             $model->zbf_lx_2 = $zbf->economytype;
-            $model->jysj = $cjgg->jy_date;
+            if(!empty($cjgg)){
+                $model->jysj = $cjgg->jy_date;
+                $model->jycd = $cjgg->jycd;
+            }
+            
             $model->cjj_zj = $cjxx->price_total;
             $model->cjj_dj = $cjxx->price_unit;
             $model->cjj_bz = $cjxx->price_note;
             $model->jyfs = $detail->jyfs;
-            $model->jycd = $cjgg->jycd;
             $model->zbf_qy = $zbf->area;
         }
 

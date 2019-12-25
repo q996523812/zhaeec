@@ -199,19 +199,19 @@
       <td rowspan="3" class=" control-label">缴纳保证金账户</td>
       <td class="control-label">账户名称</td>
       <td colspan="2">
-        <input type="text" id="bzj_zhm" name="bzj_zhm" value="{{$detail->bzj_zhm}}" class="form-control bzj_zhm" placeholder="输入 账户名称">
+        <input type="text" id="bail_account_name" name="bail_account_name" value="{{$detail->bail_account_name}}" class="form-control bail_account_name" placeholder="输入 账户名称">
       </td>
     </tr>
     <tr>
       <td class=" control-label">开户行</td>
       <td colspan="2">
-        <input type="text" id="bzj_bank" name="bzj_bank" value="{{$detail->bzj_bank}}" class="form-control bzj_bank" placeholder="输入 开户行">
+        <input type="text" id="bail_account_bank" name="bail_account_bank" value="{{$detail->bail_account_bank}}" class="form-control bail_account_bank" placeholder="输入 开户行">
       </td>
     </tr>
     <tr>
       <td class=" control-label">账号</td>
       <td colspan="2">
-        <input type="text" id="bzj_zh" name="bzj_zh" value="{{$detail->bzj_zh}}" class="form-control bzj_zh" placeholder="输入 账号">
+        <input type="text" id="bail_account_code" name="bail_account_code" value="{{$detail->bail_account_code}}" class="form-control bail_account_code" placeholder="输入 账号">
       </td>
     </tr>        
     <tr>

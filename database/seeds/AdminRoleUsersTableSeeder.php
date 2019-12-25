@@ -16,6 +16,8 @@ class AdminRoleUsersTableSeeder extends Seeder
             $this->create(6,6),
             $this->create(6,7),
             $this->create(2,8),
+            $this->create(8,9),
+            $this->create(9,10),
         ];
 
         // 将数据集合插入到数据库中

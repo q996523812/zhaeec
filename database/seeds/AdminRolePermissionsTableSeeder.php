@@ -13,6 +13,7 @@ class AdminRolePermissionsTableSeeder extends Seeder
             $this->create(2,3),
             $this->create(2,4),
             $this->create(2,6),
+            $this->create(2,8),
             $this->create(3,2),
             $this->create(3,3),
             $this->create(3,4),

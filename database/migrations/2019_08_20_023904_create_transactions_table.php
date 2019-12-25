@@ -14,7 +14,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->string('project_id');
             $table->string('intentional_parties_id')->comment('中标方，意向方信息表ID');
             $table->unsignedInteger('currency_unit')->comment('金额单位，1：元，10000：万元，默认为元')->default(1);
@@ -25,12 +25,17 @@ class CreateTransactionsTable extends Migration
             
             $table->decimal('service_charge_receivable',26,6)->comment('中心应收服务费')->default(0);
             $table->decimal('service_charge_received',26,6)->comment('中心已收服务费')->nullable();
-            $table->string('wtf_charge_rule_id')->comment('委托方收费规则');
+
+            $table->unsignedInteger('wtf_charge_type')->comment('委托方收费类型');
+            $table->string('wtf_charge_rule_id')->comment('委托方收费规则')->nullable();
             $table->decimal('wtf_service_fee_payable',26,6)->comment('委托方应缴服务费')->default(0);
             $table->decimal('wtf_service_fee_paid',26,6)->comment('委托方已缴服务费')->nullable();
-            $table->string('zbf_charge_rule_id')->comment('中标方收费规则');
+
+            $table->unsignedInteger('zbf_charge_type')->comment('中标方收费类型');
+            $table->string('zbf_charge_rule_id')->comment('中标方收费规则')->nullable();
             $table->decimal('zbf_service_fee_payable',26,6)->comment('中标方应缴服务费')->default(0);
             $table->decimal('zbf_service_fee_paid',26,6)->comment('中标方已缴服务费')->nullable();
+            
             $table->string('charge_rule_id')->comment('应用的收费规则，收费规则表ID')->nullable();
             $table->unsignedInteger('status')->default(1);
             $table->timestamps();

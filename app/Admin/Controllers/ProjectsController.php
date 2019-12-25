@@ -7,6 +7,13 @@ use App\Models\ProjectPurchase;
 use App\Models\ProjectLease;
 use App\Models\WorkProcess;
 use App\Models\WorkProcessNode;
+use App\Models\TargetCompanyBaseInfo;
+use App\Models\TargetCompanyOwnershipStructure;
+use App\Models\AuditReport;
+use App\Models\FinancialStatement;
+use App\Models\Assessment;
+use App\Models\SellerInfo;
+use App\Models\Supervise;
 use Encore\Admin\Auth\Database\Administrator;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -49,19 +56,10 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);
         $pbresults = $project->pbResults()->get();
-        $url = '';
-        $detail = null;
-        switch($project->type){
-            case 'qycg':
-                    $detail = $project->projectPurchase()->first();        
-                    $url = 'admin.project.qycg.show';
-                break;
-            case 'zczl':
-                    $detail = ProjectLease::where('project_id',$id)->first();        
-                    $url = 'admin.project.zczl.show';
-                break;
-                 
-        }
+
+        $detail = $project->detail;
+        $url = 'admin.project.'.$project->type.'.show';
+
         $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detail->id)
                 ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
                 ->get();
@@ -76,8 +74,89 @@ class ProjectsController extends Controller
             'projecttype' => 'projects',
             'cjxx' => $detail->project->transaction,
         ]; 
+
+        $bdqy = $project->targetCompanyBaseInfo;
+        if(empty($bdqy)){
+            $bdqy = new TargetCompanyBaseInfo;
+        }
+        $sjbgs = $project->auditReports;
+        
+        if(empty($sjbgs) || $sjbgs->Count()<1){
+            $sjbg = new AuditReport;
+            switch ($project->type) {
+                case 'qycg':
+                    # code...
+                    break;
+                case 'zczl':
+                    # code...
+                    break;
+                case 'zczr':
+                    # code...
+                    break;
+                case 'cqzr':
+                    $datas['sj'] = new AuditReport;
+                    break;
+                case 'zzkg':
+                    $datas['sj1'] = new AuditReport;
+                    $datas['sj2'] = new AuditReport;
+                    $datas['sj3'] = new AuditReport;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        else{
+            switch ($this->projectTypeCode) {
+                case 'qycg':
+                    # code...
+                    break;
+                case 'zczl':
+                    # code...
+                    break;
+                case 'zczr':
+                    # code...
+                    break;
+                case 'cqzr':
+                    $datas['sj'] = $sjbgs[0];
+                    break;
+                case 'zzkg':
+                    $datas['sj1'] = $sjbgs[0];
+                    $datas['sj2'] = $sjbgs[1];
+                    $datas['sj3'] = $sjbgs[2];
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $cwbbs = $project->financialStatement;
+        if(empty($cwbb)){
+            $cwbb = new FinancialStatement;
+        }
+        $pgqk = $project->assessment;
+        if(empty($pgqk)){
+            $pgqk = new Assessment;
+        }
+        $zrf = $project->sellerInfo;
+        if(empty($zrf)){
+            $zrf = new SellerInfo;
+        }
+        $jgxx = $project->supervise;
+        if(empty($jgxx)){
+            $jgxx = new Supervise;
+        }
+
+        $datas['bdqy'] = $bdqy;
+        $datas['cwbb'] = $cwbb;
+        $datas['pgqk'] = $pgqk;
+        $datas['zrf'] = $zrf;
+        $datas['jgxx'] = $jgxx;
+
         return $content
-            ->header('审批')
+            ->header('查看')
             // body 方法可以接受 Laravel 的视图作为参数
             ->body(view($url, $datas));  
     }
@@ -124,10 +203,16 @@ class ProjectsController extends Controller
         // $grid->id('Id');
         $grid->xmbh('项目编号');
         $grid->title('项目名称');
-        $grid->type('项目类型');
+        $grid->type('项目类型')->display(function($type){
+            return getXmlxName($type);
+        });
         $grid->price('挂牌金额');
-        $grid->gp_date_start('挂牌开始时间');
-        $grid->gp_date_end('挂牌结束时间');
+        $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
+            return date('Y-m-d',strtotime($gp_date_start));
+        });
+        $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
+            return date('Y-m-d',strtotime($gp_date_end));
+        });
         $grid->process_name('项目状态');
         // $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
         // $nodes = $workProcess->nodes; 
@@ -197,139 +282,174 @@ class ProjectsController extends Controller
                 case 113:
                 case 114:
                 case 115:
+                case 116:
+                case 117:
+                case 118:
                     $bottons = getButtion($rec->type,$rec->id,'审批');
                     break;
-                case 119:
+
+                case 123:
+                case 124:
+                case 125:
+                case 126:
+                case 127:
+                case 128:
+                    $bottons = getButtion($rec->type,$rec->id,'审批');
+                    break;
+                case 129:
                     $bottons = getButtion($rec->type,$rec->id,'发布');
                     break;
 
                 case 133:
                 case 134:
                 case 135:
-                    $bottons = getButtion('lbgg',$rec->id,'审批');
+                case 136:
+                    $bottons = getButtion('lhsc',$rec->id,'审批');
                     break;
                 case 139:
-                    $bottons = getButtion('lbgg',$rec->id,'发布');
+                    
                     break;
 
                 case 143:
                 case 144:
                 case 145:
-                    $bottons = getButtion('zjgg',$rec->id,'审批');
+                case 146:
+                    $bottons = getButtion('lhscqr',$rec->id,'审批');
                     break;
                 case 149:
-                    $bottons = getButtion('zjgg',$rec->id,'发布');
+                    
                     break;
 
                 case 153:
                 case 154:
                 case 155:
-                    $bottons = getButtion('zzgg',$rec->id,'审批');
+                case 156:
+                    $bottons = getButtion('jyfs',$rec->id,'审批');
                     break;
                 case 159:
-                    $bottons = getButtion('zzgg',$rec->id,'发布');
+                    
                     break;
 
                 case 163:
                 case 164:
                 case 165:
-                    $bottons = getButtion('hfgg',$rec->id,'审批');
+                case 166:
+                    $bottons = getButtion('pbjg/list',$rec->id,'审批');
                     break;
                 case 169:
-                    $bottons = getButtion('hfgg',$rec->id,'发布');
+                    $bottons = getButtion('pbjg/list',$rec->id,'发布');
                     break;
 
                 case 173:
                 case 174:
                 case 175:
-                    $bottons = getButtion('yqgg',$rec->id,'审批');
+                case 176:
+                    $bottons = getButtion('cjxx',$rec->id,'审批');
                     break;
                 case 179:
-                    $bottons = getButtion('yqgg',$rec->id,'发布');
+                    $bottons = getButtion('cjxx',$rec->id,'确认');
+                    break;
+
+                case 183:
+                case 184:
+                case 185:
+                case 186:
+                    $bottons = getButtion('cjgg',$rec->id,'审批');
+                    break;
+                case 189:
+                    $bottons = getButtion('cjgg',$rec->id,'发布');
+                    break;
+
+                case 193:
+                case 194:
+                case 195:
+                case 196:
+                    $bottons = getButtion('zbtz',$rec->id,'审批');
+                    break;
+                case 199:
+                    $bottons = getButtion('zbtz',$rec->id,'确认');
+                    break;
+
+                case 203:
+                case 204:
+                case 205:
+                case 206:
+                    $bottons = getButtion('sftz',$rec->id,'审批');
+                    break;
+                case 209:
+                    $bottons = getButtion('sftz',$rec->id,'确认');
                     break;
 
                 case 213:
                 case 214:
                 case 215:
-                    $bottons = getButtion('cjxx',$rec->id,'审批');
+                case 216:
+                    
                     break;
                 case 219:
-                    $bottons = getButtion('cjxx',$rec->id,'确认');
+                    
                     break;
+
                 case 223:
                 case 224:
                 case 225:
-                    $bottons = getButtion('cjgg',$rec->id,'审批');
+                case 226:
+                    $bottons = getButtion('jyjz',$rec->id,'审批');
                     break;
                 case 229:
-                    $bottons = getButtion('cjgg',$rec->id,'发布');
+                    $bottons = getButtion('jyjz',$rec->id,'确认');
                     break;
+
                 case 233:
                 case 234:
                 case 235:
-                    $bottons = getButtion('zbtz',$rec->id,'审批');
+                case 236:
+                    $bottons = getButtion('lbgg',$rec->id,'审批');
                     break;
                 case 239:
-                    $bottons = getButtion('zbtz',$rec->id,'确认');
+                    $bottons = getButtion('lbgg',$rec->id,'发布');
                     break;
+
                 case 243:
                 case 244:
                 case 245:
-                    $bottons = getButtion('sftz',$rec->id,'审批');
+                case 246:
+                    $bottons = getButtion('zjgg',$rec->id,'审批');
                     break;
                 case 249:
-                    $bottons = getButtion('sftz',$rec->id,'确认');
+                    $bottons = getButtion('zjgg',$rec->id,'发布');
                     break;
+
+                case 253:
+                case 254:
+                case 255:
+                case 256:
+                    $bottons = getButtion('hfgg',$rec->id,'审批');
+                    break;
+                case 259:
+                    $bottons = getButtion('hfgg',$rec->id,'发布');
+                    break;
+
+
                 case 263:
                 case 264:
                 case 265:
-                    $bottons = getButtion('jyjz',$rec->id,'审批');
+                    $bottons = getButtion('zzgg',$rec->id,'审批');
                     break;
                 case 269:
-                    $bottons = getButtion('jyjz',$rec->id,'确认');
+                    $bottons = getButtion('zzgg',$rec->id,'发布');
                     break;
-                
-                case 313:
-                case 314:
-                case 315:
-                    $bottons = getButtion('pbjg/list',$rec->id,'审批');
+
+                case 273:
+                case 274:
+                case 275:
+                case 276:
+                    $bottons = getButtion('yqgg',$rec->id,'审批');
                     break;
-                case 319:
-                    $bottons = getButtion('pbjg/list',$rec->id,'发布');
+                case 279:
+                    $bottons = getButtion('yqgg',$rec->id,'发布');
                     break;
-                case 323:
-                case 324:
-                case 325:
-                    $bottons = getButtion('cjxx',$rec->id,'审批');
-                    break;
-                case 329:
-                    $bottons = getButtion('cjxx',$rec->id,'确认');
-                    break;
-                case 333:
-                case 334:
-                case 335:
-                    $bottons = getButtion('cjgg',$rec->id,'审批');
-                    break;
-                case 339:
-                    $bottons = getButtion('cjgg',$rec->id,'发布');
-                    break;
-                case 343:
-                case 344:
-                case 345:
-                    $bottons = getButtion('zbtz',$rec->id,'审批');
-                    break;
-                case 349:
-                    $bottons = getButtion('zbtz',$rec->id,'确认');
-                    break;
-                case 353:
-                case 354:
-                case 355:
-                    $bottons = getButtion('sftz',$rec->id,'审批');
-                    break;
-                case 359:
-                    $bottons = getButtion('sftz',$rec->id,'确认');
-                    break;
-                
+
 
             }
             $actions->append($bottons);
@@ -396,6 +516,7 @@ class ProjectsController extends Controller
         $projectids = DB::table('work_process_instances')
             ->leftJoin('work_process_nodes','work_process_instances.work_process_node_id','=','work_process_nodes.id')
             ->whereIn('work_process_nodes.role_id',$roles)
+            ->orWhere('work_process_instances.user_id',$user->id)
             ->pluck('work_process_instances.table_id');
 
         return $projectids;

@@ -6,6 +6,9 @@ use App\Models\File;
 use App\Models\Project;
 use App\Models\ProjectLease;
 use App\Models\ProjectPurchase;
+use App\Models\ProjectConveyancing;
+use App\Models\ProjectCapitalIncrease;
+use App\Models\ProjectTransferAsset;
 use App\Models\IntentionalParty;
 use App\Models\Transaction;
 use App\Models\TransactionAnnouncement;
@@ -71,11 +74,21 @@ class FilesController extends Controller
             case 'zczl':
                 $model = ProjectLease::class;
                 break;
-            case 'yxdj':
-                $model = IntentionalParty::class;
-                break;    
             case 'qycg':
                 $model = ProjectPurchase::class;
+                break;
+            case 'cqzr':
+                $model = ProjectConveyancing::class;
+                break;
+            case 'zzkg':
+                $model = ProjectCapitalIncrease::class;
+                break;
+            case 'zczr':
+                $model = ProjectTransferAsset::class;
+                break;
+                
+            case 'yxdj':
+                $model = IntentionalParty::class;
                 break;
             case 'cjxx':
                 $model = Transaction::class;

@@ -30,7 +30,7 @@ class ProjectCodesTableSeeder extends Seeder
             $this->create(1,'信息预披露','ypl','YP',1),
             $this->create(2,'企业采购','qycg','CG',1),
             $this->create(3,'资产租赁','zczl','ZL',1),
-            $this->create(4,'企业产权','qycq','C',1),
+            $this->create(4,'产权转让','cqzr','C',1),
             $this->create(5,'资产转让','zczr','D',1),
             $this->create(6,'增资扩股','zzkg','ZZ',1),
             $this->create(7,'招商引资','zsyz','ZS',1),

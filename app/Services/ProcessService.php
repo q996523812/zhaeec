@@ -10,6 +10,9 @@ use App\Models\WorkProcessRecord;
 use App\Models\Project;
 use App\Models\ProjectLease;
 use App\Models\ProjectPurchase;
+use App\Models\ProjectConveyancing;
+use App\Models\ProjectCapitalIncrease;
+use App\Models\ProjectTransferAsset;
 use App\Models\IntentionalParty;
 use App\Models\Announcement;
 use Illuminate\Support\Str;
@@ -32,7 +35,34 @@ class ProcessService
 		$model = $model_class::find($table_id);
 		//流程实例
 		$instanceService = new WorkProcessInstanceService();
-		$instance = $instanceService->create($table_id,$instance_type,$init_node_code);
+		$instance = $instanceService->create($table_id,$instance_type,$init_node_code,null);
+
+		//流程记录
+		$recordService = new WorkProcessRecordService();
+		$record = $recordService->create($table_id,$instance, $model->process_name,$operation,null);
+
+		$process = $instance->process;
+		$nextnode = $instance->node;
+		//更新业务表流程状态	
+		$model->process = $nextnode->code;
+		$model->process_name = $nextnode->name;
+		$model->save();
+
+		if($process->type != 'yxdj'){
+			//业务表为项目明细表时，更新项目主表（project）的流程状态
+			$project = $model->project;
+			$project->process = $nextnode->code;
+			$project->process_name = $nextnode->name;
+			$project->save();
+		}
+		
+	}
+	public function create2($instance_type,$table_id,$operation,$init_node_code,$next_user_id){
+		$model_class = $this->getModelClass($instance_type);
+		$model = $model_class::find($table_id);
+		//流程实例
+		$instanceService = new WorkProcessInstanceService();
+		$instance = $instanceService->create($table_id,$instance_type,$init_node_code,$next_user_id);
 
 		//流程记录
 		$recordService = new WorkProcessRecordService();
@@ -113,7 +143,8 @@ class ProcessService
 			$project->process = $nextnode->code;
 			$project->process_name = $nextnode->name;
 			$project->save();
-
+			
+/*
 			if(in_array($process_old,[131,132,133,134,135,139,141,142,143,144,145,149,151,152,153,154,155,159,161,162,163,164,165,169,171,172,173,174,175,179])){
 				$announcement = $project->announcements()->where('process',$process_old)->first();
 				$announcement_process_new = null;
@@ -126,6 +157,7 @@ class ProcessService
 				$announcement->process = $announcement_process_new;
 				$announcement->save();
 			}
+*/			
 		}
 
 		
@@ -142,6 +174,17 @@ class ProcessService
 			case 'yxdj':
 				$model = IntentionalParty::class;
 				break;
+			case 'cqzr':
+				$model = ProjectConveyancing::class;
+				break;
+			case 'zzkg':
+				$model = ProjectCapitalIncrease::class;
+				break;
+			case 'zczr':
+				$model = ProjectTransferAsset::class;
+				break;
+			
+			
 		}
 		return $model;
 	}
