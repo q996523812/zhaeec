@@ -19,12 +19,12 @@
 <table class="table table-bordered" cellspacing="1" cellpadding="0">
 	<tbody><tr>
 		<th style="width:300px;">项目名称<font color="red">*</font></th>
-		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="proName" maxlength="100" value="{{$detail->proName}}" size="50"></td>
+		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>
 	</tr>
 	<tr>
 		<th style="width:300px;">转让底价(万元)<font color="red">*</font></th>
 		<td>
-         	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="proPrice" name="proPrice" value="{{$detail->proPrice}}">&nbsp;&nbsp;
+         	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
 			<span id="proPrice_zh" style="color:red;font-size:16px;">(壹佰万)</span>
          </td>
 	</tr>
@@ -34,12 +34,14 @@
  			<div id="isGzw_div"></div>
 		</td>
 	</tr>
+	<!--
 	<tr>
 		<th style="width:280px;">是否让公共资源采集</th>
 		<td>
 			<div id="pauseTime_div"></div>
 		</td>
 	</tr>
+-->
 	<tr>
 	<th>资产类型<font color="red">*</font></th>
 		<td>
@@ -56,15 +58,15 @@
 			<div id="distpicker1">
                 <div class="col-sm-3">
                   <label class="sr-only" for="province">Province</label>
-                  <select class="form-control" id="province" name="province"></select>
+                  <select class="form-control" id="province" name="proProvince"></select>
                 </div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="city">City</label>
-                  <select class="form-control" id="city" name="city"></select>
+                  <select class="form-control" id="city" name="proCity"></select>
                 </div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="area" >District</label>
-                  <select class="form-control" id="county" name="county"></select>
+                  <select class="form-control" id="county" name="proCounty"></select>
                 </div>
             </div>
 			
@@ -237,8 +239,8 @@
 		</tr>
 	  	<tr>
 		<th class="th-m-80">保证金金额（万元）<font color="red">*</font></th>
-		<td><input type="text" id="pubBailWan" value="{{$detail->pubBailWan}}" class="easyui-validatebox validatebox-text" required="true">
-		<b class="bigPrice">万元</b> <span id="pubBail" class="bigPrice"></span>
+		<td><input type="text" id="pubBail" name="pubBail" value="{{$detail->pubBail}}" class="easyui-validatebox validatebox-text" required="true">
+		<b class="bigPrice">万元</b> <span id="pubBail_zh" class="bigPrice"></span>
 		</td>
 	</tr>
 		<tr>
@@ -368,9 +370,9 @@
         //行政区划下拉框联动
         $("#distpicker1").distpicker({
           autoSelect: false,
-          province: "{{$detail->province}}",
-          city: "{{$detail->city}}",
-          district: "{{$detail->county}}"
+          province: "{{$detail->proProvince}}",
+          city: "{{$detail->proCity}}",
+          district: "{{$detail->proCounty}}"
         });
 
 	

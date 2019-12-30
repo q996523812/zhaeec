@@ -80,7 +80,12 @@ class ProjectsController extends Controller
             $bdqy = new TargetCompanyBaseInfo;
         }
         $sjbgs = $project->auditReports;
-        
+
+        $bdxq = $detail->assetInfo;
+        if(empty($bdxq)){
+            $bdxq = new AssetInfo;
+        }
+
         if(empty($sjbgs) || $sjbgs->Count()<1){
             $sjbg = new AuditReport;
             switch ($project->type) {
@@ -91,7 +96,7 @@ class ProjectsController extends Controller
                     # code...
                     break;
                 case 'zczr':
-                    # code...
+                    $datas['bdxq'] = new AssetInfo;
                     break;
                 case 'cqzr':
                     $datas['sj'] = new AuditReport;
@@ -116,7 +121,7 @@ class ProjectsController extends Controller
                     # code...
                     break;
                 case 'zczr':
-                    # code...
+                    $datas['bdxq'] = $bdxq;
                     break;
                 case 'cqzr':
                     $datas['sj'] = $sjbgs[0];

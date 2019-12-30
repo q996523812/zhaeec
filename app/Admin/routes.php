@@ -142,6 +142,10 @@ Route::group([
     $router->post('jgxx', 'SupervisesController@insert');
     $router->post('jgxx/update', 'SupervisesController@modify');
 
+    //监管信息
+    $router->post('bdxq', 'AssetInfosController@insert');
+    $router->post('bdxq/update', 'AssetInfosController@modify');
+
     //挂牌时间
     $router->get('gpsj/edit/{project_id}', 'ProjectBaseController@gpsjEdit');
     $router->post('gpsj/modify', 'ProjectBaseController@gpsjSave');

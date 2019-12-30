@@ -14,6 +14,7 @@ use App\Models\FinancialStatement;
 use App\Models\Assessment;
 use App\Models\SellerInfo;
 use App\Models\Supervise;
+use App\Models\AssetInfo;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -205,7 +206,12 @@ class ProjectBaseController extends Controller
             $bdqy = new TargetCompanyBaseInfo;
         }
         $sjbgs = $detail->auditReports;
-        
+
+        $bdxq = $detail->assetInfo;
+        if(empty($bdxq)){
+            $bdxq = new AssetInfo;
+        }
+
         if(empty($sjbgs) || $sjbgs->Count()<1){
             $sjbg = new AuditReport;
             switch ($this->projectTypeCode) {
@@ -216,7 +222,7 @@ class ProjectBaseController extends Controller
                     # code...
                     break;
                 case 'zczr':
-                    # code...
+                    $datas['bdxq'] = new AssetInfo;
                     break;
                 case 'cqzr':
                     $datas['sj'] = new AuditReport;
@@ -241,7 +247,7 @@ class ProjectBaseController extends Controller
                     # code...
                     break;
                 case 'zczr':
-                    # code...
+                    $datas['bdxq'] = $bdxq;
                     break;
                 case 'cqzr':
                     $datas['sj'] = $sjbgs[0];

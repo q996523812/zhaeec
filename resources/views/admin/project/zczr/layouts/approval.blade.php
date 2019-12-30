@@ -15,11 +15,9 @@
     <div>
       <ul id="myTab" class="nav nav-tabs ">
         <li><a href="#tab1" data-toggle="tab">基本信息</a></li>
-        <li><a href="#tab2" data-toggle="tab">标的企业情况</a></li> 
-        <li><a href="#tab3" data-toggle="tab">财务信息</a></li> 
+        <li><a href="#tab2" data-toggle="tab">标的情况</a></li>
         <li><a href="#tab4" data-toggle="tab">评估情况</a></li>
         <li><a href="#tab5" data-toggle="tab">转让方</a></li>
-        <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
         <li><a href="#tab7" data-toggle="tab">附件</a></li> 
         <li><a href="#tab8" data-toggle="tab">图片</a></li> 
         <li><a href="#tab9" data-toggle="tab">意向方</a></li> 
@@ -35,14 +33,9 @@
         <div class="tab-pane fade" id="tab1">
           @yield('content')        
         </div>
-        <!--标的企业情况-->
+        <!--标的情况-->
         <div class="tab-pane fade" id="tab2">
           @include('admin.project.fsxx.bdqy._show') 
-        </div>
-        <!--财务信息-->
-        <div class="tab-pane fade" id="tab3">
-          @include('admin.project.fsxx.sjbg._show') 
-          @include('admin.project.fsxx.cwbb._show') 
         </div>
         <!--评估情况-->
         <div class="tab-pane fade" id="tab4">
@@ -51,10 +44,6 @@
         <!--转让方-->
         <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.zrf._show') 
-        </div>
-        <!--监管信息-->
-        <div class="tab-pane fade" id="tab6">
-          @include('admin.project.fsxx.jgxx._show') 
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab7">

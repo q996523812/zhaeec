@@ -50,7 +50,7 @@
 		</td>
 	</tr>
 </tbody></table>
-<center><a href="javascript:void(0)" id="btnSaveBdxq" class="btn btn-primary btn-pass" onclick="glebeSubmit();">保存信息</a></center>
+<center><a href="javascript:void(0)" id="btnSaveBdxq" class="btn btn-primary btn-pass">保存信息</a></center>
 </div>
 </div>
 

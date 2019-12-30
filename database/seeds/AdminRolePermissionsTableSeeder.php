@@ -30,7 +30,23 @@ class AdminRolePermissionsTableSeeder extends Seeder
             $this->create(4,8),
             $this->create(5,8),
             $this->create(6,8),
-            
+            $this->create(10,2),
+            $this->create(10,3),
+            $this->create(10,4),
+            $this->create(9,2),
+            $this->create(9,3),
+            $this->create(9,4),
+            $this->create(9,8),
+            $this->create(8,2),
+            $this->create(8,3),
+            $this->create(8,4),
+            $this->create(8,8),
+            $this->create(7,2),
+            $this->create(7,3),
+            $this->create(7,4),
+            $this->create(7,6),
+            $this->create(7,7),
+            $this->create(7,8),
         ];
 
         // 将数据集合插入到数据库中

@@ -23,11 +23,11 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('spare4',1000)->comment('合作机构信息');
             $table->string('proDesc',1000)->comment('项目概述');
             $table->unsignedInteger('isGzw')->comment('是否国资');
-            $table->unsignedInteger('pauseTime')->comment('是否让公共资源采集');
+            $table->unsignedInteger('pauseTime')->comment('是否让公共资源采集')->nullable();
             $table->unsignedInteger('proType')->comment('资产类型');
-            $table->string('proProvince')->comment('标的所在地区-省');
-            $table->string('proCity')->comment('标的所在地区-市');
-            $table->string('proCounty')->comment('标的所在地区-县');
+            $table->string('proProvince')->comment('标的所在地区-省')->nullable();
+            $table->string('proCity')->comment('标的所在地区-市')->nullable();
+            $table->string('proCounty')->comment('标的所在地区-县')->nullable();
             $table->unsignedInteger('proSource')->comment('资产来源');
 
             //挂牌信息
@@ -35,12 +35,12 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->datetime('gp_date_start')->comment('挂牌开始日期')->nullable();
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
             $table->unsignedInteger('pubDelayFlag')->comment('是否自动延牌');
-            $table->unsignedInteger('delayBuyerSize')->comment('延牌条件（少于等于XX个意向方）');
-            $table->unsignedInteger('delayMax')->comment('最长延长周期数');
-            $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）');
+            $table->unsignedInteger('delayBuyerSize')->comment('延牌条件（少于等于XX个意向方）')->nullable();
+            $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
+            $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
             $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价');
-            $table->unsignedInteger('pubDealWay')->comment('征集到两个以上受让方采用的交易方式');
-            $table->string('dealWayDesc')->comment('其他交易方式说明');
+            $table->unsignedInteger('pubDealWay')->comment('征集到两个以上受让方采用的交易方式')->nullable();
+            $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
             $table->unsignedInteger('bidmode')->comment('报价方式');
 
             //披露信息
@@ -52,8 +52,8 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->decimal('pubBail',26,6)->comment('保证金金额（万元）');
             $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间');
             $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求');
-            $table->unsignedInteger('pubBailDays')->comment(' XX个工作日17:00前有效(以银行到账时间为准)');
-            $table->string('pubBailMethod')->comment('保证金交纳方式');
+            $table->unsignedInteger('pubBailDays')->comment(' XX个工作日17:00前有效(以银行到账时间为准)')->nullable();
+            $table->string('pubBailMethod')->comment('保证金交纳方式')->nullable();
             $table->string('bail_account_code')->comment('账号');
             $table->string('bail_account_name')->comment('账户名称');
             $table->string('bail_account_bank')->comment('开户行');
@@ -62,13 +62,13 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('buyConditions',1000)->comment('受让方资格条件');
             $table->string('pubPayMode')->comment('价款支付方式');
             $table->string('payPeriodInfo',200)->comment('价款支付要求');
-            $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料');
+            $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
             $table->text('important')->comment('重大事项及其他披露内容');
             $table->text('sellConditions')->comment('与转让相关的其他条件');
             $table->text('valueDesc',1000)->comment('保证内容');
             $table->text('pubBailMemo',1000)->comment('处置方法');
 
-            $table->unsignedInteger('buyerAuditLevel')->comment('受让审核级别');
+            $table->unsignedInteger('buyerAuditLevel')->comment('受让审核级别')->nullable();
             
             //其他
             $table->unsignedInteger('is_examination')->comment('是否联合资格审查')->default(2);
