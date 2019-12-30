@@ -6,7 +6,7 @@
 
 			<div class="row">
 				{{csrf_field()}}
-				<input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$bdqy->project_id}}">
+				<input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$project->id}}">
 				<input type="hidden" name="financialStatement_id" id="financialStatement_id" value="{{$cwbb->id}}">
 			</div>
 

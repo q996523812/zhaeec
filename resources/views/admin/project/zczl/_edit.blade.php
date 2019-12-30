@@ -71,7 +71,7 @@
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-          <input type="text" id="gpjg_zj" name="gpjg_zj" value="{{$detail->gpjg_zj}}" class="form-control money gpjg_zj" placeholder="输入 总租金">
+          <input type="text" id="gpjg" name="gpjg" value="{{$detail->gpjg}}" class="form-control money gpjg" placeholder="输入 总租金">
         </div>
       </td>
       <td class=" control-label">是否含税</td>

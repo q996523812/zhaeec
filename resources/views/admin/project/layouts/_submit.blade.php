@@ -16,7 +16,11 @@
               <tr>
           	    <th style="width:260px;">复核人<font color="red">*</font></th>
           	    <td colspan="3">
-                  <select id="fhr" name="fhr"></select>
+                  <select id="fhr" name="fhr">
+                    @foreach($users as $user)
+                      <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
+                  </select>
                 </td>
             	</tr>
 
@@ -34,32 +38,7 @@
   </div>
   <script>
     $(function () {
-      function getBusinessUsers(){
-        $.ajax({
-          type : "post",
-          url : '/admin/user/business',
-          data : {},
-          cache: false,
-          processData: false,
-          contentType: false,
-          success : function(str_reponse){
-          //console.log(str_reponse);
-            var users = str_reponse.users;
-            var options = "";
-            for(var i =0; i<users.length;i++){
-              var user = users[i];
-              options += "<option value=\""+user.id+"\">"+user.name+"</option>";
-            }
-            $("#fhr").html(options);
-          },
-          error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
-            $("button").removeAttr("disabled");
-            //error(XMLHttpRequest);
 
-          }
-        });
-      }
-      getBusinessUsers();
     });
   </script> 
 </form>

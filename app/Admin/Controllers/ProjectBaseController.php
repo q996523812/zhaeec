@@ -33,6 +33,8 @@ use App\Services\ProjectBaseService;
 use App\Services\ProjectService;
 use App\Http\Requests\ProjectLeasesRequest;
 use Carbon\Carbon;
+use Encore\Admin\Auth\Database\Administrator;
+use Encore\Admin\Auth\Database\Role;
 
 class ProjectBaseController extends Controller
 {
@@ -86,7 +88,7 @@ class ProjectBaseController extends Controller
         $detail = $this->detail_class::find($id);
         $datas = $this->getDatasToView($detail);
         $datas['cjxx'] = $detail->project->transaction;
-        $url = $this->getViewUrl('show');  
+        $url = $this->getViewUrl('show');
         return $content
             ->header($this->projectTypeName.'-查看')
             // body 方法可以接受 Laravel 的视图作为参数
@@ -112,6 +114,9 @@ class ProjectBaseController extends Controller
             $this->getMarginAcount($detail);
         }
         $datas = $this->getDatasToView($detail);
+        $role = Role::find(2);
+        $users = $role->administrators;
+        $datas['users'] = $users;
         $url = $this->getViewUrl('edit');  
         return $content
             ->header($this->projectTypeName.'-编辑')
@@ -129,7 +134,9 @@ class ProjectBaseController extends Controller
         $detail = new $this->detail_class;
         $this->getMarginAcount($detail);
         $datas = $this->getDatasToView($detail);
-
+        $role = Role::find(2);
+        $users = $role->administrators;
+        $datas['users'] = $users;
         $url = $this->getViewUrl('edit');
         return $content
             ->header('新增')
@@ -194,13 +201,11 @@ class ProjectBaseController extends Controller
             'images' => $detail->images,
         ];
 
-        // $datas['bdqy'] = new TargetCompanyBaseInfo;
-        // $datas['sj'] = new AuditReport;
-        // $datas['cwbb'] = new FinancialStatement;
-        // $datas['pgqk'] = new Assessment;
-        // $datas['zrf'] = new SellerInfo;
-        // $datas['jgxx'] = new Supervise;
         $project =$detail->project;
+        if(empty($project)){
+            $project = new Project;
+        }
+
         $bdqy = $detail->targetCompanyBaseInfo;
         if(empty($bdqy)){
             $bdqy = new TargetCompanyBaseInfo;
@@ -280,6 +285,7 @@ class ProjectBaseController extends Controller
             $jgxx = new Supervise;
         }
 
+        $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
         $datas['cwbb'] = $cwbb;
         $datas['pgqk'] = $pgqk;

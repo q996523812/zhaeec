@@ -5,7 +5,7 @@
 
         <div class="row">
           {{csrf_field()}}
-      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$sj1->project_id}}">
+      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$project->id}}">
       <input type="hidden" name="auditReport_id" id="auditReport_id" value="{{$sj1->id}}">
         </div>
 
@@ -124,7 +124,7 @@
 
         <div class="row">
           {{csrf_field()}}
-      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$sj2->project_id}}">
+      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$project->id}}">
       <input type="hidden" name="auditReport_id" id="auditReport_id" value="{{$sj2->id}}">
         </div>
 
@@ -243,7 +243,7 @@
 
         <div class="row">
           {{csrf_field()}}
-      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$sj3->project_id}}">
+      <input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$project->id}}">
       <input type="hidden" name="auditReport_id" id="auditReport_id" value="{{$sj3->id}}">
         </div>
 

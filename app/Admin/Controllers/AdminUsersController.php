@@ -19,7 +19,7 @@ class AdminUsersController extends Controller
         $users = $role->administrators;
         $result = [
             'success' => 'true',
-            'message' => '',
+            'message' => $role,
             'users' => $users,
             'status_code' => '200'
         ];

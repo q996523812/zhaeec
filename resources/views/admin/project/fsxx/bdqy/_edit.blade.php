@@ -5,7 +5,7 @@
 
         <div class="row">
           {{csrf_field()}}
-			<input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$bdqy->project_id}}">
+			<input type="hidden" name="project_id" id="project_id" class="project_id" value="{{$project->id}}">
 			<input type="hidden" name="targetCompanyBaseInfo_id" id="targetCompanyBaseInfo_id" value="{{$bdqy->id}}">
         </div>
 
@@ -57,14 +57,14 @@
 		<td colspan="3">
 			<div class="input-group">
 	          <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-	          <input type="text" id="compTime" name="compTime" value="{{$detail->compTime}}" class="form-control date" placeholder="输入 成立时间">
+	          <input type="text" id="compTime" name="compTime" value="{{$bdqy->compTime}}" class="form-control date" placeholder="输入 成立时间">
 	        </div>
 		</td>
 	</tr>
 	<tr>
 		<th>所在地区<font color="red">*</font></th>
 		<td colspan="3">
-			<div id="distpicker1">
+			<div id="distpicker11">
                 <div class="col-sm-3">
                   <label class="sr-only" for="province">Province</label>
                   <select class="form-control" id="compProvince" name="compProvince"></select>
@@ -208,7 +208,7 @@
     $(function () {
 
         //行政区划下拉框联动
-        $("#distpicker1").distpicker({
+        $("#distpicker11").distpicker({
           autoSelect: false,
           province: "{{$bdqy->compProvince}}",
           city: "{{$bdqy->compCity}}",
@@ -221,7 +221,7 @@
           autoSelect: false,
           type: "companytype",
 	  		savetype: 2,
-          selectvalue: "{{$bdqy->companytype}}"
+          selectvalue: "{{$bdqy->compUniGslx}}"
         });
         $('#compUniJjlx').selecter({
           autoSelect: false,
