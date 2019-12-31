@@ -177,6 +177,11 @@ Route::group([
     //查询所有业务员权限用户
     $router->post('user/business', 'AdminUsersController@getBusinessUsers');
 
+    //其他公告
+    $router->get('gg/edit/{project_id}', 'ProjectBaseController@zpEdit');
+    $router->post('gg/{project_id}', 'ProjectBaseController@zp');
+
+
     /****************2、文件与图片********************/
     $router->post('images/store', 'ImagesController@store');
     $router->post('images/destroy', 'ImagesController@destroy');    

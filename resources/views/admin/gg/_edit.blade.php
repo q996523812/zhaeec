@@ -22,7 +22,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="title" name="title" value="{{$zzgg->title}}" class="form-control title" placeholder="输入 标的名称" readyonly="readonly">
+      <input type="text" id="title" name="title" value="{{$zzgg->title}}" class="form-control readonly title" placeholder="输入 标的名称" readyonly="readonly">
     </div>
   </div>
 </div>
@@ -113,8 +113,6 @@
         });
 
         //金额、数字
-        // $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
         //下拉框
         

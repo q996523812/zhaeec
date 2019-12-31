@@ -14,6 +14,7 @@ use App\Models\FinancialStatement;
 use App\Models\Assessment;
 use App\Models\SellerInfo;
 use App\Models\Supervise;
+use App\Models\AssetInfo;
 use Encore\Admin\Auth\Database\Administrator;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
