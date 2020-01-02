@@ -20,12 +20,9 @@ class AnnouncementsController extends Controller
     protected $service;
     protected $module_type;//模块：zzgg、zjgg、yqgg、等
     protected $processes;
-    public function __construct(AnnouncementService $announcementService,$module_type,$processes)
+    public function __construct(AnnouncementService $announcementService)
     {
         $this->service = $announcementService;
-        $this->module_type = $module_type;
-        $this->processes = $processes;
-        
     }
 
     /**
@@ -67,11 +64,53 @@ class AnnouncementsController extends Controller
     public function edit($project_id, Content $content)
     {
         $project = Project::find($project_id);
-        $model = $project->announcements()->where('type','zzgg')->whereIn('process',[$this->processes[2],$this->processes[5]])->first();
+        // $model = $project->announcements()->where('type',$type)->whereIn('process',[$this->processes[2],$this->processes[5]])->first();
+        $model = $project->announcements()->where('type',$this->module_type)->where('process',2)->first();
         if(!empty($model)){
             throw \Exception("已存在审批中的公告，不能新增");
         }
-        $model = $project->announcements()->where('type','zzgg')->whereIn('process',[$this->processes[0],$this->processes[1]])->first();
+        // $model = $project->announcements()->where('type',$this->module_type)->whereIn('process',[$this->processes[0],$this->processes[1]])->first();
+        $model = $project->announcements()->where('type',$this->module_type)->where('process',1)->first();
+        if(empty($model)){
+            $model = new Announcement();
+            $model->type = $this->module_type;
+            $model->xmbh = $project->xmbh;
+            $model->title = $project->title;
+            $model->wtf_name = $project->detail->wtf_name;
+            $model->inscription_company = '珠海产权交易中心有限责任公司';
+            $model->inscription_date = date("Y-m-d");
+            
+        }
+        $datas = [
+            'project' => $project,
+            'id' => $model->id,
+            'gg' => $model,
+            'projecttype' => $this->module_type,
+            'files' => $model->files,
+            'images' => $model->images,
+        ];
+        return $content
+            ->header($this->service->getAnnouncementTypeName($this->module_type).'录入')
+            // ->description('录入正式发布的成交公告')
+            ->body(view('admin.gg.'.$this->module_type.'.edit', $datas)); 
+    }
+
+    /**
+     * Edit interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function editDefault($type,$project_id, Content $content)
+    {
+        $project = Project::find($project_id);
+        // $model = $project->announcements()->where('type',$type)->whereIn('process',[$this->processes[2],$this->processes[5]])->first();
+        $model = $project->announcements()->where('type',$type)->where('process',[$this->processes[2],$this->processes[5]])->first();
+        if(!empty($model)){
+            throw \Exception("已存在审批中的公告，不能新增");
+        }
+        $model = $project->announcements()->where('type',$type)->whereIn('process',[$this->processes[0],$this->processes[1]])->first();
         if(empty($model)){
             $model = new Announcement();
             $model->type = $this->module_type;
@@ -204,7 +243,7 @@ class AnnouncementsController extends Controller
         $data = $request->only($this->fields);
         $project_id = $request->project_id;
         $project = Project::find($project_id);
-        $model = $this->service->insert($project,$data,$this->processes[0]);
+        $model = $this->service->insert($project,$data);
         $result = [
             'success' => 'true',
             'message' => $model,
@@ -216,7 +255,7 @@ class AnnouncementsController extends Controller
     public function modify(AnnouncementRequest $request){
         $data = $request->only($this->fields);
         $id = $request->id;
-        $model = Announcement::find($id);
+        
         $model = $this->service->modify($id,$data);
         $result = [
             'success' => 'true',
@@ -232,6 +271,32 @@ class AnnouncementsController extends Controller
         $project = $model->project;
         $model = $this->service->submit($project,$model);
         return redirect()->route($project->type.'.index');
+    }
+
+    /**
+     * 显示审批页面
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function approval($project_id, Content $content)
+    {
+        $project = Project::find($project_id);
+        $model = $project->announcements()->where('type',$this->module_type)->whereIn('process',[1,2])->first();
+        
+        $datas = [
+            'project' => $project,
+            'id' => $model->id,
+            'gg' => $model,
+            'projecttype' => $this->module_type,
+            'files' => $model->files,
+            'images' => $model->images,
+        ];
+        return $content
+            ->header($this->service->getAnnouncementTypeName($this->module_type).'录入')
+            // ->description('录入正式发布的成交公告')
+            ->body(view('admin.gg.'.$this->module_type.'.approval', $datas)); 
     }
 
 }

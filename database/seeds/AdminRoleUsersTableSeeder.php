@@ -19,7 +19,7 @@ class AdminRoleUsersTableSeeder extends Seeder
             $this->create(8,9),
             $this->create(9,10),
             $this->create(2,11),
-            $this->create(2,12),
+            $this->create(3,12),
             $this->create(2,13),
             $this->create(2,14),
             $this->create(2,15),
@@ -28,8 +28,8 @@ class AdminRoleUsersTableSeeder extends Seeder
             $this->create(2,18),
             $this->create(2,19),
             $this->create(2,20),
-            $this->create(2,21),
-            $this->create(2,22),
+            $this->create(10,21),
+            $this->create(10,22),
         ];
 
         // 将数据集合插入到数据库中

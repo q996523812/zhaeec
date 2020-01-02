@@ -23,29 +23,10 @@ class AnnouncementRecoversController extends AnnouncementsController
     public function __construct(AnnouncementService $announcementService)
     {
         $processes = [161,162,163,164,165,169];
-        parent::__construct($announcementService,'hfgg',$processes);
+        parent::__construct($announcementService);
+        $this->module_type = 'hfgg';
     }
 
-
-    public function approval($project_id, Content $content)
-    {
-    	$project = Project::find($project_id);
-
-    	$model = $project->announcements()->where('type','hfgg')->where('process',$project->process)->first();
-    	if(empty($model)){
-    		throw new \Exception("找不到审批中的公告，请联系管理员");
-    	}
-        $datas = [
-            'project' => $project,
-            'id' => $model->id,
-            'hfgg' => $model,
-            'projecttype' => $this->module_type,
-        ];
-        return $content
-            ->header('中止公告录入')
-            // ->description('录入正式发布的成交公告')
-            ->body(view('admin.gg.'.$this->module_type.'.approval', $datas)); 
-    }
 
     public function print($id, Content $content)
     {

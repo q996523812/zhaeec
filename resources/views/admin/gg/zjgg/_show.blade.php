@@ -1,10 +1,9 @@
-<form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">    
+<form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
     {{ csrf_field() }}
     <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id">
     <input type="hidden" id="id" name="id" value="{{$gg->id}}" class="id">
     <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="projecttype">
 <div class="fields-group">
-
 
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">项目编号</label>
@@ -47,22 +46,31 @@
 </div>
 
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">内容</label>
+  <label for="type" class="col-sm-2  control-label">理由</label>
   <div class="col-sm-8">
     <div class="input-group">
-      <textarea id="content" name="content" class="form-control content">{{$gg->content}}</textarea>
+      <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+      <input type="text" id="content" name="content" value="{{$gg->content}}" class="form-control content" placeholder="输入 理由" readonly="readonly">
     </div>
   </div>
 </div>
 
-
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">终结日期</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+      <input type="text" id="date_matter" name="date_matter" value="{{$gg->date_matter}}" class="form-control date date_matter" placeholder="输入 终结日期" readonly="readonly">
+    </div>
+  </div>
+</div>
 
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">落款单位</label>
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="inscription_company" name="inscription_company" value="{{$gg->inscription_company}}" class="form-control inscription_company" placeholder="输入 落款单位">
+      <input type="text" id="inscription_company" name="inscription_company" value="{{$gg->inscription_company}}" class="form-control inscription_company" placeholder="输入 落款单位" readonly="readonly">
     </div>
   </div>
 </div>
@@ -71,7 +79,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="inscription_date" name="inscription_date" value="{{$gg->inscription_date}}" class="form-control date inscription_date" placeholder="输入 落款日期">
+      <input type="text" id="inscription_date" name="inscription_date" value="{{$gg->inscription_date}}" class="form-control date inscription_date" placeholder="输入 落款日期" readonly="readonly">
     </div>
   </div>
 </div>
@@ -80,7 +88,7 @@
 <div class="form-group  ">
 	<div class="col-md-8">
         <div class="btn-group pull-right">
-          	<button type="button" id="btnSaveData" class="btn btn-primary btn-pass">保存</button>
+          	
         </div>
     </div>
 </div>
@@ -114,6 +122,7 @@
           savetype: 2,
           selectvalue: "{{$gg->type}}"
         });
+
     });
     </script> 
 </form>

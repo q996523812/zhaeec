@@ -6,7 +6,7 @@
 
     <div class="box-tools">
       <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="@yield('listurl')" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
+        <a href="/admin/{{$project->type}}/" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
       </div>
     </div>
   </div>
@@ -26,7 +26,10 @@
           </div>
           <div class="btn-group pull-right">
               <button type="submit" class="btn btn-primary btn-pass" style="margin-right:20px;">确认摘牌</button>
-              <button type="submit" class="btn btn-primary btn-back">流标</button>
+              <button type="submit" class="btn btn-primary btn-back" style="margin-right:20px;">流标</button>
+              <button type="submit" class="btn btn-primary btn-pause" style="margin-right:20px;">中止</button>
+              <button type="submit" class="btn btn-primary btn-stop" style="margin-right:20px;">终结</button>
+              <button type="submit" class="btn btn-primary btn-delay" style="margin-right:20px;">延期</button>
           </div>
         </form>
       </div>
@@ -41,6 +44,24 @@
           $('.btn-back').on('click', function () {
               $("#operation").val("流标");
               $("#operationtype").val(2);
+              $(".form-horizontal").submit();
+              return false;
+          });
+          $('.btn-pause').on('click', function () {
+              $("#operation").val("中止");
+              $("#operationtype").val(3);
+              $(".form-horizontal").submit();
+              return false;
+          });
+          $('.btn-stop').on('click', function () {
+              $("#operation").val("终结");
+              $("#operationtype").val(4);
+              $(".form-horizontal").submit();
+              return false;
+          });
+          $('.btn-delay').on('click', function () {
+              $("#operation").val("延期");
+              $("#operationtype").val(5);
               $(".form-horizontal").submit();
               return false;
           });

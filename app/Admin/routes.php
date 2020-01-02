@@ -177,9 +177,6 @@ Route::group([
     //查询所有业务员权限用户
     $router->post('user/business', 'AdminUsersController@getBusinessUsers');
 
-    //其他公告
-    $router->get('gg/edit/{project_id}', 'ProjectBaseController@zpEdit');
-    $router->post('gg/{project_id}', 'ProjectBaseController@zp');
 
 
     /****************2、文件与图片********************/
@@ -332,6 +329,31 @@ Route::group([
     $router->post('hfgg/insert', 'AnnouncementRecoversController@insert');
     $router->post('hfgg/modify', 'AnnouncementRecoversController@modify');
     $router->post('hfgg/submit', 'AnnouncementRecoversController@submit');
+
+    //终结公告
+    $router->get('zjgg/edit/{project_id}', 'AnnouncementEndsController@edit');
+    $router->get('zjgg/show/{project_id}', 'AnnouncementEndsController@show');
+    $router->get('zjgg/approval/{project_id}', 'AnnouncementEndsController@approval');
+    $router->post('zjgg/submit', 'AnnouncementEndsController@submit');
+
+    //延期公告
+    $router->get('zjgg/edit/{project_id}', 'AnnouncementDelaysController@edit');
+    $router->get('zjgg/show/{project_id}', 'AnnouncementDelaysController@show');
+    $router->get('zjgg/approval/{project_id}', 'AnnouncementDelaysController@approval');
+    $router->post('zjgg/submit', 'AnnouncementDelaysController@submit');
+
+    //变更公告
+    $router->get('zjgg/edit/{project_id}', 'AnnouncementChangesController@edit');
+    $router->get('zjgg/show/{project_id}', 'AnnouncementChangesController@show');
+    $router->get('zjgg/approval/{project_id}', 'AnnouncementChangesController@approval');
+    $router->post('zjgg/submit', 'AnnouncementChangesController@submit');
+
+    //其他公告
+    $router->get('gg/edit/{type}/{project_id}', 'AnnouncementsController@edit');
+    $router->get('gg/show/{type}/{project_id}', 'AnnouncementsController@show');
+    $router->post('gg', 'AnnouncementsController@insert');
+    $router->post('gg/update', 'AnnouncementsController@modify');
+
 
     /****************12、流程设置********************/
     $router->get('workprocesses', 'WorkProcessesController@index')->name('workprocess.index');

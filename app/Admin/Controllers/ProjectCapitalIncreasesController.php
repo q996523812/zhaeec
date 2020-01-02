@@ -37,29 +37,6 @@ class ProjectCapitalIncreasesController extends ProjectBaseController
         return parent::update($request);
     }
 
-        /**
-     * 显示新增页面
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
-    {
-        $detail = new $this->detail_class;
-        $this->getMarginAcount($detail);
-        $detail->pub10 = '在融资方同意的情况下';
-        $detail->pub7 = '但未达到募集资金总额';
-        $detail->pub8 = '且达到募集资金总额';
-        $detail->pub2 = '并通知已报名的投资方';
-        $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
-        
-        $datas = $this->getDatasToView($detail);
-
-        $url = $this->getViewUrl('edit');
-        return $content
-            ->header('新增')
-            ->body(view($url,$datas));  
-    }
 
 
 }

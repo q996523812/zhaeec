@@ -84,6 +84,14 @@ $api->version('v1', [
     $api->post('zczl/files', 'JgptProjectLeasesController@files')->name('api.zczl.files');
     $api->post('zczl/file', 'JgptProjectLeasesController@file')->name('api.zczl.file');
 
+    $api->post('project/search', 'SearchController@search')->name('api.project');
+    $api->post('project/list', 'SearchController@getProjectList')->name('api.project.list');
+    $api->post('project/list/gp', 'SearchController@getProjectGpList')->name('api.project.list.gp');
+    $api->post('project/info', 'SearchController@getProjectInfo')->name('api.project.info');
+    $api->post('notice/list', 'SearchController@getNoteList')->name('api.notice.list');
+    $api->post('notice/info', 'SearchController@getNoteInfo')->name('api.notice.info');
+
+
     //测试接口   模仿国资委接收接口    
     $api->post('purchases/rebackdatas', 'JgptProjectPurchasesController@rebackDatas')->name('api.qycg.rebackdatas');
       

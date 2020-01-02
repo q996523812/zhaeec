@@ -23,28 +23,8 @@ class AnnouncementPausesController extends AnnouncementsController
     public function __construct(AnnouncementService $announcementService)
     {
         $processes = [151,152,153,154,155,159];
-        parent::__construct($announcementService,'zzgg',$processes);
-    }
-
-
-    public function approval($project_id, Content $content)
-    {
-    	$project = Project::find($project_id);
-
-    	$model = $project->announcements()->where('type','zzgg')->where('process',$project->process)->first();
-    	if(empty($model)){
-    		throw new \Exception("找不到审批中的公告，请联系管理员");
-    	}
-        $datas = [
-            'project' => $project,
-            'id' => $model->id,
-            'zzgg' => $model,
-            'projecttype' => $this->module_type,
-        ];
-        return $content
-            ->header('中止公告录入')
-            // ->description('录入正式发布的成交公告')
-            ->body(view('admin.gg.'.$this->module_type.'.approval', $datas)); 
+        parent::__construct($announcementService);
+        $this->module_type = 'zzgg';
     }
 
     public function print($id, Content $content)

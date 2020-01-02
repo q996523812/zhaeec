@@ -236,6 +236,11 @@ class ProjectBaseController extends Controller
                     $datas['sj1'] = new AuditReport;
                     $datas['sj2'] = new AuditReport;
                     $datas['sj3'] = new AuditReport;
+                    $detail->pub10 = '在融资方同意的情况下';
+                    $detail->pub7 = '但未达到募集资金总额';
+                    $detail->pub8 = '且达到募集资金总额';
+                    $detail->pub2 = '并通知已报名的投资方';
+                    $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
                     break;
                 
                 default:
@@ -416,7 +421,7 @@ class ProjectBaseController extends Controller
             $change = "<a href='/admin/bggg/choice/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更</a>";
 
             $zzgg = "<a href='/admin/zzgg/edit/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止公告</a>";
-            $zjgg = "<a href='/admin/zjgg/end/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结公告</a>";
+            $zjgg = "<a href='/admin/zjgg/edit/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结公告</a>";
             $hfgg = "<a href='/admin/hfgg/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复公告</a>";
             $yqgg = "<a href='/admin/yqgg/recover/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa fa-mail-reply'></i>延期公告</a>";
             $bggg = "<a href='/admin/bggg/recover/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更公告</a>";
@@ -446,8 +451,8 @@ class ProjectBaseController extends Controller
                     // $bottons .= $getBotton('管理项目','管理项目','edit2',$rec->id,'manage');
                     $bottons .= $yxdj;
                     $bottons .= $zp;
-                    $bottons .= $pause;
-                    $bottons .= $stop;
+                    //$bottons .= $pause;
+                    //$bottons .= $zjgg;
                     break;
                 case 111:
                 case 112:
@@ -523,6 +528,7 @@ class ProjectBaseController extends Controller
                 case 261:
                 case 262:
                     //终结
+                    $bottons .= $zjgg;
                     break;
                 case 271:
                 case 272:
@@ -785,6 +791,33 @@ class ProjectBaseController extends Controller
         }
         else if($operationtype == '2'){//流标
             $process = 231;
+        }
+        switch ($operationtype) {
+            case 1://摘牌
+                $is_examination = $detail->is_examination;
+                if($is_examination == '1'){//是，
+                    $process = 131;//联合资格审查
+                }
+                else if($is_examination == '2'){//否
+                    $process = 151;//确定交易方式
+                }
+                break;
+            case 2://流标
+                $process = 231;
+                break;
+            case 3://中止
+                $process = 241;
+                break;
+            case 4://终结
+                $process = 261;
+                break;
+            case 5://延期
+                $process = 271;
+                break;
+            
+            default:
+                # code...
+                break;
         }
         $baseService = new ProjectBaseService();
         $baseService->zp($detail->id,$process,$operation);

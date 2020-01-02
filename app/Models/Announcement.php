@@ -14,4 +14,13 @@ class Announcement extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function files()
+    {
+        return $this->morphMany(File::class, 'filetable');
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imagetable');
+    }
+
 }

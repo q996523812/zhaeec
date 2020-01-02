@@ -158,6 +158,31 @@ class ProcessService
 				$announcement->save();
 			}
 */			
+			$announcementService = new AnnouncementService();
+			$announcement_process_new = null;
+			switch ($process_old) {
+				case 236://流标
+					$announcement = $announcementService->getGGbyType($project,'lbgg');
+					break;
+				case 246://中止
+					# code...
+					break;
+				case 256://恢复
+					# code...
+					break;
+				case 266://终结
+					$announcement = $announcementService->getGGbyType($project,'zjgg');
+					$announcement->process = 9;
+					$announcement->save();
+					break;
+				case 276://延期
+					# code...
+					break;
+				
+				default:
+					# code...
+					break;
+			}
 		}
 
 		
@@ -332,25 +357,22 @@ class ProcessService
 		$status = $project->status;
 		$process = $project->process;
 		switch($process){
-			case 119:
+			case 211:
 				$status = 11;
 				break;
-			case 139:
+			case 236:
 				$status = 12;
 				break;
-			case 149:
+			case 266:
 				$status = 16;
 				break;
-			case 159:
+			case 246:
 				$status = 13;
 				break;
-			case 169:
+			case 256:
 				$status = 11;
 				break;
-			case 219:
-				$status = 14;
-				break;
-			case 319:
+			case 186:
 				$status = 14;
 				break;
 		}

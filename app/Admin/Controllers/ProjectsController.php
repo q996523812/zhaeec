@@ -420,10 +420,10 @@ class ProjectsController extends Controller
                 case 244:
                 case 245:
                 case 246:
-                    $bottons = getButtion('zjgg',$rec->id,'审批');
+                    $bottons = getButtion('zzgg',$rec->id,'审批');
                     break;
                 case 249:
-                    $bottons = getButtion('zjgg',$rec->id,'发布');
+                    $bottons = getButtion('zzgg',$rec->id,'发布');
                     break;
 
                 case 253:
@@ -440,10 +440,11 @@ class ProjectsController extends Controller
                 case 263:
                 case 264:
                 case 265:
-                    $bottons = getButtion('zzgg',$rec->id,'审批');
+                case 266:
+                    $bottons = getButtion('zjgg',$rec->id,'审批');
                     break;
                 case 269:
-                    $bottons = getButtion('zzgg',$rec->id,'发布');
+                    $bottons = getButtion('zjgg',$rec->id,'发布');
                     break;
 
                 case 273:

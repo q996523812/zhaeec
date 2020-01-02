@@ -35,6 +35,7 @@ class CreateAnnouncementsTable extends Migration
             $table->datetime('inscription_date')->comment('落款日期')->nullable();
             $table->string('project_id');
             //同一个项目，可能会出现多个同类型的公告，例如延期公告，因此这里增加保存公告流程节点，记录公告状态
+            //1,录入中；2：审批中，9：审批完成
             $table->unsignedInteger('process');
             $table->softDeletes();
             $table->timestamps();

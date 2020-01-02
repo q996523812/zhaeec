@@ -31,6 +31,7 @@ class AnnouncementService
     public function insert($project,$data){
         $data['id'] = (string)Str::uuid();
         $data['project_id'] = $project->id;
+        $data['process'] = 1;
         $model = DB::transaction(function () use($project,$data) {
             $model = Announcement::create($data);
         	// $model = $project->announcements()->create($data);
@@ -39,7 +40,8 @@ class AnnouncementService
         return $model;
 	}
 
-    public function modify($announcement,$data){
+    public function modify($id,$data){
+        $announcement = Announcement::find($id);
         $model = DB::transaction(function () use($announcement,$data) {
         	$model = $announcement->update($data);
 		    return $model;
@@ -67,6 +69,10 @@ class AnnouncementService
         });
     }
 
+    public function getGGbyType($project,$type){
+        $announcement = $project->announcements()->where('type',$type)->whereIn('process',[1,2])->first();
+        return $announcement;
+    }
     public function getAnnouncementTypeName($type){
         $name = '';
         switch ($type) {
