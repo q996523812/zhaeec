@@ -210,71 +210,34 @@ class ProjectBaseController extends Controller
         if(empty($bdqy)){
             $bdqy = new TargetCompanyBaseInfo;
         }
+
+        $sjbg1 = new AuditReport;
+        $sjbg2 = new AuditReport;
+        $sjbg3 = new AuditReport;
         $sjbgs = $detail->auditReports;
+        if(!empty($sjbgs) && $sjbgs->Count()>=1){
+            for($i = 0; $i < $sjbgs->Count(); $i++){
+                switch ($i) {
+                    case 0:
+                        $sjbg1 = $sjbgs[$i];
+                        break;
+                    case 1:
+                        $sjbg2 = $sjbgs[$i];
+                        break;
+                    case 2:
+                        $sjbg3 = $sjbgs[$i];
+                        break;
+                }
+            }
+        }
 
         $bdxq = $detail->assetInfo;
         if(empty($bdxq)){
             $bdxq = new AssetInfo;
         }
 
-        if(empty($sjbgs) || $sjbgs->Count()<1){
-            $sjbg = new AuditReport;
-            switch ($this->projectTypeCode) {
-                case 'qycg':
-                    # code...
-                    break;
-                case 'zczl':
-                    # code...
-                    break;
-                case 'zczr':
-                    $datas['bdxq'] = new AssetInfo;
-                    break;
-                case 'cqzr':
-                    $datas['sj'] = new AuditReport;
-                    break;
-                case 'zzkg':
-                    $datas['sj1'] = new AuditReport;
-                    $datas['sj2'] = new AuditReport;
-                    $datas['sj3'] = new AuditReport;
-                    $detail->pub10 = '在融资方同意的情况下';
-                    $detail->pub7 = '但未达到募集资金总额';
-                    $detail->pub8 = '且达到募集资金总额';
-                    $detail->pub2 = '并通知已报名的投资方';
-                    $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
-                    break;
-                
-                default:
-                    # code...
-                    break;
-            }
-        }
-        else{
-            switch ($this->projectTypeCode) {
-                case 'qycg':
-                    # code...
-                    break;
-                case 'zczl':
-                    # code...
-                    break;
-                case 'zczr':
-                    $datas['bdxq'] = $bdxq;
-                    break;
-                case 'cqzr':
-                    $datas['sj'] = $sjbgs[0];
-                    break;
-                case 'zzkg':
-                    $datas['sj1'] = $sjbgs[0];
-                    $datas['sj2'] = $sjbgs[1];
-                    $datas['sj3'] = $sjbgs[2];
-                    break;
-                
-                default:
-                    # code...
-                    break;
-            }
-        }
-        $cwbbs = $detail->financialStatement;
-        if(empty($cwbb)){
+        $cwbb = $detail->financialStatement;
+        if(empty($cwbb) ){
             $cwbb = new FinancialStatement;
         }
         $pgqk = $detail->assessment;
@@ -292,18 +255,38 @@ class ProjectBaseController extends Controller
 
         $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
+        $datas['bdxq'] = $bdxq;
         $datas['cwbb'] = $cwbb;
         $datas['pgqk'] = $pgqk;
         $datas['zrf'] = $zrf;
         $datas['jgxx'] = $jgxx;
+        $datas['sj1'] = $sjbg1;
+        $datas['sj2'] = $sjbg2;
+        $datas['sj3'] = $sjbg3;
         
-        // switch($this->projectTypeCode){
-        //     case 'cqzr':
+        switch ($this->projectTypeCode) {
+            case 'qycg':
+                # code...
+                break;
+            case 'zczl':
+                # code...
+                break;
+            case 'zczr':
+                break;
+            case 'cqzr':
+                break;
+            case 'zzkg':
+                $detail->pub10 = '在融资方同意的情况下';
+                $detail->pub7 = '但未达到募集资金总额';
+                $detail->pub8 = '且达到募集资金总额';
+                $detail->pub2 = '并通知已报名的投资方';
+                $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
+                break;
             
-        //         $datas['bdqy'] = $bdqy;
-        //         $datas['sj'] = $sjbg;
-        //         break;
-        // }
+            default:
+                # code...
+                break;
+        }
         return $datas;
     }
     protected function getMarginAcount($detail){

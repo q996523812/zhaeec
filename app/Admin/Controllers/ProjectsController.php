@@ -76,91 +76,64 @@ class ProjectsController extends Controller
             'cjxx' => $detail->project->transaction,
         ]; 
 
-        $bdqy = $project->targetCompanyBaseInfo;
+        $bdqy = $detail->targetCompanyBaseInfo;
         if(empty($bdqy)){
             $bdqy = new TargetCompanyBaseInfo;
         }
-        $sjbgs = $project->auditReports;
+
+        $sjbg1 = new AuditReport;
+        $sjbg2 = new AuditReport;
+        $sjbg3 = new AuditReport;
+        $sjbgs = $detail->auditReports;
+        if(!empty($sjbgs) && $sjbgs->Count()>=1){
+            for($i = 0; $i < $sjbgs->Count(); $i++){
+                switch ($i) {
+                    case 0:
+                        $sjbg1 = $sjbgs[$i];
+                        break;
+                    case 1:
+                        $sjbg2 = $sjbgs[$i];
+                        break;
+                    case 2:
+                        $sjbg3 = $sjbgs[$i];
+                        break;
+                }
+            }
+        }
 
         $bdxq = $detail->assetInfo;
         if(empty($bdxq)){
             $bdxq = new AssetInfo;
         }
 
-        if(empty($sjbgs) || $sjbgs->Count()<1){
-            $sjbg = new AuditReport;
-            switch ($project->type) {
-                case 'qycg':
-                    # code...
-                    break;
-                case 'zczl':
-                    # code...
-                    break;
-                case 'zczr':
-                    $datas['bdxq'] = new AssetInfo;
-                    break;
-                case 'cqzr':
-                    $datas['sj'] = new AuditReport;
-                    break;
-                case 'zzkg':
-                    $datas['sj1'] = new AuditReport;
-                    $datas['sj2'] = new AuditReport;
-                    $datas['sj3'] = new AuditReport;
-                    break;
-                
-                default:
-                    # code...
-                    break;
-            }
-        }
-        else{
-            switch ($this->projectTypeCode) {
-                case 'qycg':
-                    # code...
-                    break;
-                case 'zczl':
-                    # code...
-                    break;
-                case 'zczr':
-                    $datas['bdxq'] = $bdxq;
-                    break;
-                case 'cqzr':
-                    $datas['sj'] = $sjbgs[0];
-                    break;
-                case 'zzkg':
-                    $datas['sj1'] = $sjbgs[0];
-                    $datas['sj2'] = $sjbgs[1];
-                    $datas['sj3'] = $sjbgs[2];
-                    break;
-                
-                default:
-                    # code...
-                    break;
-            }
-        }
-        $cwbbs = $project->financialStatement;
-        if(empty($cwbb)){
+        $cwbb = $detail->financialStatement;
+        if(empty($cwbb) ){
             $cwbb = new FinancialStatement;
         }
-        $pgqk = $project->assessment;
+        $pgqk = $detail->assessment;
         if(empty($pgqk)){
             $pgqk = new Assessment;
         }
-        $zrf = $project->sellerInfo;
+        $zrf = $detail->sellerInfo;
         if(empty($zrf)){
             $zrf = new SellerInfo;
         }
-        $jgxx = $project->supervise;
+        $jgxx = $detail->supervise;
         if(empty($jgxx)){
             $jgxx = new Supervise;
         }
 
+        $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
+        $datas['bdxq'] = $bdxq;
         $datas['cwbb'] = $cwbb;
         $datas['pgqk'] = $pgqk;
         $datas['zrf'] = $zrf;
         $datas['jgxx'] = $jgxx;
-
+        $datas['sj1'] = $sjbg1;
+        $datas['sj2'] = $sjbg2;
+        $datas['sj3'] = $sjbg3;
+        
         return $content
             ->header('查看')
             // body 方法可以接受 Laravel 的视图作为参数

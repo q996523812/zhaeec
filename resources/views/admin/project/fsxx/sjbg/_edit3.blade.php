@@ -86,7 +86,7 @@
       $('#btnSaveSj1').on('click', function () {
           $("#formSjbg1 .btn").attr("disabled","disabled");
           var url = "/admin/sjbg"
-          if($("#auditReport_id").val()){
+          if($("#formSjbg1 #auditReport_id").val()){
             url = url+"/update";
           }
           
@@ -205,7 +205,7 @@
       $('#btnSaveSj2').on('click', function () {
           $("#formSjbg2 .btn").attr("disabled","disabled");
           var url = "/admin/sjbg"
-          if($("#auditReport_id").val()){
+          if($("#formSjbg2 #auditReport_id").val()){
             url = url+"/update";
           }
           
@@ -324,7 +324,7 @@
       $('#btnSaveSj3').on('click', function () {
           $("#formSjbg3 .btn").attr("disabled","disabled");
           var url = "/admin/sjbg"
-          if($("#auditReport_id").val()){
+          if($("#formSjbg3 #auditReport_id").val()){
             url = url+"/update";
           }
           

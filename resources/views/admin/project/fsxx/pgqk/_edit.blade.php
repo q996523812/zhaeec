@@ -67,8 +67,20 @@
 	<tr>
      	<td>转让标的评估值<font color="red">*</font></td>
     	<td colspan="2">
-			<input name="estimatePrice" type="text" size="15" maxlength="20" class="form-control money" required="true" value="{{$pgqk->estimatePrice}}">&nbsp;万元
-			<span id="estimatePrice_zh" style="color:red;font-size:16px;"></span>
+        
+        <div>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+                <input name="estimatePrice" type="text" size="15" maxlength="20" class="form-control money" required="true" value="{{$pgqk->estimatePrice}}">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <span id="estimatePrice_zh" style="color:red;font-size:16px;"></span>
+              万元
+            </div>
+        </div>
+			
 		</td>
     </tr>
     <!-- 

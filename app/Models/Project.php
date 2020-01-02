@@ -133,5 +133,9 @@ class Project extends Model
     {
         return $this->hasOne(AssetInfo::class);
     }
+    public function financialStatement()
+    {
+        return $this->hasOne(FinancialStatement::class);
+    }
 
 }

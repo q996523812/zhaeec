@@ -49,7 +49,7 @@
 		</td>
 		<th>拟公开募集资金总额说明</th>
 		<td class="unput">
-			<input name="planPriceDesc" class="easyui-validatebox validatebox-text" value="" size="70" value="{{$detail->planPriceDesc}}">
+			<input name="planPriceDesc" class="easyui-validatebox validatebox-text" size="70" value="{{$detail->planPriceDesc}}">
 		</td>
 		
 	</tr>
@@ -193,7 +193,7 @@
 					<tbody>
 						<tr>
 							<th>账户名称</th>
-							<th>银行名称</th>
+							<th>开户行</th>
 							<th>银行账号</th>
 						</tr>
 						<tr>
@@ -278,7 +278,7 @@
 		</tr>
 		<tr>
 			<td>征集到意向投资方<font color="red">*</font><br>
-				<textarea name="pub8" style="width:180px;height:40px;font-size:12px"></textarea>
+				<textarea name="pub8" style="width:180px;height:40px;font-size:12px">{{$detail->pub8}}</textarea>
 			</td>
 			<td>
 				信息发布终结，说明：<input type="text" name="pub9" size="70"><br>

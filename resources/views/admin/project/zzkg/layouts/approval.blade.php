@@ -40,7 +40,7 @@
         </div>
         <!--财务信息-->
         <div class="tab-pane fade" id="tab3">
-          @include('admin.project.fsxx.sjbg._show') 
+          @include('admin.project.fsxx.sjbg._show3') 
           @include('admin.project.fsxx.cwbb._show') 
         </div>
         <!--评估情况-->
