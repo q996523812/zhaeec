@@ -26,7 +26,6 @@ class FinancialStatementRequest extends FormRequest
         return [
             'type' => 'required',
             'statement_date' => 'required',
-            'year' => 'required|regex:/^[0-9]+$/|',
             'zzc' => 'required|regex:/^[0-9\.]+$/|',
             'zfz' => 'required|regex:/^[0-9\.]+$/|',
             'syzqy' => 'required|regex:/^[0-9\.]+$/|',
@@ -41,8 +40,6 @@ class FinancialStatementRequest extends FormRequest
         return [
             'type.required' => '报表类型不能为空。',
             'statement_date.required' => '报表日期不能为空。',
-            'year.required' => '年份不能为空。',
-            'year.regex' => '年份必须是数字',
             'zzc.required' => '资产总额不能为空。',
             'zzc.regex' => '资产总额必须是数字。',
             'zfz.required' => '负债总额不能为空。',
