@@ -40,7 +40,7 @@ class ProjectCapitalIncreaseRequest extends FormRequest
             'pubBailMemo' => 'required',
             'buyConditions' => 'required',
             'pubPayMode' => 'required',
-            'important' => 'required',
+            // 'important' => 'required',
             'pubDealWay' => 'required',
             'addMoneyPlan' => 'required',
         ];
@@ -66,7 +66,7 @@ class ProjectCapitalIncreaseRequest extends FormRequest
             'pubBailMemo.required' => '保证金处置方式不能为空。',
             'buyConditions.required' => '受让方资格条件不能为空。',
             'pubPayMode.required' => '价款支付方式不能为空。',
-            'important.required' => '重大事项及其他披露内容不能为空。',
+            // 'important.required' => '对增资有重大影响的信息不能为空。',
             'pubDealWay.required' => '遴选方式不能为空。',
             'addMoneyPlan.required' => '增资方案主要内容不能为空。',
         ];

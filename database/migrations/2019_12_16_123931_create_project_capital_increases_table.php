@@ -83,7 +83,7 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->string('pubPayMode')->comment('价款支付方式');
             $table->string('payPeriodInfo',200)->comment('价款支付要求')->nullable();
             $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
-            $table->text('important')->comment('重大事项及其他披露内容');
+            $table->text('important')->comment('重大事项及其他披露内容/对增资有重大影响的信息')->nullable();
 
             //遴选方式
             $table->string('pubDealWay')->comment('遴选方式');

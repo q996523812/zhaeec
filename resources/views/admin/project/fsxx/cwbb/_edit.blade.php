@@ -114,6 +114,7 @@
             error : function(XMLHttpRequest,err,e){
               $("button").removeAttr("disabled");
               // error(XMLHttpRequest);
+              console.log(XMLHttpRequest);
             }
           });
       });
