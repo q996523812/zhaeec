@@ -7,8 +7,8 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTargetCompanyBaseInfosTable extends Migration
 {
     /**
-     * 标的/融资企业基本情况
-     *
+     * 资产转让：标的企业基本情况
+     * 增资扩股：融资企业基本情况
      * @return void
      */
     public function up()

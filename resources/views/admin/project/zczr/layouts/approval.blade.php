@@ -6,7 +6,7 @@
   <div class="box-header with-border" style="height:50px;">
 
     <div class="box-tools" style="height:50px;">
-      @include('admin.buttons._group')
+      @include('admin.buttons._approval_list')
     </div>
 
   </div>

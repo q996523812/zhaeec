@@ -19,7 +19,7 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('xmbh')->comment('项目编号');
             $table->string('title')->comment('项目名称');
             $table->decimal('gpjg',26,6)->comment('转让底价（万元）');
-            $table->string('pauseText')->comment('产权隶属关系');
+            $table->string('pauseText')->comment('产权隶属关系')->nullable();
             $table->string('spare4',1000)->comment('合作机构信息');
             $table->string('proDesc',1000)->comment('项目概述');
             $table->unsignedInteger('isGzw')->comment('是否国资');
@@ -39,9 +39,11 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
             $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
             $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价');
-            $table->unsignedInteger('pubDealWay')->comment('征集到两个以上受让方采用的交易方式')->nullable();
+            $table->string('pubDealWay1')->comment('只征集到一家符合条件的意向方采用的交易方式')->default('协议成交')->nullable();
+            $table->unsignedInteger('pubDealWay2')->comment('征集到两个以上受让方采用的交易方式')->nullable();
             $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
             $table->unsignedInteger('bidmode')->comment('报价方式');
+            $table->text('information_list')->comment('意向方需要提交的资料清单')->nullable();
 
             //披露信息
             $table->unsignedInteger('allowEndPrio')->comment('优先权人是否放弃优先购买权');
@@ -65,8 +67,8 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
             $table->text('important')->comment('重大事项及其他披露内容');
             $table->text('sellConditions')->comment('与转让相关的其他条件');
-            $table->text('valueDesc',1000)->comment('保证内容');
-            $table->text('pubBailMemo',1000)->comment('处置方法');
+            $table->text('valueDesc',1000)->comment('保证内容')->nullable();
+            $table->text('pubBailMemo',1000)->comment('处置方法')->nullable();
 
             $table->unsignedInteger('buyerAuditLevel')->comment('受让审核级别')->nullable();
             

@@ -21,23 +21,23 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->string('pauseText')->comment('产权隶属关系');
             $table->unsignedInteger('isGzw')->comment('是否国有');
             $table->decimal('gpjg',26,6)->comment('拟公开募集资金总额(万元)-最低');
-            $table->decimal('proPriceMax',26,6)->comment('拟公开募集资金总额(万元)-最高');
+            $table->decimal('proPriceMax',26,6)->comment('拟公开募集资金总额(万元)-最高')->nullable();
             $table->text('planPriceDesc')->comment('拟公开募集资金总额说明')->nullable();
 
             $table->decimal('sellPercent1',26,6)->comment('拟公开募集资金对应持股比例(%)-最低');
-            $table->decimal('sellPercent2',26,6)->comment('拟公开募集资金对应持股比例(%)-最高');
+            $table->decimal('sellPercent2',26,6)->comment('拟公开募集资金对应持股比例(%)-最高')->nullable();
             $table->text('planPercentDesc')->comment('拟公开募集资金对应持股比例(%)说明')->nullable();
 
-            $table->decimal('sellNum1',26,6)->comment('拟公开募集资金对应股份数(股)-最低');
-            $table->decimal('sellNum2',26,6)->comment('拟公开募集资金对应股份数(股)-最高');
+            $table->decimal('sellNum1',26,6)->comment('拟公开募集资金对应股份数(股)-最低')->nullable();
+            $table->decimal('sellNum2',26,6)->comment('拟公开募集资金对应股份数(股)-最高')->nullable();
             $table->text('proExt2')->comment('拟公开募集资金对应股份数(股)说明')->nullable();
 
-            $table->decimal('spare21',26,6)->comment('拟新增注册资本(万元)-最低');
-            $table->decimal('spare22',26,6)->comment('拟新增注册资本(万元)-最高');
+            $table->decimal('spare21',26,6)->comment('拟新增注册资本(万元)-最低')->nullable();
+            $table->decimal('spare22',26,6)->comment('拟新增注册资本(万元)-最高')->nullable();
             $table->text('announceMedia')->comment('拟新增注册资本(万元)说明')->nullable();
 
             $table->decimal('spare91',26,6)->comment('拟公开征集投资方数量(个)-最低');
-            $table->decimal('spare92',26,6)->comment('拟公开征集投资方数量(个)-最高');
+            $table->decimal('spare92',26,6)->comment('拟公开征集投资方数量(个)-最高')->nullable();
             $table->text('planBuyersDesc')->comment('拟公开征集投资方数量(个)说明')->nullable();
 
             $table->string('pub_moneyFor',600)->comment('募集资金用途');
@@ -66,7 +66,7 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->unsignedInteger('pub0')->comment('是否允许网上报名');
 
             //保证金交纳规则
-            $table->decimal('pubBail',26,6)->comment('保证金金额（万元）');
+            $table->decimal('pubBail',26,6)->comment('保证金 金额（万元）/比例');
             $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间');
             $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求');
             $table->unsignedInteger('pubBailDays')->comment(' XX个工作日17:00前有效(以银行到账时间为准)')->nullable();
@@ -81,8 +81,8 @@ class CreateProjectCapitalIncreasesTable extends Migration
             //交易条件
             $table->string('buyConditions',1000)->comment('受让方资格条件');
             $table->string('pubPayMode')->comment('价款支付方式');
-            $table->string('payPeriodInfo',200)->comment('价款支付要求');
-            $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料');
+            $table->string('payPeriodInfo',200)->comment('价款支付要求')->nullable();
+            $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
             $table->text('important')->comment('重大事项及其他披露内容');
 
             //遴选方式
@@ -93,7 +93,7 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->string('addMoneyPlan',300)->comment('增资方案主要内容');
             $table->text('sellConditions')->comment('增资条件')->nullable();
             $table->text('dealConditions')->comment('交易达成条件')->nullable();
-            $table->string('pub15')->comment('增资后（拟）股权结构描述');
+            $table->string('pub15')->comment('增资后（拟）股权结构描述')->nullable();
             
             //其他
             $table->unsignedInteger('is_examination')->comment('是否联合资格审查')->default(1);

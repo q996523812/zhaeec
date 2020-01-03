@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateSellerInfosTable extends Migration
 {
     /**
-     * Run the migrations.
+     * 转让方、出租方
      *
      * @return void
      */

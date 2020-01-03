@@ -15,7 +15,7 @@ class CreateAuditReportsTable extends Migration
     {
         Schema::create('audit_reports', function (Blueprint $table) {
             $table->string('id');
-            $table->unsignedInteger('year')->comment('年份')->nullable();
+            $table->unsignedInteger('year')->comment('年份');
             $table->decimal('zzc',26,6)->comment('资产总额（万元 ）');
             $table->decimal('zfz',26,6)->comment('负债总额（万元 ）');
             $table->decimal('syzqy',26,6)->comment('净资产（所有者权益）（万元 ）');
@@ -23,7 +23,7 @@ class CreateAuditReportsTable extends Migration
             $table->decimal('yylr',26,6)->comment('利润总额（万元 ）');
             $table->decimal('jlr',26,6)->comment('净利润（万元 ）');
             $table->string('sjjgmc')->comment('审计机构名称');
-            $table->string('desc',1000)->comment('备注');
+            $table->string('desc',1000)->comment('备注')->nullable();
             $table->string('project_id')->comment('项目总表ID');
             
             $table->timestamps();

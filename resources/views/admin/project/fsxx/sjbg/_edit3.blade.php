@@ -109,6 +109,7 @@
             error : function(XMLHttpRequest,err,e){
               $("#formSjbg1 .btn").removeAttr("disabled");
               // error(XMLHttpRequest);
+              console.log(XMLHttpRequest);
             }
           });
       });

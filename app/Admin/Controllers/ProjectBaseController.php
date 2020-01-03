@@ -132,6 +132,31 @@ class ProjectBaseController extends Controller
     public function create(Content $content)
     {
         $detail = new $this->detail_class;
+        switch ($this->projectTypeCode) {
+            case 'qycg':
+                # code...
+                break;
+            case 'zczl':
+                # code...
+                break;
+            case 'zczr':
+                $detail->pubDealWay1 = '协议成交';
+                break;
+            case 'cqzr':
+                break;
+            case 'zzkg':
+                $detail->pub10 = '在融资方同意的情况下';
+                $detail->pub7 = '但未达到募集资金总额';
+                $detail->pub8 = '且达到募集资金总额';
+                $detail->pub9 = '信息发布终结并组织遴选';
+                $detail->pub2 = '并通知已报名的投资方';
+                $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         $this->getMarginAcount($detail);
         $datas = $this->getDatasToView($detail);
         $role = Role::find(2);
@@ -264,29 +289,7 @@ class ProjectBaseController extends Controller
         $datas['sj2'] = $sjbg2;
         $datas['sj3'] = $sjbg3;
         
-        switch ($this->projectTypeCode) {
-            case 'qycg':
-                # code...
-                break;
-            case 'zczl':
-                # code...
-                break;
-            case 'zczr':
-                break;
-            case 'cqzr':
-                break;
-            case 'zzkg':
-                $detail->pub10 = '在融资方同意的情况下';
-                $detail->pub7 = '但未达到募集资金总额';
-                $detail->pub8 = '且达到募集资金总额';
-                $detail->pub2 = '并通知已报名的投资方';
-                $detail->pub3 = '根据征集到的投资方情况决定具体延长时间';
-                break;
-            
-            default:
-                # code...
-                break;
-        }
+
         return $datas;
     }
     protected function getMarginAcount($detail){

@@ -154,17 +154,26 @@
 			<input name="delayPeroid" class="easyui-validatebox validatebox-text" value="{{$detail->delayPeroid}}" maxlength="2"> 个工作日
 		</td>
 	</tr>
-
 	<tr class="pubdealway" style="">
-		<th>征集到两个以上受让方采用的交易方式</th>
+		<th>如只征集到一家符合条件的意向方采用的交易方式</th>
 		<td>
 			<div>
                 <div class="col-sm-3">
-                  <select id="pubDealWay" name="pubDealWay" class="form-control pubDealWay"></select>
+                  <input type="text" name="pubDealWay1" id="pubDealWay1" value="{{$detail->pubDealWay1}}" size="30">
+                </div>
+            </div>
+		</td>
+	</tr>
+	<tr class="pubdealway" style="">
+		<th>征集到两个以上意向方采用的交易方式</th>
+		<td>
+			<div>
+                <div class="col-sm-3">
+                  <select id="pubDealWay2" name="pubDealWay2" class="form-control pubDealWay2"></select>
                 </div>
             </div>
 			<span id="dealWayDescSpan" style="display:none">
-				<input type="text" name="dealWayDesc" id="dealWayDesc" value="" size="30">
+				<input type="text" name="dealWayDesc" id="dealWayDesc" value="{{$detail->dealWayDesc}}" size="30">
 			</span>
 		</td>
 	</tr>
@@ -183,6 +192,12 @@
 		<td>
 			<div id="bidmode_div"></div>
 		    &nbsp;&nbsp;&nbsp;<font color="red">只有当动态报价或者网络竞价才有此项选择</font>
+		</td>
+	</tr>
+	<tr >
+		<th>意向方需要提交的资料清单<font color="red">*</font></th>
+		<td>
+			<textarea id="information_list" name="information_list" class="form-control">{{$detail->information_list}}</textarea>
 		</td>
 	</tr>
    	<tr>
@@ -389,11 +404,11 @@
 	  savetype: 2,
           selectvalue: "{{$detail->pubDelayFlag}}"
         });
-        $('#pubDealWay').selecter({
+        $('#pubDealWay2').selecter({
           autoSelect: false,
           type: "pubDealWay",
 	  savetype: 2,
-          selectvalue: "{{$detail->pubDealWay}}"
+          selectvalue: "{{$detail->pubDealWay2}}"
         });
         $('#ifBiddyn').selecter({
           autoSelect: false,

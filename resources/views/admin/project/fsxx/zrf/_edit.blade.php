@@ -25,7 +25,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="170">转让方名称<font color="red">*</font></td>	
+				<td width="170">客户名称<font color="red">*</font></td>	
 				<td><input name="sellerName" size="50" class="easyui-validatebox validatebox-text" required="true" validtype="length[0,100]" maxlength="100" value="{{$zrf->sellerName}}"></td>
 			</tr>
 			
@@ -205,7 +205,7 @@
 				</td>
 			</tr>
 		</tbody></table>
-		
+<!--
 		<table cellpadding="0" cellspacing="1" class="table table-bordered">
 			<tbody><tr>
 				<td width="170">转让方持有产（股）权比例<font color="red">*</font></td>
@@ -236,10 +236,12 @@
 				</td>
 			</tr>
 		</tbody></table>
+-->
+
 	</td>
 </tr>
 <tr>
-      <td colspan="4"><center><a href="javascript:void(0)" id="btnSaveZrf" class="btn btn-primary btn-pass">保存评估信息</a></center></td>
+      <td colspan="4"><center><a href="javascript:void(0)" id="btnSaveZrf" class="btn btn-primary btn-pass">保存</a></center></td>
   </tr>
 </tbody></table>
 </div>

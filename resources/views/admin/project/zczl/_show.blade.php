@@ -51,7 +51,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">总租金(元)</td>
+      <td class=" control-label">总租金(万元)</td>
       <td>
         {{$detail->gpjg_zj}}
       </td>
@@ -61,7 +61,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">月租金/单价（元）</td>
+      <td class=" control-label">月租金/单价（万元）</td>
       <td>
         {{$detail->gpjg_dj}}
       </td>
@@ -101,7 +101,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">标的资产评估值(人民币)元</td>
+      <td class=" control-label">标的资产评估值(人民币)万元</td>
       <td colspan="3">
         {{$detail->pgjz}}
       </td>
@@ -192,6 +192,7 @@
       </td>
     </tr>
     <!--委托方-->
+    <!--
     <tr>
       <td rowspan="9" class=" control-label">委托方</td>
       <td class=" control-label">名称</td>
@@ -258,6 +259,7 @@
         {{$detail->wtf_dlr_phone}}
       </td>
     </tr>
+  -->
     <!--房产信息-->
     <tr>
       <td rowspan="8" class=" control-label">房产信息</td>

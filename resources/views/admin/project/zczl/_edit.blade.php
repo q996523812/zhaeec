@@ -67,7 +67,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">总租金(元)</td>
+      <td class=" control-label">总租金(万元)</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -80,7 +80,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">月租金/单价（元）</td>
+      <td class=" control-label">月租金/单价（万元）</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -124,11 +124,11 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">标的资产评估值(人民币)(元)</td>
+      <td class=" control-label">标的资产评估值(人民币)(万元)</td>
       <td colspan="3">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-          <input type="text" id="pgjz" name="pgjz" value="{{$detail->pgjz}}" class="form-control money pgjz" placeholder="输入 标的资产评估值(人民币)元">
+          <input type="text" id="pgjz" name="pgjz" value="{{$detail->pgjz}}" class="form-control money pgjz" placeholder="输入 标的资产评估值(人民币)万元">
         </div>         
       </td>
     </tr>
@@ -143,7 +143,7 @@
       <td>
         <select id="bjms" name="bjms" class="form-control bjms"></select>
       </td>
-      <td class=" control-label">加价幅度(元)</td>
+      <td class=" control-label">加价幅度(万元)</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -227,6 +227,7 @@
       </td>
     </tr>
     <!--委托方-->
+    <!--
     <tr>
       <td rowspan="9" class=" control-label">委托方</td>
       <td class=" control-label">名称</td>
@@ -263,6 +264,7 @@
               <select class="form-control" id="wtf_area" name="wtf_area"></select>
             </div>
           </div>        
+-->
             <!-- inline-template 代表通过内联方式引入组件 -->
             <!-- 
             <select-district inline-template>
@@ -288,6 +290,7 @@
               </div>
             </select-district>  
           -->
+<!--
       </td>    
     </tr>
     <tr>
@@ -333,6 +336,7 @@
         <input type="text" id="wtf_dlr_phone" name="wtf_dlr_phone" value="{{$detail->wtf_dlr_phone}}" class="form-control wtf_dlr_phone" placeholder="输入 委托代理人电话">
       </td>
     </tr>
+-->
     <!--房产信息-->
     <tr>
       <td rowspan="8" class=" control-label">房产信息</td>

@@ -17,14 +17,19 @@
   <div class="container table-responsive col-md-12 align-items-center project-table">
 
 <table class="table table-bordered" cellspacing="1" cellpadding="0">
-	<tbody><tr>
+	<tbody>
+	<tr>
+		<th style="width:300px;">项目编号<font color="red">*</font></th>
+		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="xmbh" maxlength="100" value="{{$detail->xmbh}}" size="50"></td>
+	</tr>
+	<tr>
 		<th style="width:300px;">项目名称<font color="red">*</font></th>
-		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="proName" maxlength="100" value="{{$detail->proName}}" size="50"></td>
+		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>
 	</tr>
 	<tr>
 		<th style="width:300px;">转让底价(万元)<font color="red">*</font></th>
 		<td>
-         	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="proPrice" name="proPrice" value="{{$detail->proPrice}}">&nbsp;&nbsp;
+         	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
 			<span id="proPrice_zh" style="color:red;font-size:16px;">(壹佰万)</span>
          </td>
 	</tr>
@@ -154,15 +159,25 @@
 	</tr>
 
 	<tr class="pubdealway" style="">
-		<th>征集到两个以上受让方采用的交易方式</th>
+		<th>如只征集到一家符合条件的意向方采用的交易方式</th>
 		<td>
 			<div>
                 <div class="col-sm-3">
-                  <select id="pubDealWay" name="pubDealWay" class="form-control pubDealWay"></select>
+                  <input type="text" name="pubDealWay1" id="pubDealWay1" value="{{$detail->pubDealWay1}}" size="30">
+                </div>
+            </div>
+		</td>
+	</tr>
+	<tr class="pubdealway" style="">
+		<th>征集到两个以上意向方采用的交易方式</th>
+		<td>
+			<div>
+                <div class="col-sm-3">
+                  <select id="pubDealWay2" name="pubDealWay2" class="form-control pubDealWay2"></select>
                 </div>
             </div>
 			<span id="dealWayDescSpan" style="display:none">
-				<input type="text" name="dealWayDesc" id="dealWayDesc" value="" size="30">
+				<input type="text" name="dealWayDesc" id="dealWayDesc" value="{{$detail->dealWayDesc}}" size="30">
 			</span>
 		</td>
 	</tr>
@@ -181,6 +196,12 @@
 		<td>
 			<div id="bidmode_div"></div>
 		    &nbsp;&nbsp;&nbsp;<font color="red">只有当动态报价或者网络竞价才有此项选择</font>
+		</td>
+	</tr>
+	<tr >
+		<th>意向方需要提交的资料清单<font color="red">*</font></th>
+		<td>
+			<textarea id="information_list" name="information_list" class="form-control">{{$detail->information_list}}</textarea>
 		</td>
 	</tr>
    	<tr>
@@ -237,8 +258,8 @@
 		</tr>
 	  	<tr>
 		<th class="th-m-80">保证金金额（万元）<font color="red">*</font></th>
-		<td><input type="text" id="pubBailWan" value="{{$detail->pubBailWan}}" class="easyui-validatebox validatebox-text" required="true">
-		<b class="bigPrice">万元</b> <span id="pubBail" class="bigPrice"></span>
+		<td><input type="text" id="pubBail" name="pubBail" value="{{$detail->pubBail}}" class="easyui-validatebox validatebox-text" required="true">
+		<b class="bigPrice">万元</b> <span id="pubBail_zh" class="bigPrice"></span>
 		</td>
 	</tr>
 		<tr>
