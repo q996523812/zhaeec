@@ -281,7 +281,7 @@
 				<textarea name="pub8" style="width:180px;height:40px;font-size:12px">{{$detail->pub8}}</textarea>
 			</td>
 			<td>
-				信息发布终结，说明：<input type="text" name="pub9" size="70"><br>
+				信息发布终结，说明：<input type="text" name="pub9" size="70">{{$detail->pub9}}<br>
 			</td>
 		</tr>
 		<tr>
