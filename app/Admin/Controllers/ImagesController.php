@@ -16,6 +16,8 @@ use App\Models\WinNotice;
 use App\Models\PaymentNotice;
 use App\Models\Contract;
 use App\Models\BidResult;
+use App\Models\TransactionMode;
+use App\Models\TransactionConfirmation;
 use App\Http\Controllers\Controller;
 use App\Handlers\ImageUploadHandler;
 use App\Transformers\ImageTransformer;
@@ -97,7 +99,7 @@ class ImagesController extends Controller
             case 'zbtz':
                 $model = WinNotice::class;
                 break;
-            case 'jftz':
+            case 'sftz':
                 $model = PaymentNotice::class;
                 break;
             case 'htxx':
@@ -105,6 +107,12 @@ class ImagesController extends Controller
                 break;
             case 'pbjg':
                 $model = BidResult::class;
+                break;
+            case 'jyfs':
+                $model = TransactionMode::class;
+                break;
+            case 'jyjz':
+                $model = TransactionConfirmation::class;
                 break;
             
         }

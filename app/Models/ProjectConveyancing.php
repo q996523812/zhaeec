@@ -69,5 +69,8 @@ class ProjectConveyancing extends Model
     {
         return $this->hasOne(TransactionMode::class,'project_id','project_id');
     }
-
+    public function contact()
+    {
+        return $this->hasOne(Contact::class,'project_id','project_id');
+    }
 }

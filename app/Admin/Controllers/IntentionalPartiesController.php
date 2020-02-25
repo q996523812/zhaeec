@@ -10,6 +10,8 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Facades\Admin;
+use Illuminate\Support\Facades\DB;
 use App\Services\IntentionalPartyService;
 use Illuminate\Http\Request;
 use App\Services\ProcessService;
@@ -139,6 +141,11 @@ class IntentionalPartiesController extends Controller
             return Project::find($project_id)->title;
         });
         $grid->process_name('状态');
+        $user = Admin::user();
+        $role = $user->roles()->first();
+        if($user->id != 1){
+            $grid->model()->whereIn('id',$this->getProjectIds());
+        }
         $grid->actions(function ($actions) {
             $actions->disableDelete();
             $actions->disableEdit();
@@ -202,10 +209,18 @@ class IntentionalPartiesController extends Controller
         return $form;
     }
 
+    // private function fields(){
+    //     $fields = [
+    //         'insert' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount','project_id'],
+    //         'update' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount'],
+    //     ];
+    //     return $fields;
+    // }
+
     private function fields(){
         $fields = [
-            'insert' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount','project_id'],
-            'update' => ['customertype','name','id_type','id_code','province','city','area','isgz','registered_address','registered_capital','registered_capital_currency','found_date','legal_representative','industry1','industry2','companytype','economytype','scale','scope','credit_cer','work_unit','work_duty','contact_name','contact_phone','contact_email','contact_fax','account_code','account_bank','account_name','deposit','is_win','win_amount'],
+            'insert' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','project_id'],
+            'update' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount'],
         ];
         return $fields;
     }
@@ -357,4 +372,18 @@ class IntentionalPartiesController extends Controller
             ->header('意向登记')
             ->body(view($url, $datas));
     }
+
+    private function getProjectIds(){
+        $user = Admin::user();
+        $roles = $user->roles()->pluck('id');
+
+        $projectids = DB::table('work_process_instances')
+            ->leftJoin('work_process_nodes','work_process_instances.work_process_node_id','=','work_process_nodes.id')
+            ->whereIn('work_process_nodes.role_id',$roles)
+            ->orWhere('work_process_instances.user_id',$user->id)
+            ->pluck('work_process_instances.table_id');
+
+        return $projectids;
+    }
+
 }

@@ -1,4 +1,4 @@
-@extends('admin.layouts.edit')
+@extends('admin.layouts.edit_nofiles')
 
 @section('buttons')
     <div class="btn-group float-right" style="margin-right: 10px">

@@ -45,7 +45,7 @@
   </div>
 </div>
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">加价幅度</label>
+  <label for="type" class="col-sm-2  control-label">加价幅度(元)</label>
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>

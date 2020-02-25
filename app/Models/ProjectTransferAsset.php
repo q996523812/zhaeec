@@ -73,5 +73,8 @@ class ProjectTransferAsset extends Model
     {
         return $this->hasOne(AssetInfo::class,'project_id','project_id');
     }
-
+    public function contact()
+    {
+        return $this->hasOne(Contact::class,'project_id','project_id');
+    }
 }

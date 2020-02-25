@@ -156,7 +156,11 @@ class ChargeRulesController extends Controller
         $service_type = $request->service_type;
         $price_total = $request->price_total;
         $price_unit = $request->price_unit;
-
+        $result = [
+            'success' => 'true',
+            'charge' => '',
+            'status_code' => '200',
+        ];
         $active = false;
         $charge = null;
         if($project->type === 'qycg' && !($price_total === null)){
@@ -167,13 +171,10 @@ class ChargeRulesController extends Controller
         }
         if($active){
             $charge = $this->service->calculation($project,$price_total,$price_unit);
+            $result['charge'] = $charge;
         }
 
-        $result = [
-            'success' => 'true',
-            'charge' => $charge,
-            'status_code' => '200',
-        ];
+        
         return response()->json($result);
     }
 }

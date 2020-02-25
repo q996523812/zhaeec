@@ -8,6 +8,7 @@
 
 @section('content')
   @include('admin.yxf.detail._edit')
+  @include('admin.customer._modal') 
 @endsection
 
 

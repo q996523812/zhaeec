@@ -16,7 +16,7 @@ class CreateAssessmentsTable extends Migration
         Schema::create('assessments', function (Blueprint $table) {
             $table->string('id');
             $table->string('pgjg')->comment('评估机构');
-            $table->string('pgbajg')->comment('评估核准（备案）机构');
+            $table->string('pgbajg')->comment('评估核准（备案）机构')->nullable();
             $table->string('hezhunFlag')->comment('核准')->nullable();
             $table->string('beianFlag')->comment('备案')->nullable();
             $table->date('hzbarq')->comment('核准（备案）日期');
@@ -39,7 +39,7 @@ class CreateAssessmentsTable extends Migration
             $table->decimal('pgZfz',26,6)->comment('总负债评估价值(万元)')->nullable();
             $table->decimal('zmJzc',26,6)->comment('净资产账面价值(万元)')->nullable();
             $table->decimal('pgJzc',26,6)->comment('净资产评估价值(万元)')->nullable();
-            $table->string('remark',1000)->comment('评估备注信息');
+            $table->string('remark',1000)->comment('评估备注信息')->nullable();
 
             $table->string('project_id')->comment('项目总表ID');
             $table->timestamps();

@@ -19,7 +19,7 @@
 		<td colspan="2"><input type="text" name="pgjg" class="form-control" validtype="length[1,100]" size="50" required="true" value="{{$pgqk->pgjg}}"></td>
   	</tr>
   	<tr>
-		<td>评估核准（备案）机构<font color="red" id="pgbajgDisplay" style="">*</font></td> 
+		<td>评估核准（备案）机构</td> 
 		<td colspan="2" class="unput">
 			<input type="text" name="pgbajg" class="form-control" validtype="length[0,50]" size="50" required="required" value="{{$pgqk->pgbajg}}">
    			<input name="hezhunFlag" type="checkbox" value="Y">核准 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -130,7 +130,7 @@
     	<td align="left"><input name="pgCqfz" type="text" size="12" class="form-control money" value="{{$pgqk->pgCqfz}}"></td>
 	</tr>
 	<tr>
-    	<td>总负债 <font color="red">*</font></td>
+    	<td>总负债</td>
     	<td>
 		    <input name="zmZfz" type="text" size="12" class="form-control money" value="{{$pgqk->zmZfz}}">
     	</td>

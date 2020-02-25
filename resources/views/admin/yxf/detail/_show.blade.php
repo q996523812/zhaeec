@@ -142,12 +142,12 @@
     $(document).ready(function(){
         page_show();
         function page_show(){
-          $('#customertype').html(select_datas['customertype']['{{$yxf->customertype}}']);
+          $('#customertype').html(select_datas['customertype']['{{$yxf->type}}']);
           if('{{$yxf->sfgz}}'){
             $('#sfgz').html(select_datas['sf']['{{$yxf->sfgz}}']);
           }
           
-            if({{$yxf->customertype}} ==1){
+            if({{$yxf->type}} ==1){
               $('.company').hide();
               $('.person').show();
             }

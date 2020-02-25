@@ -186,11 +186,21 @@ class ProjectsController extends Controller
             return getXmlxName($type);
         });
         $grid->price('挂牌金额');
-        $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
-            return date('Y-m-d',strtotime($gp_date_start));
+        $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){
+            if(is_null($gp_date_start)){
+                return '';
+            }
+            else{
+                return date('Y-m-d',strtotime($gp_date_start));
+            }
         });
         $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
-            return date('Y-m-d',strtotime($gp_date_end));
+            if(is_null($gp_date_end)){
+                return '';
+            }
+            else{
+                return date('Y-m-d',strtotime($gp_date_end));
+            }
         });
         $grid->process_name('项目状态');
         // $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
@@ -363,10 +373,10 @@ class ProjectsController extends Controller
                 case 214:
                 case 215:
                 case 216:
-                    
+                    $bottons = getButtion('htxx',$rec->id,'审批');
                     break;
                 case 219:
-                    
+                    $bottons = getButtion('htxx',$rec->id,'确认');
                     break;
 
                 case 223:

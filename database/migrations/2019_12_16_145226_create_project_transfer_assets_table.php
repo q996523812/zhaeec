@@ -46,9 +46,9 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->text('information_list')->comment('意向方需要提交的资料清单')->nullable();
 
             //披露信息
-            $table->unsignedInteger('allowEndPrio')->comment('优先权人是否放弃优先购买权');
-            $table->unsignedInteger('unitTransferee')->comment('是否允许联合受让');
-            $table->unsignedInteger('pub0')->comment('是否允许网上报名');
+            $table->unsignedInteger('allowEndPrio')->comment('优先权人是否放弃优先购买权')->nullable();
+            $table->unsignedInteger('unitTransferee')->comment('是否允许联合受让')->nullable();
+            $table->unsignedInteger('pub0')->comment('是否允许网上报名')->nullable();
 
             //保证金交纳规则
             $table->decimal('pubBail',26,6)->comment('保证金金额（万元）');
@@ -61,12 +61,12 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('bail_account_bank')->comment('开户行');
 
             //交易条件
-            $table->string('buyConditions',1000)->comment('受让方资格条件');
-            $table->string('pubPayMode')->comment('价款支付方式');
-            $table->string('payPeriodInfo',200)->comment('价款支付要求');
+            $table->string('buyConditions',1000)->comment('受让方资格条件')->nullable();
+            $table->string('pubPayMode')->comment('价款支付方式')->nullable();
+            $table->string('payPeriodInfo',200)->comment('价款支付要求')->nullable();
             $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
-            $table->text('important')->comment('重大事项及其他披露内容');
-            $table->text('sellConditions')->comment('与转让相关的其他条件');
+            $table->text('important')->comment('重大事项及其他披露内容')->nullable();
+            $table->text('sellConditions')->comment('与转让相关的其他条件')->nullable();
             $table->text('valueDesc',1000)->comment('保证内容')->nullable();
             $table->text('pubBailMemo',1000)->comment('处置方法')->nullable();
 

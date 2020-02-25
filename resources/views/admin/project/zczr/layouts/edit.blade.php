@@ -11,6 +11,7 @@
       <li><a href="#tab4" data-toggle="tab">评估情况</a></li>
       <li><a href="#tab5" data-toggle="tab">转让方</a></li>
       <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
+      <li><a href="#tab3" data-toggle="tab">联系方式</a></li>
       <li><a href="#tab7" data-toggle="tab">附件</a></li> 
       <li><a href="#tab8" data-toggle="tab">图片</a></li>
       <li><a href="#tab9" data-toggle="tab">提交审批</a></li>
@@ -37,10 +38,15 @@
         <!--转让方-->
         <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.zrf._edit') 
+          @include('admin.customer._modal') 
         </div>
         <!--监管信息-->
         <div class="tab-pane fade" id="tab6">
           @include('admin.project.fsxx.jgxx._edit') 
+        </div>
+        <!--联系方式-->
+        <div class="tab-pane fade" id="tab3">
+          @include('admin.project.fsxx.lxfs._edit') 
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab7">
@@ -119,7 +125,7 @@
       }
 
       $('#btnSaveData').on('click', function () {
-          $("button").attr("disabled","disabled");
+          $(".button").attr("disabled","disabled");
           // var projecttype = "@yield('projecttype')";
           var projecttype = $("#projecttype").val();
           var url = "/admin/"+projecttype;
@@ -147,7 +153,7 @@
                 $(".project_id").val(str_reponse.project_id);
                 $(".xmbh").val(str_reponse.xmbh);
               }
-              $("button").removeAttr("disabled");
+              $(".button").removeAttr("disabled");
               $(".warning-message").html("");
             },
             error : function(XMLHttpRequest,err,e){

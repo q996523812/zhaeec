@@ -15,6 +15,7 @@ class CreateProjectPurchasesTable extends Migration
     {
         Schema::create('project_purchases', function (Blueprint $table) {
             $table->string('id');
+            /*
             $table->string('wtf_name')->comment('委托方名称')->nullable();
             $table->string('wtf_qyxz')->comment('委托方企业性质')->nullable();
             $table->string('wtf_province')->comment('省')->nullable();
@@ -29,13 +30,15 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('wtf_jt')->comment('所属集团')->nullable();
             $table->string('wtf_dlr_name')->comment('委托代理人名称')->nullable();
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();
-            
+            */
+            $table->unsignedInteger('sfjc')->comment('采购项目类型/是否进场：1、实质性进场(是)；2、仅挂牌(否)');
             $table->string('xmbh')->comment('项目编号')->unique()->nullable();
             $table->string('title')->comment('标的名称')->nullable();
             $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();
             $table->text('bdgk')->comment('标的概况')->nullable();
             $table->text('other')->comment('其它需要披露的事项')->nullable();
             $table->unsignedInteger('gpqx')->comment('挂牌期限')->nullable();
+            $table->unsignedInteger('pubDays')->comment('挂牌公告期（至少20个工作日）');
             $table->datetime('gp_date_start')->comment('挂牌开始日期')->nullable();
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
             $table->string('sfhs')->comment('是否含税')->nullable();
@@ -49,13 +52,16 @@ class CreateProjectPurchasesTable extends Migration
             $table->decimal('jjfd',26,6)->comment('降价幅度')->nullable();
             $table->datetime('jy_date')->comment('交易（开标、谈判）时间')->nullable();
             $table->string('zbdl_lxfs')->comment('招标代理机构联系方式')->nullable();
+            $table->string('zbwj_dj')->comment('投标文件递交时间及地点')->nullable();
+            $table->decimal('zbwjjg',26,6)->comment('招标文件价格')->nullable();
+            $table->string('zbwjjgbz')->comment('招标文件价格备注')->nullable();
             $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();
             $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单')->nullable();
-            $table->string('yxdj_sj')->comment('意向登记的时间')->nullable();
-            $table->text('yxdj_fs')->comment('意向登记方式、招标文件价格')->nullable();
+            $table->string('yxdj_sj_start')->comment('意向登记的时间起')->nullable();
+            $table->string('yxdj_sj_end')->comment('意向登记的时间止')->nullable();
+            $table->text('yxdj_fs')->comment('意向登记方式')->nullable();
             $table->datetime('bzj_jn_time_end')->comment('交纳保证金截止时间')->nullable();
             $table->string('bzj')->comment('保证金金额(人民币) (万元)')->nullable();
-            $table->string('zbwj_dj')->comment('投标文件递交时间及地点')->nullable();
             $table->string('jypt_lxfs')->comment('交易平台联系方式')->nullable();
             $table->text('notes')->comment('备注')->nullable();
             $table->unsignedInteger('status')->default(1);

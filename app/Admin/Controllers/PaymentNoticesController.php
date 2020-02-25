@@ -84,19 +84,19 @@ class PaymentNoticesController extends Controller
             $model->title = $project->title;
             switch($project->type){
                 case 'qycg':
-                    $model->wtf = $detail->targetCompanyBaseInfo->compName;
+                    $model->wtf = $detail->targetCompanyBaseInfo->name;
                     break;
                 case 'zczl':
-                    $model->wtf = $detail->sellerInfo->sellerName;
+                    $model->wtf = $detail->sellerInfo->name;
                     break;
                 case 'cqzr':
-                    $model->wtf = $detail->sellerInfo->sellerName;
+                    $model->wtf = $detail->sellerInfo->name;
                     break;
                 case 'zzkg':
-                    $model->wtf = $detail->targetCompanyBaseInfo->compName;
+                    $model->wtf = $detail->targetCompanyBaseInfo->name;
                     break;
                 case 'zczr':
-                    $model->wtf = $detail->sellerInfo->sellerName;
+                    $model->wtf = $detail->sellerInfo->name;
                     break;
                 
             }

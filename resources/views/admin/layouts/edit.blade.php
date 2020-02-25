@@ -110,16 +110,25 @@
             processData: false,
             contentType: false,
             success : function(str_reponse){console.log(str_reponse);
-              alert("保存成功");
-              if($("#id").val() == ""){
-                console.log(str_reponse.message.id);
-                // $("#id").val(str_reponse.detail_id)
-                $(".id").val(str_reponse.message.id);
-                $(".project_id").val(str_reponse.message.project_id);
-                $(".xmbh").val(str_reponse.xmbh);
+              
+              if(str_reponse.success=='false'){
+                alert("保存失败");
+                $(".warning-message").html(str_reponse.message);
               }
+              else{
+                alert("保存成功");
+                if($("#formdetail #id").val() == ""){
+                  console.log(str_reponse.message.id);
+                  // $("#id").val(str_reponse.detail_id)
+                  $(".id").val(str_reponse.message.id);
+                  //$(".project_id").val(str_reponse.message.project_id);
+                  $(".xmbh").val(str_reponse.xmbh);
+                }
+                $(".warning-message").html("");
+              }
+              
               $("button").removeAttr("disabled");
-              $(".warning-message").html("");
+              
             },
             error : function(XMLHttpRequest,err,e){
               error(XMLHttpRequest);

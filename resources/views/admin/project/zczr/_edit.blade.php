@@ -22,10 +22,10 @@
 		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>
 	</tr>
 	<tr>
-		<th style="width:300px;">转让底价(万元)<font color="red">*</font></th>
+		<th style="width:300px;">转让底价<font color="red">*</font></th>
 		<td>
          	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
-			<span id="proPrice_zh" style="color:red;font-size:16px;">(壹佰万)</span>
+			<span id="proPrice_zh" style="color:red;font-size:16px;">(万元)</span>
          </td>
 	</tr>
 	<tr>
@@ -362,7 +362,7 @@
 	</tr>
 	</tbody></table>
 <br>
-<center><a id="btnSaveData" class="btn btn-primary btn-pass" >保存信息</a></center>
+<center><a id="btnSaveData" class="btn btn-primary btn-pass bottnn" >保存信息</a></center>
   </div>
 </div>
 

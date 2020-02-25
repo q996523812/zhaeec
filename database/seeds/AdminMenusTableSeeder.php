@@ -25,6 +25,8 @@ class AdminMenusTableSeeder extends Seeder
             $this->create(21,14,0,'中标通知','fa-bars','/winnotices'),
             $this->create(22,14,0,'接收采购项目','fa-bars','/jgpt/qycg'),
             $this->create(23,14,0,'接收租赁项目','fa-bars','/jgpt/zczl'),
+            $this->create(24,0,0,'客户管理','fa-bars',null),
+            $this->create(25,24,0,'客户管理','fa-bars','/customer'),
         ];
 
         // 将数据集合插入到数据库中

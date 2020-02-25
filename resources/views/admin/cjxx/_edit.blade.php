@@ -55,7 +55,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="transaction_date" name="transaction_date" value="{{$cjxx->transaction_date}}" class="form-control transaction_date" placeholder="输入 成交时间">
+      <input type="text" id="transaction_date" name="transaction_date" value="{{$cjxx->transaction_date}}" class="form-control transaction_date date" placeholder="输入 成交时间">
     </div>
   </div>
 </div>
@@ -143,8 +143,6 @@
         });
 
         //金额、数字
-        // $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
         //下拉框
         
@@ -182,18 +180,18 @@
         });
 
         $("#price_total").on('blur',function(){
-          if($("#wtf_charge_type").val() == 1 ){console.log(1111);
+          if($("#wtf_charge_type").val() == 1 ){
             getCharge("wtf");
           }
-          if($("#zbf_charge_type").val() == 1 ){console.log(2222);
+          if($("#zbf_charge_type").val() == 1 ){
             getCharge("zbf");
           }
         });
         $("#price_unit").on('blur',function(){
-          if($("#wtf_charge_type").val() == 1 ){console.log(3333);
+          if($("#wtf_charge_type").val() == 1 ){
             getCharge("wtf");
           }
-          if($("#zbf_charge_type").val() == 1 ){console.log(4444);
+          if($("#zbf_charge_type").val() == 1 ){
             getCharge("zbf");
           }
         });

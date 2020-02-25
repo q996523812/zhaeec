@@ -53,12 +53,14 @@
     <tr>
       <td class=" control-label">总租金(万元)</td>
       <td>
-        {{$detail->gpjg_zj}}
+        {{$detail->gpjg}}
       </td>
+      <!--
       <td class=" control-label">是否含税</td>
       <td>
         {{$detail->sfhs}}
       </td>
+    -->
     </tr>
     <tr>
       <td class=" control-label">月租金/单价（万元）</td>
@@ -164,19 +166,19 @@
           <td rowspan="3" class=" control-label">缴纳保证金账户</td>
           <td class="control-label">账户名称</td>
           <td colspan="2">
-            {{$detail->bzj_zhm}}
+            {{$detail->bail_account_name}}
           </td>
         </tr>
         <tr>
           <td class=" control-label">开户行</td>
           <td colspan="2">
-            {{$detail->bzj_bank}}
+            {{$detail->bail_account_bank}}
           </td>
         </tr>
         <tr>
           <td class=" control-label">账号</td>
           <td colspan="2">
-            {{$detail->bzj_zh}}
+            {{$detail->bail_account_code}}
           </td>
         </tr>
     <tr>

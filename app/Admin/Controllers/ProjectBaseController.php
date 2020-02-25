@@ -15,6 +15,7 @@ use App\Models\Assessment;
 use App\Models\SellerInfo;
 use App\Models\Supervise;
 use App\Models\AssetInfo;
+use App\Models\Contact;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -184,6 +185,9 @@ class ProjectBaseController extends Controller
         $detail->xmbh = '';
         
         $datas = $this->getDatasToView($detail);
+        $role = Role::find(2);
+        $users = $role->administrators;
+        $datas['users'] = $users;
         $url = $this->getViewUrl('edit');
         return $content
             ->header($this->projectTypeName.'-新增')
@@ -277,7 +281,11 @@ class ProjectBaseController extends Controller
         if(empty($jgxx)){
             $jgxx = new Supervise;
         }
-
+        $lxfs = $detail->contact;
+        if(empty($lxfs)){
+            $lxfs = new Contact;
+        }
+        
         $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
         $datas['bdxq'] = $bdxq;
@@ -288,6 +296,7 @@ class ProjectBaseController extends Controller
         $datas['sj1'] = $sjbg1;
         $datas['sj2'] = $sjbg2;
         $datas['sj3'] = $sjbg3;
+        $datas['lxfs'] = $lxfs;
         
 
         return $datas;
@@ -323,16 +332,18 @@ class ProjectBaseController extends Controller
                 case 'zzkg':
                     $seller = $this->targetCompanyBaseInfo;
                     if(!empty($seller)){
-                        $name = $seller->compName;
+                        $name = $seller->name;
                     }
                     break;
                 case 'zczl':
                 case 'cqzr':
                 case 'zczr':
                     $seller = $this->sellerInfo;
+                    
                     if(!empty($seller)){
-                        $name = $seller->sellerName;
+                        $name = $seller->name;
                     }
+
                     break;
             }
             return $name;
@@ -347,10 +358,20 @@ class ProjectBaseController extends Controller
         $grid->title('项目名称');
         $grid->gpjg('挂牌金额(总价)');
         $grid->gp_date_start('挂牌开始使时间')->display(function($gp_date_start){            
-            return date('Y-m-d',strtotime($gp_date_start));
+            if(is_null($gp_date_start)){
+                return '';
+            }
+            else{
+                return date('Y-m-d',strtotime($gp_date_start));
+            }
         });
         $grid->gp_date_end('挂牌结束时间')->display(function($gp_date_end){            
-            return date('Y-m-d',strtotime($gp_date_end));
+            if(is_null($gp_date_end)){
+                return '';
+            }
+            else{
+                return date('Y-m-d',strtotime($gp_date_end));
+            }
         });
         $grid->sjly('项目来源')->display(function($sellerInfo_id){
             $ssjt = '';

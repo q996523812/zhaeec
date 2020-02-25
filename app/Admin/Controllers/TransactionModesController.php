@@ -62,7 +62,7 @@ class TransactionModesController extends Controller
         ];
         try{
             $model = $this->service->add($params);
-            $result['jyfs'] = $model;
+            $result['message'] = $model;
         }
         catch(\Exception $e){
             $result['success'] = 'false';
@@ -76,7 +76,8 @@ class TransactionModesController extends Controller
     protected function modify(TransactionModeRequest $request){
         $project_id = $request->project_id;
         $params = $request->only($this->fields);
-        $id = $request->transactionMode_id;
+        // $id = $request->transactionMode_id;
+        $id = $request->id;
         
         $result = [
             'success' => 'true',

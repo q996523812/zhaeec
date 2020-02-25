@@ -42,6 +42,15 @@
           </td>
         </tr>
         <tr>
+          <td class=" control-label">挂牌公告期</td>
+          <td>
+            {{$detail->pubDays}}
+          </td>
+          <td>{{$detail->date_type}}</td>
+          <td>
+          </td>
+        </tr>
+        <tr>
           <td class=" control-label">挂牌开始日期</td>
           <td>
           	{{$detail->gp_date_start}}
@@ -128,13 +137,25 @@
         <tr>
           <td class=" control-label">意向登记的时间</td>
           <td colspan="3">
-            {{$detail->yxdj_sj}}
+            {{$detail->yxdj_sj_start}}到{{$detail->yxdj_sj_end}}
           </td>
         </tr>
         <tr>
-          <td class=" control-label">意向登记方式、招标文件价格</td>
+          <td class=" control-label">意向登记方式</td>
           <td colspan="3">
             {{$detail->yxdj_fs}}
+          </td>
+        </tr>
+        <tr>
+          <td class=" control-label">招标文件价格</td>
+          <td colspan="3">
+            {{$detail->zbwjjg}}
+          </td>
+        </tr>
+        <tr>
+          <td class=" control-label">招标文件价格备注</td>
+          <td colspan="3">
+            {{$detail->zbwjjgbz}}
           </td>
         </tr>
         <tr>

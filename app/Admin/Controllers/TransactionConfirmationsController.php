@@ -77,7 +77,7 @@ class TransactionConfirmationsController extends Controller
             $model->project_id = $project_id;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
-            $model->wtf = $detail->wtf_name;
+            $model->wtf = $project->wtf->name;
             $model->zbf = $zbf;
             $model->price = $project->price;
             $model->jyfs = $detail->jyfs;

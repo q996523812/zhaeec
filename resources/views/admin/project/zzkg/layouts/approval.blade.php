@@ -19,6 +19,7 @@
         <li><a href="#tab3" data-toggle="tab">财务信息</a></li> 
         <li><a href="#tab4" data-toggle="tab">评估情况</a></li>
         <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
+        <li><a href="#tab13" data-toggle="tab">联系方式</a></li>
         <li><a href="#tab7" data-toggle="tab">附件</a></li> 
         <li><a href="#tab8" data-toggle="tab">图片</a></li> 
         <li><a href="#tab9" data-toggle="tab">意向方</a></li> 
@@ -50,6 +51,10 @@
         <!--监管信息-->
         <div class="tab-pane fade" id="tab6">
           @include('admin.project.fsxx.jgxx._show') 
+        </div>
+        <!--联系方式-->
+        <div class="tab-pane fade" id="tab13">
+          @include('admin.project.fsxx.lxfs._show') 
         </div>
         <!--附件-->
         <div class="tab-pane fade" id="tab7">

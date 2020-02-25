@@ -142,9 +142,12 @@ Route::group([
     $router->post('jgxx', 'SupervisesController@insert');
     $router->post('jgxx/update', 'SupervisesController@modify');
 
-    //监管信息
+    //标的详情
     $router->post('bdxq', 'AssetInfosController@insert');
     $router->post('bdxq/update', 'AssetInfosController@modify');
+    //联系方式
+    $router->post('lxfs', 'ContactsController@insert');
+    $router->post('lxfs/update', 'ContactsController@modify');
 
     //挂牌时间
     $router->get('gpsj/edit/{project_id}', 'ProjectBaseController@gpsjEdit');
@@ -390,5 +393,12 @@ Route::group([
     $router->get('jgpt/zczl/sendGp/{id}', 'JgptProjectLeasesController@sendGp');
     $router->get('jgpt/zczl/sendZbNotice/{id}', 'JgptProjectLeasesController@sendZbNotice');
 
+    //客户信息
+    $router->get('customer', 'CustomersController@index')->name('customer.index');
+    $router->get('customer/create', 'CustomersController@create');
+    $router->post('customer/insert', 'CustomersController@insert');
+    $router->get('customer/{id}/edit', 'CustomersController@edit');
+    $router->post('customer/modify', 'CustomersController@modify');
+    $router->post('customer/search', 'CustomersController@search');
 
 });

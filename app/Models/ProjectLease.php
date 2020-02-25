@@ -40,7 +40,10 @@ class ProjectLease extends Model
     {
         return $this->hasOne(SellerInfo::class,'project_id','project_id');
     }
-
+    public function contact()
+    {
+        return $this->hasOne(Contact::class,'project_id','project_id');
+    }
     // public function getGpDateStartAttribute()
     // {
     //     return date('Y-m-d', Carbon::parse($this->attributes['gp_date_start']));

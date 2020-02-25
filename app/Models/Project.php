@@ -60,6 +60,28 @@ class Project extends Model
             
         }
     }
+    public function wtf(){
+        $model = null;
+        switch($this->type){
+            case 'qycg':
+                $model = $this->targetCompanyBaseInfo();
+                break;
+            case 'zczl':
+                $model = $this->sellerInfo();
+                break;
+            case 'cqzr':
+                $model = $this->sellerInfo();
+                break;
+            case 'zzkg':
+                $model = $this->targetCompanyBaseInfo();
+                break;
+            case 'zczr':
+                $model = $this->sellerInfo();
+                break;
+            
+        }
+        return $model;
+    }
 
     public function workProcessRecords(){
     	return $this->hasMany(WorkProcessRecord::class,'table_id','detail_id');
@@ -137,5 +159,16 @@ class Project extends Model
     {
         return $this->hasOne(FinancialStatement::class);
     }
-
+    public function assessment()
+    {
+        return $this->hasOne(Assessment::class);
+    }
+    public function sellerInfo()
+    {
+        return $this->hasOne(SellerInfo::class);
+    }
+    public function contact()
+    {
+        return $this->hasOne(Contact::class);
+    }
 }

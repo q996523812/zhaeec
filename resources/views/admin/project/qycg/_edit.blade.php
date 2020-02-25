@@ -22,10 +22,15 @@
       <tbody>
 
         <tr>
-          <td rowspan="27" class=" control-label">交易内容</td>
           <td class=" control-label">项目编号</td>
           <td colspan="3">
             <input type="text" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" class="form-control xmbh" readonly="true">
+          </td>
+        </tr>
+        <tr>
+          <td class=" control-label">是否实质性进场</td>
+          <td>
+            <select id="sfjc" name="sfjc" class="form-control sfjc"></select>
           </td>
         </tr>
         <tr>
@@ -53,18 +58,27 @@
           </td>
         </tr>
         <tr>
+          <td class=" control-label">挂牌公告期（至少20个工作日）</td>
+          <td>
+            <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期（至少20个工作日）">
+          </td>
+          <td><select id="date_type" name="date_type" class="form-control date_type"></select></td>
+          <td><font style="color:red;">至少20个工作日或者日历日</font></td>
+          
+        </tr>
+        <tr>
           <td class=" control-label">挂牌开始日期</td>
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="gp_date_start" name="gp_date_start" value="{{$detail->gp_date_start}}" class="form-control gp_date_start" placeholder="输入 挂牌开始日期">
+              <input type="text" id="gp_date_start" name="gp_date_start" value="{{$detail->gp_date_start}}" class="form-control date gp_date_start" placeholder="输入 挂牌开始日期">
             </div>
           </td>
           <td class=" control-label">挂牌结束日期</td>
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="gp_date_end" name="gp_date_end" value="{{$detail->gp_date_end}}" class="form-control gp_date_end" placeholder="输入 挂牌结束日期">
+              <input type="text" id="gp_date_end" name="gp_date_end" value="{{$detail->gp_date_end}}" class="form-control date gp_date_end" placeholder="输入 挂牌结束日期">
             </div>
           </td>
         </tr>
@@ -100,7 +114,7 @@
           </td>
         </tr>
         <tr>
-          <td class=" control-label">工期</td>
+          <td class=" control-label">工期（天）</td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -114,7 +128,7 @@
             <select id="jyfs" name="jyfs" class="form-control jyfs"></select>
           </td>
         </tr>
-        <tr>
+        <tr class="wljj">
           <td class=" control-label">报价模式</td>
           <td>
             <select id="bjms" name="bjms" class="form-control bjms"></select>
@@ -132,14 +146,35 @@
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="jy_date" name="jy_date" value="{{$detail->jy_date}}" class="form-control jy_date" placeholder="输入 交易（开标、谈判）时间">
+              <input type="text" id="jy_date" name="jy_date" value="{{$detail->jy_date}}" class="form-control time jy_date" placeholder="输入 交易（开标、谈判）时间">
             </div>        
           </td>
         </tr>
-        <tr>
+        <tr class="ztb">
           <td class=" control-label">招标代理机构联系方式</td>
           <td colspan="3">
             <input type="text" id="zbdl_lxfs" name="zbdl_lxfs" value="{{$detail->zbdl_lxfs}}" class="form-control zbdl_lxfs" placeholder="输入 招标代理机构联系方式">
+          </td>
+        </tr>
+        <tr class="ztb">
+          <td class=" control-label">投标文件递交起止时间及地点</td>
+          <td colspan="3">
+            <input type="text" id="zbwj_dj" name="zbwj_dj" value="{{$detail->zbwj_dj}}" class="form-control zbwj_dj" placeholder="输入 投标文件递交时间及地点">
+          </td>
+        </tr>
+        <tr class="ztb">
+          <td class=" control-label">招标文件价格</td>
+          <td colspan="3">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+              <input type="text" id="zbwjjg" name="zbwjjg" value="{{$detail->zbwjjg}}" class="form-control money zbwjjg" placeholder="输入 招标文件价格">
+            </div>          
+          </td>
+        </tr>
+        <tr class="ztb">
+          <td class=" control-label">招标文件价格备注</td>
+          <td colspan="3">
+            <textarea id="zbwjjgbz" name="zbwjjgbz" class="form-control zbwjjgbz" rows="5" placeholder="输入 招标文件价格备注">{{$detail->zbwjjgbz}}</textarea>
           </td>
         </tr>
         <tr>
@@ -157,24 +192,30 @@
         <tr>
           <td class=" control-label">意向登记的时间</td>
           <td colspan="3">
+            <div class="input-group" style="float:left;">
+              <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+              <input type="text" id="yxdj_sj_start" name="yxdj_sj_start" value="{{$detail->yxdj_sj_start}}" class="form-control time yxdj_sj_start" placeholder="输入 意向登记的时间起">
+            </div>
+            <div style="float:left;">&nbsp;&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="yxdj_sj" name="yxdj_sj" value="{{$detail->yxdj_sj}}" class="form-control yxdj_sj" placeholder="输入 意向登记的时间">
-            </div>        
+              <input type="text" id="yxdj_sj_end" name="yxdj_sj_end" value="{{$detail->yxdj_sj_end}}" class="form-control time yxdj_sj_end" placeholder="输入 意向登记的时间止">
+            </div>
           </td>
-        </tr>
+        </tr>l
         <tr>
-          <td class=" control-label">意向登记方式、招标文件价格</td>
+          <td class=" control-label">意向登记方式</td>
           <td colspan="3">
-            <input type="text" id="yxdj_fs" name="yxdj_fs" value="{{$detail->yxdj_fs}}" class="form-control yxdj_fs" placeholder="输入 意向登记方式、招标文件价格">
+            <input type="text" id="yxdj_fs" name="yxdj_fs" value="{{$detail->yxdj_fs}}" class="form-control yxdj_fs" placeholder="输入 意向登记方式">
           </td>
         </tr>
+
         <tr>
           <td class=" control-label">交纳保证金截止时间</td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="bzj_jn_time_end" name="bzj_jn_time_end" value="{{$detail->bzj_jn_time_end}}" class="form-control bzj_jn_time_end" placeholder="输入 交纳保证金截止时间">
+              <input type="text" id="bzj_jn_time_end" name="bzj_jn_time_end" value="{{$detail->bzj_jn_time_end}}" class="form-control date bzj_jn_time_end" placeholder="输入 交纳保证金截止时间">
             </div>
           </td>
         </tr>
@@ -206,12 +247,7 @@
             <input type="text" id="bail_account_code" name="bail_account_code" value="{{$detail->bail_account_code}}" class="form-control bail_account_code" placeholder="输入 账号">
           </td>
         </tr>
-        <tr>
-          <td class=" control-label">投标文件递交起止时间及地点</td>
-          <td colspan="3">
-            <input type="text" id="zbwj_dj" name="zbwj_dj" value="{{$detail->zbwj_dj}}" class="form-control zbwj_dj" placeholder="输入 投标文件递交时间及地点">
-          </td>
-        </tr>
+
         <tr>
           <td class=" control-label">项目经办人及联系方式</td>
           <td colspan="3">
@@ -340,65 +376,59 @@
         });
 
         //日期
-        $('.gp_date_start').parent().datetimepicker({
+        $('.date').parent().datetimepicker({
           "format":"YYYY-MM-DD",
           "locale":"zh-CN",
           "allowInputToggle":true
         });
-        $('.gp_date_end').parent().datetimepicker({
-          "format":"YYYY-MM-DD",
-          "locale":"zh-CN",
-          "allowInputToggle":true
-        });
-        $('.bzj_jn_time_end').parent().datetimepicker({
-          "format":"YYYY-MM-DD HH:mm:ss",
-          "locale":"zh-CN",
-          "allowInputToggle":true
-        });
-        $('.jy_date').parent().datetimepicker({
-          "format":"YYYY-MM-DD HH:mm:ss",
-          "locale":"zh-CN",
-          "allowInputToggle":true
-        });
-        $('.yxdj_sj').parent().datetimepicker({
+        $('.time').parent().datetimepicker({
           "format":"YYYY-MM-DD HH:mm:ss",
           "locale":"zh-CN",
           "allowInputToggle":true
         });
 
         //金额、数字
-        $('.gpjg').inputmask({"alias":"decimal","rightAlign":true});
-        $('.jjfd').inputmask({"alias":"decimal","rightAlign":true});
-        $('.bzj').inputmask({"alias":"decimal","rightAlign":true});
-        $('.gq').inputmask({"alias":"decimal","rightAlign":true});
+        $('.money').inputmask({"alias":"decimal","rightAlign":true});
+        $('.number').inputmask({"alias":"decimal","rightAlign":true});
 
         //下拉框
+        $('#sfjc').selecter({
+          autoSelect: false,
+          type: "sf",
+          selectvalue: "{{$detail->sfjc}}",
+          savetype:2
+        });
         $('#sfhs').selecter({
           autoSelect: false,
           type: "sf",
-          selectvalue: "{{$detail->sfhs}}"
+          selectvalue: "{{$detail->sfhs}}",
+          savetype:2
         });
         $('#wtf_qyxz').selecter({
           autoSelect: false,
           type: "qyxz",
-          selectvalue: "{{$detail->wtf_qyxz}}"
+          selectvalue: "{{$detail->wtf_qyxz}}",
+          savetype:2
         });    
         
         $('#wtf_jt').selecter({
           autoSelect: false,
           type: "ssjt",
-          selectvalue: "{{$detail->wtf_jt}}"
+          selectvalue: "{{$detail->wtf_jt}}",
+          savetype:2
         }); 
 
         $('#jyfs').selecter({
           autoSelect: false,
           type: "jyfs",
-          selectvalue: "{{$detail->jyfs}}"
+          selectvalue: "{{$detail->jyfs}}",
+          savetype:2
         });
         $('#bjms').selecter({
           autoSelect: false,
           type: "bjms",
-          selectvalue: "{{$detail->bjms}}"
+          selectvalue: "{{$detail->bjms}}",
+          savetype:2
         });
         $('#bdyx').selecter({
           autoSelect: false,
@@ -409,9 +439,26 @@
         $('#xmpz').selecter({
           autoSelect: false,
           type: "xmpz",
-          selectvalue: "{{$detail->xmpz}}"
+          selectvalue: "{{$detail->xmpz}}",
+          savetype:2
+        });
+        $('#date_type').selecter({
+          autoSelect: false,
+          type: "date_type",
+          selectvalue: "{{$detail->date_type}}",
+          savetype:1
         });
 
+        $('#jyfs').on('change',function(){
+          if(this.value == "1"){
+            $('.wljj').show();
+            $('.ztb').hide();
+          }
+          else{
+            $('.wljj').hide();
+            $('.ztb').show();
+          }
+        });
     });
     </script>  
 </form>   

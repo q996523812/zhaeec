@@ -110,7 +110,7 @@
 	<tr>
 		<th>募集资金用途<font color="red">*</font></th>
 		<td colspan="4">
-			<textarea name="pub_moneyFor" id="moneyFor" class="easyui-validatebox validatebox-text" required="true" cols="75" rows="6" validtype="length[1,300]" missingmessage="最多可输入300字" invalidmessage="最多可输入300字">{{$detail->pub_moneyFor}}</textarea>
+			<textarea name="pub_moneyFor" id="moneyFor" class="easyui-validatebox validatebox-text" required="true" cols="75" rows="6" >{{$detail->pub_moneyFor}}</textarea>
 			
 		</td>
 	</tr>
@@ -209,13 +209,13 @@
 	  	<tr>
 			<td>保证金处置方式<font color="red">*</font></td>
 			<td>
-				<textarea class="easyui-validatebox" validtype="length[0,1000]" maxlength="1000" required="true" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" name="pubBailMemo" id="pubBailMemo" cols="70" rows="5">{{$detail->pubBailMemo}}</textarea>（最多可输入1000字）<br>
+				<textarea class="easyui-validatebox" required="true" name="pubBailMemo" id="pubBailMemo" cols="70" rows="5">{{$detail->pubBailMemo}}</textarea><br>
 			</td>
 		</tr>
 		<tr>
 			<td>保证内容</td>
 			<td>
-			<textarea class="easyui-validatebox" validtype="length[0,1000]" maxlength="1000" missingmessage="最多可输入3000字" invalidmessage="最多可输入1000字" rows="5" cols="70" name="valueDesc" id="valueDesc">{{$detail->valueDesc}}</textarea>（最多可输入1000字）
+			<textarea class="easyui-validatebox" rows="5" cols="70" name="valueDesc" id="valueDesc">{{$detail->valueDesc}}</textarea>
 			</td> 
 		</tr>
 
@@ -237,17 +237,19 @@
 			    </div>
 		    </td>
 		</tr>
+		<!--
 		<tr>
 		    <th>是否披露意向方应提交的附件材料</th>
 		    <td colspan="2">
 				<div id="pub16_div"></div>
 		    </td>
 		</tr>
+	-->
 		<tr><th style="width:180px" rowspan="5">挂牌条件</th></tr>
 		<tr>
-			<td>挂牌公告期（至少40个）<font color="red">*</font></td>
+			<td>挂牌公告期<font color="red">*</font></td>
 			<td>
-				<input name="pubDays" id="pubDays" class="easyui-numberbox" value="{{$detail->pubDays}}">(挂牌公告期不小于40个工作日)
+				<input name="pubDays" id="pubDays" class="easyui-numberbox" value="{{$detail->pubDays}}">
 			</td>
 		</tr>
 		<tr>
@@ -298,7 +300,7 @@
 		<tr>
 			<td>遴选方案</td>
 			<td class="unput">
-				<div style="width:60%;"><textarea class="easyui-validatebox" validtype="length[0,1000]" maxlength="1000" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" name="pubDesc" id="pubDesc" cols="70" rows="5">{{$detail->pubDesc}}</textarea>（最多可输入1000字）
+				<div style="width:60%;"><textarea class="easyui-validatebox" name="pubDesc" id="pubDesc" cols="70" rows="5">{{$detail->pubDesc}}</textarea>
 				</div>
 			</td>
 		</tr>
@@ -337,8 +339,8 @@
 			<th style="width:180px;">增资方案主要内容<font color="red">*</font></th>
 			<td colspan="2">
 			<div style="width:60%;">
-			<textarea class="easyui-validatebox" validtype="length[0,300]" maxlength="300" required="required" missingmessage="最多可输入300字" invalidmessage="最多可输入300字" rows="10" cols="70" name="addMoneyPlan" id="addMoneyPlan">{{$detail->addMoneyPlan}}</textarea></div>
-						 （最多可输入300字）<br>
+			<textarea class="easyui-validatebox" required="required" rows="10" cols="70" name="addMoneyPlan" id="addMoneyPlan">{{$detail->addMoneyPlan}}</textarea></div>
+			<br>
 			</td> 
 		</tr>
 		<tr class="transway1">
@@ -358,7 +360,7 @@
 			<th style="width:180px;">交易达成条件<font color="red">*</font></th>
 			<td colspan="2">
 				<div style="width:60%;">
-				<textarea class="easyui-validatebox" validtype="length[0,1000]" maxlength="1000" required="true" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" rows="10" cols="70" name="dealConditions" id="dealConditions">{{$detail->dealConditions}}</textarea></div>（最多可输入1000字）
+				<textarea class="easyui-validatebox" required="true" rows="10" cols="70" name="dealConditions" id="dealConditions">{{$detail->dealConditions}}</textarea></div>
 				<div class="zhushi">
 					<p>注：<br>对最低成交条件、终结条件如新增股东个数、募集金额等方面的要求进行说明。</p>
 				</div>
@@ -368,7 +370,7 @@
 			<th style="width:180px;">其他披露事项</th>
 			<td colspan="2">
 			<div style="width:60%;">
-			<textarea class="easyui-validatebox" validtype="length[0,1000]" maxlength="1000" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" rows="10" cols="70" name="spare4" id="spare4">{{$detail->dealConditions}}</textarea></div>（最多可输入1000字）
+			<textarea class="easyui-validatebox" rows="10" cols="70" name="spare4" id="spare4">{{$detail->dealConditions}}</textarea></div>
 			</td> 
 		</tr>
 		<tr>
