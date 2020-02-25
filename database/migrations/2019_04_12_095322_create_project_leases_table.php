@@ -31,9 +31,9 @@ class CreateProjectLeasesTable extends Migration
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();//
             
             $table->string('xmbh')->comment('项目编号')->unique()->nullable();//
-            $table->string('title')->comment('标的名称');//
-            $table->string('pzjg')->comment('挂牌交易批准机构');//
-            $table->text('bdgk')->comment('项目(标的)概况');//
+            $table->string('title')->comment('标的名称')->nullable();//
+            $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();//
+            $table->text('bdgk')->comment('项目(标的)概况')->nullable();//
             $table->text('other')->comment('其它需要披露的事项')->nullable();//
             $table->unsignedInteger('gpqx')->comment('挂牌期限')->nullable();
             $table->unsignedInteger('pubDays')->comment('挂牌公告期（至少20个工作日）');
@@ -44,17 +44,17 @@ class CreateProjectLeasesTable extends Migration
             $table->decimal('gpjg',26,6)->comment('总租金')->nullable();//
             $table->decimal('gpjg_dj',26,6)->comment('月租金/单价')->nullable();//
             $table->unsignedInteger('zlqx')->comment('租赁期限（年）');
-            $table->string('jymd')->comment('交易目的');//
-            $table->string('zclb')->comment('资产类别');//
-            $table->string('fbfs')->comment('信息发布方式');//
-            $table->string('zcsfsx')->comment('交易资产中是否存在权利受到限制的情形');//
-            $table->decimal('pgjz',26,6)->comment('标的资产评估值(人民币)元');//
-            $table->string('jyfs')->comment('交易方式');//
-            $table->string('bjms')->comment('报价模式');//
-            $table->decimal('jjfd',26,6)->comment('加价幅度');//
-            $table->string('jysj_bz')->comment('交易时间备注');//
-            $table->text('yxf_zgtj')->comment('意向方资格条件');//
-            $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单');//
+            $table->string('jymd')->comment('交易目的')->nullable();//
+            $table->string('zclb')->comment('资产类别')->nullable();//
+            $table->string('fbfs')->comment('信息发布方式')->nullable();//
+            $table->string('zcsfsx')->comment('交易资产中是否存在权利受到限制的情形')->nullable();//
+            $table->decimal('pgjz',26,6)->comment('标的资产评估值(人民币)元')->nullable();//
+            $table->string('jyfs')->comment('交易方式')->nullable();//
+            $table->string('bjms')->comment('报价模式')->nullable();//
+            $table->decimal('jjfd',26,6)->comment('加价幅度')->nullable();//
+            $table->string('jysj_bz')->comment('交易时间备注')->nullable();//
+            $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();//
+            $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单')->nullable();//
             $table->datetime('bzj_jn_time_end')->comment('报名资料提交及交纳竞标保证金截止时间')->nullable();//
             $table->decimal('bzj',26,6)->comment('竞标保证金金额(人民币) (万元)');//
             $table->string('jypt_lxfs')->comment('交易平台联系方式')->nullable();//

@@ -20,25 +20,25 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('title')->comment('项目名称');
             $table->decimal('gpjg',26,6)->comment('转让底价（万元）');
             $table->string('pauseText')->comment('产权隶属关系')->nullable();
-            $table->string('spare4',1000)->comment('合作机构信息');
-            $table->string('proDesc',1000)->comment('项目概述');
-            $table->unsignedInteger('isGzw')->comment('是否国资');
+            $table->string('spare4',1000)->comment('合作机构信息')->nullable();
+            $table->string('proDesc',1000)->comment('项目概述')->nullable();
+            $table->unsignedInteger('isGzw')->comment('是否国资')->nullable();
             $table->unsignedInteger('pauseTime')->comment('是否让公共资源采集')->nullable();
-            $table->unsignedInteger('proType')->comment('资产类型');
+            $table->unsignedInteger('proType')->comment('资产类型')->nullable();
             $table->string('proProvince')->comment('标的所在地区-省')->nullable();
             $table->string('proCity')->comment('标的所在地区-市')->nullable();
             $table->string('proCounty')->comment('标的所在地区-县')->nullable();
-            $table->unsignedInteger('proSource')->comment('资产来源');
+            $table->unsignedInteger('proSource')->comment('资产来源')->nullable();
 
             //挂牌信息
             $table->unsignedInteger('pubDays')->comment('挂牌公告期（至少20个）');
             $table->datetime('gp_date_start')->comment('挂牌开始日期')->nullable();
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
-            $table->unsignedInteger('pubDelayFlag')->comment('是否自动延牌');
+            $table->unsignedInteger('pubDelayFlag')->comment('是否自动延牌')->nullable();
             $table->unsignedInteger('delayBuyerSize')->comment('延牌条件（少于等于XX个意向方）')->nullable();
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
             $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
-            $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价');
+            $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价')->nullable();
             $table->string('pubDealWay1')->comment('只征集到一家符合条件的意向方采用的交易方式')->default('协议成交')->nullable();
             $table->unsignedInteger('pubDealWay2')->comment('征集到两个以上受让方采用的交易方式')->nullable();
             $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
@@ -52,8 +52,8 @@ class CreateProjectTransferAssetsTable extends Migration
 
             //保证金交纳规则
             $table->decimal('pubBail',26,6)->comment('保证金金额（万元）');
-            $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间');
-            $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求');
+            $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间')->nullable();
+            $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求')->nullable();
             $table->unsignedInteger('pubBailDays')->comment(' XX个工作日17:00前有效(以银行到账时间为准)')->nullable();
             $table->string('pubBailMethod')->comment('保证金交纳方式')->nullable();
             $table->string('bail_account_code')->comment('账号');

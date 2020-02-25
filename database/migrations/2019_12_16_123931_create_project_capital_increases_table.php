@@ -18,13 +18,13 @@ class CreateProjectCapitalIncreasesTable extends Migration
             //基础信息
             $table->string('xmbh')->comment('项目编号');
             $table->string('title')->comment('项目名称');
-            $table->string('pauseText')->comment('产权隶属关系');
-            $table->unsignedInteger('isGzw')->comment('是否国有');
-            $table->decimal('gpjg',26,6)->comment('拟公开募集资金总额(万元)-最低');
+            $table->string('pauseText')->comment('产权隶属关系')->nullable();
+            $table->unsignedInteger('isGzw')->comment('是否国有')->nullable();
+            $table->decimal('gpjg',26,6)->comment('拟公开募集资金总额(万元)-最低')->nullable();
             $table->decimal('proPriceMax',26,6)->comment('拟公开募集资金总额(万元)-最高')->nullable();
             $table->text('planPriceDesc')->comment('拟公开募集资金总额说明')->nullable();
 
-            $table->decimal('sellPercent1',26,6)->comment('拟公开募集资金对应持股比例(%)-最低');
+            $table->decimal('sellPercent1',26,6)->comment('拟公开募集资金对应持股比例(%)-最低')->nullable();
             $table->decimal('sellPercent2',26,6)->comment('拟公开募集资金对应持股比例(%)-最高')->nullable();
             $table->text('planPercentDesc')->comment('拟公开募集资金对应持股比例(%)说明')->nullable();
 
@@ -36,13 +36,13 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->decimal('spare22',26,6)->comment('拟新增注册资本(万元)-最高')->nullable();
             $table->text('announceMedia')->comment('拟新增注册资本(万元)说明')->nullable();
 
-            $table->decimal('spare91',26,6)->comment('拟公开征集投资方数量(个)-最低');
+            $table->decimal('spare91',26,6)->comment('拟公开征集投资方数量(个)-最低')->nullable();
             $table->decimal('spare92',26,6)->comment('拟公开征集投资方数量(个)-最高')->nullable();
             $table->text('planBuyersDesc')->comment('拟公开征集投资方数量(个)说明')->nullable();
 
-            $table->string('pub_moneyFor',600)->comment('募集资金用途');
-            $table->unsignedInteger('pub_holderIn')->comment('原股东是否有投资意向');
-            $table->unsignedInteger('pub_buyerPaperFlag')->comment('企业管理层或员工是否有投资意向');
+            $table->string('pub_moneyFor',600)->comment('募集资金用途')->nullable();
+            $table->unsignedInteger('pub_holderIn')->comment('原股东是否有投资意向')->nullable();
+            $table->unsignedInteger('pub_buyerPaperFlag')->comment('企业管理层或员工是否有投资意向')->nullable();
             $table->string('pub_valueDesc',1000)->comment('专业机构推荐意见')->nullable();
 
             //挂牌信息
@@ -51,46 +51,46 @@ class CreateProjectCapitalIncreasesTable extends Migration
             $table->datetime('gp_date_end')->comment('挂牌结束日期')->nullable();
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
             $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
-            $table->string('pub10')->comment('未征集到意向投资方')->default('在融资方同意的情况下');
-            $table->unsignedInteger('pubDelayFlag')->comment('未征集到意向投资方的延牌类型');
-            $table->string('pub7')->comment('征集到意向投资方')->default('但未达到募集资金总额');
-            $table->unsignedInteger('pub1')->comment('征集到意向投资方的延牌类型');
-            $table->string('pub2')->comment('信息发布终结 说明');
-            $table->string('pub3')->comment('延长信息发布 说明');
+            $table->string('pub10')->comment('未征集到意向投资方')->default('在融资方同意的情况下')->nullable();
+            $table->unsignedInteger('pubDelayFlag')->comment('未征集到意向投资方的延牌类型')->nullable();
+            $table->string('pub7')->comment('征集到意向投资方')->default('但未达到募集资金总额')->nullable();
+            $table->unsignedInteger('pub1')->comment('征集到意向投资方的延牌类型')->nullable();
+            $table->string('pub2')->comment('信息发布终结 说明')->nullable();
+            $table->string('pub3')->comment('延长信息发布 说明')->nullable();
             $table->string('pub8')->comment('征集到意向投资方')->default('且达到募集资金总额');
             $table->string('pub9')->comment('征集到意向投资方 信息发布终结，说明')->default('信息发布终结并组织遴选');
-            $table->unsignedInteger('delayFlag')->comment('是否无限期延牌');
+            $table->unsignedInteger('delayFlag')->comment('是否无限期延牌')->nullable();
 
             //披露信息
-            $table->unsignedInteger('unitTransferee')->comment('是否允许联合受让');
-            $table->unsignedInteger('pub0')->comment('是否允许网上报名');
+            $table->unsignedInteger('unitTransferee')->comment('是否允许联合受让')->nullable();
+            $table->unsignedInteger('pub0')->comment('是否允许网上报名')->nullable();
 
             //保证金交纳规则
-            $table->decimal('pubBail',26,6)->comment('保证金 金额（万元）/比例');
-            $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间');
-            $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求');
+            $table->decimal('pubBail',26,6)->comment('保证金 金额（万元）/比例')->nullable();
+            $table->unsignedInteger('bailStartFlag')->comment('保证金交纳时间')->nullable();
+            $table->unsignedInteger('pubBailType')->comment('保证金交纳截止时间要求')->nullable();
             $table->unsignedInteger('pubBailDays')->comment(' XX个工作日17:00前有效(以银行到账时间为准)')->nullable();
             $table->string('pubBailMethod')->comment('保证金交纳方式')->nullable();
             $table->string('bail_account_code')->comment('账号');
             $table->string('bail_account_name')->comment('账户名称');
             $table->string('bail_account_bank')->comment('开户行');
             $table->unsignedInteger('pubBailCtrl')->comment('保证金收取方式')->nullable();
-            $table->string('pubBailMemo',1000)->comment('保证金处置方式');
+            $table->string('pubBailMemo',1000)->comment('保证金处置方式')->nullable();
             $table->string('valueDesc',1000)->comment('保证内容')->nullable();
 
             //交易条件
-            $table->string('buyConditions',1000)->comment('受让方资格条件');
-            $table->string('pubPayMode')->comment('价款支付方式');
+            $table->string('buyConditions',1000)->comment('受让方资格条件')->nullable();
+            $table->string('pubPayMode')->comment('价款支付方式')->nullable();
             $table->string('payPeriodInfo',200)->comment('价款支付要求')->nullable();
             $table->unsignedInteger('pub16')->comment('是否披露意向方应提交的附件材料')->nullable();
             $table->text('important')->comment('重大事项及其他披露内容/对增资有重大影响的信息')->nullable();
 
             //遴选方式
-            $table->string('pubDealWay')->comment('遴选方式');
+            $table->string('pubDealWay')->comment('遴选方式')->nullable();
             $table->string('dealWayDesc')->comment('遴选方式 其他')->nullable();
             $table->text('pubDesc')->comment('遴选方案')->nullable();
             $table->text('spare4')->comment('其他披露事项')->nullable();
-            $table->string('addMoneyPlan',300)->comment('增资方案主要内容');
+            $table->string('addMoneyPlan',300)->comment('增资方案主要内容')->nullable();
             $table->text('sellConditions')->comment('增资条件')->nullable();
             $table->text('dealConditions')->comment('交易达成条件')->nullable();
             $table->string('pub15')->comment('增资后（拟）股权结构描述')->nullable();
