@@ -185,7 +185,7 @@ class ContractsController extends Controller
         $data = $request->only($this->fields);
         $id = $request->id;
         $contract = Contract::find($id);
-        $contract = $this->service->modify($id,$data);
+        $contract = $this->service->modify($contract,$data);
         $result = [
             'success' => 'true',
             'message' => $contract,
