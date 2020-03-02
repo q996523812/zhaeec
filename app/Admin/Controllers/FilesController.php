@@ -45,7 +45,6 @@ class FilesController extends Controller
 
         $service = new FileService();
         $file = $service->add($model,$folder,$request->file);
-
 // dd(new FileTransformer($file));
         $result = [
             'success' => 'true',

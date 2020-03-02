@@ -191,7 +191,7 @@
         var param = new FormData($('#formfile')[0]);
         saveFileOrImage(url,param,function(file){
           var row = '<tr id="'+file.id+'">'
-            +'<td><a href='+file.path+'>'+file.name+'<\/a><\/td>'
+            +'<td><a href='+file.file_url+'>'+file.name+'<\/a><\/td>'
             +'<td><a href="javascript:void(0);" class="remove" data="'+file.id+'">删除<\/a><\/td>'
           +'<\/tr>';
           $("#fileslist tbody").append(row);
