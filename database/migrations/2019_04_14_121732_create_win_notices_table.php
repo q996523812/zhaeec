@@ -33,8 +33,9 @@ class CreateWinNoticesTable extends Migration
             $table->string('zbf_lx_1')->comment('受让方类型(国有控股、国有参股。。。)')->nullable();//受让方类型(国有控股、国有参股。。。)
             $table->string('zbf_lx_2')->comment('受让方类型（股份公司、有限责任公司。。。）')->nullable();//受让方类型（股份公司、有限责任公司。。。）
             $table->datetime('jysj')->comment('交易时间')->nullable();//交易时间
-            $table->decimal('cjj_zj')->comment('成交总价')->nullable()->index();//成交总价
-            $table->decimal('cjj_dj')->comment('成交单价')->nullable()->index();//成交单价
+            $table->decimal('jydj',26,6)->comment('挂牌底价')->nullable()->index();//成交总价
+            $table->decimal('cjj_zj',26,6)->comment('成交总价')->nullable()->index();//成交总价
+            $table->decimal('cjj_dj',26,6)->comment('成交单价')->nullable()->index();//成交单价
             $table->string('cjj_bz')->comment('成交价备注')->nullable();//成交价备注
             $table->string('jyfs')->comment('交易方式')->nullable();//交易方式
             $table->string('jycd')->comment('交易场地')->nullable();//交易场地

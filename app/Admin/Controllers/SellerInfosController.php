@@ -19,7 +19,7 @@ class SellerInfosController extends Controller
     // protected $fields = ['sellerName','unionFlag','sellerZcode','sellerIndustry1','sellerIndustry2','seller0One','seller0Two','sellerTime','sellerProvince','sellerCity','sellerCounty','sellerAddress','sellerUniGslx','sellerUniJjlx','compScope','sellerFunding','moneyType','sellerBoss','sellerScale','compZrs','innerAudit','innerAuditDesc','holdPercent','sharesHave','sellPercent','sharesWant','project_id'];
 
     protected $fields = [
-        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','project_id'
+        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','fax','phone','email','mailing_address','ssjt','qualification','project_id'
     ];
 
 

@@ -507,6 +507,13 @@
             <input type="text" id="email" name="email" value="{{$bdqy->email}}" class="form-control email" placeholder="输入 邮箱">
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">邮寄地址</td>
+          <td colspan="3">
+            <input type="text" id="mailing_address" name="mailing_address" value="{{$bdqy->mailing_address}}" class="form-control mailing_address" placeholder="输入 邮寄地址">
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </div>

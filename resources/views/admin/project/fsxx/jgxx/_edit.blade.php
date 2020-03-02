@@ -22,9 +22,9 @@
 				国资监管类型<font color="red">*</font>
 			</td>
 			<td colspan="5">
-				<input id="sellerIsYq1" type="radio" name="sellerIsYq" onclick="isYQ()" value="1">
+				<input id="sellerIsYq1" type="radio" name="sellerIsYq" onclick="isYQ()" value="1" @if($jgxx->sellerIsYq==1) checked @endif>
 				中央 &nbsp;&nbsp;
-				<input id="sellerIsYq2" type="radio" name="sellerIsYq" onclick="notYQ()" value="2" checked="checked/">
+				<input id="sellerIsYq2" type="radio" name="sellerIsYq" onclick="notYQ()" value="2" @if($jgxx->sellerIsYq==2) checked @endif>
 				地方
 			</td>
 		</tr>
@@ -34,49 +34,49 @@
 			</td>
 			<td colspan="5" class="aleft">
 				<div id="jgjg1" style="text-align: left; display: none;">
-					<input type="radio" name="mgrType" value="1" onclick="clickMgrType(this.value,'1')">
+					<input type="radio" name="mgrType" value="1" onclick="clickMgrType(this.value,'1')" @if($jgxx->mgrType==1) checked @endif>
 					国务院国资委监管
 							
-					<input type="radio" name="mgrType" value="2" onclick="clickMgrType(this.value,'1')">
+					<input type="radio" name="mgrType" value="2" onclick="clickMgrType(this.value,'1')" @if($jgxx->mgrType==2) checked @endif>
 					财政部监管
 							
-					<input type="radio" name="mgrType" value="3" onclick="clickMgrType(this.value,'1')">
+					<input type="radio" name="mgrType" value="3" onclick="clickMgrType(this.value,'1')" @if($jgxx->mgrType==3) checked @endif>
 					其他中央部委监管
 				</div>
 
 				<table id="jgjg2" cellspacing="0" cellpadding="0">
 					<tbody><tr>
 					<td>
-					<input type="radio" name="mgrType" value="4" onclick="clickMgrType(this.value,'2')" checked="checked/">
+					<input type="radio" name="mgrType" value="4" onclick="clickMgrType(this.value,'2')" @if($jgxx->mgrType==4) checked @endif>
 					省级国资委监管		
 					</td>
 					<td>
-					<input type="radio" name="mgrType" value="5" onclick="clickMgrType(this.value,'2')">
+					<input type="radio" name="mgrType" value="5" onclick="clickMgrType(this.value,'2')" @if($jgxx->mgrType==5) checked @endif>
 					省级财政部门监管			
 					</td>
 					<td>		
-					<input type="radio" name="mgrType" value="6" onclick="clickMgrType(this.value,'2')">
+					<input type="radio" name="mgrType" value="6" onclick="clickMgrType(this.value,'2')" @if($jgxx->mgrType==6) checked @endif>
 					省级其他部门监管		
 					</td></tr>		
 					<tr><td>
-					<input type="radio" name="mgrType" value="7" onclick="clickMgrType(this.value,'3')">
+					<input type="radio" name="mgrType" value="7" onclick="clickMgrType(this.value,'3')" @if($jgxx->mgrType==7) checked @endif>
 					地市级国资委监管			
 					</td><td>		
-					<input type="radio" name="mgrType" value="8" onclick="clickMgrType(this.value,'3')">
+					<input type="radio" name="mgrType" value="8" onclick="clickMgrType(this.value,'3')" @if($jgxx->mgrType==8) checked @endif>
 					地市级财政部门或金融办监管		 
 					</td><td>		
-					<input type="radio" name="mgrType" value="9" onclick="clickMgrType(this.value,'3')">
+					<input type="radio" name="mgrType" value="9" onclick="clickMgrType(this.value,'3')" @if($jgxx->mgrType==9) checked @endif>
 					地市级其他部门监管			
 					</td></tr>	
 					
 					<tr><td>
-					<input type="radio" name="mgrType" value="10" onclick="clickMgrType(this.value,'4')">
+					<input type="radio" name="mgrType" value="10" onclick="clickMgrType(this.value,'4')" @if($jgxx->mgrType==10) checked @endif>
 					区县级国资委监管
 					</td><td>
-					<input type="radio" name="mgrType" value="11" onclick="clickMgrType(this.value,'4')">
+					<input type="radio" name="mgrType" value="11" onclick="clickMgrType(this.value,'4')" @if($jgxx->mgrType==11) checked @endif>
 					区县级财政部门或金融办监管
 					</td><td>				
-					<input type="radio" name="mgrType" value="12" onclick="clickMgrType(this.value,'4')">
+					<input type="radio" name="mgrType" value="12" onclick="clickMgrType(this.value,'4')" @if($jgxx->mgrType==12) checked @endif>
 					区县其他部门监管
 					</td></tr>
 					<tr><td colspan="3" title="">
@@ -109,7 +109,7 @@
 				  选择国家出资企业或主管部门名称<font color="red">*</font>
 				</td>
 				<td width="220">
-						<input name="mgrName" id="mgrName" type="text" value="" size="34" value="{{$jgxx->mgrName}}">
+						<input name="mgrName" id="mgrName" type="text" size="34" value="{{$jgxx->mgrName}}">
 					
 				</td>
 				<td width="199">
@@ -143,7 +143,7 @@
 					批准单位名称<font color="red">*</font>
 				</td>
 				<td colspan="5">
-					<input name="permitCompName" id="permitCompName" value="" type="text" size="34" value="{{$jgxx->permitCompName}}">
+					<input name="permitCompName" id="permitCompName" type="text" size="34" value="{{$jgxx->permitCompName}}">
 				</td>
 			</tr>
 			<tr>
@@ -151,17 +151,17 @@
 					批准文件类型<font color="red">*</font>
 				</td>
 				<td colspan="5">
-					<input name="permitFileType" type="radio" id="permitFileType_one" value="A07001" checked="" onclick="permitFileTypeClick(this)">
+					<input name="permitFileType" type="radio" value="1" class="permitFileType" @if($jgxx->permitFileType==1) checked @endif onclick="permitFileTypeClick(this)">
 									文件&nbsp;&nbsp;
-					<input name="permitFileType" type="radio" value="2" onclick="permitFileTypeClick(this);">
+					<input name="permitFileType" type="radio" value="2" class="permitFileType" @if($jgxx->permitFileType==2) checked @endif>
 									董事会决议&nbsp;&nbsp;
-					<input name="permitFileType" type="radio" value="3" onclick="permitFileTypeClick(this)">
+					<input name="permitFileType" type="radio" value="3" class="permitFileType" @if($jgxx->permitFileType==3) checked @endif>
 									股东会决议&nbsp;&nbsp;					
-					<input name="permitFileType" type="radio" value="4" onclick="permitFileTypeClick(this);">
+					<input name="permitFileType" type="radio" value="4" class="permitFileType" @if($jgxx->permitFileType==4) checked @endif>
 									批复&nbsp;&nbsp;
-					<input name="permitFileType" type="radio" value="5" onclick="permitFileTypeClick(this);">
+					<input name="permitFileType" type="radio" value="5" class="permitFileType" @if($jgxx->permitFileType==5) checked @endif>
 									总经理办公会议决议&nbsp;&nbsp;
-					<input name="permitFileType" type="radio" value="6" onclick="permitFileTypeOtherClick(this);">
+					<input name="permitFileType" type="radio" value="6" class="permitFileType" @if($jgxx->permitFileType==6) checked @endif>
 									其他
 					<input id="permitFileDesc" name="permitFileDesc" value="{{$jgxx->permitFileDesc}}" type="text" size="20" disabled="">
 				</td>
@@ -191,14 +191,14 @@
 				<td colspan="5">
 					<div class="input-group">
 			          <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-			          <input id="permitDate" type="text" name="permitDate" size="15" class="form-control date" value="{{$pgqk->permitDate}}">
+			          <input id="permitDate" type="text" name="permitDate" size="15" class="form-control date" value="{{$jgxx->permitDate}}">
 			        </div>
 				</td>
 			</tr>		
 		</tbody></table>
 			
 		<center>
-			<a href="javascript:void(0)" id="btnSaveJgxx" class="save_btn" >保存监管信息</a>
+			<a href="javascript:void(0)" id="btnSaveJgxx" class="btn btn-primary btn-pass save_btn" >保存监管信息</a>
 		</center>
 </div>
 </div>
@@ -263,8 +263,18 @@
           	autoSelect: false,
           	type: "permitCompType",
 	  		savetype: 2,
-          	selectvalue: "{{$zrf->permitCompType}}"
+          	selectvalue: "{{$jgxx->permitCompType}}"
         });
+		
+		$('.permitFileType').on('click',function(){
+			if(this.value=='6'){
+        		$('#permitFileDesc').removeAttr('disabled');
+        	}
+        	else{
+        		$('#permitFileDesc').attr('disabled','disabled');
+        	}
+		});
+
     });
 </script>
 </form>

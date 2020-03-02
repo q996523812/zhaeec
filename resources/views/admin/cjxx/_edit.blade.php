@@ -74,9 +74,6 @@
   <div class="col-sm-2">
     <div class="input-group">
       <select id="wtf_charge_type" name="wtf_charge_type" class="form-control">
-        <option value="1">按标准费率</option>
-        <option value="2">手工录入</option>
-        <option value="3" selected="true">不收取服务费</option>
       </select>
     </div>
   </div>
@@ -95,9 +92,6 @@
   <div class="col-sm-2">
     <div class="input-group">
       <select id="zbf_charge_type" name="zbf_charge_type" class="form-control">
-        <option value="1">按标准费率</option>
-        <option value="2">手工录入</option>
-        <option value="3">不收取服务费</option>
       </select>
     </div>
   </div>
@@ -145,8 +139,20 @@
         //金额、数字
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
         //下拉框
-        
+        $('#wtf_charge_type').selecter({
+          autoSelect: false,
+          type: "charge_type",
+          selectvalue: "{{$cjxx->wtf_charge_type}}",
+          savetype: 2
+        });
+        $('#zbf_charge_type').selecter({
+          autoSelect: false,
+          type: "charge_type",
+          selectvalue: "{{$cjxx->zbf_charge_type}}",
+          savetype: 2
+        });
 
+        //页面控制
         $("#zbf_charge_type").on('change',function(){
           if(this.value == 1){
             $("#zbf_service_fee_payable").attr("readonly","readonly");
@@ -197,8 +203,8 @@
         });
 
 
-        $('#zbf_charge_type').trigger("change");
-        $('#wtf_charge_type').trigger("change");
+        //$('#zbf_charge_type').trigger("change");
+        //$('#wtf_charge_type').trigger("change");
 
         /**
          *

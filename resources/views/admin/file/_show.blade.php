@@ -4,7 +4,7 @@
                 <tbody>
                   @foreach($files as $file)
                   <tr>
-                    <td><a href="{{$file->path}}">{{$file->name}}</a></td>
+                    <td><a href="{{$file->file_url}}">{{$file->name}}</a></td>
                   </tr>
                   @endforeach
                 </tbody>

@@ -122,7 +122,12 @@
                   // $("#id").val(str_reponse.detail_id)
                   $(".id").val(str_reponse.message.id);
                   //$(".project_id").val(str_reponse.message.project_id);
-                  $(".xmbh").val(str_reponse.xmbh);
+                  if(projecttype != 'htxx'){
+                    $(".xmbh").val(str_reponse.message.xmbh);
+                  }
+                  if(projecttype == 'zbtz'){
+                    $("#tzsbh").val(str_reponse.tzsbh);
+                  }
                 }
                 $(".warning-message").html("");
               }
@@ -157,6 +162,7 @@
               saveSuccess();
             },
             error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
+              alert("操作失败");
               error(XMLHttpRequest);
             }
         });

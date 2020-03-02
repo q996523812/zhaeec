@@ -27,7 +27,7 @@
           	</tbody>
           </table>
           <center>
-            <a href="javascript:void(0)" id="btnSaveJgxx" class="btn btn-primary btn-pass" onclick="$('#formSubmit').submit();">提交审批</a>
+            <a href="javascript:void(0)" id="btnSubmit" class="btn btn-primary btn-pass" >提交审批</a>
           </center>
         </div>
       </div>
@@ -37,8 +37,35 @@
   <div class="box-footer">
   </div>
   <script>
-    $(function () {
-
+$(document).ready(function(){
+      $('#btnSubmit').on('click',function(){
+        if(!check()){ return false;}
+        $('#formSubmit').submit();
+      });
+            //检查必要的标签页是否保存
+      function check(){
+        var flag = true;
+        var massage = "请先保存";
+        if($('#formdetail id').val()){
+          massage += "基本信息、";
+          flag = false;
+        }
+        if(!$('#targetCompanyBaseInfo_id').val()){
+          massage += "标的企业情况、";
+          flag = false;
+        }
+        if(!$('#sellerInfo_id').val()){
+          massage += "转让方、";
+          flag = false;
+        }
+        if(!flag){
+          massage = massage.substr(0, massage.length-1);
+          alert(massage);
+        }
+        
+        return flag;
+      }
+      
     });
   </script> 
 </form>

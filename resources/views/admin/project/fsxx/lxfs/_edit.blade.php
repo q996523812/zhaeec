@@ -3,7 +3,7 @@
     <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id">
     <input type="hidden" id="contact_id" name="contact_id" value="{{$lxfs->id}}">
 <div class="fields-group">
-
+<!--
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">委托方联系人姓名</label>
   <div class="col-sm-8">
@@ -31,7 +31,7 @@
     </div>
   </div>
 </div>
-
+-->
 
 
 <div class="form-group  ">

@@ -72,6 +72,7 @@ class TransactionConfirmationsController extends Controller
             $intentional_parties_ids = $project->transaction->intentional_parties_id;
             $intentionalPartyService = new IntentionalPartyService();
             $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
+            $jyfs = $project->transactionMode;
 
             $model = new TransactionConfirmation();
             $model->project_id = $project_id;
@@ -80,9 +81,10 @@ class TransactionConfirmationsController extends Controller
             $model->wtf = $project->wtf->name;
             $model->zbf = $zbf;
             $model->price = $project->price;
-            $model->jyfs = $detail->jyfs;
+            $model->jyfs = $jyfs->pubDealWay;
             $model->gp_date_start = $project->gp_date_start;
             $model->gp_date_end = $project->gp_date_end;
+            $model->htqs_date = $project->contract->sign_date;
 
             
         }

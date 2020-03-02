@@ -23,16 +23,17 @@ class AuditReportRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'year' => 'required|regex:/^[0-9]+$/|',
-            'zzc' => 'required|regex:/^[0-9\.]+$/|',
-            'zfz' => 'required|regex:/^[0-9\.]+$/|',
-            'syzqy' => 'required|regex:/^[0-9\.]+$/|',
-            'yysl' => 'required|regex:/^[0-9\.]+$/|',
-            'yylr' => 'required|regex:/^[0-9\.]+$/|',
-            'jlr' => 'required|regex:/^[0-9\.]+$/|',
-            'sjjgmc' => 'required',
-        ];
+        // return [
+        //     'year' => 'required|regex:/^[0-9]+$/|',
+        //     'zzc' => 'required|regex:/^[0-9\.]+$/|',
+        //     'zfz' => 'required|regex:/^[0-9\.]+$/|',
+        //     'syzqy' => 'required|regex:/^[0-9\.]+$/|',
+        //     'yysl' => 'required|regex:/^[0-9\.]+$/|',
+        //     'yylr' => 'required|regex:/^[0-9\.]+$/|',
+        //     'jlr' => 'required|regex:/^[0-9\.]+$/|',
+        //     'sjjgmc' => 'required',
+        // ];
+        return [];
     }
 
     public function messages()

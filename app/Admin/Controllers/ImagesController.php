@@ -18,6 +18,7 @@ use App\Models\Contract;
 use App\Models\BidResult;
 use App\Models\TransactionMode;
 use App\Models\TransactionConfirmation;
+use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use App\Handlers\ImageUploadHandler;
 use App\Transformers\ImageTransformer;
@@ -114,7 +115,9 @@ class ImagesController extends Controller
             case 'jyjz':
                 $model = TransactionConfirmation::class;
                 break;
-            
+            case 'customer':
+                $model = Customer::class;
+                break;
         }
         return $model;
     }

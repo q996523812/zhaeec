@@ -15,6 +15,7 @@ use App\Models\Assessment;
 use App\Models\SellerInfo;
 use App\Models\Supervise;
 use App\Models\AssetInfo;
+use App\Models\Contact;
 use Encore\Admin\Auth\Database\Administrator;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -122,6 +123,10 @@ class ProjectsController extends Controller
         if(empty($jgxx)){
             $jgxx = new Supervise;
         }
+        $lxfs = $detail->contact;
+        if(empty($lxfs)){
+            $lxfs = new Contact;
+        }
 
         $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
@@ -133,6 +138,7 @@ class ProjectsController extends Controller
         $datas['sj1'] = $sjbg1;
         $datas['sj2'] = $sjbg2;
         $datas['sj3'] = $sjbg3;
+        $datas['lxfs'] = $lxfs;
         
         return $content
             ->header('查看')

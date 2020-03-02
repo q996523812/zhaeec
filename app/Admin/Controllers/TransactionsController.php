@@ -194,7 +194,7 @@ class TransactionsController extends Controller
     }
 
     protected $fields = [
-        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type'],
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','project_id'],
         'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type'],
     ];
 
@@ -232,8 +232,12 @@ class TransactionsController extends Controller
         $wtf_charge_type = $request->wtf_charge_type;
         $zbf_chargeRule = $this->chargeRuleService->getRuleByType($project,$zbf_charge_type);
         $wtf_chargeRule = $this->chargeRuleService->getRuleByType($project,$wtf_charge_type);
-        $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
-        $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
+        if(!empty($wtf_chargeRule)){
+            $data['wtf_charge_rule_id'] = $wtf_chargeRule->id;
+        }
+        if(!empty($zbf_chargeRule)){
+            $data['zbf_charge_rule_id'] = $zbf_chargeRule->id;
+        }
 
         $transaction = $this->service->modify($id,$data);
         $result = [

@@ -23,16 +23,17 @@ class FinancialStatementRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'type' => 'required',
-            'statement_date' => 'required',
-            'zzc' => 'required|regex:/^[0-9\.]+$/|',
-            'zfz' => 'required|regex:/^[0-9\.]+$/|',
-            'syzqy' => 'required|regex:/^[0-9\.]+$/|',
-            'yysl' => 'required|regex:/^[0-9\.]+$/|',
-            'yylr' => 'required|regex:/^[0-9\.]+$/|',
-            'jlr' => 'required|regex:/^[0-9\.]+$/|',
-        ];
+        // return [
+        //     'type' => 'required',
+        //     'statement_date' => 'required',
+        //     'zzc' => 'required|regex:/^[0-9\.]+$/|',
+        //     'zfz' => 'required|regex:/^[0-9\.]+$/|',
+        //     'syzqy' => 'required|regex:/^[0-9\.]+$/|',
+        //     'yysl' => 'required|regex:/^[0-9\.]+$/|',
+        //     'yylr' => 'required|regex:/^[0-9\.]+$/|',
+        //     'jlr' => 'required|regex:/^[0-9\.]+$/|',
+        // ];
+        return [];
     }
 
     public function messages()

@@ -15,14 +15,15 @@ use App\Services\CustomerService;
 
 class CustomersController extends Controller
 {
-    use HasResourceActions;
+    
     private $service;
     private $module_type;
-    
+    private $projecttype;
     public function __construct(CustomerService $customerService)
     {
         $this->service = $customerService;
         $this->module_type = '';
+        $this->projecttype = 'customer';
     }
     /**
      * Index interface.
@@ -47,8 +48,13 @@ class CustomersController extends Controller
      */
     public function show($id, Content $content)
     {
+        $customer = Customer::find($id);
         $datas = [
-            'customer' => Customer::find($id),
+            'customer' => $customer,
+            'id' => $customer->id,
+            'files' =>$customer->files,
+            'images' =>$customer->images,
+            'projecttype' => $this->projecttype,
         ];
         $url = 'admin.customer.show';
         return $content
@@ -66,8 +72,13 @@ class CustomersController extends Controller
      */
     public function edit($id, Content $content)
     {
+        $customer = Customer::find($id);
         $datas = [
-            'customer' => Customer::find($id),
+            'customer' => $customer,
+            'id' => $customer->id,
+            'files' =>$customer->files,
+            'images' =>$customer->images,
+            'projecttype' => $this->projecttype,
         ];
         $url = 'admin.customer.edit';
         return $content
@@ -84,12 +95,17 @@ class CustomersController extends Controller
      */
     public function create(Content $content)
     {
+        $customer = new Customer();
         $datas = [
-            'customer' => new Customer(),
+            'customer' => $customer,
+            'id' => $customer->id,
+            'files' =>$customer->files,
+            'images' =>$customer->images,
+            'projecttype' => $this->projecttype,
         ];
         $url = 'admin.customer.edit';
         return $content
-            ->header('客户信息-编辑')
+            ->header('客户信息-新增')
             ->description('description')
             ->body(view($url, $datas)); 
     }
@@ -208,7 +224,7 @@ class CustomersController extends Controller
     }
 
     protected $fields = [
-        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification'
+        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','fax','phone','email','mailing_address','ssjt','qualification'
     ];
 
 

@@ -16,10 +16,10 @@ class CreateTransactionModesTable extends Migration
         Schema::create('transaction_modes', function (Blueprint $table) {
             $table->string('id');
             $table->unsignedInteger('pubDealWay')->comment('交易方式');
-            $table->string('dealWayDesc')->comment('其他交易方式说明');
-            $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价');
-            $table->unsignedInteger('bidmode')->comment('报价方式');
-            $table->decimal('increase_range',26,6)->comment('加价幅度');
+            $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
+            $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价')->nullable();
+            $table->unsignedInteger('bidmode')->comment('报价方式')->nullable();
+            $table->decimal('increase_range',26,6)->comment('加价幅度')->nullable();
             $table->string('project_id')->comment('项目总表ID');
             $table->timestamps();
         });

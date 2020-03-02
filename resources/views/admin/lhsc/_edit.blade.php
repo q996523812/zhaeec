@@ -37,7 +37,7 @@
                 @foreach($yxfs as $yxf)
                 listhtml +='<tr>'+
                   '<td>{{$yxf->name}}<\/td>'+
-                  '<td>'+select_datas['customertype']['{{$yxf->customertype}}']+'<\/td>'+
+                  '<td>'+select_datas['customertype']['{{$yxf->type}}']+'<\/td>'+
                   '<td>{{$yxf->process_name}}<\/td>'+
                   '<td>'+
                       getSelect(i,'ptf_opinion','{{$yxf->ptf_opinion}}')+

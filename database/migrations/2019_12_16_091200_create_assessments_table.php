@@ -15,16 +15,16 @@ class CreateAssessmentsTable extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->string('id');
-            $table->string('pgjg')->comment('评估机构');
+            $table->string('pgjg')->comment('评估机构')->nullable();
             $table->string('pgbajg')->comment('评估核准（备案）机构')->nullable();
             $table->string('hezhunFlag')->comment('核准')->nullable();
             $table->string('beianFlag')->comment('备案')->nullable();
-            $table->date('hzbarq')->comment('核准（备案）日期');
-            $table->date('pgjzr')->comment('评估基准日');
-            $table->string('estNoticeno')->comment('评估报告文号');
+            $table->date('hzbarq')->comment('核准（备案）日期')->nullable();
+            $table->date('pgjzr')->comment('评估基准日')->nullable();
+            $table->string('estNoticeno')->comment('评估报告文号')->nullable();
             $table->string('pgjzrsjjg')->comment('评估基准日审计机构')->nullable();
             $table->string('lssws')->comment('律师事务所')->nullable();
-            $table->decimal('estimatePrice',26,6)->comment('转让标的评估值（万元）');
+            $table->decimal('estimatePrice',26,6)->comment('转让标的评估值（万元）')->nullable();
             $table->decimal('zmLdzc',26,6)->comment('流动资产账面价值(万元)')->nullable();
             $table->decimal('pgLdzc',26,6)->comment('流动资产评估价值(万元)')->nullable();
             $table->decimal('zmQtzc',26,6)->comment('其他资产账面价值(万元)')->nullable();

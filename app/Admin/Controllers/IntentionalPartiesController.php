@@ -132,7 +132,14 @@ class IntentionalPartiesController extends Controller
             $filter->like('title', '项目名称');
             $filter->like('name', '意向方名称');
         });
-        $grid->type('类型');
+        $grid->type('类型')->display(function($type){            
+            if($type == 1){
+                return '自然人';
+            }
+            else{
+                return '法人或其他组织';
+            }
+        });
         $grid->name('意向方名称');
         $grid->created_at('登记时间')->display(function($created_at){            
             return date('Y-m-d',strtotime($created_at));
@@ -219,8 +226,8 @@ class IntentionalPartiesController extends Controller
 
     private function fields(){
         $fields = [
-            'insert' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','project_id'],
-            'update' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount'],
+            'insert' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address','project_id'],
+            'update' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address'],
         ];
         return $fields;
     }
@@ -310,7 +317,7 @@ class IntentionalPartiesController extends Controller
         $reason = $request->reason;
         $operation = $request->operation;
         $process = $request->process;
-        // $this->service->approval($id,$reason,$operation,null);
+        $this->service->approval($id,$reason,$operation,null);
 
         $project = $model->project;
         $isSuccess = true;

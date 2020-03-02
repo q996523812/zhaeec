@@ -11,7 +11,7 @@
     <div class="input-group">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-        <input type="text" id="xmbh" name="xmbh" value="{{$cjgg->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readyonly="readonly">
+        <input type="text" id="xmbh" name="xmbh" value="{{$cjgg->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readonly="readonly">
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="title" name="title" value="{{$cjgg->title}}" class="form-control title" placeholder="输入 标的名称" readyonly="readonly">
+      <input type="text" id="title" name="title" value="{{$cjgg->title}}" class="form-control title" placeholder="输入 标的名称" readonly="readonly">
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="wtf" name="wtf" value="{{$cjgg->wtf}}" class="form-control wtf" placeholder="输入 委托方" readyonly="readonly">
+      <input type="text" id="wtf" name="wtf" value="{{$cjgg->wtf}}" class="form-control wtf" placeholder="输入 委托方" readonly="readonly">
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="zbf" name="zbf" value="{{$cjgg->zbf}}" class="form-control zbf" placeholder="输入 中标方" readyonly="readonly">
+      <input type="text" id="zbf" name="zbf" value="{{$cjgg->zbf}}" class="form-control zbf" placeholder="输入 中标方" readonly="readonly">
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="price" name="price" value="{{$cjgg->price}}" class="form-control money price_unit" placeholder="输入 成交价格" readyonly="readonly">
+      <input type="text" id="price" name="price" value="{{$cjgg->price}}" class="form-control money price_unit" placeholder="输入 成交价格" readonly="readonly">
     </div>
   </div>
 </div>
@@ -57,8 +57,8 @@
   <label for="type" class="col-sm-2  control-label">交易方式</label>
   <div class="col-sm-8">
     <div class="input-group">
-      <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="jyfs" name="jyfs" value="{{$cjgg->jyfs}}" class="form-control jyfs" placeholder="输入 交易方式" readyonly="readonly">
+      
+      <select id="jyfs" name="jyfs" class="form-control jyfs" readonly></select>
     </div>
   </div>
 </div>
@@ -67,7 +67,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="jy_date" name="jy_date" value="{{$cjgg->jy_date}}" class="form-control date jy_date" placeholder="输入 交易日期">
+      <input type="text" id="jy_date" name="jy_date" value="{{$cjgg->jy_date}}" class="form-control date jy_date" placeholder="输入 交易日期" readonly>
     </div>
   </div>
 </div>
@@ -76,7 +76,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="jycd" name="jycd" value="{{$cjgg->jycd}}" class="form-control jycd" placeholder="输入 交易场地">
+      <input type="text" id="jycd" name="jycd" value="{{$cjgg->jycd}}" class="form-control jycd" placeholder="输入 交易场地" readonly>
     </div>
   </div>
 </div>
@@ -132,6 +132,12 @@
         // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
         //下拉框
+        $('#jyfs').selecter({
+          autoSelect: false,
+          type: "jyfs",
+          selectvalue: "{{$cjgg->jyfs}}",
+          savetype:2
+        });
         
     });
     </script> 

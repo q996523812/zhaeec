@@ -1,4 +1,4 @@
-@extends('admin.layouts.approval')
+@extends('admin.layouts.show_nofiles')
 
 @section('buttons')
     <div class="btn-group float-right" style="margin-right: 10px">

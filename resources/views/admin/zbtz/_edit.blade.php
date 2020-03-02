@@ -13,47 +13,47 @@
         <tr>
           <td class=" control-label">通知书编号</td>
           <td>
-            <input type="text" id="tzsbh" name="tzsbh" value="{{$zbtz->tzsbh}}" class="form-control tzsbh" placeholder="输入 通知书编号">
+            <input type="text" id="tzsbh" name="tzsbh" value="{{$zbtz->tzsbh}}" class="form-control tzsbh" placeholder="输入 通知书编号" readonly>
           </td>
           <td class=" control-label">项目编号</td>
           <td>
-            <input type="text" id="xmbh" name="xmbh" value="{{$zbtz->xmbh}}" class="form-control xmbh" placeholder="输入 项目编号">
+            <input type="text" id="xmbh" name="xmbh" value="{{$zbtz->xmbh}}" class="form-control xmbh" placeholder="输入 项目编号" readonly>
           </td>
         </tr>
         <tr>
           <td class=" control-label">标的名称</td>
           <td colspan="3">
-            <input type="text" id="title" name="title" value="{{$zbtz->title}}" class="form-control title" placeholder="输入 标的名称">
+            <input type="text" id="title" name="title" value="{{$zbtz->title}}" class="form-control title" placeholder="输入 标的名称" readonly>
           </td>
         </tr>
         <tr>
           <td class=" control-label">中标方</td>
           <td colspan="3">
-            <input type="text" id="zbr" name="zbr" value="{{$zbtz->zbr}}" class="form-control zbr" placeholder="输入 中标方">
+            <input type="text" id="zbr" name="zbr" value="{{$zbtz->zbr}}" class="form-control zbr" placeholder="输入 中标方" readonly>
           </td>
         </tr>
-        @if($zbf->customertype == 1)
+        @if($zbf->type == 1)
         <tr>
           <td class=" control-label">中标方手机号码</td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="zbf_phone" name="zbf_phone" value="{{$zbtz->zbf_phone}}" class="form-control zbf_phone" placeholder="输入 中标方手机号码">
+              <input type="text" id="zbf_phone" name="zbf_phone" value="{{$zbtz->zbf_phone}}" class="form-control zbf_phone" placeholder="输入 中标方手机号码" readonly>
             </div>
           </td>
         </tr>
-        @elseif($zbf->customertype == 2)
+        @elseif($zbf->type == 2)
         <tr>
           <td class=" control-label">中标方类型</td>
           <td colspan="3">
               <div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="province">Province</label>
-                  <select class="form-control" id="zbf_lx_1" name="zbf_lx_1"></select>
+                  <select class="form-control" id="zbf_lx_1" name="zbf_lx_1" readonly></select>
                 </div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="city">City</label>
-                  <select class="form-control" id="zbf_lx_2" name="zbf_lx_2"></select>
+                  <select class="form-control" id="zbf_lx_2" name="zbf_lx_2" readonly></select>
                 </div>
               </div>
           </td>
@@ -61,7 +61,7 @@
         <tr>
           <td class=" control-label">中标方所属区域</td>
           <td colspan="3">
-            <input type="text" id="scope" name="scope" value="{{$zbtz->scope}}" class="form-control scope" placeholder="输入 中标方所属区域">
+            <input type="text" id="scope" name="scope" value="{{$zbtz->scope}}" class="form-control scope" placeholder="输入 中标方所属区域" readonly>
           </td>
         </tr>
         @endif
@@ -72,14 +72,14 @@
               <div class="input-group">
                 <sapn class="input-group-addon">从</sapn>
                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                <input type="text" id="gp_date_start" name="gp_date_start" value="{{$zbtz->gp_date_start}}" class="form-control date gp_date_start" placeholder="输入 开始时间">
+                <input type="text" id="gp_date_start" name="gp_date_start" value="{{$zbtz->gp_date_start}}" class="form-control date gp_date_start" placeholder="输入 开始时间" readonly>
               </div>
             </div>
             <div style="float:left;margin-left:10px;">
               <div class="input-group">
                 <sapn class="input-group-addon">到</sapn>
                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                <input type="text" id="gp_date_end" name="gp_date_end" value="{{$zbtz->gp_date_end}}" class="form-control date gp_date_end" placeholder="输入 结束时间">
+                <input type="text" id="gp_date_end" name="gp_date_end" value="{{$zbtz->gp_date_end}}" class="form-control date gp_date_end" placeholder="输入 结束时间" readonly>
               </div>
             </div>
           </td>
@@ -90,7 +90,7 @@
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="zlqx" name="zlqx" value="{{$zbtz->zlqx}}" class="form-control number zlqx" placeholder="输入 租赁期限">
+              <input type="text" id="zlqx" name="zlqx" value="{{$zbtz->zlqx}}" class="form-control number zlqx" placeholder="输入 租赁期限" readonly>
             </div>
           </td>
         </tr>
@@ -100,7 +100,7 @@
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="jydj" name="jydj" value="{{$zbtz->jydj}}" class="form-control money jydj" placeholder="输入 交易底价">
+              <input type="text" id="jydj" name="jydj" value="{{$zbtz->jydj}}" class="form-control money jydj" placeholder="输入 交易底价" readonly>
             </div>
           </td>
         </tr>
@@ -109,7 +109,7 @@
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="cjj_zj" name="cjj_zj" value="{{$zbtz->cjj_zj}}" class="form-control money cjj_zj" placeholder="输入 成交总价">
+              <input type="text" id="cjj_zj" name="cjj_zj" value="{{$zbtz->cjj_zj}}" class="form-control money cjj_zj" placeholder="输入 成交总价" readonly>
             </div>
           </td>
         </tr>
@@ -118,7 +118,7 @@
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="cjj_dj" name="cjj_dj" value="{{$zbtz->cjj_dj}}" class="form-control money cjj_dj" placeholder="输入 成交单价">
+              <input type="text" id="cjj_dj" name="cjj_dj" value="{{$zbtz->cjj_dj}}" class="form-control money cjj_dj" placeholder="输入 成交单价" readonly>
             </div>
           </td>
         </tr>
@@ -163,7 +163,7 @@
         <tr>
           <td class=" control-label">交易方式</td>
           <td colspan="3">
-            <select id="jyfs" name="jyfs" class="form-control jyfs"></select>
+            <select id="jyfs" name="jyfs" class="form-control jyfs" readonly></select>
           </td>
         </tr>
         <tr>
@@ -304,7 +304,8 @@
         $('#jyfs').selecter({
           autoSelect: false,
           type: "jyfs",
-          selectvalue: "{{$zbtz->jyfs}}"
+          selectvalue: "{{$zbtz->jyfs}}",
+          savetype:2
         });
         
 

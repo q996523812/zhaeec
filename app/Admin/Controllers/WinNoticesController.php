@@ -69,14 +69,15 @@ class WinNoticesController extends Controller
         $project = Project::find($project_id);
         $detail = $project->detail;
         $model = $project->winNotice;
+        $zbf = IntentionalParty::find($project->transaction->intentional_parties_id);
         if(empty($model)){
             // $intentional_parties_ids = $project->transaction->intentional_parties_id;
             // $intentionalPartyService = new IntentionalPartyService();
             // $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
 
-            $zbf = IntentionalParty::find($project->transaction->intentional_parties_id);
             $cjgg = $project->transactionAnnouncement;
             $cjxx = $project->transaction;
+            $jyfs = $project->transactionMode;
 
             $model = new WinNotice();
             $model->project_id = $project_id;
@@ -89,7 +90,7 @@ class WinNoticesController extends Controller
             $model->jydj = $project->price;
             
             $model->zbr = $zbf->name;
-            $model->zbf_phone = $zbf->contact_phone;
+            $model->zbf_phone = $zbf->phone;
             $model->zbf_lx_1 = $zbf->companytype;
             $model->zbf_lx_2 = $zbf->economytype;
             if(!empty($cjgg)){
@@ -100,7 +101,7 @@ class WinNoticesController extends Controller
             $model->cjj_zj = $cjxx->price_total;
             $model->cjj_dj = $cjxx->price_unit;
             $model->cjj_bz = $cjxx->price_note;
-            $model->jyfs = $detail->jyfs;
+            $model->jyfs = $jyfs->pubDealWay;
             $model->zbf_qy = $zbf->area;
         }
 
@@ -256,7 +257,7 @@ class WinNoticesController extends Controller
     }
 
     protected $fields = [
-        'type','xmbh','title','gp_date_start','gp_date_end','zlqx','zbnr','zbr','zbf_phone','zbf_lx_1','zbf_lx_2','jysj','cjj_zj','cjj_dj','cjj_bz','jyfs','jycd','zbf_qy','zbhyq','tzs_fs','tzs_fs_1','tzs_fs_2','tzs_fs_3','tzs_fs_4','notes','issue_time',
+        'type','xmbh','title','gp_date_start','gp_date_end','zlqx','zbnr','zbr','zbf_phone','zbf_lx_1','zbf_lx_2','jysj','jydj','cjj_zj','cjj_dj','cjj_bz','jyfs','jycd','zbf_qy','zbhyq','tzs_fs','tzs_fs_1','tzs_fs_2','tzs_fs_3','tzs_fs_4','notes','issue_time',
     ];
 
     public function insert(WinNoticeRequest $request){
@@ -297,9 +298,11 @@ class WinNoticesController extends Controller
         $project = Project::find($project_id);
         $detail = $project->detail;
         $model = $project->winNotice;
+        $zbf = IntentionalParty::find($project->transaction->intentional_parties_id);
         $datas = [
             'project' => $project,
             'zbtz' => $model,
+            'zbf' => $zbf,
             'projecttype' => $this->module_type,
             'files' => $model->files,
             'images' => $model->images,

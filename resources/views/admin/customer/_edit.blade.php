@@ -1,6 +1,8 @@
 <form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">    
     {{ csrf_field() }}
     <input type="hidden" id="id" name="id" value="{{$customer->id}}" class="id">
+    <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="id">
+    
 <div class="fields-group">
 
 <div class="row">
@@ -195,6 +197,12 @@
             <input type="text" id="email" name="email" value="{{$customer->email}}" class="form-control email" placeholder="输入 邮箱">
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">邮寄地址</td>
+          <td colspan="3">
+            <input type="text" id="mailing_address" name="mailing_address" value="{{$customer->mailing_address}}" class="form-control mailing_address" placeholder="输入 邮寄地址">
+          </td>
+        </tr>
 
       </tbody>
     </table>
@@ -264,6 +272,12 @@
           autoSelect: false,
           type: "ssjt",
           selectvalue: "{{$customer->ssjt}}"
+        });
+
+        $('#inner_audit').selecter({
+          autoSelect: false,
+          type: "innerAudit",
+          selectvalue: "{{$customer->inner_audit}}"
         });
 
         //联动下拉框

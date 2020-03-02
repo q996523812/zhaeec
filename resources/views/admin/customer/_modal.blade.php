@@ -133,6 +133,8 @@
             $('#email').val(customer.email);
             $('#ssjt').val(customer.ssjt);
             $('#qualification').val(customer.qualification);
+            $('#mailing_address').val(customer.mailing_address);
+            $('#type').change();
         }
 
     });

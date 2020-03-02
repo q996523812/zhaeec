@@ -23,7 +23,7 @@ class CreateProjectConveyancingsTable extends Migration
             $table->decimal('sellPercent',26,6)->comment('拟转让比例（总）%')->nullable();
             $table->unsignedInteger('proExt1')->comment('拟转让股份数（总）')->nullable();
             $table->unsignedInteger('ifControlTrans')->comment('是否导致转让标的企业的实际控制权发生转移')->nullable();
-            $table->string('pauseText')->comment('产权隶属关系');
+            $table->string('pauseText')->comment('产权隶属关系')->nullable();
             $table->string('spare4',1000)->comment('合作机构信息')->nullable();
             $table->string('proDesc',1000)->comment('项目概述')->nullable();
             $table->unsignedInteger('pauseTime')->comment('是否让公共资源采集')->nullable();
@@ -37,7 +37,7 @@ class CreateProjectConveyancingsTable extends Migration
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
             $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
             $table->unsignedInteger('ifBiddyn')->comment('是否采用动态报价')->nullable();
-            $table->unsignedInteger('pubDealWay')->comment('征集到两个以上受让方采用的交易方式');
+            $table->unsignedInteger('pubDealWay')->comment('征集到两个以上受让方采用的交易方式')->nullable();
             $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
             $table->unsignedInteger('bidmode')->comment('报价方式')->nullable();
             $table->string('pubDesc',1000)->comment('权重报价或招投标实施方案主要内容')->nullable();

@@ -85,7 +85,8 @@ class CreateSellerInfosTable extends Migration
             $table->string('fax')->comment('传真')->nullable();
             $table->string('phone')->comment('电话')->nullable();
             $table->string('email')->comment('邮箱')->nullable();
-
+            $table->string('mailing_address',500)->comment('邮寄地址')->nullable();
+            
             $table->string('project_id')->comment('项目总表ID');
 
             $table->timestamps();

@@ -321,7 +321,7 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
-          <td class=" control-label">意向方类型</td>
+          <td class=" control-label">客户类型</td>
           <td colspan="3">
             <select id="type" name="type" class="form-control type"></select>
           </td>
@@ -329,7 +329,7 @@
         <tr>
           <td class=" control-label">客户名称</td>
           <td colspan="2">
-            <input type="text" id="name" name="name" value="{{$bdqy->name}}" class="form-control name" placeholder="输入 客户名称" >
+            <input type="text" id="name" name="name" value="{{$bdqy->name}}" class="form-control name readonly" placeholder="输入 客户名称" readonly>
           </td>
           <td><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
         </tr>
@@ -507,6 +507,13 @@
             <input type="text" id="email" name="email" value="{{$bdqy->email}}" class="form-control email" placeholder="输入 邮箱">
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">邮寄地址</td>
+          <td colspan="3">
+            <input type="text" id="mailing_address" name="mailing_address" value="{{$bdqy->mailing_address}}" class="form-control mailing_address" placeholder="输入 邮寄地址">
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </div>
@@ -604,6 +611,12 @@
           
         });
 
+        function readonly(){
+          $('#formBdqy input').attr('readonly','true');
+          $('#formBdqy select').attr('readonly','true');
+        }
+        readonly();
+
       $('#btnSaveBdqy').on('click', function () {
           $("button").attr("disabled","disabled");
           var url = "/admin/bdqy"
@@ -620,14 +633,21 @@
             processData: false,
             contentType: false,
             success : function(str_reponse){console.log(str_reponse);
-              alert("保存成功");
-              if(!$("#targetCompanyBaseInfo_id").val()){
-                $("#targetCompanyBaseInfo_id").val(str_reponse.message.id);
+              if(str_reponse.success == 'true'){
+                alert("保存成功");
+                if(!$("#targetCompanyBaseInfo_id").val()){
+                  $("#targetCompanyBaseInfo_id").val(str_reponse.message.id);
+                }
+                $(".warning-message").html("");
               }
-              $("button").removeAttr("disabled");
-              $(".warning-message").html("");
+              else{
+                alert("保存失败");
+                $(".warning-message").html(str_reponse.message);
+              }
+              $("#btnSaveBdqy").removeAttr("disabled");
             },
             error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
+              alert("保存失败");
               $("button").removeAttr("disabled");
               //error(XMLHttpRequest);
 

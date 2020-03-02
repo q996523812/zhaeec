@@ -40,8 +40,8 @@
         </tr>
         <tr>
           <td class=" control-label">交易方式</td>
-          <td>
-            {{$cjgg->jyfs}}
+          <td id="jyfs">
+            
           </td>
         </tr>
         <tr class="zczl">
@@ -76,5 +76,9 @@
 
 
 </div>
-
+<script>
+    $(function () {
+      $('#jyfs').html(select_datas['jyfs']["{{$cjgg->jyfs}}"]);
+    });
+</script> 
 </form>

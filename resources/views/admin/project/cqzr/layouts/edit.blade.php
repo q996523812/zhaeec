@@ -131,6 +131,7 @@
         return r.join(",");
       }
 
+
       $('#btnSaveData').on('click', function () {
           $("button").attr("disabled","disabled");
           // var projecttype = "@yield('projecttype')";

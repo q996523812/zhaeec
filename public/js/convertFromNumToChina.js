@@ -33,8 +33,11 @@
 			$('#'+_outputid).val(this.getChn(_element.val()));
 		},
 		getChn : function(num){
-			if(num == 0 || num == null){
+			if(num == null){
 				return null;
+			}
+			else if(num == 0){
+				return '零元';
 			}
 			num = Math.round(num * 100)/100;
 			var fractional = this.fractionalPart(num);

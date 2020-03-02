@@ -83,20 +83,21 @@ class TransactionAnnouncementsController extends Controller
             $zbf = $intentionalPartyService->findNamesByIds($intentional_parties_ids);
 
             $cjxx = $project->transaction;
+            $jyfs = $project->transactionMode;
 
             $model = new TransactionAnnouncement();
             $model->project_id = $project_id;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
-            $model->wtf = $detail->wtf_name;
+            $model->wtf = $project->wtf->name;
             $model->zbf = $zbf;
             $model->price = $cjxx->price_total;
-            $model->jyfs = $detail->jyfs;
+            $model->jyfs = $jyfs->pubDealWay;
             $model->jy_date = $cjxx->transaction_date;
-            
-            if($project->type === 'zczl'){
-                $model->jycd = '电脑终端';
-            }
+            $model->jycd = $project->winNotice->jycd;
+            // if($project->type === 'zczl'){
+            //     $model->jycd = '电脑终端';
+            // }
             
         }
 
@@ -249,6 +250,9 @@ class TransactionAnnouncementsController extends Controller
         $project = Project::find($project_id);
         $detail = $project->detail;
         $model = $project->transactionAnnouncement;
+        $model->jy_date = date('Y-m-d',strtotime($model->jy_date));
+        $model->fb_date = date('Y-m-d',strtotime($model->fb_date));
+        
         $datas = [
             'project' => $project,
             'cjgg' => $model,

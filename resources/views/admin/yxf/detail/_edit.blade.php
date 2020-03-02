@@ -441,6 +441,13 @@
             <input type="text" id="email" name="email" value="{{$yxf->email}}" class="form-control email" placeholder="输入 邮箱">
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">邮寄地址</td>
+          <td colspan="3">
+            <input type="text" id="mailing_address" name="mailing_address" value="{{$yxf->mailing_address}}" class="form-control mailing_address" placeholder="输入 邮寄地址">
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </div>
@@ -538,6 +545,12 @@
           
         });
 
+    function readonly(){
+      $('#formdetail input').attr('readonly','true');
+      $('#formdetail select').attr('readonly','true');
+    }
+    readonly();
+    
     });
     </script> 
 </form>

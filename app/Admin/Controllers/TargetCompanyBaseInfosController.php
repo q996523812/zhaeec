@@ -18,7 +18,7 @@ class TargetCompanyBaseInfosController extends Controller
     
     // protected $fields = ['column_name','compName','compZcode','compIndustry1','compIndustry2','comp0One','comp0Two','compTime','compProvince','compCity','compCounty','compAddress','compUniGslx','compUniJjlx','compScope','compFunding','moneytype','compBoss','compScale','compZrs','innerAudit','innerAuditDesc','compTdhb','holderNum','spare2','project_id'];
     protected $fields = [
-        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','project_id'
+        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','fax','phone','email','mailing_address','ssjt','qualification','project_id'
     ];
 
     public function __construct(TargetCompanyBaseInfoService $service)

@@ -573,6 +573,13 @@
             <input type="text" id="email" name="email" value="{{$zrf->email}}" class="form-control email" placeholder="输入 邮箱">
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">邮寄地址</td>
+          <td colspan="3">
+            <input type="text" id="mailing_address" name="mailing_address" value="{{$zrf->mailing_address}}" class="form-control mailing_address" placeholder="输入 邮寄地址">
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </div>
@@ -686,19 +693,31 @@
             contentType: false,
             success : function(str_reponse){
             	console.log(str_reponse);
-              alert("保存成功");
-              if(!$("#sellerInfo_id").val()){
-                $("#sellerInfo_id").val(str_reponse.message.id);
+              if(str_reponse.success == 'true'){
+              	alert("保存成功");
+              	if(!$("#sellerInfo_id").val()){
+	                $("#sellerInfo_id").val(str_reponse.message.id);
+	            }
+	            $(".warning-message").html("");
+              }
+              else{
+              	alert("保存失败");
+              	$(".warning-message").html(str_reponse.message);
               }
               $("#btnSaveZrf").removeAttr("disabled");
-              $(".warning-message").html("");
             },
             error : function(XMLHttpRequest,err,e){
+            	alert("保存失败");
               $("#btnSaveZrf").removeAttr("disabled");
               // error(XMLHttpRequest);
             }
           });
       });
+		function readonly(){
+			$('#formZrf input').attr('readonly','true');
+			$('#formZrf select').attr('readonly','true');
+		}
+		readonly();
     });
     </script> 
 </form>

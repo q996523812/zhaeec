@@ -16,7 +16,7 @@ class AuditReportsController extends Controller
 {
     private $service = null;
     
-    protected $fields = ['year','zzc','zfz','syzqy','yysl','yylr','jlr','sjjgmc','desc','project_id'];
+    protected $fields = ['year','zzc','zfz','syzqy','yysl','yylr','jlr','sjjgmc','desc','ywwftg','project_id'];
 
     public function __construct(AuditReportService $service)
     {

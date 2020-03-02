@@ -16,7 +16,7 @@ class FinancialStatementsController extends Controller
 {
     private $service = null;
     
-    protected $fields = ['type','statement_date','zzc','zfz','syzqy','yysl','yylr','jlr','desc','project_id'];
+    protected $fields = ['type','statement_date','zzc','zfz','syzqy','yysl','yylr','jlr','desc','ywwftg','project_id'];
 
     public function __construct(FinancialStatementService $service)
     {

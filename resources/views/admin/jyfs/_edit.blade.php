@@ -15,7 +15,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group other">
   <label for="type" class="col-sm-2  control-label">其他交易方式说明</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -24,7 +24,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">是否采用动态报价</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">报价方式</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -44,7 +44,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">加价幅度(元)</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -94,8 +94,6 @@
         });
 
         //金额、数字
-        // $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
 
         //下拉框
@@ -118,7 +116,22 @@
           selectvalue: "{{$jyfs->bidmode}}"
         });
 
-
+        $('#pubDealWay').on('click',function(){
+          if(this.value == '1'){
+            $('.wljj').show();
+            $('.other').hide();
+          }
+          else if(this.value == '10'){
+            $('.wljj').hide();
+            $('.other').show();
+          }
+          else{
+            $('.wljj').hide();
+            $('.other').hide();
+          }
+          
+        });
+        $('#pubDealWay').click();
     });
     </script> 
 </form>

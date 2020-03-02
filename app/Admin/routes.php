@@ -396,6 +396,7 @@ Route::group([
     //客户信息
     $router->get('customer', 'CustomersController@index')->name('customer.index');
     $router->get('customer/create', 'CustomersController@create');
+    $router->get('customer/{id}', 'CustomersController@show');
     $router->post('customer/insert', 'CustomersController@insert');
     $router->get('customer/{id}/edit', 'CustomersController@edit');
     $router->post('customer/modify', 'CustomersController@modify');

@@ -18,6 +18,7 @@ use App\Models\Contract;
 use App\Models\BidResult;
 use App\Models\TransactionMode;
 use App\Models\TransactionConfirmation;
+use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -115,6 +116,9 @@ class FilesController extends Controller
                 break;
             case 'jyjz':
                 $model = TransactionConfirmation::class;
+                break;
+            case 'customer':
+                $model = Customer::class;
                 break;
             
         }
