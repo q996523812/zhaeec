@@ -18,17 +18,17 @@
    		<th colspan="4" align="center">标 的 具 体 信 息</th>
    	</tr>
    	<tr>
-		<td style="width:150px;">土地证号<font color="red">*</font></td>
+		<td style="width:150px;">土地证号</td>
 		<td><input type="text" name="certificateNo" maxlength="30" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->certificateNo}}"></td>
-		<td>地址<font color="red">*</font></td>
+		<td>地址</td>
 		<td>
 			<input type="text" name="address" size="40" maxlength="100" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->address}}">
 	    </td>
 	</tr>
    	<tr>
-		<td style="width:150px;">土地面积<font color="red">*</font></td>
+		<td style="width:150px;">土地面积</td>
 		<td><input type="text" name="area" maxlength="10" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->area}}">&nbsp;平方米</td>
-		<td style="width:150px;">土地类型<font color="red">*</font></td>
+		<td style="width:150px;">土地类型</td>
 		<td><input type="text" name="type" maxlength="30" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->type}}"></td>
 	</tr>
    	<tr>
@@ -38,9 +38,9 @@
 		<td class="unput"><input type="text" name="usedYear" maxlength="6" value="{{$bdxq->usedYear}}">&nbsp;年</td>
 	</tr>
    	<tr>
-		<td style="width:150px;">规划用途<font color="red">*</font></td>
+		<td style="width:150px;">规划用途</td>
 		<td><input type="text" name="planningPurposes" maxlength="100" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->planningPurposes}}"></td>
-		<td style="width:150px;">目前用途<font color="red">*</font></td>
+		<td style="width:150px;">目前用途</td>
 		<td><input type="text" name="currentlyUse" maxlength="100" class="easyui-validatebox textbox validatebox-text" value="{{$bdxq->currentlyUse}}"></td>
 	</tr>
    	<tr>

@@ -113,7 +113,7 @@
         });
         $('#bidmode').selecter({
           autoSelect: false,
-          type: "bidmode",
+          type: "bjms",
           savetype: 2,
           selectvalue: "{{$jyfs->bidmode}}"
         });

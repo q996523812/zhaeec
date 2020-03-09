@@ -21,7 +21,11 @@
         前一年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj1->year}}">年
     	<br>
-      <input id="ywwftg" name="ywwftg" type="checkbox" value="1">业务无法提供
+      <input id="ywwftg" name="ywwftg" type="checkbox" value="1" 
+      @if($sj1->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
     	</td>
     	<td>资产总额<font color="red">*</font>
 			   <input name="zzc" type="text" size="12" class="form-control money" value="{{$sj1->zzc}}">万元
@@ -145,6 +149,18 @@
           $('#formSjbg textarea').removeAttr('readonly');
         }
       });
+
+      $('#formSjbg #ywwftg').on('click',function(){
+        if(this.checked == true){
+          $('#formSjbg input').attr('readonly','true');
+          $('#formSjbg textarea').attr('readonly','true');
+        }
+        else{
+          $('#formSjbg input').removeAttr('readonly');
+          $('#formSjbg textarea').removeAttr('readonly');
+        }
+      });
+      $('#formSjbg #ywwftg').click();
     });
 </script>
 </form>

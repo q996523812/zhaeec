@@ -15,20 +15,20 @@ class CreateSupervisesTable extends Migration
     {
         Schema::create('supervises', function (Blueprint $table) {
             $table->string('id');
-            $table->string('sellerIsYq')->comment('国资监管类型');
-            $table->string('mgrType')->comment('国资监管机构');
+            $table->string('sellerIsYq')->comment('国资监管类型')->nullable();
+            $table->string('mgrType')->comment('国资监管机构')->nullable();
             $table->string('mgrProvince')->comment('监管机构属地--省')->nullable();
             $table->string('mgrCity')->comment('监管机构属地--市')->nullable();
             $table->string('mgrDistrict')->comment('监管机构属地--区')->nullable();
-            $table->string('mgrCode')->comment('统一社会信用代码或组织机构代码');
-            $table->string('mgrName')->comment('选择国家出资企业或主管部门名称');
-            $table->string('permitCompType')->comment('批准机构类型');
-            $table->string('permitCompName')->comment('批准单位名称');
-            $table->string('permitFileType')->comment('批准文件类型');
+            $table->string('mgrCode')->comment('统一社会信用代码或组织机构代码')->nullable();
+            $table->string('mgrName')->comment('选择国家出资企业或主管部门名称')->nullable();
+            $table->string('permitCompType')->comment('批准机构类型')->nullable();
+            $table->string('permitCompName')->comment('批准单位名称')->nullable();
+            $table->string('permitFileType')->comment('批准文件类型')->nullable();
             $table->string('permitFileDesc')->comment('其他')->nullable();
-            $table->string('permitFileName')->comment('批准文件名称/决议名称');
+            $table->string('permitFileName')->comment('批准文件名称/决议名称')->nullable();
             $table->string('permitFileNo')->comment('批准文号')->nullable();
-            $table->datetime('permitDate')->comment('批准日期');
+            $table->datetime('permitDate')->comment('批准日期')->nullable();
             
             $table->string('project_id')->comment('项目总表ID');
             $table->timestamps();

@@ -28,20 +28,20 @@
     </tr>
     <tr>
       <td class=" control-label">项目名称
-        <font style="color:red;">*</font>
+        
       </td>
       <td colspan="3">
         <input type="text" id="title" name="title" value="{{$detail->title}}" class="form-control title" placeholder="输入 委托方名称">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">挂牌交易批准机构<font style="color:red;">*</font></td>
+      <td class=" control-label">挂牌交易批准机构</td>
       <td colspan="3">
         <input type="text" id="pzjg" name="pzjg" value="{{$detail->pzjg}}" class="form-control pzjg" placeholder="输入 挂牌交易批准机构">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">标的概况<font style="color:red;">*</font></td>
+      <td class=" control-label">标的概况</td>
       <td colspan="3">
         <textarea id="bdgk" name="bdgk" class="form-control bdgk" rows="5" placeholder="输入 标的概况">{{$detail->bdgk}}</textarea>
       </td>
@@ -53,12 +53,12 @@
       </td>
     </tr>
         <tr>
-          <td class=" control-label">挂牌公告期<font style="color:red;">*</font></td>
+          <td class=" control-label">挂牌公告期</td>
           <td>
-            <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期（至少20个工作日）">
+            <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期">
           </td>
           <td><select id="date_type" name="date_type" class="form-control date_type"></select></td>
-          <td><font style="color:red;">至少20个工作日或者日历日</font></td>
+          <td></td>
           
         </tr>
         <!--
@@ -102,7 +102,7 @@
           <input type="text" id="gpjg_dj" name="gpjg_dj" value="{{$detail->gpjg_dj}}" class="form-control money gpjg_dj" placeholder="输入 总租金">
         </div>        
       </td>
-      <td class=" control-label">租赁期限（月）<font style="color:red;">*</font></td>
+      <td class=" control-label">租赁期限（月）</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -117,29 +117,29 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">交易目的<font style="color:red;">*</font></td>
+      <td class=" control-label">交易目的</td>
       <td>
         <select id="jymd" name="jymd" class="form-control jymd"></select>
       </td>
-      <td class=" control-label">资产类别<font style="color:red;">*</font></td>
+      <td class=" control-label">资产类别</td>
       <td>
         <select id="zclb" name="zclb" class="form-control zclb"></select>
       </td>
     </tr>
     <tr>
-      <td class=" control-label">信息发布方式<font style="color:red;">*</font></td>
+      <td class=" control-label">信息发布方式</td>
       <td colspan="3">
         <div id="fbfses"></div>
       </td>
     </tr>
     <tr>
-      <td class=" control-label">交易资产中是否存在权利受到限制的情形<font style="color:red;">*</font></td>
+      <td class=" control-label">交易资产中是否存在权利受到限制的情形</td>
       <td colspan="3">
         <input type="text" id="zcsfsx" name="zcsfsx" value="{{$detail->zcsfsx}}" class="form-control zcsfsx" placeholder="输入 交易资产中是否存在权利受到限制的情形">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">标的资产评估值(人民币)(万元)<font style="color:red;">*</font></td>
+      <td class=" control-label">标的资产评估值(人民币)(万元)</td>
       <td colspan="3">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -148,17 +148,17 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">交易方式<font style="color:red;">*</font></td>
+      <td class=" control-label">交易方式</td>
       <td colspan="3">
         <select id="jyfs" name="jyfs" class="form-control jyfs"></select>
       </td>
     </tr>
     <tr>
-      <td class=" control-label">报价模式<font style="color:red;">*</font></td>
+      <td class=" control-label">报价模式</td>
       <td>
         <select id="bjms" name="bjms" class="form-control bjms"></select>
       </td>
-      <td class=" control-label">加价幅度(万元)<font style="color:red;">*</font></td>
+      <td class=" control-label">加价幅度(万元)</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -175,19 +175,19 @@
     </tr>
   -->
     <tr>
-      <td class=" control-label">交易时间备注<font style="color:red;">*</font></td>
+      <td class=" control-label">交易时间备注</td>
       <td colspan="3">
         <input type="text" id="jysj_bz" name="jysj_bz" value="{{$detail->jysj_bz}}" class="form-control jysj_bz" placeholder="输入 交易时间备注">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">意向方资格条件<font style="color:red;">*</font></td>
+      <td class=" control-label">意向方资格条件</td>
       <td colspan="3">
         <input type="text" id="yxf_zgtj" name="yxf_zgtj" value="{{$detail->yxf_zgtj}}" class="form-control yxf_zgtj" placeholder="输入 意向方资格条件">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">意向登记要求及资料清单<font style="color:red;">*</font></td>
+      <td class=" control-label">意向登记要求及资料清单</td>
       <td colspan="3">
         <textarea id="yxdj_zlqd" name="yxdj_zlqd" class="form-control yxdj_zlqd" rows="5" placeholder="输入 意向登记要求及资料清单">{{$detail->yxdj_zlqd}}</textarea>
       </td>
@@ -202,7 +202,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">竞标保证金金额(人民币) (万元)<font style="color:red;">*</font></td>
+      <td class=" control-label">竞标保证金金额(人民币) (万元)</td>
       <td colspan="3">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -229,12 +229,14 @@
         <input type="text" id="bail_account_code" name="bail_account_code" value="{{$detail->bail_account_code}}" class="form-control bail_account_code" placeholder="输入 账号">
       </td>
     </tr>        
+    <!--
     <tr>
       <td class=" control-label">项目经办人及联系方式</td>
       <td colspan="3">
         <input type="text" id="jypt_lxfs" name="jypt_lxfs" value="{{$detail->jypt_lxfs}}" class="form-control jypt_lxfs" placeholder="输入 项目经办人及联系方式">
       </td>
     </tr>
+  -->
     <tr>
       <td class=" control-label">备注</td>
       <td colspan="3">
@@ -537,7 +539,7 @@
         });
         $('#bjms').selecter({
           autoSelect: false,
-          type: "bjms",
+          type: "bjms_z",
           selectvalue: "{{$detail->bjms}}"
         });
         $('#jymd').selecter({

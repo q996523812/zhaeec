@@ -42,7 +42,7 @@ class CreateProjectTransferAssetsTable extends Migration
             $table->string('pubDealWay1')->comment('只征集到一家符合条件的意向方采用的交易方式')->default('协议成交')->nullable();
             $table->unsignedInteger('pubDealWay2')->comment('征集到两个以上受让方采用的交易方式')->nullable();
             $table->string('dealWayDesc')->comment('其他交易方式说明')->nullable();
-            $table->unsignedInteger('bidmode')->comment('报价方式');
+            $table->unsignedInteger('bidmode')->comment('报价方式')->nullable();
             $table->text('information_list')->comment('意向方需要提交的资料清单')->nullable();
 
             //披露信息

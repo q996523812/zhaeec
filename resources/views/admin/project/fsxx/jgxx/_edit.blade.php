@@ -19,7 +19,7 @@
 				监管信息
 			</th>
 			<td width="199">
-				国资监管类型<font color="red">*</font>
+				国资监管类型
 			</td>
 			<td colspan="5">
 				<input id="sellerIsYq1" type="radio" name="sellerIsYq" onclick="isYQ()" value="1" @if($jgxx->sellerIsYq==1) checked @endif>
@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td width="199">
-				国资监管机构 <font color="red">*</font>
+				国资监管机构 
 			</td>
 			<td colspan="5" class="aleft">
 				<div id="jgjg1" style="text-align: left; display: none;">
@@ -106,14 +106,14 @@
 
 			<tr id="mgrDictLink" style=""> 
 				<td width="199">
-				  选择国家出资企业或主管部门名称<font color="red">*</font>
+				  选择国家出资企业或主管部门名称
 				</td>
 				<td width="220">
 						<input name="mgrName" id="mgrName" type="text" size="34" value="{{$jgxx->mgrName}}">
 					
 				</td>
 				<td width="199">
-				 统一社会信用代码或组织机构代码<font color="red">*</font>
+				 统一社会信用代码或组织机构代码
 				</td>
 				<td colspan="2">
 					<input style="width:120px" name="mgrCode" id="mgrCode" type="text" value="{{$jgxx->mgrCode}}">
@@ -128,7 +128,7 @@
 			</th>
 			
 			<td width="199">
-				批准机构类型<font color="red">*</font>
+				批准机构类型
 			</td>
 			<td colspan="5">
 				<div>
@@ -140,7 +140,7 @@
 			</tr>
 			<tr>
 				<td>
-					批准单位名称<font color="red">*</font>
+					批准单位名称
 				</td>
 				<td colspan="5">
 					<input name="permitCompName" id="permitCompName" type="text" size="34" value="{{$jgxx->permitCompName}}">
@@ -148,7 +148,7 @@
 			</tr>
 			<tr>
 				<td>
-					批准文件类型<font color="red">*</font>
+					批准文件类型
 				</td>
 				<td colspan="5">
 					<input name="permitFileType" type="radio" value="1" class="permitFileType" @if($jgxx->permitFileType==1) checked @endif onclick="permitFileTypeClick(this)">
@@ -170,7 +170,7 @@
 
 			<tr>
 				<td width="159">
-					批准文件名称/决议名称<font color="red">*</font>
+					批准文件名称/决议名称
 				</td>
 				<td colspan="5">
 					<input id="permitFileName" name="permitFileName" type="text" size="80" value="{{$jgxx->permitFileName}}">
@@ -186,7 +186,7 @@
 			</tr>
 			<tr>
 				<td width="159">
-					批准日期<font color="red">*</font>
+					批准日期
 				</td>
 				<td colspan="5">
 					<div class="input-group">
@@ -252,6 +252,7 @@
               $(".warning-message").html("");
             },
             error : function(XMLHttpRequest,err,e){
+            	alert("保存成功");
               $("#btnSaveJgxx").removeAttr("disabled");
               // error(XMLHttpRequest);
             }

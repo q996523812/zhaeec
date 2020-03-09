@@ -37,7 +37,7 @@
         </div>
         <!--标的情况-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.fsxx.bdqy._show') 
+          @include('admin.project.fsxx.bdxq._show') 
         </div>
         <!--评估情况-->
         <div class="tab-pane fade" id="tab4">

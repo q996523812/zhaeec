@@ -58,14 +58,15 @@
           </td>
         </tr>
         <tr>
-          <td class=" control-label">挂牌公告期（至少20个工作日）</td>
+          <td class=" control-label">挂牌公告期</td>
           <td>
-            <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期（至少20个工作日）">
+            <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期">
           </td>
           <td><select id="date_type" name="date_type" class="form-control date_type"></select></td>
-          <td><font style="color:red;">至少20个工作日或者日历日</font></td>
+          <td></td>
           
         </tr>
+        <!--
         <tr>
           <td class=" control-label">挂牌开始日期</td>
           <td>
@@ -82,6 +83,7 @@
             </div>
           </td>
         </tr>
+      -->
         <tr>
           <td class=" control-label">预算价格(元)</td>
           <td>
@@ -113,6 +115,7 @@
             <select id="xmpz" name="xmpz" class="form-control xmpz"></select>
           </td>
         </tr>
+        <!--
         <tr>
           <td class=" control-label">工期（天）</td>
           <td colspan="3">
@@ -122,6 +125,7 @@
             </div>  
           </td>
         </tr>
+      -->
         <tr>
           <td class=" control-label">交易方式</td>
           <td colspan="3">
@@ -133,11 +137,11 @@
           <td>
             <select id="bjms" name="bjms" class="form-control bjms"></select>
           </td>
-          <td class=" control-label">加价幅度(元)</td>
+          <td class=" control-label">报价幅度(元)</td>
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-              <input type="text" id="jjfd" name="jjfd" value="{{$detail->jjfd}}" class="form-control money jjfd" placeholder="输入 加价幅度">
+              <input type="text" id="jjfd" name="jjfd" value="{{$detail->jjfd}}" class="form-control money jjfd" placeholder="输入 报价幅度">
             </div>          
           </td>
         </tr>
@@ -156,14 +160,28 @@
             <input type="text" id="zbdl_lxfs" name="zbdl_lxfs" value="{{$detail->zbdl_lxfs}}" class="form-control zbdl_lxfs" placeholder="输入 招标代理机构联系方式">
           </td>
         </tr>
-        <tr class="ztb">
-          <td class=" control-label">投标文件递交起止时间及地点</td>
+        <tr>
+          <td class=" control-label">投标文件递交起止时间</td>
           <td colspan="3">
-            <input type="text" id="zbwj_dj" name="zbwj_dj" value="{{$detail->zbwj_dj}}" class="form-control zbwj_dj" placeholder="输入 投标文件递交时间及地点">
+            <div class="input-group" style="float:left;">
+              <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+              <input type="text" id="zbwj_dj_time_start" name="zbwj_dj_time_start" value="{{$detail->zbwj_dj_time_start}}" class="form-control time zbwj_dj_time_start" placeholder="输入 投标文件递交时间起">
+            </div>
+            <div style="float:left;">&nbsp;&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+              <input type="text" id="zbwj_dj_time_end" name="zbwj_dj_time_end" value="{{$detail->zbwj_dj_time_end}}" class="form-control time zbwj_dj_time_end" placeholder="输入 投标文件递交时间止">
+            </div>
           </td>
         </tr>
         <tr class="ztb">
-          <td class=" control-label">招标文件价格</td>
+          <td class=" control-label">投标文件递交地点</td>
+          <td colspan="3">
+            <input type="text" id="zbwj_dj_address" name="zbwj_dj_address" value="{{$detail->zbwj_dj_address}}" class="form-control zbwj_dj_address" placeholder="输入 投标文件递交地点">
+          </td>
+        </tr>
+        <tr class="ztb">
+          <td class=" control-label">招标文件价格（元）</td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -172,9 +190,9 @@
           </td>
         </tr>
         <tr class="ztb">
-          <td class=" control-label">招标文件价格备注</td>
+          <td class=" control-label">招标文件说明</td>
           <td colspan="3">
-            <textarea id="zbwjjgbz" name="zbwjjgbz" class="form-control zbwjjgbz" rows="5" placeholder="输入 招标文件价格备注">{{$detail->zbwjjgbz}}</textarea>
+            <textarea id="zbwjjgbz" name="zbwjjgbz" class="form-control zbwjjgbz" rows="5" placeholder="输入 招标文件说明">{{$detail->zbwjjgbz}}</textarea>
           </td>
         </tr>
         <tr>
@@ -184,9 +202,9 @@
           </td>
         </tr>
         <tr>
-          <td class=" control-label">意向登记要求及资料清单</td>
+          <td class=" control-label">意向登记方式（要求）及资料清单</td>
           <td colspan="3">
-            <textarea id="yxdj_zlqd" name="yxdj_zlqd" class="form-control yxdj_zlqd" rows="5" placeholder="输入 意向登记要求及资料清单">{{$detail->yxdj_zlqd}}</textarea>
+            <textarea id="yxdj_zlqd" name="yxdj_zlqd" class="form-control yxdj_zlqd" rows="5" placeholder="输入 意向登记方式（要求）及资料清单">{{$detail->yxdj_zlqd}}</textarea>
           </td>
         </tr>
         <tr>
@@ -202,20 +220,21 @@
               <input type="text" id="yxdj_sj_end" name="yxdj_sj_end" value="{{$detail->yxdj_sj_end}}" class="form-control time yxdj_sj_end" placeholder="输入 意向登记的时间止">
             </div>
           </td>
-        </tr>l
+        </tr>
+        <!--
         <tr>
           <td class=" control-label">意向登记方式</td>
           <td colspan="3">
             <input type="text" id="yxdj_fs" name="yxdj_fs" value="{{$detail->yxdj_fs}}" class="form-control yxdj_fs" placeholder="输入 意向登记方式">
           </td>
         </tr>
-
+-->
         <tr>
           <td class=" control-label">交纳保证金截止时间</td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <input type="text" id="bzj_jn_time_end" name="bzj_jn_time_end" value="{{$detail->bzj_jn_time_end}}" class="form-control date bzj_jn_time_end" placeholder="输入 交纳保证金截止时间">
+              <input type="text" id="bzj_jn_time_end" name="bzj_jn_time_end" value="{{$detail->bzj_jn_time_end}}" class="form-control time bzj_jn_time_end" placeholder="输入 交纳保证金截止时间">
             </div>
           </td>
         </tr>
@@ -261,90 +280,6 @@
           </td>
         </tr>
 
-        <!--委托方-->
-        <!--
-        <tr>
-          <td rowspan="9" class=" control-label">委托方</td>
-          <td class=" control-label">名称</td>
-          <td colspan="3">
-            <input type="text" id="wtf_name" name="wtf_name" value="{{$detail->wtf_name}}" class="form-control wtf_name" placeholder="输入 委托方名称">
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">所属集团</td>
-          <td colspan="3">
-            <select id="wtf_jt" name="wtf_jt" class="form-control wtf_jt"></select>
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">企业性质</td>
-          <td colspan="3">
-            <select id="wtf_qyxz" name="wtf_qyxz" class="form-control wtf_qyxz"></select>
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">地区</td>
-          <td colspan="3">
-              <div id="distpicker1">
-                <div class="col-sm-3">
-                  <label class="sr-only" for="wtf_province">Province</label>
-                  <select class="form-control" id="wtf_province" name="wtf_province"></select>
-                </div>
-                <div class="col-sm-3">
-                  <label class="sr-only" for="wtf_city">City</label>
-                  <select class="form-control" id="wtf_city" name="wtf_city"></select>
-                </div>
-                <div class="col-sm-3">
-                  <label class="sr-only" for="wtf_area" >District</label>
-                  <select class="form-control" id="wtf_area" name="wtf_area"></select>
-                </div>
-              </div>
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">详细地址</td>
-          <td colspan="3">
-            <input type="text" id="wtf_street" name="wtf_street" value="{{$detail->wtf_street}}" class="form-control wtf_street" placeholder="输入 详细地址">
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">法定代表人姓名</td>
-          <td>
-            <input type="text" id="wtf_fddbr" name="wtf_fddbr" value="{{$detail->wtf_fddbr}}" class="form-control wtf_fddbr" placeholder="输入 法定代表人姓名">
-          </td>
-          <td class=" control-label">法定代表人电话</td>
-          <td>
-            <input type="text" id="wtf_phone" name="wtf_phone" value="{{$detail->wtf_phone}}" class="form-control wtf_phone" placeholder="输入 法定代表人电话">
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">邮编</td>
-          <td>
-            <input type="text" id="wtf_yb" name="wtf_yb" value="{{$detail->wtf_yb}}" class="form-control wtf_yb" placeholder="输入 邮编">
-          </td>
-          <td class=" control-label">传真</td>
-          <td>
-            <input type="text" id="wtf_fax" name="wtf_fax" value="{{$detail->wtf_fax}}" class="form-control wtf_fax" placeholder="输入 传真">
-          </td>
-        </tr>
-        <tr>
-          <td class=" control-label">邮箱</td>
-          <td colspan="3">
-            <input type="text" id="wtf_email" name="wtf_email" value="{{$detail->wtf_email}}" class="form-control wtf_email" placeholder="输入 邮箱">
-          </td>
-        </tr>
-
-        <tr>
-          <td class=" control-label">委托代理人姓名</td>
-          <td>
-            <input type="text" id="wtf_dlr_name" name="wtf_dlr_name" value="{{$detail->wtf_dlr_name}}" class="form-control wtf_dlr_name" placeholder="输入 委托代理人姓名">
-          </td>
-          <td class=" control-label">委托代理人电话</td>
-          <td>
-            <input type="text" id="wtf_dlr_phone" name="wtf_dlr_phone" value="{{$detail->wtf_dlr_phone}}" class="form-control wtf_dlr_phone" placeholder="输入 委托代理人电话">
-          </td>
-        </tr>
-      -->
       </tbody>
     </table>
   </div>
@@ -426,7 +361,7 @@
         });
         $('#bjms').selecter({
           autoSelect: false,
-          type: "bjms",
+          type: "bjms_f",
           selectvalue: "{{$detail->bjms}}",
           savetype:2
         });
@@ -446,7 +381,7 @@
           autoSelect: false,
           type: "date_type",
           selectvalue: "{{$detail->date_type}}",
-          savetype:1
+          savetype:2
         });
 
         $('#jyfs').on('change',function(){
@@ -459,6 +394,7 @@
             $('.ztb').show();
           }
         });
+        $('#jyfs').change();
     });
     </script>  
 </form>   

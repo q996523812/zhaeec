@@ -52,7 +52,9 @@ class CreateProjectPurchasesTable extends Migration
             $table->decimal('jjfd',26,6)->comment('降价幅度')->nullable();
             $table->datetime('jy_date')->comment('交易（开标、谈判）时间')->nullable();
             $table->string('zbdl_lxfs')->comment('招标代理机构联系方式')->nullable();
-            $table->string('zbwj_dj')->comment('投标文件递交时间及地点')->nullable();
+            $table->datetime('zbwj_dj_time_start')->comment('投标文件递交时间起')->nullable();
+            $table->datetime('zbwj_dj_time_end')->comment('投标文件递交时间止')->nullable();
+            $table->string('zbwj_dj_address')->comment('投标文件递交地点')->nullable();
             $table->decimal('zbwjjg',26,6)->comment('招标文件价格')->nullable();
             $table->string('zbwjjgbz')->comment('招标文件价格备注')->nullable();
             $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();

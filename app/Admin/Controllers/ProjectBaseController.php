@@ -552,7 +552,7 @@ class ProjectBaseController extends Controller
 
     protected $fields_project = [
         'insert' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl'],
-        'update' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl'],
+        'update' => ['title','type','price','gp_date_start','gp_date_end','status','detail_id','djl'],
     ];
     protected $fields = [
         'insert' => [],

@@ -17,19 +17,24 @@
   <div class="container table-responsive col-md-12 align-items-center project-table">
 
 <table class="table table-bordered" cellspacing="1" cellpadding="0">
-	<tbody><tr>
-		<th style="width:300px;">项目名称<font color="red">*</font></th>
+	<tbody>
+	<tr>
+		<th title="">项目编号</th>
+		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
+	</tr>
+	<tr>
+		<th style="width:300px;">项目名称</th>
 		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>
 	</tr>
 	<tr>
-		<th style="width:300px;">转让底价<font color="red">*</font></th>
+		<th style="width:300px;">转让底价</th>
 		<td>
          	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
 			<span id="proPrice_zh" style="color:red;font-size:16px;">(万元)</span>
          </td>
 	</tr>
 	<tr>
-		<th style="width:300px;">是否国资<font color="red">*</font></th>
+		<th style="width:300px;">是否国资</th>
 		<td>
  			<div id="isGzw_div"></div>
 		</td>
@@ -43,7 +48,7 @@
 	</tr>
 -->
 	<tr>
-	<th>资产类型<font color="red">*</font></th>
+	<th>资产类型</th>
 		<td>
 			<div>
                 <div class="col-sm-3">
@@ -53,7 +58,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>标的所在地区<font color="red">*</font></th>
+		<th>标的所在地区</th>
 		<td>
 			<div id="distpicker1">
                 <div class="col-sm-3">
@@ -73,7 +78,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>资产来源<font color="red">*</font></th>
+		<th>资产来源</th>
 		<td colspan="5">
  			<div id="proSource_div"></div>
 		</td>
@@ -93,7 +98,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th style="width:300px;">资产概述（最大输入1000字）<font color="red">*</font></th>
+		<th style="width:300px;">资产概述（最大输入1000字）</th>
 		<td>
 			<textarea cols="100" name="proDesc" rows="6" class="easyui-validatebox validatebox-text" validtype="length[0,1000]" maxlength="1000" required="true" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" title="最多可输入1000字">{{$detail->proDesc}}</textarea>
 		</td>
@@ -107,7 +112,7 @@
 <!--
    		<tr>
    	
-   	<th>受让审核级别<font color="red">*</font></th>
+   	<th>受让审核级别</th>
 		<td>
 			<input type="radio" name="buyerAuditLevel" value="0" disabled="disabled">不需要审核  
 			<input type="radio" name="buyerAuditLevel" value="1" checked="checked">需要交易机构审核 
@@ -121,7 +126,7 @@
 	<tr>
 		<th class="th-m-80">
 				挂牌公告期
-		<font color="red">*</font></th>
+		</th>
 		<td>
 			<input name="pubDays" value="20" onkeyup="numberTypeInt(this)" class="easyui-validatebox validatebox-text" required="true" value="{{$detail->pubDays}}"> 个工作日
 		</td>
@@ -143,13 +148,13 @@
 		</td>
 	</tr>
 	<tr class="pubDelayFlagTr" style="display:none;">
-		<th>最长延长周期数<font color="red">*</font></th>
+		<th>最长延长周期数</th>
 		<td>
 			<input name="delayMax" class="easyui-validatebox validatebox-text" value="{{$detail->delayMax}}" maxlength="2"> 个
 		</td>
 	</tr>
 	<tr class="pubDelayFlagTr" style="display:none;">
-		<th>延牌周期（工作日，至少5个）<font color="red">*</font></th>
+		<th>延牌周期（工作日，至少5个）</th>
 		<td>
 			<input name="delayPeroid" class="easyui-validatebox validatebox-text" value="{{$detail->delayPeroid}}" maxlength="2"> 个工作日
 		</td>
@@ -178,7 +183,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>是否采用动态报价<font color="red">*</font></th>
+		<th>是否采用动态报价</th>
 		<td>
 			<div>
                 <div class="col-sm-3">
@@ -188,14 +193,14 @@
 		</td>
 	</tr>
 	<tr id="bidmodeTr">
-		<th>报价方式<font color="red">*</font></th>
+		<th>报价方式</th>
 		<td>
 			<div id="bidmode_div"></div>
 		    &nbsp;&nbsp;&nbsp;<font color="red">只有当动态报价或者网络竞价才有此项选择</font>
 		</td>
 	</tr>
 	<tr >
-		<th>意向方需要提交的资料清单<font color="red">*</font></th>
+		<th>意向方需要提交的资料清单</th>
 		<td>
 			<textarea id="information_list" name="information_list" class="form-control">{{$detail->information_list}}</textarea>
 		</td>
@@ -212,7 +217,7 @@
 	</tr>
 	 -->
 	<tr>
-		<th>优先权人是否放弃优先购买权<font color="red">*</font></th>
+		<th>优先权人是否放弃优先购买权</th>
 		<td>
 			<div id="allowEndPrio_div"></div>
 		</td>
@@ -236,14 +241,14 @@
    	-->
    	
 	<tr>
-		<th>是否允许联合受让<font color="red">*</font></th>
+		<th>是否允许联合受让</th>
 		<td>
 			<div id="unitTransferee_div"></div>
         </td>
 	</tr>
 	
 	<tr>
-		<th>是否允许网上报名<font color="red">*</font></th>
+		<th>是否允许网上报名</th>
 		<td>
 			<div id="pub0_div"></div>
         </td>
@@ -253,13 +258,13 @@
 			<th colspan="2">保证金交纳规则</th>
 		</tr>
 	  	<tr>
-		<th class="th-m-80">保证金金额（万元）<font color="red">*</font></th>
+		<th class="th-m-80">保证金金额（万元）</th>
 		<td><input type="text" id="pubBail" name="pubBail" value="{{$detail->pubBail}}" class="easyui-validatebox validatebox-text" required="true">
 		<b class="bigPrice">万元</b> <span id="pubBail_zh" class="bigPrice"></span>
 		</td>
 	</tr>
 		<tr>
-			<th class="th-m-80">保证金交纳时间<font color="red">*</font></th>
+			<th class="th-m-80">保证金交纳时间</th>
 			<td>
 				<div>
 	                <div class="col-sm-3">
@@ -269,7 +274,7 @@
 			</td>
 	  	</tr>
 	  	<tr>
-			<th class="th-m-80">保证金交纳截止时间要求<font color="red">*</font></th>
+			<th class="th-m-80">保证金交纳截止时间要求</th>
 			<td>
 				<input type="radio" name="pubBailType" value="0">
 					挂牌截止日<span class="workEndTime">17:00</span>前(以银行到账时间为准)<br>
@@ -283,7 +288,7 @@
 	  	</tr>
 <!--
 	  	<tr>
-			<th>保证金交纳方式<font color="red">*</font></th>
+			<th>保证金交纳方式</th>
 			<td>
 				<input type="checkbox" style="display:none" id="pubBailMethod1" name="pubBailMethod" value="0"><span style="display:none" id="pubBailMethod_text">电子钱包支付&nbsp;&nbsp;</span>
 				<input type="checkbox" id="pubBailMethod2" name="pubBailMethod" value="2" onclick="checkClick()">银行转账&nbsp;&nbsp;
@@ -447,7 +452,7 @@
 
         $('#bidmode_div').radio({
           autoSelect: false,
-          type: "bidmode",
+          type: "bjms",
           tabname: "bidmode",
           defaultvalue: "{{$detail->bidmode}}"
         });

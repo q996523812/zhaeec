@@ -23,27 +23,29 @@ class ProjectCapitalIncreaseRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required',
-            'pauseText' => 'required',
-            'isGzw' => 'required',
-            'gpjg' => 'required',
-            'sellPercent1' => 'required',
-            'spare91' => 'required',
-            'pub_moneyFor' => 'required|max:600',
-            'pub_holderIn' => 'required',
-            'pub_buyerPaperFlag' => 'required',
-            'pubDays' => 'required',
-            'unitTransferee' => 'required',
-            'pub0' => 'required',
-            'pubBail' => 'required',
-            'pubBailMemo' => 'required',
-            'buyConditions' => 'required',
-            'pubPayMode' => 'required',
-            // 'important' => 'required',
-            'pubDealWay' => 'required',
-            'addMoneyPlan' => 'required',
-        ];
+        // return [
+        //     'title' => 'required',
+        //     'pauseText' => 'required',
+        //     'isGzw' => 'required',
+        //     'gpjg' => 'required',
+        //     'sellPercent1' => 'required',
+        //     'spare91' => 'required',
+        //     'pub_moneyFor' => 'required|max:600',
+        //     'pub_holderIn' => 'required',
+        //     'pub_buyerPaperFlag' => 'required',
+        //     'pubDays' => 'required',
+        //     'unitTransferee' => 'required',
+        //     'pub0' => 'required',
+        //     'pubBail' => 'required',
+        //     'pubBailMemo' => 'required',
+        //     'buyConditions' => 'required',
+        //     'pubPayMode' => 'required',
+        //     // 'important' => 'required',
+        //     'pubDealWay' => 'required',
+        //     'addMoneyPlan' => 'required',
+        // ];
+
+        return [];
     }
 
     public function messages()

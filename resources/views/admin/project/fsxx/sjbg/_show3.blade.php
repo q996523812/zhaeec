@@ -12,8 +12,6 @@
 <div class="row">
   <div class="container table-responsive col-md-12 align-items-center project-table">
 
-<center><font color="red">按32号令要求，须提供企业近一年审计报告中的主要财务指标和最近一期的企业财务报表。</font></center>
-
 <table id="last2Year" cellpadding="0" cellspacing="1" class="table table-bordered">
 	<tbody><tr>
 		<th colspan="4">以下数据出自年度审计报告</th>
@@ -23,7 +21,11 @@
         前一年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj1->year}}">年
     	<br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg1" name="ywwftg" type="checkbox" value="1"
+            @if($sj1->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
     	</td>
     	<td>资产总额<font color="red">*</font>
 			   <input name="zzc" type="text" size="12" class="money" value="{{$sj1->zzc}}">万元
@@ -93,7 +95,6 @@
 <div class="row">
   <div class="container table-responsive col-md-12 align-items-center project-table">
 
-<center><font color="red">按32号令要求，须提供企业近一年审计报告中的主要财务指标和最近一期的企业财务报表。</font></center>
 
 <table id="last2Year" cellpadding="0" cellspacing="1" class="table table-bordered">
   <tbody><tr>
@@ -104,7 +105,11 @@
         前一年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj2->year}}">年
       <br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg2" name="ywwftg" type="checkbox" value="1"
+      @if($sj2->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
       </td>
       <td>资产总额<font color="red">*</font>
          <input name="zzc" type="text" size="12" class="money" value="{{$sj2->zzc}}">万元
@@ -174,8 +179,6 @@
 <div class="row">
   <div class="container table-responsive col-md-12 align-items-center project-table">
 
-<center><font color="red">按32号令要求，须提供企业近一年审计报告中的主要财务指标和最近一期的企业财务报表。</font></center>
-
 <table id="last2Year" cellpadding="0" cellspacing="1" class="table table-bordered">
   <tbody><tr>
     <th colspan="4">以下数据出自年度审计报告</th>
@@ -185,7 +188,11 @@
         前一年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj3->year}}">年
       <br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg3" name="ywwftg" type="checkbox" value="1"
+      @if($sj3->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
       </td>
       <td>资产总额<font color="red">*</font>
          <input name="zzc" type="text" size="12" class="money" value="{{$sj3->zzc}}">万元

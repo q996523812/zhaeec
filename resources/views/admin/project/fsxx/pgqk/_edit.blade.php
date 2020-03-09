@@ -15,7 +15,7 @@
 <table cellpadding="0" cellspacing="1" class="table table-bordered">
 	<tbody><tr>
 		<th width="67" rowspan="19" align="center">标的<br>企业<br>评估<br>核准<br>或备<br>案情<br>况 </th>
-		<td width="150">评估机构<font color="red">*</font></td>
+		<td width="150">评估机构</td>
 		<td colspan="2"><input type="text" name="pgjg" class="form-control" validtype="length[1,100]" size="50" required="true" value="{{$pgqk->pgjg}}"></td>
   	</tr>
   	<tr>
@@ -27,7 +27,7 @@
     	</td>
   	</tr>
   	<tr>
-		<td>核准（备案）日期<font color="red">*</font></td>
+		<td>核准（备案）日期</td>
 		<td colspan="2">
 			<div class="input-group">
 	          <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
@@ -37,7 +37,7 @@
 		</td>
   	</tr>
   	<tr>
-		<td>评估基准日<font color="red">*</font></td>
+		<td>评估基准日</td>
 		<td colspan="2">
     		<div class="input-group">
 	          <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
@@ -47,7 +47,7 @@
     	</td>
   	</tr>
 	<tr>
-		<td>评估报告文号<font color="red">*</font></td>
+		<td>评估报告文号</td>
 		<td colspan="2">
 			<input name="estNoticeno" type="text" size="50" class="form-control" validtype="length[0,100]" required="true" value="{{$pgqk->estNoticeno}}">
 		</td>
@@ -65,7 +65,7 @@
 	    </td>
 	</tr>
 	<tr>
-     	<td>转让标的评估值<font color="red">*</font></td>
+     	<td>转让标的评估值</td>
     	<td colspan="2">
         
         <div>
@@ -111,7 +111,7 @@
     	<td><input name="pgQtzc" type="text" size="12" class="form-control money" value="{{$pgqk->pgQtzc}}"></td>
     </tr>
 	<tr>
-    	<td>总资产<font color="red">*</font></td>
+    	<td>总资产</td>
     	<td>
     		<input name="zmZzc" type="text" size="12" class="form-control money" value="{{$pgqk->zmZzc}}">
     	</td>
@@ -139,7 +139,7 @@
     	</td>
     </tr>
 	<tr>
-    	<td>净资产<font color="red">*</font></td>
+    	<td>净资产</td>
     	<td>
 			<input name="zmJzc" type="text" size="12" class="form-control money" value="{{$pgqk->zmJzc}}">
     	</td>

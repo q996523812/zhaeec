@@ -22,7 +22,11 @@
         前一年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj1->year}}">年
     	<br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg1" name="ywwftg" type="checkbox" value="1"
+            @if($sj1->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
     	</td>
     	<td>资产总额<font color="red">*</font>
 			   <input name="zzc" type="text" size="12" class="money" value="{{$sj1->zzc}}">万元
@@ -112,7 +116,17 @@
             }
           });
       });
-
+      $('#formSjbg1 #ywwftg1').on('click',function(){
+        if(this.checked == true){
+          $('#formSjbg1 input').attr('readonly','true');
+          $('#formSjbg1 textarea').attr('readonly','true');
+        }
+        else{
+          $('#formSjbg1 input').removeAttr('readonly');
+          $('#formSjbg1 textarea').removeAttr('readonly');
+        }
+      });
+      $('#formSjbg1 #ywwftg1').click();
     });
 </script>
 </form>
@@ -141,7 +155,11 @@
         前二年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj2->year}}">年
       <br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg2" name="ywwftg" type="checkbox" value="1"
+      @if($sj2->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
       </td>
       <td>资产总额<font color="red">*</font>
          <input name="zzc" type="text" size="12" class="money" value="{{$sj2->zzc}}">万元
@@ -230,7 +248,17 @@
             }
           });
       });
-
+      $('#formSjbg2 #ywwftg2').on('click',function(){
+        if(this.checked == true){
+          $('#formSjbg2 input').attr('readonly','true');
+          $('#formSjbg2 textarea').attr('readonly','true');
+        }
+        else{
+          $('#formSjbg2 input').removeAttr('readonly');
+          $('#formSjbg2 textarea').removeAttr('readonly');
+        }
+      });
+      $('#formSjbg2 #ywwftg2').click();
     });
 </script>
 </form>
@@ -259,7 +287,11 @@
         前三年度<font color="red">*</font>
         <input name="year" type="text" size="4" required="true" class="number" value="{{$sj3->year}}">年
       <br>
-      <input id="last2YearHead" name="last2Year2" type="checkbox" value="T" onclick="clickAll(this,'last2Year');">业务无法提供
+      <input id="ywwftg3" name="ywwftg" type="checkbox" value="1"
+      @if($sj3->ywwftg == '1')
+      checked
+      @endif
+      >业务无法提供
       </td>
       <td>资产总额<font color="red">*</font>
          <input name="zzc" type="text" size="12" class="money" value="{{$sj3->zzc}}">万元
@@ -348,7 +380,17 @@
             }
           });
       });
-
+      $('#formSjbg3 #ywwftg3').on('click',function(){
+        if(this.checked == true){
+          $('#formSjbg3 input').attr('readonly','true');
+          $('#formSjbg3 textarea').attr('readonly','true');
+        }
+        else{
+          $('#formSjbg3 input').removeAttr('readonly');
+          $('#formSjbg3 textarea').removeAttr('readonly');
+        }
+      });
+      $('#formSjbg3 #ywwftg3').click();
     });
 </script>
 </form>

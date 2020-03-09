@@ -33,8 +33,12 @@
 	        </div>
 			
 			<br>
-			<input id="thisYearHead" name="thisYear2" type="checkbox" class="noborder" value="T" >
-			业务无法提供
+    <input id="ywwftg" name="ywwftg" type="checkbox" class="noborder" value="1" 
+@if($cwbb->ywwftg == '1')
+checked
+@endif
+    >
+        业务无法提供
 		</td>
     	<td>资产总额<font color="red">*</font>
 			   <input name="zzc" type="text" size="12" class="money" value="{{$cwbb->zzc}}">万元

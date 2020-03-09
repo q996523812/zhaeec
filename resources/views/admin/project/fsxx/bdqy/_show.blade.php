@@ -321,15 +321,15 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
-          <td class=" control-label">意向方类型</td>
+          <td class=" control-label">客户类型</td>
           <td colspan="3">
-            <input type="text" id="type" name="type" value="{{$bdqy->type}}" class="form-control type" placeholder="输入 意向方类型" >
+            <select id="type" name="type" class="form-control type"></select>
           </td>
         </tr>
         <tr>
           <td class=" control-label">客户名称</td>
           <td colspan="2">
-            <input type="text" id="name" name="name" value="{{$bdqy->name}}" class="form-control name" placeholder="输入 客户名称" >
+            <input type="text" id="name" name="name" value="{{$bdqy->name}}" class="form-control name readonly" placeholder="输入 客户名称" readonly>
           </td>
           <td></td>
         </tr>
@@ -520,30 +520,97 @@
 </div>
 
 
-<div class="form-group  ">
-  <div class="col-md-8">
-        <div class="btn-group pull-right">
-            
-        </div>
-    </div>
-</div>
 
 </div>
 <script>
     $(function () {
 
+        //行政区划下拉框联动
+        $("#distpicker1").distpicker({
+          autoSelect: false,
+          province: "{{$bdqy->province}}",
+          city: "{{$bdqy->city}}",
+          district: "{{$bdqy->area}}"
+        });
+
         //日期
-        // $('.date').parent().datetimepicker({
-        //   "format":"YYYY-MM-DD",
-        //   "locale":"zh-CN",
-        //   "allowInputToggle":true
-        // });
+        $('.date').parent().datetimepicker({
+          "format":"YYYY-MM-DD",
+          "locale":"zh-CN",
+          "allowInputToggle":true
+        });
 
-        // //金额、数字
-        // $('.money').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.number').inputmask({"alias":"decimal","rightAlign":true});
+        //金额、数字
+        $('.money').inputmask({"alias":"decimal","rightAlign":true});
+        $('.number').inputmask({"alias":"decimal","rightAlign":true});
 
-        $('#formBdqy input').attr('disabled','disabled');
+        //下拉框
+        $('#sfgz').selecter({
+          autoSelect: false,
+          type: "sf",
+          selectvalue: "{{$bdqy->sfgz}}",
+          savetype: 2,
+        });
+        $('#registered_capital_currency').selecter({
+          autoSelect: false,
+          type: "currency",
+          selectvalue: "{{$bdqy->registered_capital_currency}}"
+        });
+        $('#companytype').selecter({
+          autoSelect: false,
+          type: "companytype",
+          selectvalue: "{{$bdqy->companytype}}"
+        });
+        $('#economytype').selecter({
+          autoSelect: false,
+          type: "economytype",
+          selectvalue: "{{$bdqy->economytype}}"
+        });
+        $('#scale').selecter({
+          autoSelect: false,
+          type: "scale",
+          selectvalue: "{{$bdqy->scale}}"
+        });
+
+        //联动下拉框
+        $('#type').selectunion({
+          type: "customertype",
+          selectvalue: "{{$bdqy->type}}",
+          savetype: 2,
+          selectchange: function(){
+            if($('#type').find(':selected').data('code')==1){
+              $('.company').hide();
+              $('.person').show();
+            }
+            else{
+              $('.company').show();
+              $('.person').hide();
+            }
+          },
+          subid: 'certificate_type',
+          subtype: "id_type",
+          subselectvalue: "{{$bdqy->certificate_type}}",
+          subsavetype: 1,
+          
+        });
+        $('#industry1').selectunion({
+          type: "industry1",
+          selectvalue: "{{$bdqy->industry1}}",
+          savetype: 1,
+          subid: 'industry2',
+          subtype: "industry2",
+          subselectvalue: "{{$bdqy->industry2}}",
+          subsavetype: 1,
+          
+        });
+
+        function readonly(){
+          $('#formBdqy input').attr('readonly','true');
+          $('#formBdqy select').attr('readonly','true');
+        }
+        readonly();
+
+
     });
     </script> 
 </form>

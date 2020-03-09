@@ -183,6 +183,7 @@ checked
           $('#formCwbb textarea').removeAttr('readonly');
         }
       });
+      $('#formCwbb #ywwftg').click();
     });
 </script>
 </form>

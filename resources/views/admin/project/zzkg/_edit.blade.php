@@ -20,8 +20,13 @@
     <tbody><tr>
 		<th colspan="4">项目基本情况</th>
 	</tr>
+		<tr>
+		<th title="">项目编号</th>
+		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
+		</tr>
+
 	<tr>
-		<th>项目名称<font color="red">*</font></th>
+		<th>项目名称</th>
 		<td colspan="4"><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" value="{{$detail->title}}" size="75"></td>
 	</tr>
 	
@@ -32,13 +37,13 @@
 		</td>
 	</tr>
 	<tr>
-		<th>产权隶属关系<font color="red">*</font></th>
+		<th>产权隶属关系</th>
 		<td colspan="5">
  			<div id="pauseText_div"></div>
 		</td>
 	</tr>
 	<tr>
-		<th>拟公开募集资金总额(万元)<font color="red">*</font></th>
+		<th>拟公开募集资金总额(万元)</th>
 		<td width="300px">
 		<input type="text" id="gpjg" class="easyui-numberbox numberbox-f validatebox-text" size="10" value="{{$detail->gpjg}}" name="gpjg">
 		至
@@ -55,7 +60,7 @@
 	</tr>
 	<tr>
 		<input type="hidden" name="sellPercent" id="sellPercent" value="">
-		<th>拟公开募集资金对应持股比例(%)<font color="red">*</font></th>
+		<th>拟公开募集资金对应持股比例(%)</th>
 		<td width="300px">
 			<input id="sellPercent1" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellPercent1}}" name="sellPercent1">至
 			 <input id="sellPercent2" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellPercent2}}" name="sellPercent2">
@@ -92,7 +97,7 @@
 		<td class="unput"><input name="announceMedia" value="{{$detail->announceMedia}}" size="70"></td>
 	</tr>
 	<tr>
-		<th>拟公开征集投资方数量(个)<font color="red">*</font></th>
+		<th>拟公开征集投资方数量(个)</th>
 		<td width="300px">
 			<input type="hidden" id="spare9" name="spare9" value="">
 			
@@ -108,7 +113,7 @@
 	
 	</tr>
 	<tr>
-		<th>募集资金用途<font color="red">*</font></th>
+		<th>募集资金用途</th>
 		<td colspan="4">
 			<textarea name="pub_moneyFor" id="moneyFor" class="easyui-validatebox validatebox-text" required="true" cols="75" rows="6" >{{$detail->pub_moneyFor}}</textarea>
 			
@@ -116,11 +121,11 @@
 	</tr>
 	
 	<tr>
-		<th>原股东是否有投资意向<font color="red">*</font></th>
+		<th>原股东是否有投资意向</th>
 		<td>
 	         <div id="pub_holderIn_div"></div>
 		</td>
-		<th>企业管理层或员工是否有投资意向<font color="red">*</font></th>
+		<th>企业管理层或员工是否有投资意向</th>
 		<td>
 	         <div id="pub_buyerPaperFlag_div"></div>
 		</td>
@@ -139,7 +144,7 @@
 
 <table id="table3" border="0" align="center" cellpadding="0" cellspacing="1" class="table table-bordered">
 <tbody><tr>
-		<th>是否允许联合投资<font color="red">*</font></th>
+		<th>是否允许联合投资</th>
 		<td colspan="2">
 			<div id="unitTransferee_div"></div>
         </td>
@@ -148,7 +153,7 @@
 		<th rowspan="9" style="width:180px;">保证金设定</th>
 	</tr>
 	<tr>
-		<td style="width:189px;">保证金<font color="red">*</font></td>
+		<td style="width:189px;">保证金</td>
 		<td>
 			<input type="radio" value="1" name="pubBailCtrl" checked="checked">
 			按固定金额收取（万元）
@@ -159,14 +164,14 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="width:189px;">保证金交纳开始时间<font color="red">*</font></td>
+		<td style="width:189px;">保证金交纳开始时间</td>
 		<td>
 			<input type="radio" name="bailStartFlag" value="1" checked="checked" onclick="StartFlag(this.value);">交易所登记通过后即可交纳
 			<input type="radio" name="bailStartFlag" value="2" onclick="StartFlag(this.value);">融资方审核通过后可交纳
 		</td>
 	</tr>
 	<tr>
-		<td>保证金交纳期限<font color="red">*</font></td>
+		<td>保证金交纳期限</td>
 	  	<td>
 	  		<span id="qx">
 	  			<input type="radio" name="pubBailType" value="1">
@@ -178,7 +183,7 @@
 	  	</tr>
 <!--
 	  	<tr class="transway1">
-			<td>保证金交纳方式<font color="red">*</font></td>
+			<td>保证金交纳方式</td>
 			<td>
 				<input type="checkbox" style="display:none" id="pubBailMethod1" name="pubBailMethod" value="0"><span style="display:none" id="pubBailMethod_text">电子钱包支付&nbsp;&nbsp;</span>
 				<input type="checkbox" id="pubBailMethod2" name="pubBailMethod" value="2" onclick="checkClick()">银行转账&nbsp;&nbsp;
@@ -207,7 +212,7 @@
     	</tr>
 
 	  	<tr>
-			<td>保证金处置方式<font color="red">*</font></td>
+			<td>保证金处置方式</td>
 			<td>
 				<textarea class="easyui-validatebox" required="true" name="pubBailMemo" id="pubBailMemo" cols="70" rows="5">{{$detail->pubBailMemo}}</textarea><br>
 			</td>
@@ -247,13 +252,13 @@
 	-->
 		<tr><th style="width:180px" rowspan="5">挂牌条件</th></tr>
 		<tr>
-			<td>挂牌公告期<font color="red">*</font></td>
+			<td>挂牌公告期</td>
 			<td>
 				<input name="pubDays" id="pubDays" class="easyui-numberbox" value="{{$detail->pubDays}}">
 			</td>
 		</tr>
 		<tr>
-			<td>未征集到意向投资方<font color="red">*</font><br>
+			<td>未征集到意向投资方<br>
 				<textarea name="pub10" style="width:180px;height:40px;font-size:12px">{{$detail->pub10}}</textarea>
 			</td>
 			<td>
@@ -269,7 +274,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>征集到意向投资方<font color="red">*</font><br><textarea name="pub7" style="width:180px;height:40px;font-size:12px">{{$detail->pub7}}</textarea></td>
+			<td>征集到意向投资方<br><textarea name="pub7" style="width:180px;height:40px;font-size:12px">{{$detail->pub7}}</textarea></td>
 			<td>
 				<div>
 					<input type="radio" name="pub1" value="1">信息发布终结，说明：<input type="text" name="pub2" size="70" value="{{$detail->pub2}}"><br>
@@ -279,7 +284,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>征集到意向投资方<font color="red">*</font><br>
+			<td>征集到意向投资方<br>
 				<textarea name="pub8" style="width:180px;height:40px;font-size:12px">{{$detail->pub8}}</textarea>
 			</td>
 			<td>
@@ -288,7 +293,7 @@
 		</tr>
 		<tr>
 			<th rowspan="3">遴选方式</th>
-			<td>遴选方式<font color="red">*</font></td>
+			<td>遴选方式</td>
 			<td>
 				<input name="pubDealWay" type="checkbox" value="A20001001"> 竞价
 				<input name="pubDealWay" type="checkbox" value="A20001002"> 综合评议
@@ -306,7 +311,7 @@
 		</tr>
 		
 		<tr>
-			<td>是否允许网上报名<font color="red">*</font></td>
+			<td>是否允许网上报名</td>
 			<td>
 				<div id="pub0_div"></div>
 	        </td>
@@ -327,7 +332,7 @@
 			</td>
 		</tr>
         <tr class="transway1">
-			<th style="width:180px;">投资方资格条件<font color="red">*</font></th>
+			<th style="width:180px;">投资方资格条件</th>
 			<td colspan="2">
 				<div style="width:60%;"><textarea id="buyConditions" class="easyui-validatebox" name="buyConditions" cols="70" rows="10" required="required">{{$detail->buyConditions}}</textarea></div>
 				<div class="zhushi">
@@ -336,7 +341,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th style="width:180px;">增资方案主要内容<font color="red">*</font></th>
+			<th style="width:180px;">增资方案主要内容</th>
 			<td colspan="2">
 			<div style="width:60%;">
 			<textarea class="easyui-validatebox" required="required" rows="10" cols="70" name="addMoneyPlan" id="addMoneyPlan">{{$detail->addMoneyPlan}}</textarea></div>
@@ -357,7 +362,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th style="width:180px;">交易达成条件<font color="red">*</font></th>
+			<th style="width:180px;">交易达成条件</th>
 			<td colspan="2">
 				<div style="width:60%;">
 				<textarea class="easyui-validatebox" required="true" rows="10" cols="70" name="dealConditions" id="dealConditions">{{$detail->dealConditions}}</textarea></div>

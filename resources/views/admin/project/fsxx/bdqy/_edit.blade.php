@@ -619,6 +619,7 @@
 
       $('#btnSaveBdqy').on('click', function () {
           $("button").attr("disabled","disabled");
+
           var url = "/admin/bdqy"
           if($("#targetCompanyBaseInfo_id").val()){
             url = url+"/update";
@@ -644,7 +645,8 @@
                 alert("保存失败");
                 $(".warning-message").html(str_reponse.message);
               }
-              $("#btnSaveBdqy").removeAttr("disabled");
+              // $("#btnSaveBdqy").removeAttr("disabled");
+              $("button").removeAttr("disabled");
             },
             error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
               alert("保存失败");

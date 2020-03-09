@@ -7,7 +7,7 @@
   <div class="box-header with-border">
     <ul id="myTab" class="nav nav-tabs ">
       <li class="active"><a href="#tab1" data-toggle="tab">基本信息</a></li>
-      <li><a href="#tab2" data-toggle="tab">标的企业情况</a></li> 
+      <li><a href="#tab2" data-toggle="tab">融资企业情况</a></li> 
       <li><a href="#tab3" data-toggle="tab">财务信息</a></li> 
       <li><a href="#tab4" data-toggle="tab">评估情况</a></li>
       <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
@@ -27,7 +27,7 @@
         <div class="tab-pane fade in active" id="tab1">
           @yield('content')        
         </div>
-        <!--标的企业情况-->
+        <!--标的企业情况、融资企业情况-->
         <div class="tab-pane fade" id="tab2">
           @include('admin.project.fsxx.bdqy._edit') 
           @include('admin.customer._modal') 
