@@ -98,6 +98,9 @@ class TransactionModesController extends Controller
 
     public function submit(TransactionModeRequest $request){
         $detail_id = $request->id;
+        if(empty($detail_id)){
+            throw new \Exception('请先保存交易方式！');
+        }
         $project_id = $request->project_id;
         $project = Project::find($project_id);
         $projectService = new ProjectService();
