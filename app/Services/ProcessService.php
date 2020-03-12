@@ -357,23 +357,23 @@ class ProcessService
 		$status = $project->status;
 		$process = $project->process;
 		switch($process){
-			case 211:
-				$status = 11;
+			case 121:
+				$status = 11;//挂牌
 				break;
 			case 236:
-				$status = 12;
-				break;
-			case 266:
-				$status = 16;
+				$status = 12;//流标
 				break;
 			case 246:
-				$status = 13;
+				$status = 13;//暂停
 				break;
 			case 256:
-				$status = 11;
+				$status = 11;//恢复挂牌
+				break;
+			case 266:
+				$status = 16;//其它原因用户取消挂牌或者终结挂牌
 				break;
 			case 186:
-				$status = 14;
+				$status = 14;//成交
 				break;
 		}
 		return $status;

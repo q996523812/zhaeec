@@ -49,8 +49,19 @@ class CreateProjectLeasesTable extends Migration
             $table->string('fbfs')->comment('信息发布方式')->nullable();//
             $table->string('zcsfsx')->comment('交易资产中是否存在权利受到限制的情形')->nullable();//
             $table->decimal('pgjz',26,6)->comment('标的资产评估值(人民币)元')->nullable();//
-            $table->string('jyfs')->comment('交易方式')->nullable();//
-            $table->string('bjms')->comment('报价模式')->nullable();//
+                        $table->string('yxfsl_0')->comment('意向登记期满，如没有征集到符合条件的意向受让方')->nullable();
+            $table->string('yxfsl_0_desc')->comment('不变更信息公告内容，按照不少于5个工作日为一个周期延长挂牌。')->nullable();
+            $table->string('yxfsl_1')->comment('意向登记期满，如只征集到1个符合条件的意向方')->nullable();
+            $table->string('yxfsl_1_desc')->comment('按挂牌价格与意向方报价孰低原则成交。')->nullable();
+            $table->string('yxfsl_2')->comment('意向登记期满，征集到不少于3个符合条件的意向方')->nullable();
+            $table->string('jyfs')->comment('意向登记期满，征集到不少于3个符合条件的意向方时，采取的交易方式')->nullable();
+            $table->string('bjms')->comment('报价模式')->nullable();
+            $table->decimal('jjfd',26,6)->comment('降价幅度')->nullable();
+            $table->unsignedInteger('pubDelayFlag')->comment('是否自动延牌')->nullable();
+            // $table->unsignedInteger('delayBuyerSize')->comment('延牌条件（少于等于XX个意向方）')->nullable();
+            $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
+            $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
+            
             $table->decimal('jjfd',26,6)->comment('加价幅度')->nullable();//
             $table->string('jysj_bz')->comment('交易时间备注')->nullable();//
             $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();//

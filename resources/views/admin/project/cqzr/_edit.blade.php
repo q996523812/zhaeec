@@ -385,7 +385,7 @@
         });
         $('#bidmode_div').radio({
           autoSelect: false,
-          type: "bidmode",
+          type: "bjms",
           tabname: "bidmode",
           defaultvalue: "{{$detail->bidmode}}"
         });
