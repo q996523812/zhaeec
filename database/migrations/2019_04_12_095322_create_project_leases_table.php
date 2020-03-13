@@ -62,7 +62,6 @@ class CreateProjectLeasesTable extends Migration
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();
             $table->unsignedInteger('delayPeroid')->comment('延牌周期（工作日，至少5个）')->nullable();
             
-            $table->decimal('jjfd',26,6)->comment('加价幅度')->nullable();//
             $table->string('jysj_bz')->comment('交易时间备注')->nullable();//
             $table->text('yxf_zgtj')->comment('意向方资格条件')->nullable();//
             $table->text('yxdj_zlqd')->comment('意向登记要求及资料清单')->nullable();//
