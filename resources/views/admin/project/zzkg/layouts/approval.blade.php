@@ -37,7 +37,7 @@
         </div>
         <!--融资企业情况-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.fsxx.bdqy._show') 
+          @include('admin.project.fsxx.zrf._show') 
         </div>
         <!--财务信息-->
         <div class="tab-pane fade" id="tab3">
