@@ -135,7 +135,11 @@ class ProjectBaseController extends Controller
         $detail = new $this->detail_class;
         switch ($this->projectTypeCode) {
             case 'qycg':
-                # code...
+                $detail->yxfsl_0 = 1;
+                $detail->yxfsl_0_desc = '不变更信息公告内容，按照不少于5个工作日为一个周期延长挂牌。';
+                $detail->yxfsl_1 = 1;
+                $detail->yxfsl_1_desc = '按挂牌价格与意向方报价孰低原则成交。';
+                $detail->yxfsl_2 = 1;
                 break;
             case 'zczl':
                 # code...

@@ -402,4 +402,6 @@ Route::group([
     $router->post('customer/modify', 'CustomersController@modify');
     $router->post('customer/search', 'CustomersController@search');
 
+    $router->post('report/show', 'ReportController@show');
+
 });

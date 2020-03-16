@@ -74,7 +74,9 @@ class TransactionsController extends Controller
             $transaction = new Transaction();
             $transaction->project_id = $project_id;
             $transaction->wtf_service_fee_payable = 0;
-            
+            if($project->type === 'zczl'){
+                $transaction->jycd = '电脑终端';
+            }
         }
         $datas = [
             'project' => $project,
@@ -194,8 +196,8 @@ class TransactionsController extends Controller
     }
 
     protected $fields = [
-        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','project_id'],
-        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type'],
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd','project_id'],
+        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd'],
     ];
 
     public function insert(TransactionRequest $request){

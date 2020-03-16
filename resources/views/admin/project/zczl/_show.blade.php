@@ -181,12 +181,14 @@
             {{$detail->bail_account_code}}
           </td>
         </tr>
+        <!--
     <tr>
       <td class=" control-label">项目经办人及联系方式</td>
       <td colspan="3">
         {{$detail->jypt_lxfs}}
       </td>
     </tr>
+  -->
     <tr>
       <td class=" control-label">备注</td>
       <td colspan="3">

@@ -94,12 +94,7 @@ class TransactionAnnouncementsController extends Controller
             $model->price = $cjxx->price_total;
             $model->jyfs = $jyfs->pubDealWay;
             $model->jy_date = $cjxx->transaction_date;
-            if($project->type === 'zczl'){
-                $model->jycd = '电脑终端';
-            }
-            else{
-                $model->jycd = $project->winNotice->jycd;
-            }
+            $model->jycd = $cjxx->jycd;
             
         }
 

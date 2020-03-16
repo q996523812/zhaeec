@@ -55,7 +55,9 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('yxfsl_2')->comment('意向登记期满，征集到不少于3个符合条件的意向方')->nullable();
             $table->string('jyfs')->comment('意向登记期满，征集到不少于3个符合条件的意向方时，采取的交易方式')->nullable();
             $table->string('bjms')->comment('报价模式')->nullable();
-            $table->decimal('jjfd',26,6)->comment('降价幅度')->nullable();
+            $table->decimal('jjfd',26,6)->comment('报价幅度/降价幅度')->nullable();
+            $table->string('quotationRangeDesc')->comment('报价幅度说明')->nullable();
+            $table->unsignedInteger('jjdw')->comment('竞价单位：价格（元）、比例（%）')->nullable();
             $table->unsignedInteger('pubDelayFlag')->comment('是否自动延牌')->nullable();
             // $table->unsignedInteger('delayBuyerSize')->comment('延牌条件（少于等于XX个意向方）')->nullable();
             $table->unsignedInteger('delayMax')->comment('最长延长周期数')->nullable();

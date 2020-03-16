@@ -22,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->decimal('price_unit',26,6)->comment('成交价格(单价)(万元)')->nullable();
             $table->text('price_note')->comment('成交价格备注')->nullable();
             $table->datetime('transaction_date')->comment('成交时间')->nullable();
+            $table->string('jycd')->comment('交易场地')->nullable();
             
             $table->decimal('service_charge_receivable',26,6)->comment('中心应收服务费')->default(0);
             $table->decimal('service_charge_received',26,6)->comment('中心已收服务费')->nullable();

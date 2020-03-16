@@ -59,9 +59,18 @@
     </div>
   </div>
 </div>
+<div class="form-group">
+  <label for="type" class="col-sm-2  control-label">交易场地</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-text fa-fw"></i></span>
+      <input type="text" id="jycd" name="jycd" value="{{$cjxx->jycd}}" class="form-control jycd" placeholder="输入 交易场地">
+    </div>
+  </div>
+</div>
 
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">中心应收服务费</label>
+  <label for="type" class="col-sm-2  control-label">中心应收服务费(万元)</label>
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -79,7 +88,7 @@
   </div>
 </div>
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">委托方应缴服务费</label>
+  <label for="type" class="col-sm-2  control-label">委托方应缴服务费(万元)</label>
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -97,7 +106,7 @@
   </div>
 </div>
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">中标方应缴服务费</label>
+  <label for="type" class="col-sm-2  control-label">中标方应缴服务费(万元)</label>
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>

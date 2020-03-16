@@ -142,12 +142,14 @@
 			</span>
 		</td>
 	</tr>
+	<!--
 	<tr id="ifBiddyn_tr">
 		<th>是否采用动态报价</th>
 		<td>
 			<div id="ifBiddyn_div"></div>
 		</td>
 	</tr>
+-->
 	<tr id="bidmodeTr" style="">
 		<th>报价方式</th>
 		<td>

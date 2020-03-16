@@ -156,7 +156,6 @@ class IntentionalPartiesController extends Controller
         $grid->actions(function ($actions) {
             $actions->disableDelete();
             $actions->disableEdit();
-            
             $rec = $actions->row;
             $spnodes = array('13','14','15');
             if(in_array($rec->process,$spnodes) ){
@@ -165,6 +164,8 @@ class IntentionalPartiesController extends Controller
             }
             
         });
+        $grid->disableExport();
+        $grid->disableCreation();
         return $grid;
     }
 

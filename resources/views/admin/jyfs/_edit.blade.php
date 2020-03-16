@@ -45,11 +45,20 @@
   </div>
 </div>
 <div class="form-group wljj">
-  <label for="type" class="col-sm-2  control-label">加价幅度(元)</label>
+  <label for="type" class="col-sm-2  control-label">报价幅度</label>
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="increase_range" name="increase_range" value="{{$jyfs->increase_range}}" class="form-control money increase_range" placeholder="输入 加价幅度">
+      <input type="text" id="quotationRange" name="quotationRange" value="{{$jyfs->quotationRange}}" class="form-control money quotationRange" placeholder="输入 报价幅度">
+    </div>
+  </div>
+</div>
+<div class="form-group wljj">
+  <label for="type" class="col-sm-2  control-label">报价幅度说明</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="quotationRangeDesc" name="quotationRangeDesc" value="{{$jyfs->quotationRangeDesc}}" class="form-control money quotationRangeDesc" placeholder="输入 报价幅度说明">
     </div>
   </div>
 </div>

@@ -34,13 +34,13 @@
 
         <!--提交审批-->
         <div class="tab-pane fade" id="tab4">
-          <form action="/admin/{{$projecttype}}/submit" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="">
+          <form action="/admin/{{$projecttype}}/submit" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formSubmit">
             {{csrf_field()}}
             <input type="hidden" id="id" name="id" value="{{$id}}" class="id">
             <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id">
             <input type="hidden" id="process" name="process" value="13">
             <div class="btn-group pull-center">
-                <button type="submit" class="btn btn-primary btn-pass">提交</button>
+                <button type="button" id="btnSubmit" class="btn btn-primary btn-pass">提交</button>
             </div>
           </form>
         </div>
@@ -275,6 +275,16 @@
         $("button").removeAttr("disabled");        
       }
 
+      $('#btnSubmit').on('click',function(){
+        var id = $('#id').val();
+        if(!id){
+          show_warning('请先保存基本信息');
+          return false;
+        }
+        else{
+          $('#formSubmit').submit();
+        }
+      })
     });
 </script>
 </div>

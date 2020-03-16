@@ -15,7 +15,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group other">
   <label for="type" class="col-sm-2  control-label">其他交易方式说明</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -24,7 +24,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">是否采用动态报价</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
+<div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">报价方式</label>
   <div class="col-sm-8">
     <div class="input-group">
@@ -44,12 +44,21 @@
     </div>
   </div>
 </div>
-<div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">加价幅度</label>
+<div class="form-group wljj">
+  <label for="type" class="col-sm-2  control-label">报价幅度</label>
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="increase_range" name="increase_range" value="{{$jyfs->increase_range}}" class="form-control money increase_range" placeholder="输入 加价幅度">
+      <input type="text" id="quotationRange" name="quotationRange" value="{{$jyfs->quotationRange}}" class="form-control money quotationRange" placeholder="输入 报价幅度">
+    </div>
+  </div>
+</div>
+<div class="form-group wljj">
+  <label for="type" class="col-sm-2  control-label">报价幅度说明</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="quotationRangeDesc" name="quotationRangeDesc" value="{{$jyfs->quotationRangeDesc}}" class="form-control money quotationRangeDesc" placeholder="输入 报价幅度说明">
     </div>
   </div>
 </div>
@@ -74,13 +83,7 @@
 </div>
 -->
 
-<div class="form-group  ">
-  <div class="col-md-8">
-        <div class="btn-group pull-right">
-            <button type="button" id="btnSaveData" class="btn btn-primary btn-pass">保存</button>
-        </div>
-    </div>
-</div>
+
 
 </div>
 <script>
@@ -94,8 +97,6 @@
         });
 
         //金额、数字
-        // $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
 
         //下拉框
@@ -118,13 +119,29 @@
           selectvalue: "{{$jyfs->bidmode}}"
         });
 
+        $('#pubDealWay').on('click',function(){
+          if(this.value == '1'){
+            $('.wljj').show();
+            $('.other').hide();
+          }
+          else if(this.value == '10'){
+            $('.wljj').hide();
+            $('.other').show();
+          }
+          else{
+            $('.wljj').hide();
+            $('.other').hide();
+          }
+          
+        });
+        $('#pubDealWay').click();
+
         function noEdit(){
           $("#formdetail input").attr("disabled","disabled");
           $("#formdetail select").attr("disabled","disabled");
           $("#formdetail textarea").attr("disabled","disabled");
         }
         noEdit();
-        
     });
     </script> 
 </form>

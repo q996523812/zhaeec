@@ -371,7 +371,7 @@
         <tr class="company">
           <td class=" control-label">是否国资</td>
           <td>
-            <input type="text" id="sfgz" name="sfgz" value="{{$bdqy->sfgz}}" class="form-control">
+            <select id="sfgz" name="sfgz" class="form-control"></select>
           </td>
           <td class=" control-label">成立时间</td>
           <td>

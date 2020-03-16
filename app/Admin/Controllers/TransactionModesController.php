@@ -20,7 +20,7 @@ class TransactionModesController extends Controller
 
     private $service;
     private $module_type;
-    protected $fields = ['pubDealWay','dealWayDesc','ifBiddyn','bidmode','increase_range','project_id'];
+    protected $fields = ['pubDealWay','dealWayDesc','ifBiddyn','bidmode','quotationRange','quotationRangeDesc','jjdw','project_id'];
 
     public function __construct(TransactionModeService $service)
     {
