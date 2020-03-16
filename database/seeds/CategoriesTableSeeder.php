@@ -36,4 +36,12 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert($categories);
     }
+
+    private function create($id,$name,$description){
+        $row = [
+            'name' => $name,
+            'description' => $description,
+        ];
+        return $row;
+    }
 }
