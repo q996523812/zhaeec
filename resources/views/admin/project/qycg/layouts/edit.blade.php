@@ -26,7 +26,8 @@
         </div>
         <!--标的企业情况-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.fsxx.bdqy._edit') 
+          
+          @include('admin.project.fsxx.zrf._edit') 
           @include('admin.customer._modal') 
         </div>
         <!--联系方式-->

@@ -6,3 +6,4 @@ php artisan db:seed
 
 yarn run dev
 
+--composer dump-autoload // 我们需要清理下之前执行生成的classmap信息。php artisan db:seed报错找不到文件，但文件明确存在时执行

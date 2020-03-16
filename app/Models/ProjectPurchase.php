@@ -49,4 +49,8 @@ class ProjectPurchase extends Model
     {
         return $this->hasOne(Contact::class,'project_id','project_id');
     }
+    public function sellerInfo()
+    {
+        return $this->hasOne(SellerInfo::class,'project_id','project_id');
+    }
 }

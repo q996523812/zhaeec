@@ -308,8 +308,8 @@ class WinNoticesController extends Controller
             'images' => $model->images,
         ];
         return $content
-            ->header('成交公告审批')
-            ->description('录入正式发布的成交公告')
+            ->header('中标通知')
+            ->description('审批')
             ->body(view('admin.'.$this->module_type.'.approval', $datas)); 
     }
 

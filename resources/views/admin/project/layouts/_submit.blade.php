@@ -51,26 +51,24 @@ $(document).ready(function(){
           massage += "基本信息、";
           flag = false;
         }
-        if(projecttype == 'qycg' || projecttype == 'cqzr' || projecttype == 'zzkg'){
+        if(projecttype == 'cqzr' ){
           if(!$('#targetCompanyBaseInfo_id').val()){
             switch(projecttype){
-              case 'qycg':
-                massage += "采购企业情况、";
-                break;
               case 'cqzr':
                 massage += "标的企业情况、";
                 break;
-              case 'zzkg':
-                massage += "融资企业情况";
-                break;
+              
             }
             flag = false;
           }
         }
-        if(projecttype == 'zczl' || projecttype == 'cqzr' || projecttype == 'zczr'){
+        if(projecttype == 'qycg' || projecttype == 'zczl' || projecttype == 'cqzr' || projecttype == 'zczr' || projecttype == 'zzkg'){
           if(!$('#sellerInfo_id').val()){
-            massage += "转让方、";
+           
             switch(projecttype){
+              case 'qycg':
+                massage += "采购企业情况、";
+                break;
               case 'zczl':
                 massage += "出租方、";
                 break;
@@ -79,6 +77,9 @@ $(document).ready(function(){
                 break;
               case 'zczr':
                 massage += "转让方、";
+                break;
+              case 'zzkg':
+                massage += "融资企业情况";
                 break;
             }
             flag = false;

@@ -330,27 +330,7 @@ class ProjectBaseController extends Controller
         });
         $grid->xmbh('项目编号');
         $grid->sellerInfo_id('委托方名称')->display(function($sellerInfo_id){
-            $name = '';
-            switch ($this->project->type) {
-                case 'qycg':
-                case 'zzkg':
-                    $seller = $this->targetCompanyBaseInfo;
-                    if(!empty($seller)){
-                        $name = $seller->name;
-                    }
-                    break;
-                case 'zczl':
-                case 'cqzr':
-                case 'zczr':
-                    $seller = $this->sellerInfo;
-                    
-                    if(!empty($seller)){
-                        $name = $seller->name;
-                    }
-
-                    break;
-            }
-            return $name;
+            return $this->sellerInfo->name;
         });
         // $grid->column('委托方名称')->display(function () {
         //     $seller = $this->sellerInfo;
@@ -916,7 +896,7 @@ class ProjectBaseController extends Controller
             'yxfs' => $project->intentionalParties,
         ];
         return $content
-            ->header('联合资格审审批')
+            ->header('联合资格审查审批')
             ->body(view('admin.lhsc.approval', $datas));
     }
 
