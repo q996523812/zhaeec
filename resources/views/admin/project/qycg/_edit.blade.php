@@ -111,7 +111,7 @@
         </tr>
 
         <tr>
-          <td class=" control-label">预算价格(元)</td>
+          <td class=" control-label">预算价格(万元)</td>
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -169,7 +169,7 @@
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
               <input type="text" id="quotationRangeDesc" name="quotationRangeDesc" value="{{$detail->quotationRangeDesc}}" class="form-control money quotationRangeDesc" placeholder="输入 报价幅度说明">
-            </div>          
+            </div>
           </td>
         </tr>
         <tr>
@@ -187,7 +187,7 @@
             <input type="text" id="zbdl_lxfs" name="zbdl_lxfs" value="{{$detail->zbdl_lxfs}}" class="form-control zbdl_lxfs" placeholder="输入 招标代理机构联系方式">
           </td>
         </tr>
-        <tr>
+        <tr class="ztb">
           <td class=" control-label">投标文件递交起止时间</td>
           <td colspan="3">
             <div class="input-group" style="float:left;">

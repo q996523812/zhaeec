@@ -308,9 +308,9 @@ class ProjectBaseController extends Controller
     protected function getMarginAcount($detail){
         $accountService = new MarginAcountService();
         $account = $accountService->getDefault();
-        $detail->bail_account_code = $account->name;
-        $detail->bail_account_name = $account->bank;
-        $detail->bail_account_bank = $account->account;
+        $detail->bail_account_code = $account->account;
+        $detail->bail_account_name = $account->name;
+        $detail->bail_account_bank = $account->bank;
     }
     /**
      * Make a grid builder.
@@ -330,9 +330,15 @@ class ProjectBaseController extends Controller
         });
         $grid->xmbh('项目编号');
         $grid->sellerInfo_id('委托方名称')->display(function($sellerInfo_id){
-            return $this->sellerInfo->name;
+            $name = '';
+            $seller = $this->sellerInfo;
+            if(!empty($seller)){
+                $name = $seller->sellerName;
+            }
+            return $name;
         });
         // $grid->column('委托方名称')->display(function () {
+        //     $name = '';
         //     $seller = $this->sellerInfo;
         //     if(!empty($seller)){
         //         $name = $seller->sellerName;

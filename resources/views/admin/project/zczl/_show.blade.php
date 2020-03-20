@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr>
-      <td rowspan="25" class=" control-label">交易内容</td>
+      <td rowspan="24" class=" control-label">交易内容</td>
       <td class=" control-label">项目编号</td>
       <td colspan="3">
         {{$detail->xmbh}}

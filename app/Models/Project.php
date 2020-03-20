@@ -62,24 +62,25 @@ class Project extends Model
     }
     public function wtf(){
         $model = null;
-        switch($this->type){
-            case 'qycg':
-                $model = $this->targetCompanyBaseInfo();
-                break;
-            case 'zczl':
-                $model = $this->sellerInfo();
-                break;
-            case 'cqzr':
-                $model = $this->sellerInfo();
-                break;
-            case 'zzkg':
-                $model = $this->targetCompanyBaseInfo();
-                break;
-            case 'zczr':
-                $model = $this->sellerInfo();
-                break;
+        $model = $this->sellerInfo();
+        // switch($this->type){
+        //     case 'qycg':
+        //         $model = $this->targetCompanyBaseInfo();
+        //         break;
+        //     case 'zczl':
+        //         $model = $this->sellerInfo();
+        //         break;
+        //     case 'cqzr':
+        //         $model = $this->sellerInfo();
+        //         break;
+        //     case 'zzkg':
+        //         $model = $this->targetCompanyBaseInfo();
+        //         break;
+        //     case 'zczr':
+        //         $model = $this->sellerInfo();
+        //         break;
             
-        }
+        // }
         return $model;
     }
 
