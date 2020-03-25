@@ -20,7 +20,9 @@
 						<tr>
 							<td colspan="4">
 	      	<center>
-	      		<div id="type_div"></div>
+	      		<input id="type1" name="type" type="radio" value="1" @if($cwbb->type == '1') checked @endif>年报
+            <input id="type2" name="type" type="radio" value="2" @if($cwbb->type == '2') checked @endif>季报
+            <input id="type3" name="type" type="radio" value="3" @if($cwbb->type == '3') checked @endif>月报
 	      	</center> 
       	</td>
     </tr> 
@@ -120,12 +122,6 @@ checked
           });
       });
 
-        $('#type_div').radio({
-          autoSelect: false,
-          type: "reporttype",
-          tabname: "type",
-          defaultvalue: "{{$detail->type}}"
-        });
     });
 </script>
 </form>
