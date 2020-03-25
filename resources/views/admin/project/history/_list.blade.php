@@ -15,7 +15,7 @@
                     <td>{{$record->work_process_node_name}}</td>
                     <td>{{$record->operation}}</td>
                     <td>{{$record->reason}}</td>
-                    <td>{{$record->user_id}}</td>
+                    <td>{{$record->user->name}}</td>
                   </tr>
                   @endforeach
                 </tbody>

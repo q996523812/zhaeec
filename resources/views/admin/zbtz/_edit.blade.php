@@ -13,11 +13,11 @@
         <tr>
           <td class=" control-label">通知书编号</td>
           <td>
-            <input type="text" id="tzsbh" name="tzsbh" value="{{$zbtz->tzsbh}}" class="form-control tzsbh" placeholder="输入 通知书编号" readonly>
+            <input type="text" id="tzsbh" name="tzsbh" value="{{$zbtz->tzsbh}}" class="form-control tzsbh" readonly>
           </td>
           <td class=" control-label">项目编号</td>
           <td>
-            <input type="text" id="xmbh" name="xmbh" value="{{$zbtz->xmbh}}" class="form-control xmbh" placeholder="输入 项目编号" readonly>
+            <input type="text" id="xmbh" name="xmbh" value="{{$zbtz->xmbh}}" class="form-control xmbh" readonly>
           </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         <tr>
           <td class=" control-label">中标方所属区域</td>
           <td colspan="3">
-            <input type="text" id="scope" name="scope" value="{{$zbtz->scope}}" class="form-control scope" placeholder="输入 中标方所属区域" readonly>
+            <input type="text" id="zbf_qy" name="zbf_qy" value="{{$zbtz->zbf_qy}}" class="form-control zbf_qy" placeholder="输入 中标方所属区域" readonly>
           </td>
         </tr>
         @endif

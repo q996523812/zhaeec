@@ -371,7 +371,7 @@
         <tr class="company">
           <td class=" control-label">是否国资</td>
           <td>
-            <select id="sfgz" name="sfgz" class="form-control"></select>
+            <select id="sfgz" name="sfgz" class="form-control sfgz" disabled="disabled"></select>
           </td>
           <td class=" control-label">成立时间</td>
           <td>

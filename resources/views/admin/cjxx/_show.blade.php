@@ -10,7 +10,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="zbf" name="zbf" value="{{$cjxx->project->transaction->zbf->name}}" class="form-control money zbf">
+      <input type="text" id="zbf" name="zbf" value="{{$cjxx->zbf->name}}" class="form-control zbf">
     </div>
   </div>
 </div>
@@ -105,7 +105,9 @@
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
         //下拉框
         
-        $('input').attr('readonly','readonly');
+        $('#formdetail input').attr('disabled','true');
+        $('#formdetail select').attr('disabled','true');
+        $('#formdetail textarea').attr('disabled','true');
     });
     </script> 
 </form>

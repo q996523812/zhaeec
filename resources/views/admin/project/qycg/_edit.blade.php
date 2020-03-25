@@ -28,13 +28,21 @@
           </td>
         </tr>
         <tr>
+          <td class=" control-label">项目推荐人</td>
+          <td colspan="2">
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customers_id" name="customers_id" value="{{$project->customers_id}}">
+          </td>
+          <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+        </tr>
+        <tr>
           <td class=" control-label">是否实质性进场</td>
           <td>
             <select id="sfjc" name="sfjc" class="form-control sfjc"></select>
           </td>
         </tr>
         <tr>
-          <td class=" control-label">项目名称</td>
+          <td class=" control-label">项目名称<font color="red">*</font></td>
           <td colspan="3">
             <input type="text" id="title" name="title" value="{{$detail->title}}" class="form-control title" placeholder="输入 委托方名称">
           </td>
@@ -58,7 +66,7 @@
           </td>
         </tr>
         <tr>
-          <td class=" control-label">挂牌公告期</td>
+          <td class=" control-label">挂牌公告期<font color="red">*</font></td>
           <td>
             <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期">
           </td>
@@ -87,7 +95,10 @@
         <tr>
           <td class=" control-label" rowspan="3">交易情况说明</td>
           <td>
+            <!--
             <input type="checkbox" name="yxfsl_0" value="1" @if($detail->yxfsl_0 == 1) checked="checked" @endif/> 意向登记期满，如没有征集到符合条件的意向受让方
+          -->
+            <input type="text" id="yxfsl_0" name="yxfsl_0" value="{{$detail->yxfsl_0}}" class="form-control yxfsl_0">
           </td>
           <td colspan="2">
             <input type="text" id="yxfsl_0_desc" name="yxfsl_0_desc" value="{{$detail->yxfsl_0_desc}}" class="form-control yxfsl_0_desc">
@@ -96,7 +107,10 @@
         </tr>
         <tr>
           <td>
+            <!--
             <input type="checkbox" name="yxfsl_1" value="1" @if($detail->yxfsl_1 == 1) checked="checked" @endif /> 意向登记期满，如只征集到1个符合条件的意向方
+          -->
+            <input type="text" id="yxfsl_1" name="yxfsl_1" value="{{$detail->yxfsl_1}}" class="form-control yxfsl_1">
           </td>
           <td colspan="2">
             <input type="text" id="yxfsl_1_desc" name="yxfsl_1_desc" value="{{$detail->yxfsl_1_desc}}" class="form-control yxfsl_1_desc">
@@ -105,13 +119,16 @@
         </tr>
         <tr>
           <td>
+            <!--
             <input type="checkbox" name="yxfsl_2" value="1" @if($detail->yxfsl_2 == 1) checked="checked" @endif /> 意向登记期满，征集到不少于3个符合条件的意向方
+          -->
+            <input type="text" id="yxfsl_2" name="yxfsl_2" value="{{$detail->yxfsl_2}}" class="form-control yxfsl_2">
           </td>
           <td colspan="2"><select id="jyfs" name="jyfs" class="form-control jyfs"></select></td>
         </tr>
 
         <tr>
-          <td class=" control-label">预算价格(万元)</td>
+          <td class=" control-label">预算价格(万元)<font color="red">*</font></td>
           <td>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -266,7 +283,7 @@
           </td>
         </tr>
         <tr>
-          <td class=" control-label">竞标保证金金额(人民币) (万元)</td>
+          <td class=" control-label">竞标保证金金额(人民币) (万元)<font color="red">*</font></td>
           <td colspan="3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>

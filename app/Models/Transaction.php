@@ -30,6 +30,6 @@ class Transaction extends Model
 
     public function zbf()
     {
-        return $this->hasOne(IntentionalParty::class,'id','intentional_parties_id');
+        return $this->belongsTo(IntentionalParty::class,'intentional_parties_id');
     }
 }

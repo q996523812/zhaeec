@@ -24,6 +24,7 @@
     </div>
   </div>
 </div>
+<!--
 <div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">是否采用动态报价</label>
   <div class="col-sm-8">
@@ -34,6 +35,7 @@
     </div>
   </div>
 </div>
+-->
 <div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">报价方式</label>
   <div class="col-sm-8">
@@ -45,8 +47,8 @@
   </div>
 </div>
 <div class="form-group wljj">
-  <label for="type" class="col-sm-2  control-label">报价幅度</label>
-  <div class="col-sm-8">
+  <label for="type" class="col-sm-2  control-label">报价幅度（万元）</label>
+  <div class="col-sm-3">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
       <input type="text" id="quotationRange" name="quotationRange" value="{{$jyfs->quotationRange}}" class="form-control money quotationRange" placeholder="输入 报价幅度">
@@ -56,10 +58,7 @@
 <div class="form-group wljj">
   <label for="type" class="col-sm-2  control-label">报价幅度说明</label>
   <div class="col-sm-8">
-    <div class="input-group">
-      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="quotationRangeDesc" name="quotationRangeDesc" value="{{$jyfs->quotationRangeDesc}}" class="form-control money quotationRangeDesc" placeholder="输入 报价幅度说明">
-    </div>
+      <input type="text" id="quotationRangeDesc" name="quotationRangeDesc" value="{{$jyfs->quotationRangeDesc}}" class="form-control quotationRangeDesc" placeholder="输入 报价幅度说明">
   </div>
 </div>
 <!--

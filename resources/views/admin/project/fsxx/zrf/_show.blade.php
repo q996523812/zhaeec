@@ -371,7 +371,7 @@
         <tr class="company">
           <td class=" control-label">是否国资</td>
           <td>
-            <select id="sfgz" name="sfgz" class="form-control"></select>
+            <select id="sfgz" name="sfgz" class="form-control sfgz" disabled="disabled"></select>
           </td>
           <td class=" control-label">成立时间</td>
           <td>
@@ -542,8 +542,15 @@
         // //金额、数字
         // $('.money').inputmask({"alias":"decimal","rightAlign":true});
         // $('.number').inputmask({"alias":"decimal","rightAlign":true});
-
+        $('#sfgz').selecter({
+          autoSelect: false,
+          type: "sf",
+          selectvalue: "{{$yxf->sfgz}}",
+          savetype: 2,
+        });
         $('#formZrf input').attr('disabled','disabled');
+        $('#formZrf select').attr('disabled','disabled');
+        $('#formZrf textarea').attr('disabled','disabled');
     });
     </script> 
 </form>

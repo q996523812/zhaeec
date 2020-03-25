@@ -16,7 +16,7 @@ class AdminUsersTableSeeder extends Seeder
             $this->create(6,'cenyinlan','$2y$10$vzVDjQXOcNpXKpiO7mubUO7xD6mjYhf0XlqBoAaVU/20EpD/sMOmy','岑茵蓝',null),
             $this->create(7,'zhaoyafei','$2y$10$2cl6Ta.KjUF9vWO39ddVHeT9EMZRt/th4PTYXsyNxmWZCYcuVNCCC','赵涯菲',null),
             $this->create(8,'qinshanshan','$2y$10$y.EhVMwnZ4.89rrnRw1qcuqrNCs1KG1Sscq9YsbwtQYqOhjkmfcqC','覃山山',null),
-            $this->create(9,'xiayi','$2y$10$kh8eOU1BBquek209.X5SlOF9uug91A1H9RuOvK2XpGTsfCN45gHEu','夏毅',null),
+            $this->create(9,'zhangbinhui','$2y$10$wBB3avGd.O.BJ1wn1yZQhuGPcn4QvqJeioprjRMsFiKV2l3ut1YCi','章斌晖',null),
             $this->create(10,'xiadexing','$2y$10$FlSJ3mE8lctMfQpB8gQ5uezeaw5/h2tFK81Clo3NRMRpgDXuJm.i2','夏德兴',null),
             $this->create(11,'lijiangyu','$2y$10$xa96ZgPYVRP4knCZxjNOj.H/V5jtPvdrlKSruQ9JOtX6ltvdyu9xW','李江宇',null),
             $this->create(12,'liuyilin','$2y$10$FCrYuNwVUXJaBXh43hK7redhRHoaoHSCW3Vwpifl30zgnQyaiXSoW','刘一霖',null),

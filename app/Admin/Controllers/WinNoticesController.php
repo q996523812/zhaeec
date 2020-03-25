@@ -102,7 +102,7 @@ class WinNoticesController extends Controller
             $model->cjj_dj = $cjxx->price_unit;
             $model->cjj_bz = $cjxx->price_note;
             $model->jyfs = $jyfs->pubDealWay;
-            $model->zbf_qy = $zbf->area;
+            $model->zbf_qy = $zbf->province.$zbf->city.$zbf->county;
         }
 
         $datas = [

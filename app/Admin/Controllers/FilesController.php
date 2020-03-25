@@ -35,17 +35,45 @@ class FilesController extends Controller
 {
     use HasResourceActions;
 
+    protected $fields = ['received_information_type','information_lists_id','applicable_person','applicable_party'];
+
     public function store(FileRequest $request, FileUploadHandler $uploader, File $file)
     {
+        $data = $request->only($this->fields);
         $filetable_id = $request->id;
         $projecttype = $request->projecttype;
+        $received_information_type = $request->received_information_type;
+        $information_lists_id = $request->information_lists_id;
         $model_class = $this->getModelClass($projecttype);
         $model = $model_class::find($filetable_id);
         $folder = $this->getFolder($projecttype);
 
         $service = new FileService();
-        $file = $service->add($model,$folder,$request->file);
+        $file = $service->add($model,$folder,$request->file,$data);
 // dd(new FileTransformer($file));
+        $result = [
+            'success' => 'true',
+            'message' => '',
+            'file' => $file,
+            'status_code' => '200'
+        ];
+
+        return response()->json($result);
+        // return $this->response->item($image, new ImageTransformer())->setStatusCode(201);
+    }
+    public function update(FileRequest $request, FileUploadHandler $uploader, File $file)
+    {
+        $data = $request->only($this->fields);
+        $filetable_id = $request->id;
+        $projecttype = $request->projecttype;
+        $id = $request->file_id;
+        $model_class = $this->getModelClass($projecttype);
+        $model = $model_class::find($filetable_id);
+        $folder = $this->getFolder($projecttype);
+
+        $service = new FileService();
+        $file = $service->update($model,$folder,$request->file,$data,$id);
+
         $result = [
             'success' => 'true',
             'message' => '',
@@ -132,10 +160,21 @@ class FilesController extends Controller
             case 'yxdj':
                 $folder = 'yxf';
                 break;
-            case 'yxdj':
+            case 'qycg':
                 $folder = 'qycg';
                 break;
+            case 'cqzr':
+                $folder = 'cqzr';
+                break;
+            case 'zczr':
+                $folder = 'zczr';
+                break;
+            case 'zzkg':
+                $folder = 'zzkg';
+                break;
+            
         }
         return $folder;
     }
+
 }

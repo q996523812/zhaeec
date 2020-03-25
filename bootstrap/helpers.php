@@ -3,6 +3,16 @@ function test_helper() {
     return 'OK';
 }
 
+function replace_information_type($string){
+    $str1 = str_replace('1',"原件",$string);
+    $str2 = str_replace('2',"复印件",$str1);
+    $str3 = str_replace('3',"电子版",$str2);
+    return $str3;
+}
+
+function get_download_url($file_name,$file_dir){
+    return '/download?file_name='.urlencode($file_name).'&file_dir='.urlencode($file_dir);
+}
     /**
      *@param $modelname 模块名称，例如：zczl、qycg、yxj、cjxx、cjgg、zbtz等
      *@param $title 显示的按钮名称

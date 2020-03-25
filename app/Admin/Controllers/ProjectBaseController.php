@@ -27,11 +27,13 @@ use Encore\Admin\Admin as Import;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
 use App\Services\MarginAcountService;
 use App\Services\ProjectBaseService;
 use App\Services\ProjectService;
+use App\Services\FileService;
 use App\Http\Requests\ProjectLeasesRequest;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -115,10 +117,9 @@ class ProjectBaseController extends Controller
             $this->getMarginAcount($detail);
         }
         $datas = $this->getDatasToView($detail);
-        $role = Role::find(2);
-        $users = $role->administrators;
-        $datas['users'] = $users;
-        $url = $this->getViewUrl('edit');  
+        
+        // $url = $this->getViewUrl('edit');  
+        $url = 'admin.project.edit';
         return $content
             ->header($this->projectTypeName.'-编辑')
             ->body(view($url, $datas));  
@@ -135,11 +136,17 @@ class ProjectBaseController extends Controller
         $detail = new $this->detail_class;
         switch ($this->projectTypeCode) {
             case 'qycg':
-                $detail->yxfsl_0 = 1;
+                // $detail->yxfsl_0 = 1;
+                // $detail->yxfsl_0_desc = '不变更信息公告内容，按照不少于5个工作日为一个周期延长挂牌。';
+                // $detail->yxfsl_1 = 1;
+                // $detail->yxfsl_1_desc = '按挂牌价格与意向方报价孰低原则成交。';
+                // $detail->yxfsl_2 = 1;
+
+                $detail->yxfsl_0 = '意向登记期满，如没有征集到符合条件的意向受让方';
                 $detail->yxfsl_0_desc = '不变更信息公告内容，按照不少于5个工作日为一个周期延长挂牌。';
-                $detail->yxfsl_1 = 1;
+                $detail->yxfsl_1 = '意向登记期满，如只征集到1个符合条件的意向方';
                 $detail->yxfsl_1_desc = '按挂牌价格与意向方报价孰低原则成交。';
-                $detail->yxfsl_2 = 1;
+                $detail->yxfsl_2 = '意向登记期满，征集到不少于3个符合条件的意向方';
                 break;
             case 'zczl':
                 # code...
@@ -164,10 +171,9 @@ class ProjectBaseController extends Controller
         }
         $this->getMarginAcount($detail);
         $datas = $this->getDatasToView($detail);
-        $role = Role::find(2);
-        $users = $role->administrators;
-        $datas['users'] = $users;
-        $url = $this->getViewUrl('edit');
+        
+        // $url = $this->getViewUrl('edit');
+        $url = 'admin.project.edit';
         return $content
             ->header('新增')
             ->body(view($url,$datas));  
@@ -183,15 +189,134 @@ class ProjectBaseController extends Controller
     public function copy($id, Content $content)
     {
         $detail = $this->detail_class::find($id);
+        $project =$detail->project;
+        if(empty($project)){
+            $project = new Project;
+        }
+
+        $bdqy = $detail->targetCompanyBaseInfo;
+        if(empty($bdqy)){
+            $bdqy = new TargetCompanyBaseInfo;
+        }
+
+        $sjbg1 = new AuditReport;
+        $sjbg2 = new AuditReport;
+        $sjbg3 = new AuditReport;
+        $sjbgs = $detail->auditReports;
+        if(!empty($sjbgs) && $sjbgs->Count()>=1){
+            for($i = 0; $i < $sjbgs->Count(); $i++){
+                switch ($i) {
+                    case 0:
+                        $sjbg1 = $sjbgs[$i];
+                        break;
+                    case 1:
+                        $sjbg2 = $sjbgs[$i];
+                        break;
+                    case 2:
+                        $sjbg3 = $sjbgs[$i];
+                        break;
+                }
+            }
+        }
+
+        $bdxq = $detail->assetInfo;
+        if(empty($bdxq)){
+            $bdxq = new AssetInfo;
+        }
+
+        $cwbb = $detail->financialStatement;
+        if(empty($cwbb) ){
+            $cwbb = new FinancialStatement;
+        }
+        $pgqk = $detail->assessment;
+        if(empty($pgqk)){
+            $pgqk = new Assessment;
+        }
+        $zrf = $detail->sellerInfo;
+        if(empty($zrf)){
+            $zrf = new SellerInfo;
+        }
+        $jgxx = $detail->supervise;
+        if(empty($jgxx)){
+            $jgxx = new Supervise;
+        }
+        $lxfs = $detail->contact;
+        if(empty($lxfs)){
+            $lxfs = new Contact;
+        }
+        
         $detail->id = '';
         $detail->project_id = '';
         $detail->process = '111';
-        $detail->xmbh = '';
+        $detail->xmbh = 
+
+        $project->detail_id = '';
+        $project->id = '';
+        $project->process = '111';
+        $project->xmbh = '';
+
+        $bdqy->id = '';
+        $bdqy->project_id = '';
         
-        $datas = $this->getDatasToView($detail);
+        $bdxq->id = '';
+        $bdxq->project_id = '';
+        
+        $cwbb->id = '';
+        $cwbb->project_id = '';
+        
+        $pgqk->id = '';
+        $pgqk->project_id = '';
+        
+        $zrf->id = '';
+        $zrf->project_id = '';
+        
+        $jgxx->id = '';
+        $jgxx->project_id = '';
+        
+        $sjbg1->id = '';
+        $sjbg1->project_id = '';
+        
+        $sjbg2->id = '';
+        $sjbg2->project_id = '';
+
+        $sjbg3->id = '';
+        $sjbg3->project_id = '';
+        
+        $lxfs->id = '';
+        $lxfs->project_id = '';
+
+        $datas = [
+            'id' => $detail->id,
+            'detail' => $detail,
+            'projecttype' => $this->projectTypeCode,
+            'files' => $detail->files,
+            'images' => $detail->images,
+        ];
+
+        $datas['project'] = $project;
+        $datas['bdqy'] = $bdqy;
+        $datas['bdxq'] = $bdxq;
+        $datas['cwbb'] = $cwbb;
+        $datas['pgqk'] = $pgqk;
+        $datas['zrf'] = $zrf;
+        $datas['jgxx'] = $jgxx;
+        $datas['sj1'] = $sjbg1;
+        $datas['sj2'] = $sjbg2;
+        $datas['sj3'] = $sjbg3;
+        $datas['lxfs'] = $lxfs;
+        
+        $datas['files_wtf'] = '';
+        $datas['files_yxf'] = '';
+
+        '';
+        
+        $present_user = Auth::guard('admin')->user();//当前用户
         $role = Role::find(2);
-        $users = $role->administrators;
+        // $users = $role->administrators;
+        // $users = $role->administrators->where('id','<>',$present_user->id);
+        $users = $role->administrators->except([$present_user->id]);
         $datas['users'] = $users;
+        
         $url = $this->getViewUrl('edit');
         return $content
             ->header($this->projectTypeName.'-新增')
@@ -302,6 +427,18 @@ class ProjectBaseController extends Controller
         $datas['sj3'] = $sjbg3;
         $datas['lxfs'] = $lxfs;
         
+        $fileServicde = new FileService();
+        $files_wtf = $fileServicde->getFilesWtf($this->projectTypeCode,$detail->id);
+        $files_yxf = $fileServicde->getFilesYxf($this->projectTypeCode,$detail->id);
+        $datas['files_wtf'] = $files_wtf;
+        $datas['files_yxf'] = $files_yxf;
+
+        $present_user = Auth::guard('admin')->user();//当前用户
+        $role = Role::find(2);
+        // $users = $role->administrators;
+        // $users = $role->administrators->where('id','<>',$present_user->id);
+        $users = $role->administrators->except([$present_user->id]);
+        $datas['users'] = $users;
 
         return $datas;
     }
@@ -331,9 +468,9 @@ class ProjectBaseController extends Controller
         $grid->xmbh('项目编号');
         $grid->sellerInfo_id('委托方名称')->display(function($sellerInfo_id){
             $name = '';
-            $seller = $this->sellerInfo;
-            if(!empty($seller)){
-                $name = $seller->sellerName;
+            $wtf = $this->sellerInfo;
+            if(!empty($wtf)){
+                $name = $wtf->name;
             }
             return $name;
         });
@@ -365,22 +502,9 @@ class ProjectBaseController extends Controller
         });
         $grid->sjly('项目来源')->display(function($sellerInfo_id){
             $ssjt = '';
-            switch ($this->project->type) {
-                case 'qycg':
-                case 'zzkg':
-                    $wtf = $this->targetCompanyBaseInfo;
-                    if(!empty($wtf)){
-                        $ssjt = $wtf->ssjt;
-                    }
-                    break;
-                case 'zczl':
-                case 'cqzr':
-                case 'zczr':
-                    $wtf = $this->sellerInfo;
-                    if(!empty($wtf)){
-                        $ssjt = $wtf->ssjt;
-                    }
-                    break;
+            $wtf = $this->sellerInfo;
+            if(!empty($wtf)){
+                $ssjt = $wtf->ssjt;
             }
             return $ssjt;
         });
@@ -541,8 +665,8 @@ class ProjectBaseController extends Controller
 
 
     protected $fields_project = [
-        'insert' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl'],
-        'update' => ['title','type','price','gp_date_start','gp_date_end','status','detail_id','djl'],
+        'insert' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl','customer_id'],
+        'update' => ['title','type','price','gp_date_start','gp_date_end','status','djl','customer_id'],
     ];
     protected $fields = [
         'insert' => [],
@@ -600,7 +724,8 @@ class ProjectBaseController extends Controller
         $project = Project::find($id);
         $pbresults = $project->pbResults()->get();
         $detail = $project->detail;
-        $url = 'admin.project.'.$project->type.'.approval';
+        // $url = 'admin.project.'.$project->type.'.approval';
+        $url = 'admin.project.approval';
         $records = $this->getOptionHistory($id);
         $datas = $this->getDatasToView($detail);
         $datas['pbresults'] = $pbresults;

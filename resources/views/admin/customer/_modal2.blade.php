@@ -4,11 +4,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">客户信息查询</h4>
+                <h4 class="modal-title" id="myModalLabel">客户信息查询2</h4>
             </div>
             <div class="modal-body">
                 <div>
                     <form id="frm_customersearch">
+                        {{ csrf_field() }}
                         <table>
                             <tbody>
                                 <tr>
@@ -78,7 +79,7 @@
                 }
                 html += '<\/tr>';
           
-                $("#customerModal2 #customerlist").append(html);
+                $("#customerModal2 #customerlist").html(html);
                 $('.choise').on('click', function () {
                     var i = $(this).data('index');
                     var customer = customers[i];

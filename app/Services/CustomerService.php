@@ -54,4 +54,17 @@ class CustomerService
         return $models;
     }
 
+    public function search_member($data){
+        $search_name = $data['search_name'];
+        $search_code = $data['search_code'];
+        $search_is_member = $data['search_is_member'];
+
+        $models = Customer::where('name','like','%'.$search_name.'%')
+            ->where('certificate_code','like','%'.$search_code.'%')
+            ->where('is_member',$search_is_member)
+            ->get()->toArray();
+        
+        return $models;
+    }
+
 }

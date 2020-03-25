@@ -15,6 +15,14 @@
             <select id="type" name="type" class="form-control type"></select>
           </td>
         </tr>
+        <tr>
+          <td class=" control-label">是否会员</td>
+          <td colspan="3">
+            <div class="col-sm-4">
+              <select id="is_member" name="is_member" class="form-control is_member"></select>
+            </div>
+          </td>
+        </tr>
         
         <tr>
           <td class=" control-label">客户名称</td>
@@ -246,6 +254,12 @@
           autoSelect: false,
           type: "sf",
           selectvalue: "{{$customer->sfgz}}",
+          savetype: 2
+        });
+        $('#is_member').selecter({
+          autoSelect: false,
+          type: "sf",
+          selectvalue: "{{$customer->is_member}}",
           savetype: 2
         });
         $('#currency').selecter({

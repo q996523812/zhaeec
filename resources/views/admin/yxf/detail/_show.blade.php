@@ -255,6 +255,14 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
+          <td class=" control-label">意向方推荐人</td>
+          <td colspan="3">
+            <input type="text" id="tjr" name="tjr" value="{{empty($yxf->customer_id)?'':$yxf->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customers_id" name="customers_id" value="{{$yxf->customers_id}}">
+          </td>
+        </tr>
+
+        <tr>
           <td class=" control-label">意向方类型</td>
           <td colspan="3">
             <select id="type" name="type" class="form-control type"></select>
@@ -262,10 +270,9 @@
         </tr>
         <tr>
           <td class=" control-label">客户名称</td>
-          <td colspan="2">
+          <td colspan="3">
             <input type="text" id="name" name="name" value="{{$yxf->name}}" class="form-control name" placeholder="输入 客户名称" >
           </td>
-          <td><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
         </tr>
         <tr>
           <td class=" control-label">证件类型</td>
@@ -305,7 +312,7 @@
         <tr class="company">
           <td class=" control-label">是否国资</td>
           <td>
-            <input type="text" id="sfgz" name="sfgz" value="{{$yxf->sfgz}}" class="form-control">
+            <select id="sfgz" name="sfgz" class="form-control sfgz" disabled="disabled"></select>
           </td>
           <td class=" control-label">成立时间</td>
           <td>

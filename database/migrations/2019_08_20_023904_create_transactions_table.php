@@ -38,6 +38,14 @@ class CreateTransactionsTable extends Migration
             $table->decimal('zbf_service_fee_paid',26,6)->comment('中标方已缴服务费')->nullable();
             
             $table->string('charge_rule_id')->comment('应用的收费规则，收费规则表ID')->nullable();
+
+            $table->string('xm_tjr_id')->comment('项目推荐人，客户表ID');
+            $table->string('xm_tjr_allot_proportion')->comment('项目推荐人分配比例');
+            $table->string('xm_tjr_allot_amount')->comment('项目推荐人分配金额');
+            $table->string('zbf_tjr_id')->comment('中标方推荐人，客户表ID');
+            $table->string('zbf_tjr_allot_proportion')->comment('中标方推荐人分配比例');
+            $table->string('zbf_tjr_allot_amount')->comment('中标方推荐人分配金额');
+
             $table->unsignedInteger('status')->default(1);
             $table->timestamps();
         });

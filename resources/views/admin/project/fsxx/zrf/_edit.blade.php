@@ -382,9 +382,10 @@
           	转让方类型
           	@endif
       	</td>
-          <td colspan="3">
+          <td>
             <select id="type" name="type" class="form-control type"></select>
           </td>
+          <td colspan="2"><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
         </tr>
         <tr>
           <td class=" control-label">
@@ -394,10 +395,10 @@
           	转让方名称
           	@endif
       		</td>
-          <td colspan="2">
+          <td colspan="3">
             <input type="text" id="name" name="name" value="{{$zrf->name}}" class="form-control name" placeholder="输入 客户名称" >
           </td>
-          <td><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
+          
         </tr>
         <tr>
           <td class=" control-label">证件类型</td>
@@ -589,7 +590,7 @@
 <div class="form-group  ">
   <div class="col-md-8">
         <div class="btn-group pull-right">
-            <button type="button" id="btnSaveZrf" class="btn btn-primary btn-pass">保存22</button>
+            <button type="button" id="btnSaveZrf" class="btn btn-primary btn-pass">保存</button>
         </div>
     </div>
 </div>

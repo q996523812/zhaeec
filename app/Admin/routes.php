@@ -186,6 +186,7 @@ Route::group([
     $router->post('images/store', 'ImagesController@store');
     $router->post('images/destroy', 'ImagesController@destroy');    
     $router->post('files/store', 'FilesController@store');
+    $router->post('files/update', 'FilesController@update');
     $router->post('files/destroy', 'FilesController@destroy');
 
     /****************3、意向登记报名********************/
@@ -401,6 +402,7 @@ Route::group([
     $router->get('customer/{id}/edit', 'CustomersController@edit');
     $router->post('customer/modify', 'CustomersController@modify');
     $router->post('customer/search', 'CustomersController@search');
+    $router->post('customer/search/member', 'CustomersController@search_member');
 
     $router->get('report/show', 'ReportController@show');
 

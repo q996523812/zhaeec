@@ -107,6 +107,7 @@ class CreateIntentionalPartiesTable extends Migration
             $table->string('wtf_desc')->comment('委托方意见')->nullable();
 
             $table->unsignedInteger('is_member_in')->comment('是否会员带入：1：是（会员带入）、2：否（自有项目）')->default(2);
+            $table->string('customer_id')->comment('推荐人')->nullable();
             
             $table->timestamps();
         });

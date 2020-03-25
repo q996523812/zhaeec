@@ -5,7 +5,7 @@
               <tbody>
                 @foreach($files as $file)
                 <tr id="{{$file->id}}">
-                  <td><a href="{{$file->file_url}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></td>
+                  <td><a href="{{get_download_url($file->name,$file->path)}}" download="{{$file->name}}" target="_blank">{{$file->name}}</a></td>
                   <td><a href="javascript:void(0);" class="remove" data="{{$file->id}}">删除</a></td>
                 </tr>
                 @endforeach

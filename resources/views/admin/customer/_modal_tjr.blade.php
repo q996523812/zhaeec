@@ -1,5 +1,5 @@
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="tjrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,8 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <form id="frm_customersearch">
+                    <form id="frm_tjrsearch">
+                        <input type="hidden" id="search_is_member" name="search_is_member" value="1">
                         {{ csrf_field() }}
                         <table>
                             <tbody>
@@ -52,13 +53,12 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        var customers = {};
-        $('#customerModal #customer_search').on('click', function () {
-            customers = {};
-          var url = "/admin/customer/search";
+        $('#tjrModal #customer_search').on('click', function () {
+          var customers = {};
+          var url = "/admin/customer/search/member";
           
           // var param = getFormToJson();
-          var param = new FormData($('#frm_customersearch')[0]);
+          var param = new FormData($('#frm_tjrsearch')[0]);
           $.ajax({
             type : "post",
             url : url,
@@ -79,12 +79,12 @@
                 }
                 html += '<\/tr>';
           
-                $("#customerModal #customerlist").html(html);
+                $("#tjrModal #customerlist").html(html);
                 $('.choise').on('click', function () {
                     var i = $(this).data('index');
                     var customer = customers[i];
                     autoFill(customer);
-                    $('#customerModal').modal('hide')
+                    $('#tjrModal').modal('hide');
                 });
                 // if($("#id").val() == ""){
                 //     console.log(str_reponse.message.id);
@@ -100,42 +100,8 @@
           });
         });
         function autoFill(customer){
-            $('#type').val(customer.type);
-            $('#name').val(customer.name);
-            $('#certificate_type').val(customer.certificate_type);
-            $('#certificate_code').val(customer.certificate_code);
-            $('#industry1').val(customer.industry1);
-            $('#industry2').val(customer.industry2);
-            $('#financial_industry1').val(customer.financial_industry1);
-            $('#financial_industry2').val(customer.financial_industry2);
-            $('#found_date').val(customer.found_date);
-            $('#province').val(customer.province);
-            $('#city').val(customer.city);
-            $('#county').val(customer.county);
-            $('#address').val(customer.address);
-            $('#companytype').val(customer.companytype);
-            $('#economytype').val(customer.economytype);
-            $('#scope').val(customer.scope);
-            $('#funding').val(customer.funding);
-            $('#currency').val(customer.currency);
-            $('#boss').val(customer.boss);
-            $('#scale').val(customer.scale);
-            $('#workers_num').val(customer.workers_num);
-            $('#inner_audit').val(customer.inner_audit);
-            $('#inner_audit_desc').val(customer.inner_audit_desc);
-            $('#Shareholder_num').val(customer.Shareholder_num);
-            $('#stock_num').val(customer.stock_num);
-            $('#sfhygyhbtd').val(customer.sfhygyhbtd);
-            $('#sfgz').val(customer.sfgz);
-            $('#work_unit').val(customer.work_unit);
-            $('#work_duty').val(customer.work_duty);
-            $('#fax').val(customer.fax);
-            $('#phone').val(customer.phone);
-            $('#email').val(customer.email);
-            $('#ssjt').val(customer.ssjt);
-            $('#qualification').val(customer.qualification);
-            $('#mailing_address').val(customer.mailing_address);
-            $('#type').change();
+            $('#customers_id').val(customer.id);
+            $('#tjr').val(customer.name);
         }
 
     });

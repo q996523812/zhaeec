@@ -4,78 +4,95 @@
 
 </div>
 <div class="box box-info">
-  <div class="box-header with-border">
-    <ul id="myTab" class="nav nav-tabs ">
-      <li class="active"><a href="#tab1" data-toggle="tab">基本信息</a></li>
-      <li><a href="#tab2" data-toggle="tab">标的企业情况</a></li> 
-      <li><a href="#tab3" data-toggle="tab">财务信息</a></li> 
-      <li><a href="#tab4" data-toggle="tab">评估情况</a></li>
-      <li><a href="#tab5" data-toggle="tab">转让方</a></li>
-      <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
-      <li><a href="#tab10" data-toggle="tab">联系方式</a></li>
-      <li><a href="#tab7" data-toggle="tab">附件</a></li> 
-      <li><a href="#tab21" data-toggle="tab">转让方附件</a></li> 
-      <li><a href="#tab22" data-toggle="tab">受让方附件</a></li> 
-      <li><a href="#tab8" data-toggle="tab">图片</a></li>
-      <li><a href="#tab9" data-toggle="tab">提交审批</a></li>
-    </ul>
-
-    <div class="box-tools">
+  <div class="box-header with-border" style="height:40px;">
+    <div class="box-tools" style="height:40px;">
       @include('admin.buttons._group')
     </div>
   </div>
   <div class="box-body">
+    <div>
+      <ul id="myTab" class="nav nav-tabs ">
+        <li class="active"><a href="#tab1" data-toggle="tab">基本信息</a></li>
+        @if($projecttype == 'zczr')
+        <li><a href="#tab2" data-toggle="tab">标的详细信息</a></li>
+        @endif
+        @if($projecttype == 'cqzr')
+        <li><a href="#tab3" data-toggle="tab">标的企业情况</a></li>
+        @endif
+        <li><a href="#tab7" data-toggle="tab">委托方</a></li>
+        @if($projecttype == 'cqzr' || $projecttype == 'zzkg')
+        <li><a href="#tab4" data-toggle="tab">财务信息</a></li> 
+        @endif
+        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr')
+        <li><a href="#tab5" data-toggle="tab">评估情况</a></li>
+        <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
+        @endif
+        <li><a href="#tab8" data-toggle="tab">联系方式</a></li>
+        <li><a href="#tab9" data-toggle="tab">委托方附件</a></li> 
+        <li><a href="#tab10" data-toggle="tab">意向方附件</a></li> 
+        <li><a href="#tab11" data-toggle="tab">图片</a></li>
+        <li><a href="#tab12" data-toggle="tab">提交审批</a></li>
+      </ul>
+    </div>
     <div id="myTabContent" class="tab-content">
         <!--基本信息-->
         <div class="tab-pane fade in active" id="tab1">
-          @yield('content')        
+          @include('admin.project.'.$projecttype.'._edit')
+          @include('admin.customer._modal_tjr') 
         </div>
-        <!--标的企业情况-->
+        @if($projecttype == 'zczr')
+        <!--标的详细信息-->
         <div class="tab-pane fade" id="tab2">
-          @include('admin.project.fsxx.bdqy._edit') 
+          @include('admin.project.fsxx.bdxq._edit')
+        </div>
+        @endif
+        @if($projecttype == 'cqzr')
+        <!--标的企业情况-->
+        <div class="tab-pane fade" id="tab3">
+          @include('admin.project.fsxx.zrf._edit') 
           @include('admin.customer._modal') 
         </div>
-        <!--财务信息-->
-        <div class="tab-pane fade" id="tab3">
-          @include('admin.project.fsxx.sjbg._edit') 
+        @endif
+        <!--委托方-->
+        <div class="tab-pane fade" id="tab7">
+          @include('admin.project.fsxx.zrf._edit') 
+          @include('admin.customer._modal') 
+        </div>
+        
+        @if($projecttype == 'cqzr' || $projecttype == 'zzkg')
+          <!--财务信息-->
+        <div class="tab-pane fade" id="tab4">
+          @include('admin.project.fsxx.sjbg._edit3') 
           @include('admin.project.fsxx.cwbb._edit') 
         </div>
         <!--评估情况-->
-        <div class="tab-pane fade" id="tab4">
+        <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.pgqk._edit') 
         </div>
-        <!--转让方-->
-        <div class="tab-pane fade" id="tab5">
-          @include('admin.project.fsxx.zrf._edit2')
-          @include('admin.customer._modal2') 
-        </div>
         <!--监管信息-->
-        <div class="tab-pane fade" id="tab6">
+        <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.jgxx._edit') 
         </div>
+        @endif
         <!--联系方式-->
-        <div class="tab-pane fade" id="tab10">
+        <div class="tab-pane fade" id="tab8">
           @include('admin.project.fsxx.lxfs._edit') 
         </div>
         <!--附件-->
-        <div class="tab-pane fade" id="tab7">
-          @include('admin.file._edit') 
-        </div>
-        <!--附件-->
-        <div class="tab-pane fade" id="tab21">
+        <div class="tab-pane fade" id="tab9">
           @include('admin.file._edit_wtf') 
         </div>
         <!--附件-->
-        <div class="tab-pane fade" id="tab22">
+        <div class="tab-pane fade" id="tab10">
           @include('admin.file._edit_yxf') 
         </div>
         <!--图片-->
-        <div class="tab-pane fade" id="tab8">
+        <div class="tab-pane fade" id="tab11">
           @include('admin.image._edit')
         </div>
 
         <!--提交审批-->
-        <div class="tab-pane fade" id="tab9">
+        <div class="tab-pane fade" id="tab12">
           @include('admin.project.layouts._submit')
         </div>
     </div>
@@ -92,25 +109,6 @@
 @yield('script')
 <script>
     $(document).ready(function(){
-
-        //日期
-        $('.date').parent().datetimepicker({
-          "format":"YYYY-MM-DD",
-          "locale":"zh-CN",
-          "allowInputToggle":true
-        });
-        //时间
-        $('.time').parent().datetimepicker({
-          "format":"YYYY-MM-DD HH:mm:ss",
-          "locale":"zh-CN",
-          "allowInputToggle":true
-        });
-
-        //金额、数字
-        $('.money').inputmask({"alias":"decimal","rightAlign":true});
-        $('.number').inputmask({"alias":"decimal","rightAlign":true});
-
-
       function getFormToJson(){
         var data = {};
         $("#formdetail input").each(function(i){
@@ -141,7 +139,6 @@
         return r.join(",");
       }
 
-
       $('#btnSaveData').on('click', function () {
           $("button").attr("disabled","disabled");
           // var projecttype = "@yield('projecttype')";
@@ -161,11 +158,9 @@
             cache: false,
             processData: false,
             contentType: false,
-            success : function(str_reponse){
-              console.log(str_reponse);
+            success : function(str_reponse){console.log(str_reponse);
               alert("保存成功");
               if(!$("#id").val()){
-                console.log("id="+str_reponse.detail_id);
                 // $("#id").val(str_reponse.detail_id)
                 $(".id").val(str_reponse.detail_id);
                 $(".project_id").val(str_reponse.project_id);
@@ -200,8 +195,7 @@
               $(".warning-message").html("");
               saveSuccess();
             },
-            error : function(XMLHttpRequest,err,e){
-              // console.log(XMLHttpRequest);
+            error : function(XMLHttpRequest,err,e){console.log(XMLHttpRequest);
               error(XMLHttpRequest);
             }
         });
@@ -223,6 +217,11 @@
       $('#btnSaveFile').on('click', function () {
         if(!$("#id").val()){
           alert("请先保存基本信息");
+          return false;
+        }
+        var fileInput = $('#file').get(0).files[0];
+        if(!fileInput){
+          alert("请选择上传文件！");
           return false;
         }
         var url = "/admin/files/store";

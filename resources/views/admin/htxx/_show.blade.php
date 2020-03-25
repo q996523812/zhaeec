@@ -11,7 +11,7 @@
     <div class="input-group">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-        <input type="text" id="xmbh" name="xmbh" value="{{$htxx->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readyonly="readonly">
+        <input type="text" id="xmbh" name="xmbh" value="{{$project->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readyonly="readonly">
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="title" name="title" value="{{$htxx->title}}" class="form-control title" placeholder="输入 标的名称" readyonly="readonly">
+      <input type="text" id="title" name="title" value="{{$project->title}}" class="form-control title" placeholder="输入 标的名称" readyonly="readonly">
     </div>
   </div>
 </div>
@@ -76,5 +76,23 @@
 
 
 </div>
+    <script>
+    $(function () {
 
+        //日期
+        $('.date').parent().datetimepicker({
+          "format":"YYYY-MM-DD",
+          "locale":"zh-CN",
+          "allowInputToggle":true
+        });
+
+        //金额、数字
+        $('.money').inputmask({"alias":"decimal","rightAlign":true});
+        //下拉框
+        
+        $('#formdetail input').attr('disabled','true');
+        $('#formdetail select').attr('disabled','true');
+        $('#formdetail textarea').attr('disabled','true');
+    });
+    </script> 
 </form>

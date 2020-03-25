@@ -30,4 +30,8 @@ class IntentionalParty extends Model
     {
         return $this->hasOne(WorkProcessInstance::class,'table_id','id');
     }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

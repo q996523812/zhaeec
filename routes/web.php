@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::get('/print/zczl/{id}', 'PrintsController@zczl');
 Route::get('/print/sftz/zbf/{id}', 'PrintsController@sftzZbf');
+Route::get('/download', 'DownloadsController@download');

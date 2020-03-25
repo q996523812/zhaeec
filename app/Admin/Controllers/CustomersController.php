@@ -19,6 +19,11 @@ class CustomersController extends Controller
     private $service;
     private $module_type;
     private $projecttype;
+
+    protected $fields = [
+        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','fax','phone','email','mailing_address','ssjt','qualification','is_member'
+    ];
+
     public function __construct(CustomerService $customerService)
     {
         $this->service = $customerService;
@@ -96,6 +101,7 @@ class CustomersController extends Controller
     public function create(Content $content)
     {
         $customer = new Customer();
+        $customer->is_member = 2;
         $datas = [
             'customer' => $customer,
             'id' => $customer->id,
@@ -120,7 +126,18 @@ class CustomersController extends Controller
         $grid = new Grid(new Customer);
 
         $grid->id('Id');
-        $grid->type('客户类型');
+        $grid->type('客户类型')->display(function($type){
+            $name = '';
+            switch ($type) {
+                case '1':
+                    $name = '自然人';
+                    break;
+                case '2':
+                    $name = '法人';
+                    break;
+            }
+            return $name;
+        });
         $grid->name('客户名称');
         $grid->certificate_type('证件类型');
         $grid->certificate_code('证件号码');
@@ -223,9 +240,6 @@ class CustomersController extends Controller
         return $form;
     }
 
-    protected $fields = [
-        'type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','fax','phone','email','mailing_address','ssjt','qualification'
-    ];
 
 
     public function insert(CustomerRequest $request){
@@ -252,8 +266,8 @@ class CustomersController extends Controller
         return response()->json($result);
     }
 
-    public function search(CustomerRequest $request){
-        $data = $request->only($this->fields);
+    public function search(Request $request){
+        $data = $request->all();
         $search_name = $request->search_name;
         $search_code = $request->search_code;
         $data = [
@@ -269,4 +283,24 @@ class CustomersController extends Controller
         ];
         return response()->json($result);
     }
+
+    public function search_member(Request $request){
+        $data = $request->all();
+        $search_name = $request->search_name;
+        $search_code = $request->search_code;
+        $data = [
+            'search_name' => $request->search_name,
+            'search_code' => $request->search_code,
+            'search_is_member' => $request->search_is_member,
+        ];
+        $models = $this->service->search_member($data);
+        $result = [
+            'success' => 'true',
+            'customers' =>$models,
+            'message' => '',
+            'status_code' => '200'
+        ];
+        return response()->json($result);
+    }
+
 }

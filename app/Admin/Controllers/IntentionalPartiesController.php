@@ -21,7 +21,13 @@ class IntentionalPartiesController extends Controller
 {
     use HasResourceActions;
     protected $service;
-
+    private function fields(){
+        $fields = [
+            'insert' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address','customer_id','is_member_in','project_id'],
+            'update' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address','customer_id','is_member_in'],
+        ];
+        return $fields;
+    }
     // 利用 Laravel 的自动解析功能注入 Service 类
     public function __construct(IntentionalPartyService $intentionalPartyService)
     {
@@ -225,13 +231,7 @@ class IntentionalPartiesController extends Controller
     //     return $fields;
     // }
 
-    private function fields(){
-        $fields = [
-            'insert' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address','project_id'],
-            'update' => ['type','name','certificate_type','certificate_code','industry1','industry2','financial_industry1','financial_industry2','found_date','province','city','county','address','companytype','economytype','scope','funding','currency','boss','scale','workers_num','inner_audit','inner_audit_desc','Shareholder_num','stock_num','sfhygyhbtd','sfgz','work_unit','work_duty','ssjt','fax','phone','email','ssjt','qualification','deposit','is_win','win_amount','mailing_address'],
-        ];
-        return $fields;
-    }
+
     public function add(Request $request){
         $insert = $request->only($this->fields()['insert']);
 

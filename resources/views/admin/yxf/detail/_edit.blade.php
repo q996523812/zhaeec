@@ -255,17 +255,27 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
+          <td class=" control-label">意向方推荐人</td>
+          <td colspan="2">
+            <input type="text" id="tjr" name="tjr" value="{{empty($yxf->customer_id)?'':$yxf->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$yxf->customer_id}}">
+          </td>
+          <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+        </tr>
+
+        <tr>
           <td class=" control-label">意向方类型</td>
-          <td colspan="3">
+          <td>
             <select id="type" name="type" class="form-control type"></select>
           </td>
+          <td colspan="2"><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
         </tr>
         <tr>
           <td class=" control-label">客户名称</td>
-          <td colspan="2">
+          <td colspan="3">
             <input type="text" id="name" name="name" value="{{$yxf->name}}" class="form-control name" placeholder="输入 客户名称" >
           </td>
-          <td><a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">导  入</a></td>
+          
         </tr>
         <tr>
           <td class=" control-label">证件类型</td>

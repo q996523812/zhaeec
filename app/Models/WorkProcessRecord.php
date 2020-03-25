@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Encore\Admin\Auth\Database\Administrator;
 
 class WorkProcessRecord extends Model
 {
@@ -17,5 +18,9 @@ class WorkProcessRecord extends Model
     {
         return $this->hasOne(Project::class);
     }
-    
+
+    public function user()
+    {
+        return $this->belongsTo(Administrator::class,'user_id');
+    }
 }

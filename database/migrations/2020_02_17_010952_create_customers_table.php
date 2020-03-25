@@ -55,6 +55,7 @@ class CreateCustomersTable extends Migration
             $table->string('email')->comment('邮箱')->nullable();
             $table->string('mailing_address',500)->comment('邮寄地址')->nullable();
             
+            $table->unsignedInteger('is_member')->comment('是否会员：1：是、2：否')->default(2);
             $table->timestamps();
         });
     }
