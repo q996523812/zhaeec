@@ -38,7 +38,7 @@ class FinancialStatementsController extends Controller
 
     public function modify(FinancialStatementRequest $request){
         $params = $request->only($this->fields);
-        $id = $request->targetCompanyBaseInfo_id;
+        $id = $request->financialStatement_id;
         $this->service->update($id,$params);
         
         $result = [

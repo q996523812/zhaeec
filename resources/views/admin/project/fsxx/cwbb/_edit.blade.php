@@ -7,14 +7,7 @@
 <div class="row" style="background-color: #F2F2F2F2;font-size: 20PX;border-top: 1px solid #e1e1e1;">
   <div class="form-group  col-sm-12"><center>以下数据出自企业财务报表</center></div>
 </div>
-<div class="row">
-  <div class="form-group  col-sm-4">
-    <label for="type" class="col-sm-5  control-label">报表类型</label>
-    <div class="col-sm-7">
-      <div id="type_div"></div>
-    </div>
-  </div>
-</div>
+
 <div class="row">
   <div class="form-group  col-sm-4">
     <label for="type" class="col-sm-5 control-label">财务报表日期</label>
@@ -26,12 +19,23 @@
     </div>
   </div>
   <div class="form-group  col-sm-8">
-    <input id="ywwftg" name="ywwftg" type="checkbox" class="noborder" value="1" 
+    <input type="hidden" id="ywwftg" name="ywwftg" value="{{$cwbb->ywwftg}}" >
+    <input id="ywwftg1" name="ywwftg1" type="checkbox" class="noborder" value="1" 
 @if($cwbb->ywwftg == '1')
 checked
 @endif
     >
         业务无法提供
+  </div>
+</div>
+<div class="row">
+  <div class="form-group  col-sm-4">
+    <label for="type" class="col-sm-5  control-label">报表类型</label>
+    <div class="col-sm-7">
+      <input id="type1" name="type" type="radio" value="1" @if($cwbb->type == '1') checked @endif>年报
+      <input id="type2" name="type" type="radio" value="2" @if($cwbb->type == '2') checked @endif>季报
+      <input id="type3" name="type" type="radio" value="3" @if($cwbb->type == '3') checked @endif>月报
+    </div>
   </div>
 </div>
 <div class="row">
@@ -96,7 +100,7 @@ checked
   <div class="form-group col-sm-4">
     <label for="type" class="col-sm-5 control-label">备注</label>
     <div class="col-sm-7">
-      <textarea name="desc" cols="60" rows="3">{{$cwbb->desc}}</textarea>
+      <textarea name="desc" cols="60" rows="3" class="form-control">{{$cwbb->desc}}</textarea>
     </div>
   </div>
 </div>
@@ -165,25 +169,28 @@ checked
         $(".warning-message").html(html);
       }
 
-        $('#type_div').radio({
-          autoSelect: false,
-          type: "reporttype",
-          tabname: "type",
-          defaultvalue: "{{$detail->type}}"
-        });
-
-
-      $('#formCwbb #ywwftg').on('click',function(){
-        if(this.checked == true){
+      function ywwftg(obj){
+        if(obj.checked == true){
+          $('#formCwbb #ywwftg').val(1);
           $('#formCwbb input').attr('readonly','true');
           $('#formCwbb textarea').attr('readonly','true');
+          $('#formCwbb .form-control').val('');
+          $('#formCwbb .form-control').val('');
         }
         else{
+          $('#formCwbb #ywwftg').val(2);
           $('#formCwbb input').removeAttr('readonly');
           $('#formCwbb textarea').removeAttr('readonly');
         }
+      }
+      $('#formCwbb #ywwftg1').on('click',function(){
+        ywwftg(this);
       });
-      $('#formCwbb #ywwftg').click();
+      $('#formCwbb #ywwftg1').on('checked',function(){
+        ywwftg(this);
+      });
+
+      $('#formCwbb #ywwftg1').trigger('checked');
     });
 </script>
 </form>

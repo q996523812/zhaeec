@@ -91,7 +91,8 @@ class ProjectBaseController extends Controller
         $detail = $this->detail_class::find($id);
         $datas = $this->getDatasToView($detail);
         $datas['cjxx'] = $detail->project->transaction;
-        $url = $this->getViewUrl('show');
+        // $url = $this->getViewUrl('show');
+        $url = 'admin.project.show';
         return $content
             ->header($this->projectTypeName.'-查看')
             // body 方法可以接受 Laravel 的视图作为参数
