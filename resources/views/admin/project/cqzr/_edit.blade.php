@@ -185,7 +185,7 @@
    	<tr>
    		<th>披露媒体</th>
    		<td class="unput">
-   			<input type="text" name="announceMedia">
+   			<input type="text" name="announceMedia" value="{{$detail->announceMedia}}">
    		</td>
    	</tr>
 	<tr>
@@ -212,9 +212,9 @@
 		<tr>
 			<th style="width:250px;">保证金交纳时间</th>
 			<td>
-				<input type="radio" name="bailStartFlag" value="1" checked="checked/">
+				<input type="radio" name="bailStartFlag" value="1" @if($detail->bailStartFlag ==1) checked @endif>
 					交易机构受让登记后交纳保证金<br>
-				<input type="radio" name="bailStartFlag" value="2">
+				<input type="radio" name="bailStartFlag" value="2" @if($detail->bailStartFlag ==2) checked @endif>
 					经资格确认后交纳保证金<br>
 				<font color="red">建议交易方式为动态报价时选择[交易机构受让登记后交纳]或[交易机构资格确认后交纳]，其他交易方式选择[经资格确认后交纳保证金]。</font>	
 			</td>
@@ -222,9 +222,9 @@
 	  	<tr>
 			<th style="width:250px;">保证金交纳截止时间要求</th>
 			<td>
-			<input type="radio" name="pubBailType" value="1">
+			<input type="radio" name="pubBailType" value="1" @if($detail->pubBailType ==1) checked @endif>
 					挂牌截止日<span class="workEndTime">17:00</span>前(以银行到账时间为准)<br>
-				<input type="radio" name="pubBailType" value="2">
+				<input type="radio" name="pubBailType" value="2" @if($detail->pubBailType ==2) checked @endif>
 					交纳开始后，<input class="easyui-numberbox numberbox-f validatebox-text" size="2" maxlength="2" numberboxname="pubBailDays" name="pubBailDays" value="{{$detail->pubBailDays}}"> 个工作日<span class="workEndTime">17:00</span>前有效(以银行到账时间为准)<br>
 			</td>
 	  	</tr>

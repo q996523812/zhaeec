@@ -545,7 +545,7 @@
         $('#sfgz').selecter({
           autoSelect: false,
           type: "sf",
-          selectvalue: "{{$yxf->sfgz}}",
+          selectvalue: "{{$zrf->sfgz}}",
           savetype: 2,
         });
         $('#formZrf input').attr('disabled','disabled');

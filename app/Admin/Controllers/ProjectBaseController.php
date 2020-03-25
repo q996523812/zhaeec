@@ -149,7 +149,11 @@ class ProjectBaseController extends Controller
                 $detail->yxfsl_2 = '意向登记期满，征集到不少于3个符合条件的意向方';
                 break;
             case 'zczl':
-                # code...
+                $detail->yxfsl_0 = '意向登记期满，如没有征集到符合条件的意向受让方';
+                $detail->yxfsl_0_desc = '不变更信息公告内容，按照不少于5个工作日为一个周期延长挂牌。';
+                $detail->yxfsl_1 = '意向登记期满，如只征集到1个符合条件的意向方';
+                $detail->yxfsl_1_desc = '按挂牌价格与意向方报价孰低原则成交。';
+                $detail->yxfsl_2 = '意向登记期满，征集到不少于3个符合条件的意向方';
                 break;
             case 'zczr':
                 $detail->pubDealWay1 = '协议成交';

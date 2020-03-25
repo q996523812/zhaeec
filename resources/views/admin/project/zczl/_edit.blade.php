@@ -20,14 +20,22 @@
   </thead>  
   <tbody>
     <tr>
-      <td rowspan="24" class=" control-label">交易内容</td>
+      <td class=" control-label" colspan="2">项目推荐人</td>
+      <td colspan="2">
+        <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+        <input type="hidden" id="customers_id" name="customers_id" value="{{$project->customers_id}}">
+      </td>
+      <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+    </tr>
+    <tr>
+      <td rowspan="26" class=" control-label">交易内容</td>
       <td class=" control-label">项目编号</td>
       <td colspan="3">
         <input type="text" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" class="form-control xmbh" readonly="true">
       </td>
     </tr>
     <tr>
-      <td class=" control-label">项目名称
+      <td class=" control-label">项目名称<font color="red">*</font>
         
       </td>
       <td colspan="3">
@@ -52,8 +60,9 @@
         <textarea id="other" name="other" class="form-control other" rows="5" placeholder="输入 其它需要披露的事项">{{$detail->other}}</textarea>
       </td>
     </tr>
+
         <tr>
-          <td class=" control-label">挂牌公告期</td>
+          <td class=" control-label">挂牌公告期<font color="red">*</font></td>
           <td>
             <input type="text" id="pubDays" name="pubDays" value="{{$detail->pubDays}}" class="form-control pubDays" placeholder="输入 挂牌公告期">
           </td>
@@ -79,8 +88,34 @@
       </td>
     </tr>
   -->
+        <tr>
+          <td class=" control-label" rowspan="3">交易情况说明</td>
+          <td>
+            <input type="text" id="yxfsl_0" name="yxfsl_0" value="{{$detail->yxfsl_0}}" class="form-control yxfsl_0">
+          </td>
+          <td colspan="2">
+            <input type="text" id="yxfsl_0_desc" name="yxfsl_0_desc" value="{{$detail->yxfsl_0_desc}}" class="form-control yxfsl_0_desc">
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" id="yxfsl_1" name="yxfsl_1" value="{{$detail->yxfsl_1}}" class="form-control yxfsl_1">
+          </td>
+          <td colspan="2">
+            <input type="text" id="yxfsl_1_desc" name="yxfsl_1_desc" value="{{$detail->yxfsl_1_desc}}" class="form-control yxfsl_1_desc">
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" id="yxfsl_2" name="yxfsl_2" value="{{$detail->yxfsl_2}}" class="form-control yxfsl_2">
+          </td>
+          <td colspan="2"><select id="jyfs" name="jyfs" class="form-control jyfs"></select></td>
+        </tr>
+
     <tr>
-      <td class=" control-label">总租金(万元)</td>
+      <td class=" control-label">总租金(万元)<font color="red">*</font></td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -102,11 +137,11 @@
           <input type="text" id="gpjg_dj" name="gpjg_dj" value="{{$detail->gpjg_dj}}" class="form-control money gpjg_dj" placeholder="输入 总租金">
         </div>        
       </td>
-      <td class=" control-label">租赁期限（月）</td>
+      <td class=" control-label">租赁期限（月）<font color="red">*</font></td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-          <input type="text" id="zlqx" name="zlqx" value="{{$detail->zlqx}}" class="form-control number zlqx" placeholder="输入 租赁期限（月）">
+          <input type="text" id="zlqx" name="zlqx" value="{{$detail->zlqx}}" class="form-control number zlqx" placeholder="输入 租赁期限">
         </div>          
       </td>
     </tr>    
@@ -147,13 +182,8 @@
         </div>         
       </td>
     </tr>
-    <tr>
-      <td class=" control-label">交易方式</td>
-      <td colspan="3">
-        <select id="jyfs" name="jyfs" class="form-control jyfs"></select>
-      </td>
-    </tr>
-    <tr>
+
+    <tr class="wljj">
       <td class=" control-label">报价模式</td>
       <td>
         <select id="bjms" name="bjms" class="form-control bjms"></select>
@@ -202,7 +232,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">竞标保证金金额(人民币) (万元)</td>
+      <td class=" control-label">竞标保证金金额(人民币) (万元)<font color="red">*</font></td>
       <td colspan="3">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
@@ -399,7 +429,7 @@
       </td>
     </tr>
     <tr>
-      <td class=" control-label">面积</td>
+      <td class=" control-label">面积（平方米）</td>
       <td>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
