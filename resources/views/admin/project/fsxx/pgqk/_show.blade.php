@@ -22,8 +22,8 @@
 		<td>评估核准（备案）机构<font color="red" id="pgbajgDisplay" style="">*</font></td> 
 		<td colspan="2" class="unput">
 			<input type="text" name="pgbajg" class="form-control" validtype="length[0,50]" size="50" required="required" value="{{$pgqk->pgbajg}}">
-   			<input name="hezhunFlag" type="checkbox" value="Y">核准 &nbsp;&nbsp;&nbsp;&nbsp;
-    		<input name="beianFlag" type="checkbox" value="Y">备案，最多50个汉字
+   			<input name="hezhunFlag" type="checkbox" value="Y" @if($pgqk->hezhunFlag) checked @endif>核准 &nbsp;&nbsp;&nbsp;&nbsp;
+    		<input name="beianFlag" type="checkbox" value="Y" @if($pgqk->beianFlag) checked @endif>备案
     	</td>
   	</tr>
   	<tr>
