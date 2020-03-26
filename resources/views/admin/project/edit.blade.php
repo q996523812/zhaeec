@@ -49,14 +49,14 @@
         @if($projecttype == 'cqzr')
         <!--标的企业情况-->
         <div class="tab-pane fade" id="tab3">
-          @include('admin.project.fsxx.zrf._edit') 
+          @include('admin.project.fsxx.bdqy._edit') 
           @include('admin.customer._modal') 
         </div>
         @endif
         <!--委托方-->
         <div class="tab-pane fade" id="tab7">
-          @include('admin.project.fsxx.zrf._edit') 
-          @include('admin.customer._modal') 
+          @include('admin.project.fsxx.zrf._edit2')
+          @include('admin.customer._modal2') 
         </div>
         
         @if($projecttype == 'cqzr' || $projecttype == 'zzkg')
@@ -70,7 +70,7 @@
           @include('admin.project.fsxx.pgqk._edit') 
         </div>
         <!--监管信息-->
-        <div class="tab-pane fade" id="tab5">
+        <div class="tab-pane fade" id="tab6">
           @include('admin.project.fsxx.jgxx._edit') 
         </div>
         @endif

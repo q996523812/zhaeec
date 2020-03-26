@@ -25,6 +25,15 @@
 		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
 		</tr>
 		
+        <tr>
+          <th class=" control-label">项目推荐人</th>
+          <td>
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customers_id" name="customers_id" value="{{$project->customers_id}}">
+          </td>
+          <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+        </tr>
+
 		<tr>
 		<th class=" control-label" style="width:280px;" title="">项目名称</th>
 		<td><input type="text" class="" id="title" required="true" name="title" value="{{$detail->title}}" ></td>
@@ -75,7 +84,7 @@
 
 	<tr>
 		<th class=" control-label">产权隶属关系</th>
-		<td colspan="5">
+		<td colspan="2">
 			<div id="pauseText_div"></div>
 		</td>
 	</tr>
