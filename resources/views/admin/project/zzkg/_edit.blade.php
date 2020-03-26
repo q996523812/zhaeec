@@ -25,8 +25,16 @@
 		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
 		</tr>
 
+    <tr>
+      <td class=" control-label">项目推荐人</td>
+      <td colspan="2">
+        <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+        <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}">
+      </td>
+      <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+    </tr>
 	<tr>
-		<th>项目名称</th>
+		<th>项目名称<font color="red">*</font></th>
 		<td colspan="4"><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" value="{{$detail->title}}" size="75"></td>
 	</tr>
 	
@@ -43,7 +51,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>拟公开募集资金总额(万元)</th>
+		<th>拟公开募集资金总额(万元)<font color="red">*</font></th>
 		<td width="300px">
 		<input type="text" id="gpjg" class="easyui-numberbox numberbox-f validatebox-text" size="10" value="{{$detail->gpjg}}" name="gpjg">
 		至
@@ -153,7 +161,7 @@
 		<th rowspan="9" style="width:180px;">保证金设定</th>
 	</tr>
 	<tr>
-		<td style="width:189px;">保证金</td>
+		<td style="width:189px;">保证金<font color="red">*</font></td>
 		<td>
 			<input type="radio" value="1" name="pubBailCtrl" checked="checked">
 			按固定金额收取（万元）
@@ -252,7 +260,7 @@
 	-->
 		<tr><th style="width:180px" rowspan="5">挂牌条件</th></tr>
 		<tr>
-			<td>挂牌公告期</td>
+			<td>挂牌公告期<font color="red">*</font></td>
 			<td>
 				<input name="pubDays" id="pubDays" class="easyui-numberbox" value="{{$detail->pubDays}}">
 			</td>

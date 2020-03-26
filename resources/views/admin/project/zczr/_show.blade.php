@@ -22,6 +22,13 @@
 		<th style="width:300px;">项目编号<font color="red">*</font></th>
 		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="xmbh" maxlength="100" value="{{$detail->xmbh}}" size="50"></td>
 	</tr>
+        <tr>
+          <th>项目推荐人</th>
+          <td>
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}" >
+          </td>
+        </tr>
 	<tr>
 		<th style="width:300px;">项目名称<font color="red">*</font></th>
 		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>

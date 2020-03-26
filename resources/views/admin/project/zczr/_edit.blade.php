@@ -22,12 +22,22 @@
 		<th title="">项目编号</th>
 		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
 	</tr>
+    <tr>
+      <th>项目推荐人</th>
+      <td>
+        <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+        <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}">
+      </td>
+      <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
+    </tr>
 	<tr>
-		<th style="width:300px;">项目名称</th>
-		<td><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" maxlength="100" value="{{$detail->title}}" size="50"></td>
+		<th style="width:300px;">项目名称<font color="red">*</font></th>
+		<td>
+			<input type="text" class="" required="true" name="title" value="{{$detail->title}}" >
+		</td>
 	</tr>
 	<tr>
-		<th style="width:300px;">转让底价</th>
+		<th style="width:300px;">转让底价<font color="red">*</font></th>
 		<td>
          	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
 			<span id="proPrice_zh" style="color:red;font-size:16px;">(万元)</span>
@@ -92,13 +102,13 @@
 	</tr>
 	
 	<tr>
-		<th style="width:300px;">合作机构信息（最大输入300字）<br>可输入联系人、联系方式、单位名称</th>
+		<th style="width:300px;">合作机构信息<br>可输入联系人、联系方式、单位名称</th>
 		<td class="unput">
 			<textarea cols="100" name="spare4" rows="6" class="easyui-validatebox validatebox-text" validtype="length[0,300]" maxlength="300">{{$detail->spare4}}</textarea>
 		</td>
 	</tr>
 	<tr>
-		<th style="width:300px;">资产概述（最大输入1000字）</th>
+		<th style="width:300px;">资产概述</th>
 		<td>
 			<textarea cols="100" name="proDesc" rows="6" class="easyui-validatebox validatebox-text" validtype="length[0,1000]" maxlength="1000" required="true" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" title="最多可输入1000字">{{$detail->proDesc}}</textarea>
 		</td>
@@ -125,7 +135,7 @@
 	</tr>
 	<tr>
 		<th class="th-m-80">
-				挂牌公告期
+				挂牌公告期<font color="red">*</font>
 		</th>
 		<td>
 			<input name="pubDays" value="20" onkeyup="numberTypeInt(this)" class="easyui-validatebox validatebox-text" required="true" value="{{$detail->pubDays}}"> 个工作日
@@ -258,7 +268,7 @@
 			<th colspan="2">保证金交纳规则</th>
 		</tr>
 	  	<tr>
-		<th class="th-m-80">保证金金额（万元）</th>
+		<th class="th-m-80">保证金金额（万元）<font color="red">*</font></th>
 		<td><input type="text" id="pubBail" name="pubBail" value="{{$detail->pubBail}}" class="easyui-validatebox validatebox-text" required="true">
 		<b class="bigPrice">万元</b> <span id="pubBail_zh" class="bigPrice"></span>
 		</td>
@@ -324,9 +334,8 @@
   	<tr>
 		<th class="th-m-80">受让方资格条件</th>
 		<td class="unput">
-			<textarea name="buyConditions" cols="75" rows="10" class="easyui-validatebox validatebox-text" validtype="length[0,1000]" maxlength="1000" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" title="最多可输入1000字">{{$detail->buyConditions}}</textarea>
+			<textarea name="buyConditions" cols="75" rows="10" >{{$detail->buyConditions}}</textarea>
 				
-				最多输入1000字
 		</td>
 	</tr>
 
@@ -337,32 +346,32 @@
 		    <br>
 		    <div style="float:left">
 		    	<span style="width:80px; height:75px; line-height:75px; display:inline-block;float:left;">价款支付要求</span>
-		      <textarea id="payPeriodInfo" name="payPeriodInfo" cols="60" rows="5" class="easyui-validatebox validatebox-text" validtype="length[0,300]" maxlength="300" missingmessage="最多可输入300字" invalidmessage="最多可输入300字" title="最多可输入300字">{{$detail->payPeriodInfo}}</textarea>
+		      <textarea id="payPeriodInfo" name="payPeriodInfo" cols="60" rows="5" >{{$detail->payPeriodInfo}}</textarea>
 		    </div>
 	    </td>
 	</tr>
 	<tr>
 		<th>重大事项及其他披露内容</th>
 		<td class="unput">
-			<textarea name="important" cols="75" rows="10" class="easyui-validatebox validatebox-text" validtype="length[0,3000]" maxlength="3000" missingmessage="最多可输入3000字" invalidmessage="最多可输入3000字" title="最多可输入3000字">{{$detail->important}}</textarea>
+			<textarea name="important" cols="75" rows="10" >{{$detail->important}}</textarea>
 		</td>
 	</tr>
 	<tr>
-		<th>与转让相关的其他条件<span style="color: red;">*</span></th>
+		<th>与转让相关的其他条件</th>
 		<td class="unput">
-			<textarea name="sellConditions" id="sellConditions" cols="75" rows="10" class="easyui-validatebox validatebox-text" validtype="length[0,4000]" maxlength="4000" missingmessage="最多可输入4000字" invalidmessage="最多可输入4000字" title="最多可输入4000字">{{$detail->sellConditions}}</textarea>
+			<textarea name="sellConditions" id="sellConditions" cols="75" rows="10" >{{$detail->sellConditions}}</textarea>
 		</td>
 	</tr>
 	<tr>
 		<th>保证内容</th>
 		<td class="unput">
-			<textarea name="valueDesc" id="valueDesc" cols="75" rows="10" maxlength="3000">{{$detail->valueDesc}}</textarea>最多输入3000字 
+			<textarea name="valueDesc" id="valueDesc" cols="75" rows="10" maxlength="3000">{{$detail->valueDesc}}</textarea>
 		</td>
 	</tr>
 	<tr>
 		<th>处置方法</th>
 		<td class="unput">
-			<textarea name="pubBailMemo" id="pubBailMemo" cols="75" rows="10" maxlength="1000">{{$detail->pubBailMemo}}</textarea>最多输入1000字 
+			<textarea name="pubBailMemo" id="pubBailMemo" cols="75" rows="10" maxlength="1000">{{$detail->pubBailMemo}}</textarea>
 		</td>
 	</tr>
 	</tbody></table>

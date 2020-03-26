@@ -10,13 +10,21 @@
   </thead>
   <tbody>
     <tr>
+          <td class=" control-label" colspan="2">项目推荐人</td>
+          <td colspan="3">
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}" >
+          </td>
+        </tr>
+    <tr>
+    <tr>
       <td rowspan="24" class=" control-label">交易内容</td>
       <td class=" control-label">项目编号</td>
       <td colspan="3">
         {{$detail->xmbh}}
       </td>
     </tr>
-    <tr>
+
       <td class=" control-label">项目名称</td>
       <td colspan="3">
         {{$detail->title}}

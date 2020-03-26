@@ -66,6 +66,15 @@ class ProjectBaseController extends Controller
      */
     protected $detail_class;
 
+    protected $fields_project = [
+        'insert' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl','customer_id'],
+        'update' => ['title','type','price','gp_date_start','gp_date_end','status','djl','customer_id'],
+    ];
+    protected $fields = [
+        'insert' => [],
+        'update' => [],
+    ];
+
 	/**
      * 列表页面
      *
@@ -669,14 +678,6 @@ class ProjectBaseController extends Controller
     }
 
 
-    protected $fields_project = [
-        'insert' => ['title','type','price','gp_date_start','gp_date_end','status','user_id','detail_id','djl','customer_id'],
-        'update' => ['title','type','price','gp_date_start','gp_date_end','status','djl','customer_id'],
-    ];
-    protected $fields = [
-        'insert' => [],
-        'update' => [],
-    ];
 
     protected function add(Request $request){
         $data_detail = $request->only($this->fields['insert']);

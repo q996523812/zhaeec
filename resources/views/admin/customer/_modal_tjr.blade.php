@@ -100,7 +100,7 @@
           });
         });
         function autoFill(customer){
-            $('#customers_id').val(customer.id);
+            $('#customer_id').val(customer.id);
             $('#tjr').val(customer.name);
         }
 

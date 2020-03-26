@@ -38,8 +38,8 @@ class ProjectLeasesRequest extends FormRequest
     {
         $message = [
             'title.required'      =>'项目名称必须填写！',
-            'pubDays.required'      =>'项目名称必须填写！',
-            'gpjg.required'      =>'预算价格必须填写！',
+            'pubDays.required'      =>'挂牌期限必须填写！',
+            'gpjg.required'      =>'总租金必须填写！',
             'zlqx.required'      =>'租赁期限必须填写！',
             'bzj.required'      =>'竞标保证金金额必须填写！',
         ];

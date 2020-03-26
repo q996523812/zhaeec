@@ -24,7 +24,13 @@
 		<th class=" control-label" style="width:280px;" title="">项目编号<font color="red">*</font></th>
 		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
 		</tr>
-		
+        <tr>
+          <td class=" control-label">项目推荐人</td>
+          <td colspan="3">
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}" >
+          </td>
+        </tr>
 		<tr>
 		<th class=" control-label" style="width:280px;" title="">项目名称<font color="red">*</font></th>
 		<td><input type="text" class="" id="title" required="true" name="title" value="{{$detail->title}}" ></td>

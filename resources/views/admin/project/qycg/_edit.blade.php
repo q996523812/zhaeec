@@ -31,7 +31,7 @@
           <td class=" control-label">项目推荐人</td>
           <td colspan="2">
             <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
-            <input type="hidden" id="customers_id" name="customers_id" value="{{$project->customers_id}}">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}">
           </td>
           <td><a class="btn btn-primary" data-toggle="modal" data-target="#tjrModal">导  入</a></td>
         </tr>

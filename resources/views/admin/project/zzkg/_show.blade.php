@@ -24,7 +24,13 @@
 		<th title="">项目编号</th>
 		<td><input type="text" class="" id="xmbh" name="xmbh" value="{{$detail->xmbh}}" disabled="true"></td>
 		</tr>
-
+        <tr>
+          <td class=" control-label">项目推荐人</td>
+          <td>
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}" >
+          </td>
+        </tr>
 	<tr>
 		<th>项目名称</th>
 		<td colspan="4"><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" value="{{$detail->title}}" size="75"></td>

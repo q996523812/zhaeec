@@ -28,6 +28,13 @@
           </td>
         </tr>
         <tr>
+          <td class=" control-label">项目推荐人</td>
+          <td colspan="3">
+            <input type="text" id="tjr" name="tjr" value="{{empty($project->customer_id)?'':$project->customer->name}}" class="form-control" readonly="true">
+            <input type="hidden" id="customer_id" name="customer_id" value="{{$project->customer_id}}" >
+          </td>
+        </tr>
+        <tr>
           <td class=" control-label">是否实质性进场</td>
           <td>
             <select id="sfjc" name="sfjc" class="form-control sfjc"></select>
