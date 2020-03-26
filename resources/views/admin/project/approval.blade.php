@@ -69,12 +69,14 @@
           @include('admin.project.fsxx.sjbg._show3') 
           @include('admin.project.fsxx.cwbb._show') 
         </div>
+        @endif
+        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr')
         <!--评估情况-->
         <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.pgqk._show') 
         </div>
         <!--监管信息-->
-        <div class="tab-pane fade" id="tab5">
+        <div class="tab-pane fade" id="tab6">
           @include('admin.project.fsxx.jgxx._show') 
         </div>
         @endif
