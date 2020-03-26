@@ -65,6 +65,8 @@
           @include('admin.project.fsxx.sjbg._edit3') 
           @include('admin.project.fsxx.cwbb._edit') 
         </div>
+        @endif
+        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr')
         <!--评估情况-->
         <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.pgqk._edit') 
