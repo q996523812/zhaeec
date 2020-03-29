@@ -39,6 +39,10 @@ class Project extends Model
     {
         return $this->hasOne(ProjectTransferAsset::class,'id','detail_id');
     }
+    public function projectBefore()
+    {
+        return $this->hasOne(ProjectBefore::class,'id','detail_id');
+    }
 
     public function detail(){
         switch($this->type){
@@ -56,6 +60,9 @@ class Project extends Model
                 break;
             case 'zczr':
                 return $this->projectTransferAsset();
+                break;
+            case 'ypl':
+                return $this->projectBefore();
                 break;
             
         }

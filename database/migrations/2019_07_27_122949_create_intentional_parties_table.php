@@ -105,6 +105,7 @@ class CreateIntentionalPartiesTable extends Migration
             $table->string('ptf_desc')->comment('平台意见')->nullable();
             $table->string('wtf_opinion')->comment('委托方意见：1：通过、2：不通过')->nullable();
             $table->string('wtf_desc')->comment('委托方意见')->nullable();
+            $table->string('bsfazt')->comment('标书发放状态')->nullable();
 
             $table->unsignedInteger('is_member_in')->comment('是否会员带入：1：是（会员带入）、2：否（自有项目）')->default(2);
             $table->string('customer_id')->comment('推荐人')->nullable();

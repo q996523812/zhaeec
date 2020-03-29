@@ -32,4 +32,13 @@ class Transaction extends Model
     {
         return $this->belongsTo(IntentionalParty::class,'intentional_parties_id');
     }
+
+    public function zbftjr()
+    {
+        return $this->belongsTo(Customer::class,'zbf_tjr_id');
+    }
+    public function xmtjr()
+    {
+        return $this->belongsTo(Customer::class,'xm_tjr_id');
+    }
 }

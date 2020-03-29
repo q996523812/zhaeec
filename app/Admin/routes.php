@@ -67,7 +67,22 @@ Route::group([
     $router->get('zczl/manage/{id}', 'ProjectLeasesController@manage');
     $router->get('zczl/print/{id}', 'ProjectLeasesController@print');
     $router->get('zczl/approval/{id}', 'ProjectLeasesController@approval');
-    
+
+    //预披露
+    $router->get('ypl', 'ProjectBeforesController@index')->name('ypl.index');
+    $router->get('ypl/create', 'ProjectBeforesController@create');
+    $router->post('ypl', 'ProjectBeforesController@insert');
+    $router->get('ypl/{id}/edit', 'ProjectBeforesController@edit');
+    $router->post('ypl/update', 'ProjectBeforesController@modify');
+    $router->get('ypl/{id}', 'ProjectBeforesController@show');
+    $router->post('ypl/submit', 'ProjectBeforesController@submit');
+    $router->get('ypl/showzp/{id}', 'ProjectBeforesController@showzp');
+    $router->post('ypl/zp/{id}', 'ProjectBeforesController@zp');
+    $router->get('ypl/copy/{id}', 'ProjectBeforesController@copy');
+    $router->get('ypl/manage/{id}', 'ProjectBeforesController@manage');
+    $router->get('ypl/print/{id}', 'ProjectBeforesController@print');
+    $router->get('ypl/approval/{id}', 'ProjectBeforesController@approval');
+
     //产权转让
     $router->get('cqzr', 'ProjectConveyancingsController@index')->name('cqzr.index');
     $router->get('cqzr/create', 'ProjectConveyancingsController@create');
@@ -352,11 +367,17 @@ Route::group([
     $router->get('zjgg/approval/{project_id}', 'AnnouncementChangesController@approval');
     $router->post('zjgg/submit', 'AnnouncementChangesController@submit');
 
-    //其他公告
+    //公告--通用
     $router->get('gg/edit/{type}/{project_id}', 'AnnouncementsController@edit');
     $router->get('gg/show/{type}/{project_id}', 'AnnouncementsController@show');
-    $router->post('gg', 'AnnouncementsController@insert');
+    $router->post('gg/insert', 'AnnouncementsController@insert');
     $router->post('gg/update', 'AnnouncementsController@modify');
+
+    //流标公告
+    $router->get('lbgg/edit/{project_id}', 'AnnouncementfailsController@edit');
+    $router->get('lbgg/show/{project_id}', 'AnnouncementfailsController@show');
+    $router->get('lbgg/approval/{project_id}', 'AnnouncementfailsController@approval');
+    $router->post('lbgg/submit', 'AnnouncementfailsController@submit');
 
 
     /****************12、流程设置********************/

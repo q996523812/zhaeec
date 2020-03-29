@@ -16,7 +16,7 @@
       
       <select id="intentional_parties_id" name="intentional_parties_id" class="form-control intentional_parties_id">
          @foreach($yxfs as $yxf)
-         <option value="{{$yxf->id}}">{{$yxf->name}}</option>
+         <option value="{{$yxf->id}}" data-tjrid="{{empty($yxf->customer)?'':$yxf->customer->id}}" data-tjrname="{{empty($yxf->customer)?'':$yxf->customer->name}}">{{$yxf->name}}</option>
          @endforeach
       </select>
     </div>
@@ -110,10 +110,69 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="zbf_service_fee_payable" name="zbf_service_fee_payable" value="{{$cjxx->zbf_service_fee_payable}}" class="form-control money zbf_service_fee_payable" placeholder="输入 中标方应缴服务费">
+      <input type="text" id="zbf_service_fee_payable" name="zbf_service_fee_payable" value="{{$cjxx->zbf_service_fee_payable}}" class="form-control money zbf_service_fee_payable" placeholder="输入 委托方应缴服务费">
     </div>
   </div>
 </div>
+
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">项目推荐人</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="tjr" name="tjr" value="{{$cjxx->xmtjr->name}}" class="form-control" readonly="true">
+      <input type="hidden" id="xm_tjr_id" name="xm_tjr_id" value="{{$cjxx->xmtjr->id}}">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">项目推荐人分配比例（%）</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="xm_tjr_allot_proportion" name="xm_tjr_allot_proportion" value="{{$cjxx->xm_tjr_allot_proportion}}" class="form-control money xm_tjr_allot_proportion" placeholder="输入 项目推荐人分配比例">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">项目推荐人分配金额(万元)</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="xm_tjr_allot_amount" name="xm_tjr_allot_amount" value="{{$cjxx->xm_tjr_allot_amount}}" class="form-control money xm_tjr_allot_amount" placeholder="输入 项目推荐人分配金额">
+    </div>
+  </div>
+</div>
+
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">中标方推荐人</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="zbf_tjr_name" name="zbf_tjr_name" value="{{empty($cjxx->zbf_tjr_id)?'':$cjxx->zbftjr->name}}" class="form-control" readonly="true">
+      <input type="hidden" id="zbf_tjr_id" name="zbf_tjr_id" value="{{$cjxx->zbf_tjr_id}}">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">中标方推荐人分配比例（%）</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="zbf_tjr_allot_proportion" name="zbf_tjr_allot_proportion" value="{{$cjxx->zbf_tjr_allot_proportion}}" class="form-control money zbf_tjr_allot_proportion" placeholder="输入 中标方推荐人分配比例">
+    </div>
+  </div>
+</div>
+<div class="form-group  ">
+  <label for="type" class="col-sm-2  control-label">中标方推荐人分配金额(万元)</label>
+  <div class="col-sm-8">
+    <div class="input-group col-sm-4">
+      <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
+      <input type="text" id="zbf_tjr_allot_amount" name="zbf_tjr_allot_amount" value="{{$cjxx->zbf_tjr_allot_amount}}" class="form-control money zbf_tjr_allot_amount" placeholder="输入 中标方推荐人分配金额">
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -255,6 +314,14 @@
           wtf = parseFloat(wtf);
           $("#service_charge_receivable").val(zbf+wtf);
         });
+
+
+        $('#intentional_parties_id').on('change',function(){
+          $selecter = $(this).find('option:selected');
+          $("#zbf_tjr_id").val($selecter.data('tjrid'));
+          $("#zbf_tjr_name").val($selecter.data('tjrname'));
+        });
+        $('#intentional_parties_id').trigger('change');
     });
     </script> 
 </form>

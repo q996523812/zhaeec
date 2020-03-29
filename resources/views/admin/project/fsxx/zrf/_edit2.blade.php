@@ -236,7 +236,7 @@
     $(function () {
 
         //行政区划下拉框联动
-        $("#distpicker1").distpicker({
+        $("#formZrf #distpicker1").distpicker({
           autoSelect: false,
           province: "{{$zrf->province}}",
           city: "{{$zrf->city}}",
@@ -255,28 +255,28 @@
         $('.number').inputmask({"alias":"decimal","rightAlign":true});
 
         //下拉框
-        $('#sfgz').selecter({
+        $('#formZrf #sfgz').selecter({
           autoSelect: false,
           type: "sf",
           selectvalue: "{{$zrf->sfgz}}",
           savetype: 2,
         });
-        $('#registered_capital_currency').selecter({
+        $('#formZrf #registered_capital_currency').selecter({
           autoSelect: false,
           type: "currency",
           selectvalue: "{{$zrf->registered_capital_currency}}"
         });
-        $('#companytype').selecter({
+        $('#formZrf #companytype').selecter({
           autoSelect: false,
           type: "companytype",
           selectvalue: "{{$zrf->companytype}}"
         });
-        $('#economytype').selecter({
+        $('#formZrf #economytype').selecter({
           autoSelect: false,
           type: "economytype",
           selectvalue: "{{$zrf->economytype}}"
         });
-        $('#scale').selecter({
+        $('#formZrf #scale').selecter({
           autoSelect: false,
           type: "scale",
           selectvalue: "{{$zrf->scale}}"
@@ -288,13 +288,13 @@
           selectvalue: "{{$zrf->type}}",
           savetype: 2,
           selectchange: function(){
-            if($('#type').find(':selected').data('code')==1){
-              $('.company').hide();
-              $('.person').show();
+            if($('#formZrf #type').find(':selected').data('code')==1){
+              $('#formZrf .company').hide();
+              $('#formZrf .person').show();
             }
             else{
-              $('.company').show();
-              $('.person').hide();
+              $('#formZrf .company').show();
+              $('#formZrf .person').hide();
             }
           },
           subid: 'certificate_type',

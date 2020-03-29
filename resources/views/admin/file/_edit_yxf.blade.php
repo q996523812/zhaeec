@@ -219,8 +219,8 @@
         if(file.information_lists_id =='' || file.information_lists_id == null){
           var row = '<tr>'
                   + '<td>'+file.name+'<\/td>'
-                  + '<td><\/td>'
                   + '<td>'+received_information_type+'<\/td>'
+                  + '<td>'+file.applicable_person+'<\/td>'
                   + '<td><a href="'+get_download_url(file.name,file.path)+'" target="_blank" download="'+file.name+'">点击下载<\/a><\/td>'
                   + '<td class="operation"><a class="file_delete" data-index="'+file.id+'">删除</a><\/td>';
           $('#fileslist tbody').append(row);

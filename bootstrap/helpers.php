@@ -40,7 +40,10 @@ function get_download_url($file_name,$file_dir){
     		case 'zczr':
     			$name = '资产转让';
     			break;
-    		
+    		case 'ypl':
+                $name = '预披露';
+                break;
+            
     		default:
     			# code...
     			break;

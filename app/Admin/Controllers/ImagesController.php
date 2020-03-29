@@ -9,6 +9,7 @@ use App\Models\ProjectPurchase;
 use App\Models\ProjectConveyancing;
 use App\Models\ProjectCapitalIncrease;
 use App\Models\ProjectTransferAsset;
+use App\Models\ProjectBefore;
 use App\Models\IntentionalParty;
 use App\Models\Transaction;
 use App\Models\TransactionAnnouncement;
@@ -88,6 +89,10 @@ class ImagesController extends Controller
             case 'zczr':
                 $model = ProjectTransferAsset::class;
                 break;
+            case 'ypl':
+                $model = ProjectBefore::class;
+                break;
+
             case 'yxdj':
                 $model = IntentionalParty::class;
                 break;

@@ -1,7 +1,7 @@
 <form action="/admin/winnotices/add" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">    
     {{ csrf_field() }}
     <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}" class="project_id">
-    <input type="hidden" id="id" name="id" value="{{$zzgg->id}}" class="id">
+    <input type="hidden" id="id" name="id" value="{{$gg->id}}" class="id">
     <input type="hidden" id="projecttype" name="projecttype" value="{{$projecttype}}" class="projecttype">
 <div class="fields-group">
 
@@ -24,7 +24,7 @@
     <div class="input-group">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-        <input type="text" id="xmbh" name="xmbh" value="{{$zzgg->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readonly="readonly">
+        <input type="text" id="xmbh" name="xmbh" value="{{$gg->xmbh}}" class="form-control readonly xmbh" placeholder="输入 项目编号" readonly="readonly">
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="title" name="title" value="{{$zzgg->title}}" class="form-control title" placeholder="输入 标的名称" readonly="readonly">
+      <input type="text" id="title" name="title" value="{{$gg->title}}" class="form-control title" placeholder="输入 标的名称" readonly="readonly">
     </div>
   </div>
 </div>
@@ -44,7 +44,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="wtf_name" name="wtf_name" value="{{$zzgg->wtf_name}}" class="form-control wtf_name" placeholder="输入 委托方" readonly="readonly">
+      <input type="text" id="wtf_name" name="wtf_name" value="{{$gg->wtf_name}}" class="form-control wtf_name" placeholder="输入 委托方" readonly="readonly">
     </div>
   </div>
 </div>
@@ -54,7 +54,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <textarea id="content" name="content" class="form-control content" placeholder="输入 理由">{{$zzgg->content}}</textarea>
+      <textarea id="content" name="content" class="form-control content" placeholder="输入 理由">{{$gg->content}}</textarea>
     </div>
   </div>
 </div>
@@ -64,7 +64,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="date_start" name="date_start" value="{{$zzgg->date_start}}" class="form-control date date_start" placeholder="输入 中止开始日期">
+      <input type="text" id="date_start" name="date_start" value="{{$gg->date_start}}" class="form-control date date_start" placeholder="输入 中止开始日期">
     </div>
   </div>
 </div>
@@ -73,7 +73,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="date_end" name="date_end" value="{{$zzgg->date_end}}" class="form-control date date_end" placeholder="输入 中止结束日期">
+      <input type="text" id="date_end" name="date_end" value="{{$gg->date_end}}" class="form-control date date_end" placeholder="输入 中止结束日期">
     </div>
   </div>
 </div>
@@ -83,7 +83,7 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="inscription_company" name="inscription_company" value="{{$zzgg->inscription_company}}" class="form-control inscription_company" placeholder="输入 落款单位">
+      <input type="text" id="inscription_company" name="inscription_company" value="{{$gg->inscription_company}}" class="form-control inscription_company" placeholder="输入 落款单位">
     </div>
   </div>
 </div>
@@ -92,7 +92,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="inscription_date" name="inscription_date" value="{{$zzgg->inscription_date}}" class="form-control date inscription_date" placeholder="输入 落款日期">
+      <input type="text" id="inscription_date" name="inscription_date" value="{{$gg->inscription_date}}" class="form-control date inscription_date" placeholder="输入 落款日期">
     </div>
   </div>
 </div>
@@ -113,9 +113,9 @@
         //行政区划下拉框联动
         $("#distpicker1").distpicker({
           autoSelect: false,
-          province: "{{$zzgg->wtf_province}}",
-          city: "{{$zzgg->wtf_city}}",
-          district: "{{$zzgg->wtf_area}}"
+          province: "{{$gg->wtf_province}}",
+          city: "{{$gg->wtf_city}}",
+          district: "{{$gg->wtf_area}}"
         });
 */
         //日期

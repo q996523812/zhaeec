@@ -208,7 +208,7 @@ class ProjectsController extends Controller
                 return date('Y-m-d',strtotime($gp_date_end));
             }
         });
-        $grid->process_name('项目状态');
+        
         // $workProcess = WorkProcess::where('status',1)->where('type','zczl')->first();       
         // $nodes = $workProcess->nodes; 
         // $grid->process('项目状态')->display(function($process)use($nodes) {
@@ -223,7 +223,34 @@ class ProjectsController extends Controller
         });
         // $grid->column('work_process_instances.work_process_node_id');
         // $grid->column('WorkProcessInstance.code');
-        
+        $grid->process_name('当前节点');
+
+        $grid->process_code('操作人')->display(function($user_id){
+            $name = '';
+            $instance = $this->instance;
+            if(empty($instance)){
+                $admin_user = Administrator::find($this->user_id);
+                $name = $admin_user->name;
+            }
+            else{
+                if(empty($instance->user)){
+                    $role = $instance->role;
+                    if($role->id == 2){
+                        $admin_user = Administrator::find($this->user_id);
+                        $name = $admin_user->name;
+                    }
+                    else{
+                        $users = $role->administrators->pluck('name')->toArray();
+                        $name = implode(',',$users);
+                    }
+                }
+                else{
+                    $name = $instance->user->name;
+                }
+            }
+            return $name;
+        });
+
         $user = Admin::user();
         $role = $user->roles()->first();
         if($user->id != 1){

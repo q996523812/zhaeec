@@ -20,6 +20,11 @@ class AnnouncementsController extends Controller
     protected $service;
     protected $module_type;//模块：zzgg、zjgg、yqgg、等
     protected $processes;
+
+    protected $fields = [
+        'xmbh','title','wtf_name','type','content','date_matter','seq','delay_days','date_start','date_end','inscription_company','inscription_date'
+    ];
+
     public function __construct(AnnouncementService $announcementService)
     {
         $this->service = $announcementService;
@@ -76,7 +81,7 @@ class AnnouncementsController extends Controller
             $model->type = $this->module_type;
             $model->xmbh = $project->xmbh;
             $model->title = $project->title;
-            $model->wtf_name = $project->detail->wtf_name;
+            $model->wtf_name = $project->wtf->name;
             $model->inscription_company = '珠海产权交易中心有限责任公司';
             $model->inscription_date = date("Y-m-d");
             
@@ -92,7 +97,7 @@ class AnnouncementsController extends Controller
         return $content
             ->header($this->service->getAnnouncementTypeName($this->module_type).'录入')
             // ->description('录入正式发布的成交公告')
-            ->body(view('admin.gg.'.$this->module_type.'.edit', $datas)); 
+            ->body(view('admin.gg.edit', $datas)); 
     }
 
     /**
@@ -234,9 +239,6 @@ class AnnouncementsController extends Controller
         return $form;
     }
 
-    protected $fields = [
-        'xmbh','title','wtf_name','type','content','date_matter','seq','delay_days','date_start','date_end','inscription_company','inscription_date'
-    ];
 
 
     public function insert(AnnouncementRequest $request){
@@ -296,7 +298,7 @@ class AnnouncementsController extends Controller
         return $content
             ->header($this->service->getAnnouncementTypeName($this->module_type).'录入')
             // ->description('录入正式发布的成交公告')
-            ->body(view('admin.gg.'.$this->module_type.'.approval', $datas)); 
+            ->body(view('admin.gg.approval', $datas)); 
     }
 
 }

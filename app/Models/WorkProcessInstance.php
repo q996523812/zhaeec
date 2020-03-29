@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Encore\Admin\Auth\Database\Administrator;
 
 class WorkProcessInstance extends Model
 {
@@ -39,5 +40,15 @@ class WorkProcessInstance extends Model
     }
     public function workProcessRecords(){
         return $this->hasMany(WorkProcessRecord::class);
+    }
+
+    public function role()
+    {
+        $roleModel = config('admin.database.roles_model');
+        return $this->belongsTo($roleModel,'role_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(Administrator::class,'user_id');
     }
 }

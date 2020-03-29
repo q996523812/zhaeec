@@ -32,6 +32,10 @@ class CategoriesTableSeeder extends Seeder
                 'name'        => '产权转让',
                 'description' => 'cqzr',
             ],
+            [
+                'name'        => '预披露',
+                'description' => 'ypl',
+            ],
         ];
 
         DB::table('categories')->insert($categories);

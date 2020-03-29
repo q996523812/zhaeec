@@ -13,6 +13,7 @@ use App\Models\ProjectPurchase;
 use App\Models\ProjectConveyancing;
 use App\Models\ProjectCapitalIncrease;
 use App\Models\ProjectTransferAsset;
+use App\Models\ProjectBefore;
 use App\Models\IntentionalParty;
 use App\Models\Announcement;
 use Illuminate\Support\Str;
@@ -207,6 +208,9 @@ class ProcessService
 				break;
 			case 'zczr':
 				$model = ProjectTransferAsset::class;
+				break;
+			case 'ypl':
+				$model = ProjectBefore::class;
 				break;
 			
 			

@@ -321,13 +321,13 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
-          <td class=" control-label">意向方类型</td>
+          <td class=" control-label">委托方类型</td>
           <td colspan="3">
-             <input type="text" id="type" name="type" value="{{$zrf->type}}" class="form-control type" placeholder="输入 意向方类型" >
+             <select id="type" name="type" class="form-control type"></select>
           </td>
         </tr>
         <tr>
-          <td class=" control-label">客户名称</td>
+          <td class=" control-label">委托方名称</td>
           <td colspan="2">
             <input type="text" id="name" name="name" value="{{$zrf->name}}" class="form-control name" placeholder="输入 客户名称" >
           </td>
@@ -532,22 +532,85 @@
 <script>
     $(function () {
 
-        //日期
-        // $('.date').parent().datetimepicker({
-        //   "format":"YYYY-MM-DD",
-        //   "locale":"zh-CN",
-        //   "allowInputToggle":true
-        // });
+        //行政区划下拉框联动
+        $("#distpicker1").distpicker({
+          autoSelect: false,
+          province: "{{$zrf->province}}",
+          city: "{{$zrf->city}}",
+          district: "{{$zrf->area}}"
+        });
 
-        // //金额、数字
-        // $('.money').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.number').inputmask({"alias":"decimal","rightAlign":true});
-        $('#sfgz').selecter({
+        //日期
+        $('.date').parent().datetimepicker({
+          "format":"YYYY-MM-DD",
+          "locale":"zh-CN",
+          "allowInputToggle":true
+        });
+
+        //金额、数字
+        $('.money').inputmask({"alias":"decimal","rightAlign":true});
+        $('.number').inputmask({"alias":"decimal","rightAlign":true});
+
+        //下拉框
+        $('#formZrf #sfgz').selecter({
           autoSelect: false,
           type: "sf",
           selectvalue: "{{$zrf->sfgz}}",
           savetype: 2,
         });
+        $('#formZrf #registered_capital_currency').selecter({
+          autoSelect: false,
+          type: "currency",
+          selectvalue: "{{$zrf->registered_capital_currency}}"
+        });
+        $('#formZrf #companytype').selecter({
+          autoSelect: false,
+          type: "companytype",
+          selectvalue: "{{$zrf->companytype}}"
+        });
+        $('#formZrf #economytype').selecter({
+          autoSelect: false,
+          type: "economytype",
+          selectvalue: "{{$zrf->economytype}}"
+        });
+        $('#formZrf #scale').selecter({
+          autoSelect: false,
+          type: "scale",
+          selectvalue: "{{$zrf->scale}}"
+        });
+
+        //联动下拉框
+        $('#formZrf #type').selectunion({
+          type: "customertype",
+          selectvalue: "{{$zrf->type}}",
+          savetype: 2,
+          selectchange: function(){
+            if($('#type').find(':selected').data('code')==1){
+              $('.company').hide();
+              $('.person').show();
+            }
+            else{
+              $('.company').show();
+              $('.person').hide();
+            }
+          },
+          subid: 'certificate_type',
+          subtype: "id_type",
+          subselectvalue: "{{$zrf->certificate_type}}",
+          subsavetype: 1,
+          
+        });
+        $('#formZrf #industry1').selectunion({
+          type: "industry1",
+          selectvalue: "{{$zrf->industry1}}",
+          savetype: 1,
+          subid: 'industry2',
+          subtype: "industry2",
+          subselectvalue: "{{$zrf->industry2}}",
+          subsavetype: 1,
+          
+        });
+
         $('#formZrf input').attr('disabled','disabled');
         $('#formZrf select').attr('disabled','disabled');
         $('#formZrf textarea').attr('disabled','disabled');

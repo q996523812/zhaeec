@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Services\ProcessService;
 use App\Services\ProjectLeaseService;
 use App\Services\MarginAcountService;
@@ -555,11 +556,12 @@ class ProjectBaseController extends Controller
             $delay = "<a href='/admin/yqgg/choice/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa fa-mail-reply'></i>延期</a>";
             $change = "<a href='/admin/bggg/choice/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更</a>";
 
-            $zzgg = "<a href='/admin/zzgg/edit/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa fa-pause'></i>中止公告</a>";
-            $zjgg = "<a href='/admin/zjgg/edit/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa fa-stop'></i>终结公告</a>";
-            $hfgg = "<a href='/admin/hfgg/recover/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa fa-mail-reply'></i>恢复公告</a>";
-            $yqgg = "<a href='/admin/yqgg/recover/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa fa-mail-reply'></i>延期公告</a>";
-            $bggg = "<a href='/admin/bggg/recover/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa fa-mail-reply'></i>变更公告</a>";
+            $lbgg = "<a href='/admin/lbgg/edit/$rec->project_id' style='margin-left:10px;' title='流标公告'><i class='fa'></i>流标公告</a>";
+            $zzgg = "<a href='/admin/zzgg/edit/$rec->project_id' style='margin-left:10px;' title='中止挂牌'><i class='fa'></i>中止公告</a>";
+            $zjgg = "<a href='/admin/zjgg/edit/$rec->project_id' style='margin-left:10px;' title='终结挂牌'><i class='fa'></i>终结公告</a>";
+            $hfgg = "<a href='/admin/hfgg/edit/$rec->project_id' style='margin-left:10px;' title='恢复挂牌'><i class='fa'></i>恢复公告</a>";
+            $yqgg = "<a href='/admin/yqgg/edit/$rec->project_id' style='margin-left:10px;' title='延期挂牌'><i class='fa'></i>延期公告</a>";
+            $bggg = "<a href='/admin/bggg/edit/$rec->project_id' style='margin-left:10px;' title='变更挂牌内容'><i class='fa'></i>变更公告</a>";
 
             $uploadcontract = "<a href='/admin/htxx/edit/$rec->project_id' style='margin-left:10px;' title='上传合同'><i class='fa fa-edit'></i>上传合同</a>";
 
@@ -651,14 +653,21 @@ class ProjectBaseController extends Controller
                 case 231:
                 case 232:
                     //流标
+                    $bottons .= $lbgg;
                     break;
                 case 241:
                 case 242:
                     //中止
+                    $bottons .= $zzgg;
+                    break;
+                case 250:
+                    //中止
+                    $bottons .= $hfgg;
                     break;
                 case 251:
                 case 252:
                     //恢复
+                    $bottons .= $hfgg;
                     break;
                 case 261:
                 case 262:
@@ -668,6 +677,7 @@ class ProjectBaseController extends Controller
                 case 271:
                 case 272:
                     //延期
+                    $bottons .= $yqgg;
                     break;
                 
             }
@@ -838,18 +848,30 @@ class ProjectBaseController extends Controller
         $project_id = $request->project_id;
         $gp_date_start = $request->gp_date_start;
         $gp_date_end = $request->gp_date_end;
+
         $result = [
             'success' => 'true',
             'message' => '',
             'status_code' => '200'
         ];
+
         try{
+
+            $now = date('y-m-d h:i:s');
+            $jzrq = date('y-m-d').' 12:00:00';
+            //晚于中午12点，则挂牌日期不能为当天。
+            if(strtotime($now)>strtotime($jzrq)){
+                if(strtotime(date('y-m-d'))==strtotime($gp_date_start)){
+                    throw new \Exception('晚于中午12点，则挂牌日期不能为当天。');
+                }
+            }
+
             $baseService = new ProjectBaseService();
             $detail = $baseService->gprqSave($project_id,$gp_date_start,$gp_date_end);
         }
         catch(\Exception $e){
             $result['success'] = 'false';
-            $result['message'] = '保存失败，请联系管理员';
+            $result['message'] = $e->getMessage();
             Log::error($e);
         }
         // $detail = $this->service->gprqSave($project_id,$gp_date_start,$gp_date_end);

@@ -15,7 +15,8 @@ class WorkProcessNodesTableSeeder extends Seeder
         $cqzr = $this->createCqzr();
         $zzkg = $this->createZzkg();
         $zczr = $this->createZczr();
-        $rows = array_merge($zczl,$qycg,$yxdj,$cqzr,$zzkg,$zczr);
+        $ypl = $this->createYpl();
+        $rows = array_merge($zczl,$qycg,$yxdj,$cqzr,$zzkg,$zczr,$ypl);
 
         // 将数据集合插入到数据库中
         WorkProcessNode::insert($rows);
@@ -203,6 +204,47 @@ class WorkProcessNodesTableSeeder extends Seeder
         return $nodes;
     }
 
+    //预披露
+    private function createYpl(){
+        $work_process_id = $this->getProcessId('ypl');
+        //角色ID
+        $role_id_0 = $this->roles[0];//业务员
+        $role_id_1 = $this->roles[1];//部门，1级审批
+        $role_id_2 = $this->roles[2];//风控，2级审批
+        $role_id_3 = $this->roles[3];//领导，3级审批
+        $role_id_4 = $this->roles[5];//总经理，4级审批
+        $role_id_5 = $this->roles[6];//董事长，5级审批
+        $role_id_6 = $this->roles[4];//综合部，发布
+        
+        $nodes = [
+            $this->create($work_process_id,'11',2,'111','【呈批】录入中',1,$role_id_0,'','','113'),
+            $this->create($work_process_id,'11',2,'112','【呈批】已退回',2,$role_id_0,'','','113'),
+            $this->create($work_process_id,'11',2,'113','【呈批】业务复核',3,null,'','112','114'),
+            $this->create($work_process_id,'11',2,'114','【呈批】部门审批',4,$role_id_1,'','112','115'),
+            $this->create($work_process_id,'11',2,'115','【呈批】风控审批',5,$role_id_2,'','112','116'),
+            $this->create($work_process_id,'11',2,'116','【呈批】分管领导审批',6,$role_id_3,'','112','117'),
+            $this->create($work_process_id,'11',2,'117','【呈批】总经理审批',7,$role_id_4,'','112',null),
+            $this->create($work_process_id,'11',1,'118','【呈批】董事长审批',8,$role_id_5,'','112','121'),
+
+            $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
+            $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
+
+            $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
+        ];
+
+        $nodes = $rows = array_merge($nodes,
+            $this->subProcess($work_process_id,'23',231,999,'流标'),
+            $this->subProcess($work_process_id,'24',241,250,'中止'),
+            $this->subProcess($work_process_id,'25',251,120,'恢复'),
+            $this->subProcess($work_process_id,'26',261,999,'终结'),
+            $this->subProcess($work_process_id,'27',271,120,'延期')
+
+        );
+        // dd($nodes);
+        return $nodes;
+    }
+
     //企业采购
     private function createQycg(){
         $work_process_id = $this->getProcessId('qycg');
@@ -227,6 +269,7 @@ class WorkProcessNodesTableSeeder extends Seeder
 
             $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
         ];
@@ -275,6 +318,7 @@ class WorkProcessNodesTableSeeder extends Seeder
 
             $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
         ];
@@ -324,6 +368,7 @@ class WorkProcessNodesTableSeeder extends Seeder
 
             $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
         ];
@@ -373,6 +418,7 @@ class WorkProcessNodesTableSeeder extends Seeder
 
             $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
         ];
@@ -422,6 +468,7 @@ class WorkProcessNodesTableSeeder extends Seeder
 
             $this->create($work_process_id,'12',1,'121','【挂牌】录入中',1,$role_id_0,'','','120'),
             $this->create($work_process_id,'12',1,'120','挂牌中',7,$role_id_0,'','',''),
+            $this->create($work_process_id,'24',1,'250','暂停中',7,$role_id_0,'','',''),
 
             $this->create($work_process_id,'99',1,'999','【结束】',1,$role_id_0,'','',''),
         ];

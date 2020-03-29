@@ -68,15 +68,15 @@
 			<div id="distpicker1">
                 <div class="col-sm-3">
                   <label class="sr-only" for="province">Province</label>
-                  <select class="form-control" id="province" name="province"></select>
+                  <select class="form-control" id="province" name="proProvince"></select>
                 </div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="city">City</label>
-                  <select class="form-control" id="city" name="city"></select>
+                  <select class="form-control" id="city" name="proCity"></select>
                 </div>
                 <div class="col-sm-3">
                   <label class="sr-only" for="area" >District</label>
-                  <select class="form-control" id="county" name="county"></select>
+                  <select class="form-control" id="county" name="proCounty"></select>
                 </div>
             </div>
 			
@@ -282,9 +282,9 @@
 	  	<tr>
 			<th class="th-m-80">保证金交纳截止时间要求<font color="red">*</font></th>
 			<td>
-				<input type="radio" name="pubBailType" value="0">
+				<input type="radio" name="pubBailType" value="0" @if($detail->pubBailType == 0) checked @endif>
 					挂牌截止日<span class="workEndTime">17:00</span>前(以银行到账时间为准)<br>
-				<input type="radio" name="pubBailType" value="1">
+				<input type="radio" name="pubBailType" value="1" @if($detail->pubBailType == 1) checked @endif>
 					交纳开始后，<input class="easyui-numberbox numberbox-f validatebox-text" size="2" maxlength="2" name="pubBailDays" value="{{$detail->pubBailDays}}"> 个工作日<span class="workEndTime">17:00</span>前有效(以银行到账时间为准)<br>
 					<!-- 
 				<input type="radio"  name="pubBailType" value="2" />在
@@ -392,11 +392,11 @@
     <script>
     $(function () {
         //行政区划下拉框联动
-        $("#distpicker1").distpicker({
+        $("#formdetail #distpicker1").distpicker({
           autoSelect: false,
-          province: "{{$detail->province}}",
-          city: "{{$detail->city}}",
-          district: "{{$detail->county}}"
+          province: "{{$detail->proProvince}}",
+          city: "{{$detail->proCity}}",
+          district: "{{$detail->proCounty}}"
         });
 
 	
@@ -485,7 +485,12 @@
           tabname: "pubPayMode",
           defaultvalue: "{{$detail->pubPayMode}}"
         });
-
+        $('#pubDealWay2').selecter({
+          autoSelect: false,
+          type: "pubDealWay",
+	  		savetype: 2,
+          selectvalue: "{{$detail->pubDealWay2}}"
+        });
 
 		//页面控制
 		$("#pubDelayFlag").on('change',function(){

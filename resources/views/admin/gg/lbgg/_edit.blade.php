@@ -9,11 +9,7 @@
   <label for="type" class="col-sm-2  control-label">公告类型</label>
   <div class="col-sm-8">
     <div class="input-group">
-      <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-        <input type="hidden" id="type" name="type" value="zzgg" >
-        <input type="text" id="type_name" name="type_name" value="中止公告" class="form-control readonly type_name" placeholder="输入 公告类型" disabled="disabled">
-      </div>
+      <select id="type" name="type" class="form-control readonly" readonly="readonly"></select>
     </div>
   </div>
 </div>
@@ -35,10 +31,11 @@
   <div class="col-sm-8">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <input type="text" id="title" name="title" value="{{$gg->title}}" class="form-control title" placeholder="输入 标的名称" readonly="readonly">
+      <input type="text" id="title" name="title" value="{{$gg->title}}" class="form-control readonly title" placeholder="输入 标的名称" readonly="readonly">
     </div>
   </div>
 </div>
+
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">委托方</label>
   <div class="col-sm-8">
@@ -50,33 +47,15 @@
 </div>
 
 <div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">理由</label>
+  <label for="type" class="col-sm-2  control-label">内容</label>
   <div class="col-sm-8">
-    <div class="input-group">
-      <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-      <textarea id="content" name="content" class="form-control content" placeholder="输入 理由">{{$gg->content}}</textarea>
-    </div>
+  
+      <textarea id="content" name="content" class="form-control" rows="5" >{{$gg->content}}</textarea>
+
   </div>
 </div>
 
-<div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">中止开始日期</label>
-  <div class="col-sm-8">
-    <div class="input-group col-sm-4">
-      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="date_start" name="date_start" value="{{$gg->date_start}}" class="form-control date date_start" placeholder="输入 中止开始日期">
-    </div>
-  </div>
-</div>
-<div class="form-group  ">
-  <label for="type" class="col-sm-2  control-label">中止结束日期</label>
-  <div class="col-sm-8">
-    <div class="input-group col-sm-4">
-      <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-      <input type="text" id="date_end" name="date_end" value="{{$gg->date_end}}" class="form-control date date_end" placeholder="输入 中止结束日期">
-    </div>
-  </div>
-</div>
+
 
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">落款单位</label>
@@ -90,13 +69,21 @@
 <div class="form-group  ">
   <label for="type" class="col-sm-2  control-label">落款日期</label>
   <div class="col-sm-8">
-    <div class="input-group col-sm-4">
+    <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
       <input type="text" id="inscription_date" name="inscription_date" value="{{$gg->inscription_date}}" class="form-control date inscription_date" placeholder="输入 落款日期">
     </div>
   </div>
 </div>
 
+
+<div class="form-group  ">
+	<div class="col-md-8">
+        <div class="btn-group pull-right">
+          	<button type="button" id="btnSaveData" class="btn btn-primary btn-pass">保存</button>
+        </div>
+    </div>
+</div>
 
 </div>
 <script>
@@ -118,15 +105,15 @@
         });
 
         //金额、数字
-        // $('.price_total').inputmask({"alias":"decimal","rightAlign":true});
-        // $('.price_unit').inputmask({"alias":"decimal","rightAlign":true});
         $('.money').inputmask({"alias":"decimal","rightAlign":true});
-        //下拉框
         
-
-        $('#formdetail input').attr('disabled','disabled');
-        $('#formdetail select').attr('disabled','disabled');
-        $('#formdetail textarea').attr('disabled','disabled');
+        //下拉框
+        $('#type').selecter({
+          autoSelect: false,
+          type: "suspendtype",
+          savetype: 2,
+          selectvalue: "{{$gg->type}}"
+        });
     });
     </script> 
 </form>

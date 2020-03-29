@@ -37,10 +37,9 @@
 		</td>
 	</tr>
 	<tr>
-		<th style="width:300px;">转让底价<font color="red">*</font></th>
+		<th style="width:300px;">转让底价(万元)<font color="red">*</font></th>
 		<td>
          	<input type="text" class="easyui-validatebox validatebox-text" required="true" id="gpjg" name="gpjg" value="{{$detail->gpjg}}">&nbsp;&nbsp;
-			<span id="proPrice_zh" style="color:red;font-size:16px;">(万元)</span>
          </td>
 	</tr>
 	<tr>
@@ -286,9 +285,9 @@
 	  	<tr>
 			<th class="th-m-80">保证金交纳截止时间要求</th>
 			<td>
-				<input type="radio" name="pubBailType" value="0">
+				<input type="radio" name="pubBailType" value="0" @if($detail->pubBailType == 0) checked @endif>
 					挂牌截止日<span class="workEndTime">17:00</span>前(以银行到账时间为准)<br>
-				<input type="radio" name="pubBailType" value="1">
+				<input type="radio" name="pubBailType" value="1" @if($detail->pubBailType == 1) checked @endif>
 					交纳开始后，<input class="easyui-numberbox numberbox-f validatebox-text" size="2" maxlength="2" name="pubBailDays" value="{{$detail->pubBailDays}}"> 个工作日<span class="workEndTime">17:00</span>前有效(以银行到账时间为准)<br>
 					<!-- 
 				<input type="radio"  name="pubBailType" value="2" />在

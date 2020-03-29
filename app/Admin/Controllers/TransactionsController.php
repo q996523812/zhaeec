@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Transaction;
 use App\Models\Project;
+use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -18,6 +19,10 @@ use App\Http\Requests\TransactionRequest;
 class TransactionsController extends Controller
 {
     use HasResourceActions;
+    protected $fields = [
+        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd','xm_tjr_id','xm_tjr_allot_proportion','xm_tjr_allot_amount','zbf_tjr_id','zbf_tjr_allot_proportion','zbf_tjr_allot_amount','project_id'],
+        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd','xm_tjr_id','xm_tjr_allot_proportion','xm_tjr_allot_amount','zbf_tjr_id','zbf_tjr_allot_proportion','zbf_tjr_allot_amount'],
+    ];
 
     private $service;
     private $module_type;
@@ -77,7 +82,20 @@ class TransactionsController extends Controller
             if($project->type === 'zczl'){
                 $transaction->jycd = '电脑终端';
             }
+            
         }
+
+        if(empty($transaction->xm_tjr_id)){
+            $xmjtj = [];
+            if(empty($project->customer)){
+                $xmjtj = new Customer();
+            }
+            else{
+                $xmjtj = $project->customer;
+            }
+            $transaction->xmtjr = $xmjtj;
+        }
+
         $datas = [
             'project' => $project,
             'id' => $transaction->id,
@@ -195,10 +213,6 @@ class TransactionsController extends Controller
         return $form;
     }
 
-    protected $fields = [
-        'insert' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd','project_id'],
-        'update' => ['intentional_parties_id','price_total','price_unit','price_note','transaction_date','service_charge_receivable','service_charge_received','wtf_service_fee_payable','wtf_service_fee_paid','zbf_service_fee_payable','zbf_service_fee_paid','wtf_charge_rule_id','zbf_charge_rule_id','zbf_charge_type','wtf_charge_type','jycd'],
-    ];
 
     public function insert(TransactionRequest $request){
         $data = $request->only($this->fields['insert']);
