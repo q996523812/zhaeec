@@ -15,7 +15,7 @@
                 @foreach($files_yxf as $file_yxf)
                 <tr id="{{$file_yxf->information_lists_id}}">
                   <td>{{$file_yxf->file_name}}</td>
-                  <td>{{$file_yxf->information_type}}</td>
+                  <td>{{replace_information_type($file_yxf->received_information_type)}}</td>
                   <td class="applicable_person">{{replace_applicable_person($file_yxf->applicable_person)}}</td>
                   <td class="path">
                     @if(!empty($file_yxf->files_id))
