@@ -125,7 +125,7 @@ class CustomersController extends Controller
     {
         $grid = new Grid(new Customer);
 
-        $grid->id('Id');
+        // $grid->id('Id');
         $grid->type('客户类型')->display(function($type){
             $name = '';
             switch ($type) {

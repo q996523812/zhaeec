@@ -60,8 +60,9 @@ class ProjectsController extends Controller
         $pbresults = $project->pbResults()->get();
 
         $detail = $project->detail;
-        $url = 'admin.project.'.$project->type.'.show';
-
+        // $url = 'admin.project.'.$project->type.'.show';
+        $url = 'admin.project.show';
+        
         $records = DB::table('work_process_records')->leftJoin('admin_users','work_process_records.user_id','.admin_users.id')    ->where('work_process_records.table_id','=',$detail->id)
                 ->select('work_process_records.operation','admin_users.name','work_process_records.created_at')
                 ->get();

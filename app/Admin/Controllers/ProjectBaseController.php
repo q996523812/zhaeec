@@ -332,7 +332,8 @@ class ProjectBaseController extends Controller
         $users = $role->administrators->except([$present_user->id]);
         $datas['users'] = $users;
         
-        $url = $this->getViewUrl('edit');
+        // $url = $this->getViewUrl('edit');
+        $url = 'admin.project.edit';
         return $content
             ->header($this->projectTypeName.'-新增')
             ->body(view($url,$datas)); 
