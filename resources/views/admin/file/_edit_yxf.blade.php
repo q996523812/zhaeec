@@ -16,7 +16,7 @@
                 <tr id="{{$file_yxf->information_lists_id}}">
                   <td>{{$file_yxf->file_name}}</td>
                   <td>{{$file_yxf->information_type}}</td>
-                  <td class="applicable_person">{{$file_yxf->applicable_person}}</td>
+                  <td class="applicable_person">{{replace_applicable_person($file_yxf->applicable_person)}}</td>
                   <td class="path">
                     @if(!empty($file_yxf->files_id))
                     <a href="{{get_download_url($file_yxf->file_name,$file_yxf->path)}}" download="{{$file_yxf->file_name}}" target="_blank">下载模板</a>
@@ -216,6 +216,9 @@
       function saveSuccess(file){
         var received_information_type = file.received_information_type;
         received_information_type = received_information_type.replace('1','原件').replace('2','复印件').replace('3','电子版');
+        var applicable_person = file.applicable_person;
+        applicable_person = applicable_person.replace('1','自然人').replace('2','法人').replace('0','全部');
+        
         if(file.information_lists_id =='' || file.information_lists_id == null){
           var row = '<tr>'
                   + '<td>'+file.name+'<\/td>'
@@ -223,7 +226,7 @@
                   + '<td>'+file.applicable_person+'<\/td>'
                   + '<td><a href="'+get_download_url(file.name,file.path)+'" target="_blank" download="'+file.name+'">点击下载<\/a><\/td>'
                   + '<td class="operation"><a class="file_delete" data-index="'+file.id+'">删除</a><\/td>';
-          $('#fileslist tbody').append(row);
+          $('#formfileyxflist #fileslist tbody').append(row);
         }
         else{
           $('#formfileyxflist #'+file.information_lists_id+' .information_type').html(received_information_type);

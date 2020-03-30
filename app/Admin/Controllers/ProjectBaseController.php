@@ -320,9 +320,11 @@ class ProjectBaseController extends Controller
         $datas['sj3'] = $sjbg3;
         $datas['lxfs'] = $lxfs;
         
-        $datas['files_wtf'] = '';
-        $datas['files_yxf'] = '';
-
+        $fileServicde = new FileService();
+        $files_wtf = $fileServicde->getFilesWtf($this->projectTypeCode,$detail->id);
+        $files_yxf = $fileServicde->getFilesYxf($this->projectTypeCode,$detail->id);
+        $datas['files_wtf'] = $files_wtf;
+        $datas['files_yxf'] = $files_yxf;
         '';
         
         $present_user = Auth::guard('admin')->user();//当前用户

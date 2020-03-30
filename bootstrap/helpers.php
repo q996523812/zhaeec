@@ -9,6 +9,12 @@ function replace_information_type($string){
     $str3 = str_replace('3',"电子版",$str2);
     return $str3;
 }
+function replace_applicable_person($string){
+    $str1 = str_replace('1',"自然人",$string);
+    $str2 = str_replace('2',"法人",$str1);
+    $str3 = str_replace('0',"全部",$str2);
+    return $str3;
+}
 
 function get_download_url($file_name,$file_dir){
     return '/download?file_name='.urlencode($file_name).'&file_dir='.urlencode($file_dir);

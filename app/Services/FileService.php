@@ -126,7 +126,7 @@ class FileService
 			.'and a.project_type=\''.$project_type.'\' '
 			.'union all '
 			.'select \'\' as information_lists_id,\'\' as information_name,\'\' as information_type,\'\' as applicable_party, '
-			.'	\'\' as applicable_person,\'\' as memo,b.id as files_id,b.path,b.received_information_type, '
+			.'	b.applicable_person as applicable_person,\'\' as memo,b.id as files_id,b.path,b.received_information_type, '
 			.'b.name as file_name '
 			.'from files b '
 			.'where b.information_lists_id is null '
