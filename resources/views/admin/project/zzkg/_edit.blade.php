@@ -1,3 +1,4 @@
+
 <form action="#" method="post" accept-charset="UTF-8" class="form-horizontal" pjax-container="" id="formdetail">
 <div class="box-body">
 <div class="fields-group">
@@ -35,7 +36,7 @@
     </tr>
 	<tr>
 		<th>项目名称<font color="red">*</font></th>
-		<td colspan="4"><input type="text" class="easyui-validatebox validatebox-text" required="true" name="title" value="{{$detail->title}}" size="75"></td>
+		<td colspan="4"><input type="text"  required="true" name="title" value="{{$detail->title}}" size="75"></td>
 	</tr>
 	
 	<tr>
@@ -53,16 +54,16 @@
 	<tr>
 		<th>拟公开募集资金总额(万元)<font color="red">*</font></th>
 		<td width="300px">
-		<input type="text" id="gpjg" class="easyui-numberbox numberbox-f validatebox-text" size="10" value="{{$detail->gpjg}}" name="gpjg">
+		<input type="text" id="gpjg"  size="10" value="{{$detail->gpjg}}" name="gpjg">
 		至
-		<input type="text" id="proPriceMax" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->proPriceMax}}" name="proPriceMax">
-		<input type="radio" id="lowV" name="lowV" value="T">最低不限  
-		<input type="radio" name="lowV" id="bestV" value="T">最高不限
-		<input type="radio" name="lowV" id="increaseV" value="T">视增资情况定
+		<input type="text" id="proPriceMax" size="10"  value="{{$detail->proPriceMax}}" name="proPriceMax">
+		<input type="radio" id="lowV" name="lowV" value="1">最低不限  
+		<input type="radio" name="lowV" id="bestV" value="2">最高不限
+		<input type="radio" name="lowV" id="increaseV" value="3">视增资情况定
 		</td>
 		<th>拟公开募集资金总额说明</th>
 		<td class="unput">
-			<input name="planPriceDesc" class="easyui-validatebox validatebox-text" size="70" value="{{$detail->planPriceDesc}}">
+			<input name="planPriceDesc"  size="70" value="{{$detail->planPriceDesc}}">
 		</td>
 		
 	</tr>
@@ -70,12 +71,12 @@
 		<input type="hidden" name="sellPercent" id="sellPercent" value="">
 		<th>拟公开募集资金对应持股比例(%)</th>
 		<td width="300px">
-			<input id="sellPercent1" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellPercent1}}" name="sellPercent1">至
-			 <input id="sellPercent2" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellPercent2}}" name="sellPercent2">
+			<input id="sellPercent1" size="10"  value="{{$detail->sellPercent1}}" name="sellPercent1">至
+			 <input id="sellPercent2" size="10"  value="{{$detail->sellPercent2}}" name="sellPercent2">
 			 
-			 <input type="radio" id="lowV1" name="lowV1" value="T">最低不限  
-			 <input type="radio" name="lowV1" id="bestV1" value="T">最高不限
-			<input type="radio" name="lowV1" id="increaseV1" value="T">视增资情况定<br>
+			 <input type="radio" id="lowV1" name="lowV1" value="1">最低不限  
+			 <input type="radio" name="lowV1" id="bestV1" value="2">最高不限
+			<input type="radio" name="lowV1" id="increaseV1" value="3">视增资情况定<br>
 		</td>
 		<th>拟公开募集资金对应持股比例说明</th>
 		<td class="unput"><input name="planPercentDesc" id="planPercentDesc2" value="{{$detail->planPercentDesc}}" size="70"></td>
@@ -84,22 +85,22 @@
 		<input type="hidden" name="proExt1" id="proExt1" value="">
 		<th>拟公开募集资金对应股份数(股)</th>
 		<td>
-			<input id="sellNum1" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellNum1}}" name="sellNum1">
+			<input id="sellNum1" size="10"  value="{{$detail->sellNum1}}" name="sellNum1">
 			至
-			<input id="sellNum2" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->sellNum2}}" name="sellNum2">
+			<input id="sellNum2" size="10"  value="{{$detail->sellNum2}}" name="sellNum2">
 		</td>
 		<th>拟公开募集资金对应股份数说明</th>
-		<td class="unput"><input name="proExt2" id="planPercentDesc1" class="easyui-validatebox validatebox-text" value="{{$detail->proExt2}}" size="70"></td>
+		<td class="unput"><input name="proExt2" id="planPercentDesc1"  value="{{$detail->proExt2}}" size="70"></td>
 	</tr>
 	<tr>
 		<th>拟新增注册资本(万元)</th>
 		<td style="width:400px;">
 			<input type="hidden" id="spare2" name="pub_spare2" value="">
-			<input id="spare21" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->spare21}}" name="spare21">至
-			<input id="spare22" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->spare22}}" name="spare22">
-			<input type="radio" id="lowV2" name="lowV2" value="T">最低不限  
-			<input type="radio" name="lowV2" id="bestV2" value="T">最高不限
-			<input type="radio" name="lowV2" id="increaseV2" value="T">视增资情况定
+			<input id="spare21" size="10"  value="{{$detail->spare21}}" name="spare21">至
+			<input id="spare22" size="10"  value="{{$detail->spare22}}" name="spare22">
+			<input type="radio" id="lowV2" name="lowV2" value="1">最低不限  
+			<input type="radio" name="lowV2" id="bestV2" value="2">最高不限
+			<input type="radio" name="lowV2" id="increaseV2" value="3">视增资情况定
 		</td>
 		<th>拟新增注册资本说明</th>
 		<td class="unput"><input name="announceMedia" value="{{$detail->announceMedia}}" size="70"></td>
@@ -109,21 +110,21 @@
 		<td width="300px">
 			<input type="hidden" id="spare9" name="spare9" value="">
 			
-			<input id="spare91" size="10" required="true" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->spare91}}" name="spare91">至
-			<input id="spare92" size="10" class="easyui-numberbox numberbox-f validatebox-text" value="{{$detail->spare92}}" name="spare92">
-			<input type="radio" id="lowV3" name="lowV3" value="T">最低不限  
-			<input type="radio" name="lowV3" id="bestV3" value="T">最高不限
-			<input type="radio" name="lowV3" id="increaseV3" value="T">视增资情况定
+			<input id="spare91" size="10" required="true"  value="{{$detail->spare91}}" name="spare91">至
+			<input id="spare92" size="10"  value="{{$detail->spare92}}" name="spare92">
+			<input type="radio" id="lowV3" name="lowV3" value="1">最低不限  
+			<input type="radio" name="lowV3" id="bestV3" value="2">最高不限
+			<input type="radio" name="lowV3" id="increaseV3" value="3">视增资情况定
 		</td>
 		<th>拟公开征集投资方数量说明</th>
 		<td class="unput">
-		<input type="text" class="easyui-validatebox validatebox-text" name="planBuyersDesc" value="{{$detail->planBuyersDesc}}" size="70"></td>
+		<input type="text"  name="planBuyersDesc" value="{{$detail->planBuyersDesc}}" size="70"></td>
 	
 	</tr>
 	<tr>
 		<th>募集资金用途</th>
 		<td colspan="4">
-			<textarea name="pub_moneyFor" id="moneyFor" class="easyui-validatebox validatebox-text" required="true" cols="75" rows="6" >{{$detail->pub_moneyFor}}</textarea>
+			<textarea name="pub_moneyFor" id="moneyFor"  required="true" cols="75" rows="6" >{{$detail->pub_moneyFor}}</textarea>
 			
 		</td>
 	</tr>
@@ -142,7 +143,7 @@
 	<tr>
 		<th>专业机构推荐意见</th>
 		<td class="unput" colspan="4">
-			<textarea cols="75" name="pub_valueDesc" rows="6" class="easyui-validatebox validatebox-text">{{$detail->pub_moneyFor}}</textarea>
+			<textarea cols="75" name="pub_valueDesc" rows="6" >{{$detail->pub_valueDesc}}</textarea>
 		
 		</td>
 	</tr>
@@ -163,9 +164,9 @@
 	<tr>
 		<td style="width:189px;">保证金<font color="red">*</font></td>
 		<td>
-			<input type="radio" value="1" name="pubBailCtrl" checked="checked">
+			<input type="radio" value="1" name="pubBailCtrl" @if($detail->pubBailCtrl == 1) checked="checked" @endif>
 			按固定金额收取（万元）
-			<input type="radio" value="2" name="pubBailCtrl" id="pubBailCtr">
+			<input type="radio" value="2" name="pubBailCtrl" @if($detail->pubBailCtrl == 2) checked="checked" @endif>
 			按投资方拟投资金额比例收取(%)
 			<br>
 			<input type="text" id="pubBail" name="pubBail" class="easyui-numberbox" value="{{$detail->pubBail}}">

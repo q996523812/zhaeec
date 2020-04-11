@@ -58,10 +58,10 @@
               	var checked1 = '';
               	var checked2 = '';
               	if(tab_value=="1"){
-              		checked1 = 'checked';
+              		checked1 = 'selected';
               	}
               	else if(tab_value=="2"){
-              		checked2 = 'checked';
+              		checked2 = 'selected';
               	}
               	select_html += '<select id="'+tab_name+i+'" name="'+tab_name+i+'"><option value="1"'+ checked1+'>通过</option><option value="2" '+checked2+'>不通过</option></select>';
               	return select_html;

@@ -96,13 +96,13 @@
 	</tr>
 	
 	<tr>
-		<th style="width:300px;">合作机构信息（最大输入300字）<br>可输入联系人、联系方式、单位名称</th>
+		<th style="width:300px;">合作机构信息<br>可输入联系人、联系方式、单位名称</th>
 		<td class="unput">
 			<textarea cols="100" name="spare4" rows="6" class="easyui-validatebox validatebox-text" validtype="length[0,300]" maxlength="300">{{$detail->spare4}}</textarea>
 		</td>
 	</tr>
 	<tr>
-		<th style="width:300px;">资产概述（最大输入1000字）<font color="red">*</font></th>
+		<th style="width:300px;">资产概述<font color="red">*</font></th>
 		<td>
 			<textarea cols="100" name="proDesc" rows="6" class="easyui-validatebox validatebox-text" validtype="length[0,1000]" maxlength="1000" required="true" missingmessage="最多可输入1000字" invalidmessage="最多可输入1000字" title="最多可输入1000字">{{$detail->proDesc}}</textarea>
 		</td>

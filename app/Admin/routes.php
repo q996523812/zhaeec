@@ -184,7 +184,8 @@ Route::group([
     $router->get('lhscqr/edit/{project_id}', 'ProjectBaseController@lhscqrEdit');
     $router->post('lhscqr/submit', 'ProjectBaseController@lhscqrSubmit');
     $router->get('lhscqr/approval/{project_id}', 'ProjectBaseController@lhscqrApproval');
-
+    $router->post('lhscqr/modify', 'ProjectBaseController@lhscSave');
+    
     //确认交易方式
     $router->get('jyfs/edit/{project_id}', 'TransactionModesController@edit');
     $router->post('jyfs/insert', 'TransactionModesController@insert');

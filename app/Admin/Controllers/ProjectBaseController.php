@@ -1081,7 +1081,7 @@ class ProjectBaseController extends Controller
         ];
         return $content
             ->header('联合资格审查确认')
-            ->body(view('admin.lhsc.edit', $datas));
+            ->body(view('admin.lhscqr.edit', $datas));
     }
 
     public function lhscqrSubmit(Request $request){

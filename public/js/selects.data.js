@@ -501,7 +501,13 @@
 			1:'原件',
 			2:'复印件',
 			3:'电子版'
-		}
+		},
+		//
+		lowV:{
+			1:'最低不限',
+			2:'最高不限',
+			3:'视增资情况定'
+		},
 	}
 	if (typeof window !== 'undefined') {
 	    window.select_datas = select_datas;

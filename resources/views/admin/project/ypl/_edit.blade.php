@@ -17,7 +17,7 @@
   <div class="container table-responsive col-md-12 align-items-center project-table">
     <table class="table table-bordered">
       <thead>
-        <th colspan="4">企业采购项目信息公告表</th>
+        <th colspan="4">预披露项目信息公告表</th>
       </thead>  
       <tbody>
 

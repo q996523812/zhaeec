@@ -12,11 +12,7 @@
       <tbody>
         <tr>
           <td class=" control-label">
-          	@if($projecttype === 'zczl')
-          	出租方类型
-          	@else
-          	转让方类型
-          	@endif
+          	委托方类型
       	</td>
           <td>
             <select id="type" name="type" class="form-control type"></select>
@@ -25,11 +21,7 @@
         </tr>
         <tr>
           <td class=" control-label">
-          @if($projecttype === 'zczl')
-          	出租方名称
-          	@else
-          	转让方名称
-          	@endif
+          委托方名称
       		</td>
           <td colspan="3">
             <input type="text" id="name" name="name" value="{{$zrf->name}}" class="form-control name" placeholder="输入 客户名称" >
