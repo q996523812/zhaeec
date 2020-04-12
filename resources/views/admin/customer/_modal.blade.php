@@ -10,15 +10,30 @@
                 <div>
                     <form id="frm_customersearch">
                         {{ csrf_field() }}
-                        <table>
+                        <table class="table table-bordered" cellpadding="0" cellspacing="1" >
                             <tbody>
                                 <tr>
-                                    <td>客户名称：</td>
-                                    <td><input type="text" id="search_name" name="search_name" value="" class="form-control" placeholder="输入 客户名称"></td>
-                                    <td>证件号码：</td>
-                                    <td><input type="text" id="search_code" name="search_code" value="" class="form-control" placeholder="输入 证件号码"></td>
+                                    <td>客户类型：</td>
                                     <td>
+                                        <select name="search_type">
+                                            <option value="">全部</option>
+                                            <option value="1">自然人</option>
+                                            <option value="2">法人</option>
+                                        </select>
+                                    </td>
+                                    
+                                    <td>证件号码：</td>
+                                    <td>
+                                        <input type="text" id="search_code" name="search_code" value="">
+                                    </td>
+                                    <td rowspan="2">
                                         <a href="#" class="btn btn-sm btn-default" id="customer_search" style="float:right;"><i class="fa fa-list"></i> 查询</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>客户名称：</td>
+                                    <td colspan="3">
+                                        <input type="text" id="search_name" name="search_name" style="width:340px;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -27,9 +42,10 @@
                 </div>
                 <br>
                 <div>
-                    <table class="table">
+                    <table class="table table-bordered" cellpadding="0" cellspacing="1" >
                         <thead>
                             <tr>
+                                <td>客户类型</td>
                                 <td>客户名称</td>
                                 <td>证件号码</td>
                                 <td>电话</td>
@@ -72,6 +88,7 @@
                 for (var i = 0;i<customers.length;i++) {
                     var customer = customers[i];
                     html += '<tr id="'+i+'">'
+                        +'<td>'+select_datas['customertype'][customer.type]+'<\/td>'
                         +'<td>'+customer.name+'<\/td>'
                         +'<td>'+customer.certificate_code+'<\/td>'
                         +'<td>'+customer.phone+'<\/td>'

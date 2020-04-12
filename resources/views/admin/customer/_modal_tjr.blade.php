@@ -11,7 +11,7 @@
                     <form id="frm_tjrsearch">
                         <input type="hidden" id="search_is_member" name="search_is_member" value="1">
                         {{ csrf_field() }}
-                        <table>
+                        <table class="table table-bordered" cellpadding="0" cellspacing="1" >
                             <tbody>
                                 <tr>
                                     <td>客户名称：</td>
@@ -28,7 +28,7 @@
                 </div>
                 <br>
                 <div>
-                    <table class="table">
+                    <table class="table table-bordered" cellpadding="0" cellspacing="1" >
                         <thead>
                             <tr>
                                 <td>客户名称</td>

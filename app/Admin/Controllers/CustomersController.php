@@ -268,9 +268,11 @@ class CustomersController extends Controller
 
     public function search(Request $request){
         $data = $request->all();
+        $search_type = $request->search_type;
         $search_name = $request->search_name;
         $search_code = $request->search_code;
         $data = [
+            'search_type' => $request->search_type,
             'search_name' => $request->search_name,
             'search_code' => $request->search_code,
         ];

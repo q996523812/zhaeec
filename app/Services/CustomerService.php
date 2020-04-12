@@ -46,9 +46,16 @@ class CustomerService
     public function search($data){
         $search_name = $data['search_name'];
         $search_code = $data['search_code'];
-
+        $search_type = $data['search_type'];
+        if(empty($search_type)){
+            $search_type = [1,2];
+        }
+        else{
+            $search_type = [$search_type];
+        }
         $models = Customer::where('name','like','%'.$search_name.'%')
             ->where('certificate_code','like','%'.$search_code.'%')
+            ->whereIn('type',$search_type)
             ->get()->toArray();
         
         return $models;
