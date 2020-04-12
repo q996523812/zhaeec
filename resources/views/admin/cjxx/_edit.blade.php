@@ -139,7 +139,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="xm_tjr_allot_amount" name="xm_tjr_allot_amount" value="{{$cjxx->xm_tjr_allot_amount}}" class="form-control money xm_tjr_allot_amount" placeholder="输入 项目推荐人分配金额">
+      <input type="text" id="xm_tjr_allot_amount" name="xm_tjr_allot_amount" value="{{$cjxx->xm_tjr_allot_amount}}" class="form-control money xm_tjr_allot_amount" readonly="true">
     </div>
   </div>
 </div>
@@ -168,7 +168,7 @@
   <div class="col-sm-8">
     <div class="input-group col-sm-4">
       <span class="input-group-addon"><i class="fa fa-terminal fa-fw"></i></span>
-      <input type="text" id="zbf_tjr_allot_amount" name="zbf_tjr_allot_amount" value="{{$cjxx->zbf_tjr_allot_amount}}" class="form-control money zbf_tjr_allot_amount" placeholder="输入 中标方推荐人分配金额">
+      <input type="text" id="zbf_tjr_allot_amount" name="zbf_tjr_allot_amount" value="{{$cjxx->zbf_tjr_allot_amount}}" class="form-control money zbf_tjr_allot_amount" readonly="true">
     </div>
   </div>
 </div>
@@ -322,6 +322,22 @@
           $("#zbf_tjr_name").val($selecter.data('tjrname'));
         });
         $('#intentional_parties_id').trigger('change');
+
+
+        $('#zbf_tjr_allot_proportion').on('change',function(){
+          var total = $('#service_charge_receivable').val();
+          if(total == ''){
+            total = 0;
+          }
+          $('#zbf_tjr_allot_amount').val(total*this.value/100);
+        });
+        $('#xm_tjr_allot_proportion').on('change',function(){
+          var total = $('#service_charge_receivable').val();
+          if(total == ''){
+            total = 0;
+          }
+          $('#xm_tjr_allot_amount').val(total*this.value/100);
+        });
     });
     </script> 
 </form>
