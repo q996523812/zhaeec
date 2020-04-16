@@ -56,3 +56,21 @@ function get_download_url($file_name,$file_dir){
     	}
     	return $name;
     }
+    
+function format_date($date){
+    if(is_null($date)){
+        return '';
+    }
+    else{
+        return date('Y-m-d',strtotime($date));
+    }
+}
+
+function format_time($date){
+    if(is_null($date)){
+        return '';
+    }
+    else{
+        return date('Y-m-d H:i:s',strtotime($date));
+    }
+}

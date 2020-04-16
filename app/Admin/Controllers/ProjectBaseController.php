@@ -325,7 +325,7 @@ class ProjectBaseController extends Controller
         $files_yxf = $fileServicde->getFilesYxf($this->projectTypeCode,$detail->id);
         $datas['files_wtf'] = $files_wtf;
         $datas['files_yxf'] = $files_yxf;
-        '';
+        
         
         $present_user = Auth::guard('admin')->user();//当前用户
         $role = Role::find(2);
@@ -354,10 +354,9 @@ class ProjectBaseController extends Controller
     public function print($id,Request $request)
     {
         $detail = $this->detail_class::find($id);
-        $datas = [
-            'detail' => $detail,
-        ]; 
-        $url = $this->getViewUrl('print');  
+        $datas = $this->getDatasToView($detail);
+        // $url = $this->getViewUrl('print');
+        $url = 'admin.project.print';
         return view($url,$datas);
     }
 

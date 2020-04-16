@@ -49,8 +49,8 @@ class CreateSellerInfosTable extends Migration
             $table->string('id');
             $table->string('type')->comment('客户类型，1:自然人、2:法人、3：其他组织');
             $table->string('name')->comment('客户名称/企业名称');
-            $table->string('certificate_type')->comment('证件类型');
-            $table->string('certificate_code')->comment('证件号码');
+            $table->string('certificate_type')->comment('证件类型')->nullable();
+            $table->string('certificate_code')->comment('证件号码')->nullable();
             /*法人、其他组织*/
             $table->string('industry1')->comment('所属行业大类')->nullable();
             $table->string('industry2')->comment('所属行业小类')->nullable();

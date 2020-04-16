@@ -13,20 +13,20 @@
     <div>
       <ul id="myTab" class="nav nav-tabs ">
         <li class="active"><a href="#tab1" data-toggle="tab">基本信息</a></li>
-        @if($projecttype == 'zczr')
+        @if($project->type == 'zczr')
         <li><a href="#tab2" data-toggle="tab">标的详细信息</a></li>
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'ypl')
         <li><a href="#tab3" data-toggle="tab">标的企业情况</a></li>
         @endif
         <li><a href="#tab7" data-toggle="tab">委托方</a></li>
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'ypl')
         <li><a href="#tab4" data-toggle="tab">财务信息</a></li> 
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'zczr')
         <li><a href="#tab5" data-toggle="tab">评估情况</a></li>
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'zczr' || $project->type == 'ypl')
         <li><a href="#tab6" data-toggle="tab">监管信息</a></li>
         @endif
         <li><a href="#tab8" data-toggle="tab">联系方式</a></li>
@@ -43,15 +43,15 @@
     <div id="myTabContent" class="tab-content">
         <!--基本信息-->
         <div class="tab-pane fade in active" id="tab1">
-          @include('admin.project.'.$projecttype.'._show')
+          @include('admin.project.'.$project->type.'._show')
         </div>
-        @if($projecttype == 'zczr')
+        @if($project->type == 'zczr')
         <!--标的详细信息-->
         <div class="tab-pane fade" id="tab2">
           @include('admin.project.fsxx.bdxq._show')
         </div>
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'ypl')
         <!--标的企业情况-->
         <div class="tab-pane fade" id="tab3">
           @include('admin.project.fsxx.bdqy._edit') 
@@ -64,20 +64,20 @@
           @include('admin.customer._modal') 
         </div>
         
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'ypl')
           <!--财务信息-->
         <div class="tab-pane fade" id="tab4">
           @include('admin.project.fsxx.sjbg._show3') 
           @include('admin.project.fsxx.cwbb._show') 
         </div>
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'zczr')
         <!--评估情况-->
         <div class="tab-pane fade" id="tab5">
           @include('admin.project.fsxx.pgqk._show') 
         </div>
         @endif
-        @if($projecttype == 'cqzr' || $projecttype == 'zzkg' || $projecttype == 'zczr' || $projecttype == 'ypl')
+        @if($project->type == 'cqzr' || $project->type == 'zzkg' || $project->type == 'zczr' || $project->type == 'ypl')
         <!--监管信息-->
         <div class="tab-pane fade" id="tab6">
           @include('admin.project.fsxx.jgxx._show') 

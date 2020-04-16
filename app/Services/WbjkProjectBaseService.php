@@ -22,6 +22,7 @@ class WbjkProjectBaseService
 
     public $fields_detail = [];
     private $fields_projectt = ['xmbh','title','price','gp_date_start','gp_date_end'];
+    private $fields_customer = ['wtf_name','wtf_qyxz','wtf_province','wtf_city','wtf_area','wtf_street','wtf_yb','wtf_fddbr','wtf_phone','wtf_fax','wtf_email','wtf_jt','wtf_dlr_name','wtf_dlr_phone'];
     //protected $IP_TEST = '47.112.15.51';
     //protected $PORT_TEST = '8090';
     protected $IP = '47.112.15.51';
@@ -58,32 +59,81 @@ class WbjkProjectBaseService
     private function getData($jgptDeatil,$fields){
         $data = [];
         $arr_jgpt_detail = $jgptDeatil->toArray();
+
         foreach ($fields as $field) {
-            switch ($field) {
-                case 'price':
-                    $data[$field] = $jgptDeatil->toArray()['gpjg_zj'];
-                    break;
-                case 'bdyx':
-                    switch ($jgptDeatil->bdyx) {
-                        case '购买服务':
-                            $data[$field] = 1;
-                            break;
-                        case '物资':
-                            $data[$field] = 2;
-                            break;
-                        case '工程':
-                            $data[$field] = 3;
-                            break;
-                        default :
-                            $data[$field] = $jgptDeatil->toArray()[$field];
-                            break;
-                    }
-                    break;
-                default:
-                    $data[$field] = $jgptDeatil->toArray()[$field];
-                    break;
+            $qz = substr($field,0,4);
+            if($qz == 'wtf_'){
+                $fileld_name = substr($field,4);
+                
+                switch ($field) {
+                    case 'wtf_qyxz':
+                        $data['sfgz'] = 1;
+                        break;
+                    case 'wtf_area':
+                        $data['county'] = $arr_jgpt_detail[$field];
+                        break;
+                    case 'wtf_street':
+                        $data['address'] = $arr_jgpt_detail[$field];
+                        break;
+                    case 'wtf_yb':
+                        
+                        break;
+                    case 'wtf_fddbr':
+                        $data['boss'] = $arr_jgpt_detail[$field];
+                        break;
+                    case 'wtf_jt':
+                        $data['ssjt'] = $arr_jgpt_detail[$field];
+                        break;
+                    case 'wtf_dlr_name':
+                        
+                        break;
+                    case 'wtf_dlr_phone':
+                        
+                        break;
+                    
+                    default:
+                        $data[$fileld_name] = $arr_jgpt_detail[$field];
+                        break;
+                }
+            }
+            else{
+                switch ($field) {
+                    case 'gpjg_zj':
+                        $data['gpjg'] = $arr_jgpt_detail['gpjg_zj'];
+                        break;
+                    case 'price':
+                        $data[$field] = $jgptDeatil->toArray()['gpjg_zj'];
+                        break;
+                    case 'bdyx':
+                        switch ($jgptDeatil->bdyx) {
+                            case '购买服务':
+                                $data[$field] = 1;
+                                break;
+                            case '物资':
+                                $data[$field] = 2;
+                                break;
+                            case '工程':
+                                $data[$field] = 3;
+                                break;
+                            default :
+                                $data[$field] = $jgptDeatil->toArray()[$field];
+                                break;
+                        }
+                        break;
+                    case 'yxdj_sj':
+                        $data['yxdj_fs'] = $arr_jgpt_detail['yxdj_sj'];
+                        break;
+                    case 'zbwj_dj':
+                        $data['zbwj_dj_address'] = $arr_jgpt_detail['zbwj_dj'];
+                        break;
+                    
+                    default:
+                        $data[$field] = $jgptDeatil->toArray()[$field];
+                        break;
+                }
             }
         }
+        
         // foreach ($jgptDeatil->toArray() as $key => $value) {
         //     $data[$key] = $value;
         // };
@@ -257,13 +307,20 @@ class WbjkProjectBaseService
 
         $data_datail = $this->getData($jgptDeatil,$this->fields_detail);
         $data_datail['sjly'] = '监管平台';
+        $data_datail['pubDays'] = 20;
         $data_project = $this->getData($jgptDeatil,$this->fields_projectt);
         $data_project['type'] = $this->project_type_code;
+        $data_customer = $this->getData($jgptDeatil,$this->fields_customer);
 
-        DB::transaction(function () use($jgptDeatil,$data_datail,$data_project) {
+        DB::transaction(function () use($jgptDeatil,$data_datail,$data_project,$data_customer) {
 	        
             $detailService = new $this->detail_service_class;
             $detail = $detailService->add($data_datail,$data_project,111);
+
+            $sellerInfoService = new SellerInfoService();
+            $data_customer['project_id'] = $detail->project_id;
+            $data_customer['type'] = 2;
+            $sellerInfoService->add($data_customer);
 
             $jgptDeatil->update([
                 'status'=>7,

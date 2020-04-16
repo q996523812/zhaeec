@@ -31,7 +31,7 @@ class CreateProjectPurchasesTable extends Migration
             $table->string('wtf_dlr_name')->comment('委托代理人名称')->nullable();
             $table->string('wtf_dlr_phone')->comment('委托代理人联系电话')->nullable();
             */
-            $table->unsignedInteger('sfjc')->comment('采购项目类型/是否进场：1、实质性进场(是)；2、仅挂牌(否)');
+            $table->unsignedInteger('sfjc')->comment('采购项目类型/是否进场：1、实质性进场(是)；2、仅挂牌(否)')->nullable();
             $table->string('xmbh')->comment('项目编号')->unique()->nullable();
             $table->string('title')->comment('标的名称')->nullable();
             $table->string('pzjg')->comment('挂牌交易批准机构')->nullable();

@@ -27,6 +27,7 @@ use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\ProcessService;
+use App\Services\FileService;
 use Illuminate\Support\Facades\Log;
 
 class ProjectsController extends Controller
@@ -128,7 +129,12 @@ class ProjectsController extends Controller
         if(empty($lxfs)){
             $lxfs = new Contact;
         }
-
+        $fileServicde = new FileService();
+        $files_wtf = $fileServicde->getFilesWtf($project->type,$detail->id);
+        $files_yxf = $fileServicde->getFilesYxf($project->type,$detail->id);
+        $datas['files_wtf'] = $files_wtf;
+        $datas['files_yxf'] = $files_yxf;
+        
         $datas['project'] = $project;
         $datas['bdqy'] = $bdqy;
         $datas['bdxq'] = $bdxq;
