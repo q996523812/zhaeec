@@ -199,6 +199,12 @@
           </td>
         </tr>
         <tr class="ztb">
+          <td class=" control-label">招标代理机构名称</td>
+          <td colspan="3">
+            <input type="text" id="zbdl_mc" name="zbdl_mc" value="" class="form-control zbdl_mc" placeholder="输入 招标代理机构名称">
+          </td>
+        </tr>
+        <tr class="ztb">
           <td class=" control-label">招标代理机构联系方式</td>
           <td colspan="3">
             <input type="text" id="zbdl_lxfs" name="zbdl_lxfs" value="{{$detail->zbdl_lxfs}}" class="form-control zbdl_lxfs" placeholder="输入 招标代理机构联系方式">

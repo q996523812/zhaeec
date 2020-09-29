@@ -277,46 +277,51 @@ class ProcessService
 					$json_result = $JgptService->sendYxfAll($project->detail_id);
 					break;
 				/*******业务公共部分*********/
-				case 119://挂牌
+				case 121://挂牌
 					$json_result = $JgptService->sendGpData($project->detail_id);
 					break;
-				case 139://流标
-					// $json_result = $JgptService->lbNotice($project->detail_id);
+				case 139://联合资格审查
 					break;
-				case 149://终结公告
-					// $json_result = $JgptService->end($project_id);
+				case 149://确认联合资格审查
 					break;
-				case 159://中止公告
-					// $json_result = $JgptService->pause($project_id);
+				case 159://交易方式确定
 					break;
-				case 169://恢复公告
-					// $json_result = $JgptService->pause($project_id);
-					break;
-
-				/*******租赁业务部分*********/
-				case 219://竞价结果
-					$json_result = $JgptService->sendJjResult($project_id);
-					break;
-				case 229://成交公告（竞价版）
-					$json_result = $JgptService->sendCjAnnouncement($project_id);
-					break;
-				case 239://中标通知
-					$json_result = $JgptService->sendZbNotice($project_id);
-					break;
-				case 269://交易鉴证
-					$json_result = $JgptService->sendZbNotice($project_id);
-					break;
-
-				/*******采购业务部分*********/
-				case 319://评标结果
+				case 169://评标结果公示
 					$json_result = $JgptService->sendPbResult($project_id);
 					break;
-				case 339://成交公告（评标版）
-					
+				case 179://成交信息录入
+					$json_result = $JgptService->sendJjResult($project_id);
 					break;
-				case 349://中标通知
+				case 189://成交公告发布
+					$json_result = $JgptService->sendCjAnnouncement($project_id);
+					break;
+				case 199://中标通知
 					$json_result = $JgptService->sendZbNotice($project_id);
 					break;
+				case 209://收费通知
+					break;
+				case 219://合同
+					break;
+				case 229://交易鉴证
+					$json_result = $JgptService->sendZbNotice($project_id);
+					break;
+				
+				case 239://流标
+					// $json_result = $JgptService->lbNotice($project->detail_id);
+					break;
+				case 249://中止公告
+					// $json_result = $JgptService->pause($project_id);
+					break;
+				case 259://恢复公告
+					// $json_result = $JgptService->pause($project_id);
+					break;
+				case 269://终结公告
+					// $json_result = $JgptService->end($project_id);
+					break;
+				case 279://延期公告
+					
+					break;
+				
 			}
 		}
 		//接口数据发送成功，则取当前节点，不成功，则取发送前的节点

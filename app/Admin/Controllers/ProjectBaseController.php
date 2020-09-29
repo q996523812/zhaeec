@@ -880,13 +880,41 @@ class ProjectBaseController extends Controller
         return response()->json($result);
     }
 
-    public function gpsjSubmit(Request $request){
+    public function gpsjSubmit(Request $request,ProcessService $processService,Content $content){
         $detail_id = $request->id;
         $project_id = $request->project_id;
         $project = Project::find($project_id);
         $projectService = new ProjectService();
         $projectService->submit($project,'挂牌时间录入');
-        return redirect()->route($project->type.'.index');
+        // return redirect()->route($project->type.'.index');
+        try{
+            if($project->detail->sjly == '监管平台'){
+                $sendNodes = ['121','169','179','189','199','229','239','249','259','269','279'];
+                if(in_array($project->process,$sendNodes)){
+                    $isSuccess = $processService->postGZW($project_id,$project->process);
+                }
+            }
+        }
+        catch(\Exception $e){
+            $isSuccess = false;
+            Log::error($e);
+        }
+
+        if($isSuccess){
+            return redirect()->route($project->type.'.index');
+        }
+        else{
+            if($project->type === 'zczl'){
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收租赁项目”手动发送！';
+            }
+            else{
+                $message = $project->xmbh.'审核成功，但自动接口消息发送失败，请前往“接收采购项目”手动发送！';
+            }
+            return $content
+            ->header('Index')
+            ->description('description')
+            ->body($this->grid())->withWarning('Warning', $message);
+        }
     }
     //显示挂牌日期审批页面
     public function gpsjApproval($project_id, Content $content){

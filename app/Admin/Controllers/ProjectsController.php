@@ -636,7 +636,7 @@ class ProjectsController extends Controller
         //     $processService->postGZW($id,$project->process);
         // });
             if($project->detail->sjly == '监管平台'){
-                $sendNodes = ['119','139','149','159','169','219','229','239','269','319','339','349'];
+                $sendNodes = ['121','169','179','189','199','229','239','249','259','269','279'];
                 if(in_array($project->process,$sendNodes)){
                     $isSuccess = $processService->postGZW($project_id,$project->process);
                 }
